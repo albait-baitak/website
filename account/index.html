@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610051630">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610051630">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610051650">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610051650">
 </head>
 <body>
 <header class="top">
@@ -117,10 +117,10 @@
 
 <footer><div class="wrap"><span>البيت بيتك · SAYAH · الأحساء</span><span>صيّاح السميران · معماري</span></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610051630"></script>
-<script src="../assets/js/config.js?v=202610051630"></script>
-<script src="../assets/js/access.js?v=202610051630"></script>
-<script src="../assets/js/session.js?v=202610051630"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610051650"></script>
+<script src="../assets/js/config.js?v=202610051650"></script>
+<script src="../assets/js/access.js?v=202610051650"></script>
+<script src="../assets/js/session.js?v=202610051650"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -213,7 +213,7 @@ function route(){
     tools.forEach(function(t){var a=el(t.live?'a':'div','tool'+(t.live?'':' soon'));if(t.live)a.href='../'+t.href;
       a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,t.live?'افتح':'قريباً'));box.appendChild(a)});
     if(!tools.length){var q=el('p','muted','أدوات مرحلتك تُبنى تباعاً، وتظهر لك هنا حين تكتمل.');box.appendChild(q)}
-    only('vHome');return;
+    document.title='أدواتك · البيت بيتك';only('vHome');return;
   }
   if(p.status==='rejected'){state('لم يُعتمد الحساب','لم يُعتمد طلب تسجيلك. للاستفسار تواصل مع صيّاح السميران.');return}
   if(p.status==='suspended'){state('الحساب موقوف','أُوقف هذا الحساب مؤقتاً. للاستفسار تواصل مع صيّاح السميران.');return}

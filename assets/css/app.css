@@ -92,3 +92,5 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .acts select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink)}
 @media (max-width:560px){.choice{grid-template-columns:1fr}}
+.f>.btn,.row>.btn{flex:none}
+.f>.btn{align-self:flex-start}
