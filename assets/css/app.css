@@ -1,5 +1,8 @@
 /* بوابة المكتب ولوحة الإدارة · تبني على رموز fahs.css */
 .app-main{padding-block:32px 64px}
+.app-main section{padding-block:0}
+.app-main section:not(.card){border-top:0}
+.app-main section.card{border-top:1px solid var(--line-2)}
 .app-main .wrap{display:flex;flex-direction:column;gap:22px}
 .card{background:var(--sheet);border:1px solid var(--line-2)}
 .card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;border-bottom:2px solid var(--ink)}
@@ -66,3 +69,26 @@
 .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--terra);font-weight:700}
 @media (max-width:900px){.two-col{grid-template-columns:1fr}.ed-row{grid-template-columns:1fr 1fr}.ed-row>div:first-child{grid-column:1/-1}}
 @media (max-width:560px){.grid2{grid-template-columns:1fr}}
+/* الدخول الموحد */
+.choice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.choice label{position:relative;border:1px solid var(--line-2);background:var(--paper);padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-width:0}
+.choice label b{font-size:15px}
+.choice label span{font-size:12.5px;color:var(--ink-2);line-height:1.6}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice label:has(input:checked){border-color:var(--terra);box-shadow:inset 0 0 0 1px var(--terra);background:var(--sheet)}
+.choice label:has(input:focus-visible){outline:2px solid var(--terra);outline-offset:2px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.tool{border:1px solid var(--line-2);background:var(--sheet);padding:14px 16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;min-width:0}
+.tool b{font-size:16px}
+.tool span{font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.tool em{font-style:normal;font-size:12px;font-weight:700;align-self:flex-start;padding:1px 9px;border:1px solid var(--line-2);color:var(--ink-2)}
+a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(--terra)} a.tool:hover{background:var(--paper)}
+.tool.soon{opacity:.7}
+.state{max-width:560px;margin:40px auto;text-align:center}
+.state .card-b{display:flex;flex-direction:column;gap:12px;align-items:center}
+.state h2{font-size:22px}
+.state p{color:var(--ink-2);font-size:15px}
+.badge{display:inline-block;min-width:20px;padding:0 6px;margin-inline-start:6px;font-size:11px;line-height:18px;text-align:center;background:var(--terra);color:var(--on-terra);border-radius:9px}
+.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.acts select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink)}
+@media (max-width:560px){.choice{grid-template-columns:1fr}}

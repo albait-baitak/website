@@ -14,28 +14,15 @@
   <div class="wrap">
     <a class="brand" href="./"><img alt="SAYAH" src="../assets/img/sayah.png"><b>الفحص الفني</b></a>
     <nav aria-label="روابط"><a href="./">عن الخدمة</a><a href="./#try">تقرير عينة</a></nav>
-    <span class="muted" id="topWho"></span>
+    
   </div>
 </header>
 
 <main class="app-main">
   <div class="wrap">
 
-    <!-- الدخول -->
-    <section class="card login" id="vLogin" hidden>
-      <div class="card-h"><h2>دخول المكتب</h2></div>
-      <div class="card-b">
-        <p>أدخل بريد المكتب، ونرسل لك رابط دخول. لا كلمة مرور.</p>
-        <form id="fLogin" class="row" novalidate>
-          <div class="f" style="flex:1;min-width:220px"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr" required></div>
-          <button class="btn" type="submit" style="align-self:flex-end">أرسل رابط الدخول</button>
-        </form>
-        <p class="msg" id="lMsg" role="status"></p>
-      </div>
-    </section>
-
-    <div id="vApp" hidden style="display:contents">
-      <div class="who-bar"><span>مرحباً <b id="whoName"></b> · <span id="whoEmail" dir="ltr"></span></span><button class="linkbtn" id="btnOut" type="button">تسجيل الخروج</button></div>
+    <div id="vApp" hidden style="display:none">
+      <div class="who-bar"><span>مرحباً <b id="whoName"></b> · <span id="whoEmail" dir="ltr"></span></span><span class="row"><a class="linkbtn" href="../account/">أدواتي</a><button class="linkbtn" id="btnOut" type="button">تسجيل الخروج</button></span></div>
 
       <!-- بيانات المكتب -->
       <section class="card" id="cProfile">
@@ -107,6 +94,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
 <script src="../assets/js/config.js"></script>
+<script src="../assets/js/access.js"></script>
 <script src="../assets/js/rules.js"></script>
 <script src="../assets/js/report.js"></script>
 <script>
@@ -119,22 +107,11 @@ function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' 
 function size(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'}
 function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
 
-/* الدخول */
-$('fLogin').addEventListener('submit',function(e){
-  e.preventDefault();var em=$('lEmail').value.trim();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg('lMsg','أدخل بريداً صحيحاً.','bad');return}
-  msg('lMsg','جارٍ الإرسال..');
-  BB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){
-    if(r.error){msg('lMsg',r.error.status===429?'طلبت روابط كثيرة. انتظر دقيقة ثم أعد المحاولة.':'تعذر الإرسال. تأكد من البريد وأعد المحاولة.','bad');return}
-    msg('lMsg','أرسلنا رابط الدخول إلى '+em+'. افتحه من الجهاز نفسه.','good');
-  });
-});
+/* لا يدخل هذه الصفحة إلا مكتب معتمد أو المشرف */
 $('btnOut').addEventListener('click',function(){BB.auth.signOut()});
-
-function show(signed){$('vLogin').hidden=signed;$('vApp').hidden=!signed;$('vApp').style.display=signed?'contents':'none'}
-BB.auth.onAuthStateChange(function(ev,session){
-  user=session&&session.user||null;show(!!user);
-  if(user){$('whoEmail').textContent=user.email;$('topWho').textContent='';loadProfile();loadMine()}
+BBA.guard(['office'],'../account/').then(function(a){
+  user=a.user;$('vApp').hidden=false;$('vApp').style.display='contents';
+  $('whoEmail').textContent=user.email;loadProfile();loadMine();
 });
 
 /* بيانات المكتب */

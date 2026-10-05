@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>الدخول · البيت بيتك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/fahs.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><img alt="SAYAH" src="../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط"><a href="../">الرئيسية</a></nav>
+    <button class="linkbtn" id="btnOut" type="button" hidden>تسجيل الخروج</button>
+  </div>
+</header>
+
+<main class="app-main">
+  <div class="wrap">
+    <p class="msg" id="loading" style="text-align:center;margin-top:40px">جارٍ التحميل..</p>
+
+    <!-- الدخول -->
+    <section class="card login" id="vLogin" hidden>
+      <div class="card-h"><h2>الدخول</h2></div>
+      <div class="card-b">
+        <p>أدخل بريدك، ونرسل لك رابط دخول. لا كلمة مرور. وإن كانت أول مرة فسنكمل تسجيلك بعد الدخول.</p>
+        <form id="fLogin" class="row" novalidate>
+          <div class="f" style="flex:1;min-width:220px"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr" required></div>
+          <button class="btn" type="submit" style="align-self:flex-end">أرسل رابط الدخول</button>
+        </form>
+        <p class="msg" id="lMsg" role="status"></p>
+      </div>
+    </section>
+
+    <!-- إكمال التسجيل -->
+    <section class="card" id="vReg" hidden style="max-width:720px;margin-inline:auto;width:100%">
+      <div class="card-h"><h2>إكمال التسجيل</h2><span class="muted" id="regEmail" dir="ltr"></span></div>
+      <div class="card-b">
+        <form id="fReg" class="grid2" novalidate>
+          <fieldset class="full" style="border:0;padding:0;margin:0">
+            <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
+            <div class="choice">
+              <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
+              <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
+              <label><input type="radio" name="rr" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
+            </div>
+          </fieldset>
+          <div class="f"><label for="rName">الاسم</label><input id="rName" autocomplete="name"></div>
+          <div class="f" id="rOrgF"><label for="rOrg" id="rOrgL">اسم الجهة</label><input id="rOrg" autocomplete="organization"></div>
+          <div class="f"><label for="rPhone">الجوال</label><input id="rPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
+          <div class="f"><label for="rCity">المدينة</label><input id="rCity" autocomplete="address-level2"></div>
+          <div class="row full"><button class="btn" type="submit" id="rSubmit">إرسال طلب التسجيل</button><span class="msg" id="rMsg" role="status"></span></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- حالة الحساب -->
+    <section class="card state" id="vState" hidden>
+      <div class="card-b"><h2 id="stT"></h2><p id="stP"></p></div>
+    </section>
+
+    <!-- مساحتي -->
+    <div id="vHome" hidden style="display:none">
+      <div class="who-bar"><span>مرحباً <b id="hName"></b> · <span id="hRole"></span></span></div>
+      <section class="card">
+        <div class="card-h"><h2>أدواتك</h2></div>
+        <div class="card-b"><div class="tools" id="hTools"></div></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · SAYAH · الأحساء</span><span>صيّاح السميران · معماري</span></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/access.js"></script>
+<script>
+(function(){
+var $=function(id){return document.getElementById(id)};
+var user=null,profile=null;
+function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
+function only(id){['vLogin','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+
+$('fLogin').addEventListener('submit',function(e){
+  e.preventDefault();var em=$('lEmail').value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg('lMsg','أدخل بريداً صحيحاً.','bad');return}
+  msg('lMsg','جارٍ الإرسال..');
+  BB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){
+    if(r.error){msg('lMsg',r.error.status===429?'طلبت روابط كثيرة. انتظر قليلاً ثم أعد المحاولة.':'تعذر الإرسال. تأكد من البريد وأعد المحاولة.','bad');return}
+    msg('lMsg','أرسلنا رابط الدخول إلى '+em+'. افتحه من الجهاز نفسه.','good');
+  });
+});
+$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
+
+var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة'};
+document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',function(){
+  $('rOrgF').hidden=this.value==='owner';$('rOrgL').textContent=ORG[this.value]||'اسم الجهة';
+})});
+
+$('fReg').addEventListener('submit',function(e){
+  e.preventDefault();
+  var rr=(document.querySelector('input[name=rr]:checked')||{}).value;
+  if(!rr){msg('rMsg','اختر نوع الحساب.','bad');return}
+  var d={requested_role:rr,full_name:$('rName').value.trim(),office_name:rr==='owner'?null:$('rOrg').value.trim(),phone:$('rPhone').value.trim(),city:$('rCity').value.trim()};
+  var miss=[];if(!d.full_name)miss.push('الاسم');if(rr!=='owner'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+  if(miss.length){msg('rMsg','أكمل: '+miss.join('، ')+'.','bad');return}
+  if(rr==='office')d.engineer=d.full_name;
+  d.registered_at=new Date().toISOString();
+  $('rSubmit').disabled=true;msg('rMsg','جارٍ الإرسال..');
+  BB.from('profiles').update(d).eq('id',user.id).then(function(r){
+    if(r.error){$('rSubmit').disabled=false;msg('rMsg','تعذر الإرسال. أعد المحاولة.','bad');return}
+    Object.assign(profile,d);BB.functions.invoke('notify-admin').catch(function(){});route();
+  });
+});
+
+function route(){
+  if(!user){$('btnOut').hidden=true;only('vLogin');return}
+  $('btnOut').hidden=false;var p=profile||{};
+  if(p.status==='approved'&&p.role){
+    var tools=BBA.toolsFor(p.role),live=tools.filter(function(t){return t.live});
+    if(p.role!=='admin'&&live.length===1&&tools.length===1){location.replace('../'+live[0].href);return}
+    $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
+    var box=$('hTools');box.innerHTML='';
+    tools.forEach(function(t){var a=el(t.live?'a':'div','tool'+(t.live?'':' soon'));if(t.live)a.href='../'+t.href;
+      a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,t.live?'افتح':'قريباً'));box.appendChild(a)});
+    only('vHome');return;
+  }
+  if(p.status==='rejected'){$('stT').textContent='لم يُعتمد الحساب';$('stP').textContent='لم يُعتمد طلب تسجيلك. للاستفسار تواصل مع صيّاح السميران.';only('vState');return}
+  if(p.status==='suspended'){$('stT').textContent='الحساب موقوف';$('stP').textContent='أُوقف هذا الحساب مؤقتاً. للاستفسار تواصل مع صيّاح السميران.';only('vState');return}
+  if(!p.registered_at){$('regEmail').textContent=user.email;only('vReg');return}
+  $('stT').textContent='وصل طلب تسجيلك';$('stP').textContent='يُراجع الطلب ويُفعَّل الحساب بالأدوات المناسبة لك. ادخل بالبريد نفسه بعد التفعيل.';only('vState');
+}
+
+function refresh(session){
+  user=session&&session.user||null;
+  if(!user){profile=null;route();return}
+  BB.from('profiles').select('*').eq('id',user.id).maybeSingle().then(function(r){profile=r.data||{};route()});
+}
+BB.auth.onAuthStateChange(function(ev,s){if(ev==='INITIAL_SESSION'||ev==='SIGNED_IN'||ev==='SIGNED_OUT')setTimeout(function(){refresh(s)},0)});
+})();
+</script>
+</body>
+</html>
