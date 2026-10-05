@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>لوحة الفحص الفني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/fahs.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../"><img alt="SAYAH" src="../assets/img/sayah.png"><b>لوحة الفحص الفني</b></a>
+    <nav aria-label="روابط"><a href="../fahs/">صفحة الخدمة</a></nav>
+    <button class="linkbtn" id="btnOut" type="button" hidden>تسجيل الخروج</button>
+  </div>
+</header>
+
+<main class="app-main">
+  <div class="wrap">
+    <section class="card login" id="vLogin" hidden>
+      <div class="card-h"><h2>دخول المشرف</h2></div>
+      <div class="card-b">
+        <form id="fLogin" class="row" novalidate>
+          <div class="f" style="flex:1;min-width:220px"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" dir="ltr" autocomplete="email"></div>
+          <button class="btn" type="submit" style="align-self:flex-end">أرسل رابط الدخول</button>
+        </form>
+        <p class="msg" id="lMsg" role="status"></p>
+      </div>
+    </section>
+    <section class="card login" id="vDenied" hidden><div class="card-b"><p>هذا الحساب ليس حساب مشرف.</p></div></section>
+
+    <div id="vApp" hidden style="display:contents">
+      <section class="card">
+        <div class="card-h"><h2>الطلبات</h2>
+          <div class="tabs" role="tablist" id="filt">
+            <button type="button" role="tab" data-f="open" aria-selected="true">المفتوحة</button>
+            <button type="button" role="tab" data-f="published" aria-selected="false">المنشورة</button>
+            <button type="button" role="tab" data-f="all" aria-selected="false">الكل</button>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الرقم</th><th>المكتب</th><th>المشروع</th><th>التاريخ</th><th>الحالة</th></tr></thead><tbody id="reqBody"></tbody></table></div>
+        <div class="empty" id="reqEmpty" hidden>لا طلبات.</div>
+      </section>
+
+      <section id="vReq" hidden style="display:contents">
+        <div class="two-col">
+          <section class="card">
+            <div class="card-h"><h2 id="rqRef">الطلب</h2><span id="rqStatus"></span></div>
+            <div class="card-b" style="display:flex;flex-direction:column;gap:16px">
+              <dl class="kv" id="rqKv"></dl>
+              <div><b style="font-size:14px">الملفات</b><div class="files-links" id="rqFiles" style="margin-top:6px"></div></div>
+              <div class="row"><button class="btn" type="button" id="btnAnalyze">تشغيل الفحص الآلي</button></div>
+              <p class="msg" id="aMsg" role="status"></p>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="tabs" role="tablist" id="edTabs">
+              <button type="button" role="tab" data-t="ed" aria-selected="true">المحرر</button>
+              <button type="button" role="tab" data-t="pv" aria-selected="false">المعاينة</button>
+              <button type="button" role="tab" data-t="gap" aria-selected="false">سجل الفجوة</button>
+            </div>
+            <div class="card-b" id="tEd">
+              <div class="grid2">
+                <div class="f"><label for="eTitle">اسم المشروع</label><input id="eTitle"></div>
+                <div class="f"><label for="eVerdict">حكم المطابقة</label><select id="eVerdict"><option value="ready">جاهز للرفع</option><option value="fix">يُرفع بعد العلاج</option><option value="redesign">يعاد للتصميم</option></select></div>
+                <div class="f full"><label for="eSub">وصف المشروع</label><input id="eSub"></div>
+                <div class="f full"><label for="eSum1">خلاصة فحص المطابقة</label><textarea id="eSum1"></textarea></div>
+                <div class="f full"><label for="eSum2">خلاصة فحص جودة التصميم</label><textarea id="eSum2"></textarea></div>
+                <div class="f full"><label for="eAss">افتراضات الفحص <span class="o">كل افتراض في سطر</span></label><textarea id="eAss"></textarea></div>
+                <div class="f full"><label for="eQs">أسئلة لم يجب عنها المخطط <span class="o">كل سؤال في سطر</span></label><textarea id="eQs"></textarea></div>
+              </div>
+              <div style="margin-top:18px">
+                <div class="ed-row ed-head"><div>القاعدة</div><div>الحكم</div><div>الدرجة</div><div>في المخطط</div><div>العلاج</div></div>
+                <div id="edRules"></div>
+              </div>
+              <div class="row" style="margin-top:16px;position:sticky;bottom:0;background:var(--sheet);padding-block:10px;border-top:1px solid var(--line)">
+                <button class="btn line" type="button" id="btnSave">حفظ المسودة</button>
+                <button class="btn" type="button" id="btnPub">اعتماد ونشر للمكتب</button>
+                <button class="linkbtn" type="button" id="btnUnpub" hidden>إلغاء النشر</button>
+                <span class="msg" id="eMsg" role="status"></span>
+              </div>
+            </div>
+            <div class="card-b" id="tPv" hidden><div id="report"></div></div>
+            <div class="card-b" id="tGap" hidden>
+              <div class="tbl-wrap"><table class="tbl"><thead><tr><th>ملاحظة المراجع</th><th>أمسكها التقرير؟</th><th>رمز القاعدة</th></tr></thead><tbody id="gapBody"></tbody></table></div>
+              <div class="empty" id="gapEmpty" hidden>لم يرسل المكتب ملاحظات الأمانة بعد.</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/rules.js"></script>
+<script src="../assets/js/report.js"></script>
+<script>
+(function(){
+window.FQ_LOGO='../assets/img/sayah.png';
+var $=function(id){return document.getElementById(id)};
+var el=FQ.el,all=[],filter='open',cur=null,rep=null,reportRow=null;
+var STATUS={submitted:'مستلم',in_review:'قيد الفحص',published:'منشور',cancelled:'ملغى'};
+function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
+function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
+function vis(id,on){var e=$(id);e.hidden=!on;if(e.style.display==='contents'||e.dataset.c){e.dataset.c=1;e.style.display=on?'contents':'none'}}
+
+$('fLogin').addEventListener('submit',function(e){e.preventDefault();var em=$('lEmail').value.trim();if(!em)return;msg('lMsg','جارٍ الإرسال..');
+  BB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){msg('lMsg',r.error?'تعذر الإرسال.':'أُرسل رابط الدخول إلى بريدك.',r.error?'bad':'good')})});
+$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
+
+BB.auth.onAuthStateChange(function(ev,s){
+  var u=s&&s.user;$('btnOut').hidden=!u;
+  if(!u){vis('vLogin',true);vis('vDenied',false);vis('vApp',false);return}
+  vis('vLogin',false);
+  BB.rpc('is_admin').then(function(r){var ok=r.data===true;vis('vDenied',!ok);vis('vApp',ok);if(ok)loadReqs()});
+});
+
+/* الطلبات */
+$('filt').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});drawReqs()});
+function loadReqs(){BB.from('requests').select('*').order('created_at',{ascending:false}).then(function(r){all=r.data||[];drawReqs()})}
+function drawReqs(){
+  var rows=all.filter(function(q){return filter==='all'||(filter==='published'?q.status==='published':(q.status==='submitted'||q.status==='in_review'))});
+  var tb=$('reqBody');tb.innerHTML='';$('reqEmpty').hidden=!!rows.length;
+  rows.forEach(function(q){var tr=el('tr','click'+(cur&&cur.id===q.id?' sel':''));tr.tabIndex=0;
+    tr.appendChild(el('td','mono',q.ref));tr.appendChild(el('td',null,q.office_name));var p=q.project||{};
+    tr.appendChild(el('td',null,[p.type,p.city,p.district].filter(Boolean).join(' · ')));tr.appendChild(el('td',null,fmtDate(q.created_at)));
+    var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]));tr.appendChild(st);
+    tr.addEventListener('click',function(){openReq(q)});tr.addEventListener('keydown',function(e){if(e.key==='Enter')openReq(q)});tb.appendChild(tr)});
+}
+
+/* فتح طلب */
+function openReq(q){
+  cur=q;drawReqs();vis('vReq',true);$('rqRef').textContent=q.ref;$('rqStatus').innerHTML='';$('rqStatus').appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]));
+  var p=q.project||{},kv=$('rqKv');kv.innerHTML='';
+  [['المكتب',q.office_name],['المهندس',q.engineer],['الجوال',q.phone],['المسكن',[p.type,p.floors].filter(Boolean).join(' · ')],['الموقع',[p.city,p.district].filter(Boolean).join(' · ')],['الأرض',p.area?p.area+' م²':''],['الشوارع',p.streets],['النمط',p.pattern||'غير محدد'],['ملاحظات سابقة',p.prev]].forEach(function(r){if(!r[1])return;kv.appendChild(el('dt',null,r[0]));kv.appendChild(el('dd',null,r[1]))});
+  var fl=$('rqFiles');fl.innerHTML='';
+  (q.files||[]).forEach(function(f){BB.storage.from('plans').createSignedUrl(f.path,3600).then(function(r){var a=el('a',null,f.name);if(r.data){a.href=r.data.signedUrl;a.target='_blank';a.rel='noopener'}fl.appendChild(a)})});
+  msg('aMsg','');loadReport();loadGap();
+}
+function blankReport(){var p=cur.project||{};return {kind:'live',ref:cur.ref,title:'',sub:[p.city,p.area?('أرض '+p.area+'م²'):'',p.floors].filter(Boolean).join(' · '),verdict:'fix',summary:['',''],assumptions:[],results:{},extraction:[],questions:[],files:(cur.files||[]).map(function(f){return f.name}).join(' · ')}}
+function loadReport(){
+  BB.from('reports').select('*').eq('request_id',cur.id).maybeSingle().then(function(r){reportRow=r.data||null;rep=reportRow?reportRow.data:blankReport();rep.ref=cur.ref;fillEditor();$('btnUnpub').hidden=!(reportRow&&reportRow.published)});
+}
+
+/* المحرر */
+function lines(s){return s.split('\n').map(function(x){return x.trim()}).filter(Boolean)}
+function fillEditor(){
+  $('eTitle').value=rep.title||'';$('eSub').value=rep.sub||'';$('eVerdict').value=rep.verdict||'fix';
+  $('eSum1').value=(rep.summary||[])[0]||'';$('eSum2').value=(rep.summary||[])[1]||'';
+  $('eAss').value=(rep.assumptions||[]).join('\n');$('eQs').value=(rep.questions||[]).join('\n');
+  var box=$('edRules');box.innerHTML='';
+  GROUPS.forEach(function(G){box.appendChild(el('div','ed-grp',G.n));
+    RULES.filter(function(R){return G.layers.indexOf(R.l)>=0}).forEach(function(R){
+      var r=(rep.results||{})[R.c]||{},row=el('div','ed-row');row.dataset.c=R.c;
+      var c1=el('div');c1.appendChild(document.createTextNode(R.n));c1.appendChild(el('span','code',R.c));c1.title=R.r;row.appendChild(c1);
+      var v=el('select');[['','·'],['ok','يوافق'],['fail','يخالف'],['na','لا ينطبق'],['unk','لا يُحكم']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
+      var s=el('select');[['',''],['stop','مانعة'],['major','جوهرية'],['minor','تحسينية']].forEach(function(o){if(o[0]==='stop'&&G.id==='qual')return;var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=r.sev||'';s.dataset.k='sev';s.setAttribute('aria-label','الدرجة '+R.c);row.appendChild(s);
+      var f=el('textarea');f.value=r.f||'';f.dataset.k='f';f.setAttribute('aria-label','في المخطط '+R.c);row.appendChild(f);
+      var x=el('textarea');x.value=r.fix||'';x.dataset.k='fix';x.setAttribute('aria-label','العلاج '+R.c);row.appendChild(x);
+      box.appendChild(row);
+    });
+  });
+}
+function collect(){
+  var res={};
+  $('edRules').querySelectorAll('.ed-row').forEach(function(row){var c=row.dataset.c,o={},prev=(rep.results||{})[c]||{};
+    row.querySelectorAll('[data-k]').forEach(function(i){var val=i.value.trim();if(val)o[i.dataset.k]=val});
+    if(prev.note)o.note=prev.note;if(o.v!=='fail')delete o.sev;if(o.v)res[c]=o});
+  rep.title=$('eTitle').value.trim();rep.sub=$('eSub').value.trim();rep.verdict=$('eVerdict').value;
+  rep.summary=[$('eSum1').value.trim(),$('eSum2').value.trim()];rep.assumptions=lines($('eAss').value);rep.questions=lines($('eQs').value);
+  rep.results=res;rep.kind='reviewed';rep.date=new Date().toISOString().slice(0,10);rep.foot='فحص على المرجع، راجعه واعتمده المعماري.';
+  return rep;
+}
+function save(publish){
+  var d=collect(),missing=RULES.filter(function(R){return !d.results[R.c]}).length;
+  if(publish&&missing){msg('eMsg','بقيت '+missing+' قاعدة بلا حكم. أكملها قبل النشر.','bad');return Promise.resolve()}
+  if(publish){var bad=Object.keys(d.results).filter(function(c){return d.results[c].v==='fail'&&!d.results[c].sev});if(bad.length){msg('eMsg','حدد درجة المخالفة في: '+bad.join('، '),'bad');return Promise.resolve()}}
+  msg('eMsg','جارٍ الحفظ..');
+  var row={request_id:cur.id,data:d};if(publish){row.published=true;row.published_at=new Date().toISOString()}
+  var q=reportRow?BB.from('reports').update(row).eq('id',reportRow.id).select().single():BB.from('reports').insert(row).select().single();
+  return q.then(function(r){if(r.error)throw r.error;reportRow=r.data;
+    if(publish)return BB.from('requests').update({status:'published'}).eq('id',cur.id);
+    if(cur.status==='submitted')return BB.from('requests').update({status:'in_review'}).eq('id',cur.id);
+  }).then(function(){msg('eMsg',publish?'نُشر التقرير ووصل لحساب المكتب.':'حُفظت المسودة.','good');$('btnUnpub').hidden=!(reportRow&&reportRow.published);loadReqs();
+    if(publish){cur.status='published';openReqHead()}
+  }).catch(function(){msg('eMsg','تعذر الحفظ.','bad')});
+}
+function openReqHead(){$('rqStatus').innerHTML='';$('rqStatus').appendChild(el('span','status-pill st-'+cur.status,STATUS[cur.status]))}
+$('btnSave').addEventListener('click',function(){save(false)});
+$('btnPub').addEventListener('click',function(){save(true)});
+$('btnUnpub').addEventListener('click',function(){if(!reportRow)return;BB.from('reports').update({published:false}).eq('id',reportRow.id).then(function(){return BB.from('requests').update({status:'in_review'}).eq('id',cur.id)}).then(function(){reportRow.published=false;cur.status='in_review';openReqHead();$('btnUnpub').hidden=true;msg('eMsg','أُلغي النشر.');loadReqs()})});
+
+/* الفحص الآلي */
+$('btnAnalyze').addEventListener('click',function(){
+  if(!cur)return;var b=this;b.disabled=true;msg('aMsg','يقرأ الملفات ويفحصها على القواعد.. قد يستغرق دقيقة إلى ثلاث.');
+  BB.functions.invoke('analyze',{body:{request_id:cur.id}}).then(function(r){
+    if(r.error){return r.error.context&&r.error.context.json?r.error.context.json().then(function(j){throw j}):Promise.reject({})}
+    var d=r.data;rep=d.report;rep.ref=cur.ref;fillEditor();
+    msg('aMsg','اكتملت المسودة الآلية.'+(d.skipped&&d.skipped.length?' لم تُقرأ: '+d.skipped.join('، ')+'.':'')+' راجعها في المحرر قبل النشر.','good');loadReport();loadReqs();
+  }).catch(function(j){var m={missing_api_key:'أضف مفتاح ANTHROPIC_API_KEY في أسرار دوال Supabase.',no_readable_files:'لا ملفات قابلة للقراءة (PDF أو صور). ملفات DWG تُفحص يدوياً.',bad_json:'جاء الرد بصيغة غير مكتملة. أعد التشغيل.',not_admin:'الحساب ليس مشرفاً.',api_error:'خطأ من خدمة التحليل: '+((j&&j.detail)||'')}[j&&j.error];msg('aMsg',m||'تعذر التشغيل.','bad')})
+  .then(function(){b.disabled=false});
+});
+
+/* التبويبات */
+$('edTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
+  $('tEd').hidden=b.dataset.t!=='ed';$('tPv').hidden=b.dataset.t!=='pv';$('tGap').hidden=b.dataset.t!=='gap';
+  if(b.dataset.t==='pv'){FQ.render(collect(),$('report'))}});
+
+/* سجل الفجوة */
+function loadGap(){
+  BB.from('gap_log').select('*').eq('request_id',cur.id).order('created_at').then(function(r){var rows=r.data||[],tb=$('gapBody');tb.innerHTML='';$('gapEmpty').hidden=!!rows.length;
+    rows.forEach(function(g){var tr=el('tr');tr.appendChild(el('td',null,g.reviewer_comment));
+      var s=el('select');[['','·'],['yes','نعم'],['partial','جزئياً'],['no','لا']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=g.caught||'';
+      var c=el('input');c.value=g.rule_code||'';c.dir='ltr';c.style.width='120px';
+      function up(){BB.from('gap_log').update({caught:s.value||null,rule_code:c.value.trim()||null}).eq('id',g.id).then(function(){})}
+      s.addEventListener('change',up);c.addEventListener('change',up);
+      var t1=el('td');t1.appendChild(s);var t2=el('td');t2.appendChild(c);tr.appendChild(t1);tr.appendChild(t2);tb.appendChild(tr)})});
+}
+})();
+</script>
+</body>
+</html>

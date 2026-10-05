@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>بوابة المكتب · الفحص الفني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/css/fahs.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img alt="SAYAH" src="../assets/img/sayah.png"><b>الفحص الفني</b></a>
+    <nav aria-label="روابط"><a href="./">عن الخدمة</a><a href="./#try">تقرير عينة</a></nav>
+    <span class="muted" id="topWho"></span>
+  </div>
+</header>
+
+<main class="app-main">
+  <div class="wrap">
+
+    <!-- الدخول -->
+    <section class="card login" id="vLogin" hidden>
+      <div class="card-h"><h2>دخول المكتب</h2></div>
+      <div class="card-b">
+        <p>أدخل بريد المكتب، ونرسل لك رابط دخول. لا كلمة مرور.</p>
+        <form id="fLogin" class="row" novalidate>
+          <div class="f" style="flex:1;min-width:220px"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr" required></div>
+          <button class="btn" type="submit" style="align-self:flex-end">أرسل رابط الدخول</button>
+        </form>
+        <p class="msg" id="lMsg" role="status"></p>
+      </div>
+    </section>
+
+    <div id="vApp" hidden style="display:contents">
+      <div class="who-bar"><span>مرحباً <b id="whoName"></b> · <span id="whoEmail" dir="ltr"></span></span><button class="linkbtn" id="btnOut" type="button">تسجيل الخروج</button></div>
+
+      <!-- بيانات المكتب -->
+      <section class="card" id="cProfile">
+        <div class="card-h"><h2>بيانات المكتب</h2><span class="muted">تُحفظ مرة وتُستخدم في كل طلب</span></div>
+        <div class="card-b">
+          <form id="fProfile" class="grid2" novalidate>
+            <div class="f"><label for="pOffice">اسم المكتب</label><input id="pOffice" autocomplete="organization" required></div>
+            <div class="f"><label for="pEng">المهندس المسؤول</label><input id="pEng" autocomplete="name" required></div>
+            <div class="f"><label for="pPhone">الجوال</label><input id="pPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx" required></div>
+            <div class="f" style="justify-content:flex-end"><button class="btn line" type="submit">حفظ البيانات</button></div>
+            <p class="msg full" id="pMsg" role="status"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- طلب جديد -->
+      <section class="card" id="cNew">
+        <div class="card-h"><h2>طلب فحص جديد</h2><span class="muted">المساقط والواجهات والقطاعات والموقع العام</span></div>
+        <div class="card-b">
+          <form id="fNew" class="grid2" novalidate>
+            <div class="full">
+              <label class="drop2" id="nDrop" for="nFiles">
+                <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
+                <b>اسحب ملفات المخطط هنا</b>
+                <small>أو اضغط للاختيار · PDF · DWG · DXF · PNG · JPG · حتى 50MB للملف</small>
+              </label>
+              <ul class="flist" id="nList"></ul>
+            </div>
+            <div class="f"><label for="nType">نوع المسكن</label><select id="nType"><option value="">اختر</option><option>فيلا</option><option>دبلكس</option><option>تاون هاوس</option><option>بيت</option><option>شقق سكنية</option></select></div>
+            <div class="f"><label for="nFloors">الأدوار</label><select id="nFloors"><option value="">اختر</option><option>أرضي</option><option>أرضي وأول</option><option>أرضي وأول وملحق علوي</option><option>مع قبو</option></select></div>
+            <div class="f"><label for="nCity">المدينة</label><input id="nCity"></div>
+            <div class="f"><label for="nDistrict">الحي</label><input id="nDistrict"></div>
+            <div class="f"><label for="nArea">مساحة الأرض <span class="o">م²</span></label><input id="nArea" inputmode="decimal" dir="ltr"></div>
+            <div class="f"><label for="nStreets">الشوارع وعروضها <span class="o">م</span></label><input id="nStreets" placeholder="جنوب 15 · شرق 10"></div>
+            <div class="f"><label for="nPattern">نمط الموجهات <span class="o">إن عُرف</span></label><select id="nPattern"><option value="">لا أعرف</option><option>معاصر</option><option>انتقالي</option><option>تقليدي</option></select></div>
+            <div class="f"><label for="nPrev">ملاحظات سابقة من الأمانة <span class="o">إن وُجدت</span></label><input id="nPrev"></div>
+            <label class="check2 full"><input type="checkbox" id="nAgree"><span>اطلعت على <a href="./#terms">السرية والمسؤولية</a>، وأقر بأن التقرير فحص سابق للرفع لا يغني عن مراجعة الأمانة.</span></label>
+            <div class="row full"><button class="btn" type="submit" id="nSubmit">إرسال الطلب</button><span class="msg" id="nMsg" role="status"></span></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- طلباتي -->
+      <section class="card" id="cMine">
+        <div class="card-h"><h2>طلباتي</h2><button class="linkbtn" type="button" id="btnRefresh">تحديث</button></div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الرقم المرجعي</th><th>المشروع</th><th>التاريخ</th><th>الحالة</th><th></th></tr></thead><tbody id="mineBody"></tbody></table></div>
+        <div class="empty" id="mineEmpty" hidden>لا طلبات بعد.</div>
+      </section>
+
+      <!-- عرض التقرير -->
+      <section id="cReport" hidden>
+        <div id="report"></div>
+        <div class="card" style="margin-top:18px">
+          <div class="card-h"><h2>ملاحظات الأمانة بعد الرفع</h2><span class="muted">تُقارن بالتقرير، وكل فجوة تصير قاعدة جديدة</span></div>
+          <div class="card-b">
+            <form id="fGap" novalidate>
+              <div class="f"><label for="gText">ملاحظات المراجع كما وردت <span class="o">كل ملاحظة في سطر</span></label><textarea id="gText"></textarea></div>
+              <div class="row" style="margin-top:10px"><button class="btn line" type="submit">إرسال الملاحظات</button><span class="msg" id="gMsg" role="status"></span></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</main>
+
+<footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>صيّاح السميران · معماري · الأحساء</span></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/rules.js"></script>
+<script src="../assets/js/report.js"></script>
+<script>
+(function(){
+window.FQ_LOGO='../assets/img/sayah.png';
+var $=function(id){return document.getElementById(id)};
+var el=FQ.el, user=null, files=[], mine=[], openReq=null;
+var STATUS={submitted:'مستلم',in_review:'قيد الفحص',published:'التقرير جاهز',cancelled:'ملغى'};
+function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
+function size(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'}
+function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
+
+/* الدخول */
+$('fLogin').addEventListener('submit',function(e){
+  e.preventDefault();var em=$('lEmail').value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg('lMsg','أدخل بريداً صحيحاً.','bad');return}
+  msg('lMsg','جارٍ الإرسال..');
+  BB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){
+    if(r.error){msg('lMsg',r.error.status===429?'طلبت روابط كثيرة. انتظر دقيقة ثم أعد المحاولة.':'تعذر الإرسال. تأكد من البريد وأعد المحاولة.','bad');return}
+    msg('lMsg','أرسلنا رابط الدخول إلى '+em+'. افتحه من الجهاز نفسه.','good');
+  });
+});
+$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
+
+function show(signed){$('vLogin').hidden=signed;$('vApp').hidden=!signed;$('vApp').style.display=signed?'contents':'none'}
+BB.auth.onAuthStateChange(function(ev,session){
+  user=session&&session.user||null;show(!!user);
+  if(user){$('whoEmail').textContent=user.email;$('topWho').textContent='';loadProfile();loadMine()}
+});
+
+/* بيانات المكتب */
+var profile={};
+function loadProfile(){
+  BB.from('profiles').select('*').eq('id',user.id).maybeSingle().then(function(r){
+    profile=r.data||{};$('pOffice').value=profile.office_name||'';$('pEng').value=profile.engineer||'';$('pPhone').value=profile.phone||'';
+    $('whoName').textContent=profile.office_name||'المكتب';
+  });
+}
+$('fProfile').addEventListener('submit',function(e){
+  e.preventDefault();var o=$('pOffice').value.trim(),g=$('pEng').value.trim(),p=$('pPhone').value.trim();
+  if(!o||!g||!p){msg('pMsg','أكمل الحقول الثلاثة.','bad');return}
+  BB.from('profiles').update({office_name:o,engineer:g,phone:p}).eq('id',user.id).then(function(r){
+    if(r.error){msg('pMsg','تعذر الحفظ.','bad');return}
+    profile.office_name=o;profile.engineer=g;profile.phone=p;$('whoName').textContent=o;msg('pMsg','حُفظت البيانات.','good');
+  });
+});
+
+/* الملفات */
+var OK_EXT=['pdf','dwg','dxf','png','jpg','jpeg','webp'];
+function ext(n){return (n.split('.').pop()||'').toLowerCase()}
+function drawFiles(){
+  var ul=$('nList');ul.innerHTML='';
+  files.forEach(function(f,i){
+    var li=el('li');li.appendChild(el('span','ext',ext(f.name).toUpperCase()));li.appendChild(el('span','nm',f.name));
+    var end=el('span','row');end.appendChild(el('span','sz',size(f.size)));
+    var rm=el('button','linkbtn','حذف');rm.type='button';rm.addEventListener('click',function(){files.splice(i,1);drawFiles()});end.appendChild(rm);
+    li.appendChild(end);var pg=el('div','prog');pg.appendChild(el('i'));li.appendChild(pg);ul.appendChild(li);
+  });
+}
+function addFiles(fl){
+  var bad=[];
+  for(var i=0;i<fl.length;i++){var f=fl[i];
+    if(OK_EXT.indexOf(ext(f.name))<0){bad.push(f.name);continue}
+    if(f.size>50*1048576){bad.push(f.name+' (أكبر من 50MB)');continue}
+    if(!files.some(function(x){return x.name===f.name&&x.size===f.size}))files.push(f)}
+  drawFiles();if(bad.length)msg('nMsg','لم تُضف: '+bad.join('، '),'bad');else msg('nMsg','');
+}
+$('nFiles').addEventListener('change',function(){addFiles(this.files);this.value=''});
+var dz=$('nDrop');
+['dragenter','dragover'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.add('over')})});
+['dragleave','drop'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.remove('over')})});
+dz.addEventListener('drop',function(e){if(e.dataTransfer.files.length)addFiles(e.dataTransfer.files)});
+
+/* إرسال الطلب */
+var sending=false;
+$('fNew').addEventListener('submit',function(e){
+  e.preventDefault();if(sending)return;
+  if(!profile.office_name||!profile.engineer||!profile.phone){msg('nMsg','احفظ بيانات المكتب أولاً.','bad');$('pOffice').focus();return}
+  if(!files.length){msg('nMsg','أرفق ملفات المخطط.','bad');return}
+  var need=[['nType','نوع المسكن'],['nFloors','الأدوار'],['nCity','المدينة'],['nDistrict','الحي'],['nArea','مساحة الأرض'],['nStreets','الشوارع وعروضها']];
+  var miss=need.filter(function(p){return !$(p[0]).value.trim()});
+  if(miss.length){msg('nMsg','أكمل: '+miss.map(function(p){return p[1]}).join('، ')+'.','bad');$(miss[0][0]).focus();return}
+  if(!$('nAgree').checked){msg('nMsg','الإقرار بالسرية والمسؤولية شرط لإرسال الطلب.','bad');return}
+  sending=true;$('nSubmit').disabled=true;
+  var batch=(crypto.randomUUID?crypto.randomUUID():String(Date.now())),uploaded=[],bars=$('nList').querySelectorAll('.prog i'),i=0;
+  function next(){
+    if(i>=files.length)return Promise.resolve();
+    var f=files[i],path=user.id+'/'+batch+'/'+(i+1)+'.'+ext(f.name);
+    msg('nMsg','رفع الملف '+(i+1)+' من '+files.length+'..');if(bars[i])bars[i].style.width='40%';
+    return BB.storage.from('plans').upload(path,f,{upsert:false,contentType:f.type||undefined}).then(function(r){
+      if(r.error)throw r.error;if(bars[i])bars[i].style.width='100%';
+      uploaded.push({path:path,name:f.name,size:f.size,type:f.type||ext(f.name)});i++;return next();
+    });
+  }
+  next().then(function(){
+    return BB.from('requests').insert({
+      office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:uploaded,
+      project:{type:$('nType').value,floors:$('nFloors').value,city:$('nCity').value.trim(),district:$('nDistrict').value.trim(),
+        area:$('nArea').value.trim(),streets:$('nStreets').value.trim(),pattern:$('nPattern').value,prev:$('nPrev').value.trim()}
+    }).select('ref').single();
+  }).then(function(r){
+    if(r.error)throw r.error;
+    msg('nMsg','وصل طلبك برقم '+r.data.ref+'. يصلك التقرير في هذه الصفحة.','good');
+    files=[];drawFiles();$('fNew').reset();loadMine();
+  }).catch(function(){msg('nMsg','تعذر إرسال الطلب. تأكد من الاتصال وأعد المحاولة.','bad')})
+  .then(function(){sending=false;$('nSubmit').disabled=false});
+});
+
+/* طلباتي */
+function loadMine(){
+  BB.from('requests').select('id,ref,created_at,status,project').order('created_at',{ascending:false}).then(function(r){
+    mine=r.data||[];var tb=$('mineBody');tb.innerHTML='';$('mineEmpty').hidden=!!mine.length;
+    mine.forEach(function(q){
+      var tr=el('tr');tr.appendChild(el('td','mono',q.ref));
+      var p=q.project||{};tr.appendChild(el('td',null,[p.type,p.city,p.district].filter(Boolean).join(' · ')));
+      tr.appendChild(el('td',null,fmtDate(q.created_at)));
+      var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]||q.status));tr.appendChild(st);
+      var act=el('td');
+      if(q.status==='published'){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
+      tr.appendChild(act);tb.appendChild(tr);
+    });
+  });
+}
+$('btnRefresh').addEventListener('click',loadMine);
+function openReport(q){
+  BB.from('reports').select('data').eq('request_id',q.id).eq('published',true).maybeSingle().then(function(r){
+    if(!r.data)return;openReq=q;var d=r.data.data;d.ref=d.ref||q.ref;
+    $('cReport').hidden=false;FQ.render(d,$('report'));$('cReport').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+$('fGap').addEventListener('submit',function(e){
+  e.preventDefault();if(!openReq)return;
+  var lines=$('gText').value.split('\n').map(function(s){return s.trim()}).filter(Boolean);
+  if(!lines.length){msg('gMsg','اكتب ملاحظة واحدة على الأقل.','bad');return}
+  BB.from('gap_log').insert(lines.map(function(t){return {request_id:openReq.id,reviewer_comment:t}})).then(function(r){
+    if(r.error){msg('gMsg','تعذر الإرسال.','bad');return}
+    $('gText').value='';msg('gMsg','وصلت الملاحظات. شكراً لك.','good');
+  });
+});
+})();
+</script>
+</body>
+</html>
