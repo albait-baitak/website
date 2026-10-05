@@ -1,3 +1,4 @@
+var FQ_ASSETS=(document.currentScript&&document.currentScript.src||'').replace(/js\/report\.js.*$/,'');
 /* عرض تقرير الفحص الفني وتصديره PDF */
 (function(){
 function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
@@ -104,8 +105,8 @@ var busy=false;
 function exportPdf(rep,btn,st){
   if(busy)return;busy=true;var old=btn.textContent;btn.disabled=true;btn.textContent='جارٍ تجهيز الملف..';st.textContent='';st.className='status pdfst';
   var host=null;
-  loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js').then(function(){
-    return loadScript('https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js')}).then(function(){
+  loadScript(FQ_ASSETS+'vendor/jspdf-2.5.1.min.js').then(function(){
+    return loadScript(FQ_ASSETS+'vendor/html-to-image-1.11.11.js')}).then(function(){
     return document.fonts.ready}).then(function(){
     host=document.createElement('div');host.className='pp-host';host.setAttribute('aria-hidden','true');document.body.appendChild(host);
     var pages=FQ_pages(rep,host,window.FQ_LOGO||'');

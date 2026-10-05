@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الدخول · البيت بيتك</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../assets/css/fahs.css">
 <link rel="stylesheet" href="../assets/css/app.css">
 </head>
@@ -75,12 +75,13 @@
 
 <footer><div class="wrap"><span>البيت بيتك · SAYAH · الأحساء</span><span>صيّاح السميران · معماري</span></div></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="../assets/vendor/supabase-2.117.2.js"></script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/access.js"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
+setTimeout(function(){var l=$('loading');if(!l.hidden){l.textContent='تأخر الاتصال. أعد تحميل الصفحة.';l.className='msg bad'}},12000);
 var user=null,profile=null;
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function only(id){['vLogin','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
