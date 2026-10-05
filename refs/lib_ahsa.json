@@ -1,0 +1,757 @@
+{
+ "sources": [
+  {
+   "src": "tmp:ahsa-villa-handbook-ar",
+   "title": "عمارة واحات الأحساء – الموجهات التصميمية · الدليل التطبيقي – الفلل السكنية",
+   "version": "الإصدار 1.0 – يوليو 2024 (الترويسة في الاستخراج العربي مشوهة؛ التاريخ مؤكد من النسخة الإنجليزية: V1.0 - JULY 2024)",
+   "url": "https://architsaudi.dasc.gov.sa/sites/default/files/2025-12/4_HB_Villa-AlAhsa_Ar_compressed.pdf",
+   "pages": 21,
+   "notes": "ص12 (الألوان والمواد) فارغة في الاستخراج العربي (صورة)؛ يُعتمد على ص12 الإنجليزية. ترقيم الصفحات المطبوع = ترقيم ملف PDF."
+  },
+  {
+   "src": "tmp:ahsa-villa-handbook-en",
+   "title": "Al Ahsa Oasis Architectural Design Guidelines · Application Handbook - Residential Villas",
+   "version": "VERSION 1.0 – V1.0 - JULY 2024",
+   "url": "https://architsaudi.dasc.gov.sa/sites/default/files/2025-12/3_HB_Villa-AlAhsa_Eng_compressed.pdf",
+   "pages": 21,
+   "notes": "Printed page number = PDF page number."
+  },
+  {
+   "src": "tmp:ahsa-oasis-guidelines-ar",
+   "title": "عمارة واحات الأحساء – الموجهات التصميمية (المجلد الكامل)",
+   "version": "الإصدار 1.0 (لا يوجد تاريخ مطبوع في النص المستخرج؛ اسم الملف يبدأ بـ 250210)",
+   "url": "https://architsaudi.dasc.gov.sa/sites/default/files/2025-12/6_250210_Al_Ahsa_Oasis_ARABIC_compressed.pdf",
+   "pages": 66,
+   "notes": "ترقيم الصفحة المطبوع = رقم صفحة PDF ناقص 2 (مثلاً PDF ص25 = ص23 مطبوعة). كل أرقام page في هذا الملف هي أرقام PDF. ص62–64 قوائم أشكال ومراجع، ص65–66 فارغة."
+  }
+ ],
+ "patterns": [
+  {
+   "name_ar": "الطراز/النمط التقليدي",
+   "name_en": "Traditional style",
+   "how_assigned": "الدليل لا يُسند النمط بنفسه: «الرجوع إلى خرائط توزيع الأنماط المعمارية لمعرفة الطراز المعماري المسموح به في موقع المشروع، سواءً تقليدي، انتقالي، أو معارص [معاصر]» ثم «الاختيار من بين الأنماط المعمارية المتاحة». وصف الملاءمة: «الطراز التقليدي مناسب للمشاريع القريبة من المناطق التي بها مبانٍ أثرية وأجزاء المدينة القريبة من المواقع التاريخية.» (EN: suitable for projects near heritage assets and parts of town closer to historic cores). لا توجد في الوثائق الثلاث معايير مناطق أو عروض شوارع لإسناد النمط.",
+   "pages": [
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 5
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 5
+    },
+    {
+     "doc": "tmp:ahsa-oasis-guidelines-ar",
+     "page": 17
+    }
+   ]
+  },
+  {
+   "name_ar": "الطراز/النمط الانتقالي",
+   "name_en": "Transitional style",
+   "how_assigned": "عبر خرائط توزيع الأنماط المعمارية (Regulating Plans) كما سبق. وصفه: «يعتبر الطراز المناسب الذي يساعد على خلق تحول تدريجي في الأنماط بين المناطق ذات الطابع المختلف.» (EN: A style suitable to help create gradual transitions between areas of different character style).",
+   "pages": [
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 6
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 6
+    },
+    {
+     "doc": "tmp:ahsa-oasis-guidelines-ar",
+     "page": 17
+    }
+   ]
+  },
+  {
+   "name_ar": "الطراز/النمط المعاصر",
+   "name_en": "Contemporary style",
+   "how_assigned": "عبر خرائط توزيع الأنماط المعمارية كما سبق. وصفه: «يحافظ هذا الطراز على الخصائص المهمة للطابع المعماري المحلي مما يعطيه ميزة عن العمارة المعاصرة في أي منطقة أخرى.»",
+   "pages": [
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-ar",
+     "page": 7
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 4
+    },
+    {
+     "doc": "tmp:ahsa-villa-handbook-en",
+     "page": 7
+    },
+    {
+     "doc": "tmp:ahsa-oasis-guidelines-ar",
+     "page": 17
+    }
+   ]
+  }
+ ],
+ "pattern_name_note": "الأسماء الثلاثة تقليدي/انتقالي/معاصر مطابقة لما في الوثائق (الوثيقة تكتبها «الطراز/النمط التقليدي» و«الطراز/النمط الانتقالي» و«الطراز/النمط المعاصر»). تنبيه: كلمة «الأنماط» في القسم 5 «الأنماط والزخارف» (نمط رقم 01..15 / Pattern 01..15 (Al Ahsa)، Stone Patterns و Roshan patterns) تعني الزخارف وليست الطرز الثلاثة.",
+ "mandatory_language_notes": "الدليل التطبيقي (ص4): «يحتوي هذا المستند على الموجهات التصميمية الإلزامية لكل نمط من أنماط المباني، وسيتم التعبير عنه بالرموز التالية. ستظهر الرموز الثلاثة جميعها في حال كانت الموجهات التصميمية إلزامية لجميع الأنماط: إلزامي للطراز التقليدي · إلزامي للطراز الانتقالي · إلزامي للطراز المعاصر» و«الرمز الإلزامي: يشير إلى موجهات تصميمية ذات أولوية عالية يجب الالتزام بها» و«الرسومات التوضيحية: رسومات غير تشريعية». EN p4: 'mandatory guidelines for each character style will [be] marked with the following symbols... e. Mandatory symbol: indicates high priority guidelines that must be complied with; f. Illustration: non-regulatory diagrams'. مشكلة غير محلولة: الرموز الإلزامية رسومية ولا تظهر في النص المستخرج (العربي ولا الإنجليزي)، وتعذر تنزيل ملفات PDF للتحقق بصرياً (الخادم محجوب عبر البروكسي 403). لذلك حُدّد الإلزام هنا من الصياغة فقط: mandatory=true فقط حين يرد «يجب/must» صراحة. مواضع «يجب/must» في الدليل التطبيقي: نسبة الفتحات التقليدي 20–35% (AR يجب / EN must) · الانتقالي 30–45% (EN must لكن AR ينبغي) · ثلاثة مستويات تدرج للنوافذ (EN must للثلاثة؛ AR يجب للتقليدي والانتقالي وينبغي للمعاصر) · استمرار التشطيب من أعلى القاعدة إلى أعلى السترة (EN must للثلاثة؛ AR «حيث يستمر» بلا يجب) · الانتقالي 3.4 'must not form a long unbroken shape' (AR ينبغي) · الانتقالي 2.6 'must be flat and rectangular… must not be one single straight line… must be broken down' (AR ينبغي/لا بد) · المعاصر 2.6 'roof silhouette must be flat and rectangular' (AR ينبغي) · المعاصر 3.4 حماية خصوصية السطح بالمظلات (AR «فيجب» / EN 'protect'). بقية البنود بصيغة ينبغي/يفضّل/تجنب/should/avoid/recommended = توصيات (ملاحظات جودة). صيغة «لا بد/indispensable/critical» في التناظر الموضعي قوية لكنها ليست «يجب». المجلد الكامل (PDF ص20) يذكر: «في حال تعارض الشرح المكتوب مع الرسومات التوضيحية، فيتم العمل بناءً على النص المكتوب»، ولا يذكر رموزاً إلزامية؛ صياغته شبه كلها «ينبغي» عدا: 2.9 «يجب ألا تسمح الفتحات برؤية الفراغ الداخلي الخاص» (PDF ص26)، و«يجب استخدام الأنماط الموضحة هنا كنقاط بداية للتجريد وليس نسخاً» (PDF ص38)، و«يجب مراعاة المواءمة والتكيف» (PDF ص42)، وأمثلة 7.3 (PDF ص48) وهي نموذج عملي لمبنى تجاري لا للفلل. مقاسات العناصر في صفحات 9–11 «توضيحية… للتعبير عن النسب العامة فقط»، والنماذج في القسم 8 «للتوضيح فقط».",
+ "rules": [
+  {
+   "code": "GUIDE-01",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي (2.8 متانة التكوين للواجهات): «يجب أن تكون نسب الفتحات في واجهات المباني بين 20-35% من إجمالي مساحة الواجهة. مساحة «الفتحات» تشمل المساحة الكاملة لمكونات العناصر، مثل النوافذ والأبواب والشرفات والكاشرات (shutters) والفُرَج (فتحات صغيرة) وجميع العناصر التكوينية المتعلقة بمداخل الفيلا. ينبغي أن تكون الواجهة الأمامية مميزة عن الواجهات الجانبية، ومن خصائص الواجهات الجانبية أن تكون فتحاتها أقل مقارنة بالواجهة الأمامية.» | انتقالي (ص6): «ينبغي أن تكون نسب الفتحات في واجهات المباني أقل من أو تساوي 30% إلى 45% من إجمالي مساحة الواجهة.» | معاصر (ص7): «يفضّل استخدام النوافذ الكبيرة في الفلل ذات الطراز المعاصر، ونسبة الفتحات بالنسبة لمساحة الواجهة تساوي 60% كحد أقصى.» | عام (ص8): «ينبغي أن تمثّل نسبة الفتحات من مساحة الواجهة حوالي 35%.»",
+   "verbatim_en": "Trad p5: 'Building façades must have ‘opening’ proportions of 20-35% of the total façade area. The ‘opening’ area encompasses the full extent of components such as windows, doors, balconies, shutters, lookouts, and all compositional elements which provide entry into the villa.' | Trans p6: 'Building facades must have ‘opening’ proportions of 30-45% or less of the total façade area.' | Cont p7: 'large windows should be prioritized, therefore allocating a maximum of 60% of the façade for openings.' | General p8: 'Should have approximately 35% of the façade be allotted for openings.'",
+   "requirement": "نسبة الفتحات من إجمالي مساحة الواجهة: تقليدي 20%–35% · انتقالي 30%–45% (النص: «أقل من أو تساوي 30% إلى 45%» = حد أعلى 45%) · معاصر 60% حداً أقصى. الفتحات تشمل النوافذ والأبواب والشرفات والكاشرات والفُرَج وعناصر المداخل.",
+   "values": {
+    "traditional": {
+     "min": 0.2,
+     "max": 0.35
+    },
+    "transitional": {
+     "min": 0.3,
+     "max": 0.45,
+     "note": "'30-45% or less' / «أقل من أو تساوي 30% إلى 45%» — الحد الأدنى غامض"
+    },
+    "contemporary": {
+     "max": 0.6
+    },
+    "general_target": 0.35,
+    "opening_definition": [
+     "windows",
+     "doors",
+     "balconies",
+     "shutters",
+     "lookouts/الفُرَج",
+     "entry compositional elements"
+    ]
+   },
+   "mandatory": true,
+   "notes": "الإلزام حسب الصياغة: تقليدي يجب/must؛ انتقالي must (EN) لكن ينبغي (AR)؛ معاصر should/يفضّل (غير إلزامي نصاً). المجلد الكامل 2.8 (PDF ص25): «ينبغي تخصيص حوالي 35% من الواجهة للفتحات» مع شكل «65% مصمت». تحذير: المجلد الكامل 7.3 (PDF ص48) يذكر «يجب أن تتراوح نسبة الفتحات من 40% إلى 60%» لكنه نموذج عملي لمبنى بمحلات تجارية وليس للفلل. التطبيق على أي واجهة: النص يقول «واجهات المباني» مع اشتراط أن تكون الجانبية أقل فتحات."
+  },
+  {
+   "code": "GUIDE-02",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي (3.3، ص5) وانتقالي (3.3، ص6): «يجب أن تحتوي نوافذ الواجهة الرئيسية على 3 مستويات على الأقل من التدرج من حيث الحجم والتناسب.» | معاصر (3.3، ص7): «ينبغي أن تحتوي نوافذ الواجهة الرئيسية على 3 مستويات على الأقل من التدرج من حيث الحجم والتناسب.»",
+   "verbatim_en": "p5/p6/p7 3.3: 'Windows on the main façade must have at least 3 levels of hierarchy in size and proportion.'",
+   "requirement": "نوافذ الواجهة الرئيسية: ثلاثة مستويات تدرج على الأقل في الحجم والتناسب — للأنماط الثلاثة.",
+   "values": {
+    "min_hierarchy_levels": 3,
+    "applies_to": "main façade",
+    "patterns": [
+     "traditional",
+     "transitional",
+     "contemporary"
+    ]
+   },
+   "mandatory": true,
+   "notes": "EN 'must' للثلاثة؛ AR «يجب» للتقليدي والانتقالي و«ينبغي» للمعاصر."
+  },
+  {
+   "code": "GUIDE-03",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي (ص5) وانتقالي (ص6) 3.3: «تجنب استخدام النوافذ الشريطية الأفقية الطويلة أو وضع النوافذ مباشرة مقابل نوافذ المباني المجاورة إذا كانت المسافة بين المباني قريبة.»",
+   "verbatim_en": "p5/p6 3.3: 'Avoid using long horizontal strip windows and placing windows directly across from existing windows on neighbouring buildings.'",
+   "requirement": "تجنّب النوافذ الشريطية الأفقية الطويلة في التقليدي والانتقالي (صيغة «تجنب» توصية، لا «ممنوع»). لا يرد هذا الحكم في المعاصر.",
+   "values": {
+    "patterns": [
+     "traditional",
+     "transitional"
+    ],
+    "contemporary": "not stated"
+   },
+   "mandatory": false,
+   "notes": "النطاق (تقليدي + انتقالي) صحيح، لكن الصياغة «تجنب/Avoid» وليست حظراً صريحاً؛ يُقترح تحويلها لملاحظة جودة لا مخالفة، إلا إذا ثبت بصرياً وجود الرمز الإلزامي على البند 3.3 (الجملة الأولى من 3.3 بصيغة must)."
+  },
+  {
+   "code": "GUIDE-04",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 7,
+   "verbatim_ar": "معاصر 2.6 (ص7): «ينبغي أن يكون جدار السطح في الطراز المعاصر مرتداً نحو الداخل. ينبغي أن يكون خط الأفق البصري للسقف مستوياً ومستطيلاً. وينبغي أن يكون السطح متاحاً للسكان لاستخدامه. يمكن تركيب درابزين زجاجي في سترة السطح. كما ينبغي أن يرتد جدار السطح نحو الداخل مقارنة بالأدوار الأسفل منه، على الأقل مرة واحدة في كل واجهة.» | معاصر 3.4 (ص7): «في الفلل ذات الطراز المعاصر، ينبغي ألا تستخدم سترة سطح عالية أو شرف مسننة (crenelations) فوق سترة السطح، بل ينبغي أن تكون الأسطح مستوية وبسيطة.» | عناصر المعاصر 3.4 (ص11): «ينبغي أن تكون سترة السطح (الدروة) متساوية مع خط المبنى الرئيسي.» «يمكن استخدام زجاج أو حاجز شفاف.»",
+   "verbatim_en": "p7 2.6: 'For the contemporary style, the design of the roofscape should step towards the rooftop. The roof silhouette must be flat and rectangular, accessible, and can be lined with a glass railing. It should be stepped at least once on each façade.' | p7 3.4: 'The contemporary style villa does not use high parapets or crenelations. Instead, flat, minimal roofscapes are preferred.' | p11 3.4: 'Should feature flat parapets which are flush with the primary building line'",
+   "requirement": "معاصر: خط السقف مستوٍ مستطيل، بلا شرف مسننة ولا سترة عالية، دروة مستوية متساوية مع خط المبنى، وجدار السطح يرتد نحو الداخل عن الأدوار أسفله مرة واحدة على الأقل في كل واجهة؛ يُسمح بدرابزين زجاجي.",
+   "values": {
+    "pattern": "contemporary",
+    "crenellations": false,
+    "high_parapet": false,
+    "roof_silhouette": "flat and rectangular",
+    "step_back_min_per_facade": 1,
+    "glass_railing": "allowed"
+   },
+   "mandatory": true,
+   "notes": "الإلزام: EN 'must' لكون خط السقف مستوياً مستطيلاً فقط؛ بقية البند should/ينبغي. الاستشهاد «ص7 بند 2.6» صحيح لهذا الدليل (الإصدار 1.0). تُضاف للقاعدة شرطية «مرة واحدة على الأقل في كل واجهة»."
+  },
+  {
+   "code": "GUIDE-05",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي 3.4 (ص5): «ينبغي أن تحافظ واجهة الفيلا على سمات العمارة التقليدية للأحساء من خلال تجنب الأشكال الطويلة المتصلة، ومن خلال تقسيم الواجهات على مسافات منتظمة… التأكيد على التنوع البصري في الواجهة بحيث يكون أحد أجزاء الواجهة أعلى من بقية أجزاء الواجهة بما يعادل ارتفاع طابق، أو بارتفاع سترة السطح لذلك الجزء بما يعادل 1 متر إلى 1.2 متر كحد أدنى، خاصة على الواجهة الرئيسية.» | تقليدي 2.6 (ص5): «ينبغي أن يكون هناك تدرج في جدار السطح مرة واحدة على الأقل على كل واجهة للتأكيد على الفرق في الارتفاع بين مستويات المبنى.» | انتقالي 3.4 (ص6): «…بحيث يكون أحد أجزاء الواجهة أعلى بما يعادل ارتفاع طابق عن بقية أجزاء الواجهة الأخرى، أو بارتفاع سترة السطح لذلك الجزء بما يعادل 1 متر إلى 1.2 متر كحد أدنى.» | انتقالي 2.6 (ص6): «ينبغي ألا يكون خط السقف خطاً واحداً مستقيماً عبر الواجهة. بل لا بد أن تقسّم لإنشاء تنوّع في ارتفاعات الواجهة. ويمكن تحقيق ذلك عن طريق إجراء إما تغيير في عدد الطوابق أو عن طريق تغيير ارتفاعات سترة السطح.»",
+   "verbatim_en": "Trad p5 3.4: 'Emphasize variety by having at least one volume higher than others by a floor or 1-1.2m parapet extension, especially on the main façade.' | Trad p5 2.6: 'The rooftop should be stepped at least once on each façade for a height difference.' | Trans p6 3.4: 'The villa’s façade elevation must not form a long unbroken shape… making at least one volume higher than the rest of the façade by a floor or a minimum of 1-1.2m parapet extension of that volume.' | Trans p6 2.6: 'The roofline must not be one single straight line across the façade. It must be broken down to create variation in heights across the single façade elevation.'",
+   "requirement": "تقليدي وانتقالي: جزء واحد على الأقل أعلى من بقية الواجهة بطابق أو بزيادة سترة السطح 1.0م–1.2م كحد أدنى، خاصة على الواجهة الرئيسية؛ وتدرج جدار السطح مرة على الأقل في كل واجهة (تقليدي)؛ وخط السقف لا يكون خطاً مستقيماً واحداً (انتقالي). المعاصر: لا سترة عالية؛ التدرج يكون بارتداد جدار السطح (انظر GUIDE-04).",
+   "values": {
+    "patterns": [
+     "traditional",
+     "transitional"
+    ],
+    "higher_volume": "≥1 floor OR parapet extension ≥1.0–1.2 m",
+    "emphasis": "main façade",
+    "roof_step_min_per_facade": {
+     "traditional": 1,
+     "contemporary": 1
+    }
+   },
+   "mandatory": true,
+   "notes": "PARTIAL لأن القاعدة الحالية لا تحدد الأنماط المعنية، ولأن 1–1.2م «كحد أدنى» لا مدى. الإلزام: الانتقالي بصيغة must في EN (AR ينبغي/لا بد)؛ التقليدي should/ينبغي. لا تنطبق زيادة السترة على المعاصر."
+  },
+  {
+   "code": "GUIDE-06",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-en",
+   "page": 12,
+   "verbatim_ar": "تقليدي 4.1 (ص5): «ينبغي أن تكون واجهات المباني ذات ألوان طبيعية، ويغلب عليها درجات اللون الأبيض والخشبي. كما ينبغي استخدام الحد الأدنى من الألوان الفرعية، بحيث لا تزيد عن 10% من مساحة الواجهة.» | انتقالي 4.1 (ص6): «استخدم الحد الأدنى من الألوان الفرعية.» | معاصر 4.1 (ص7): «استخدام الألوان الفرعية ينبغي أن يكون محدوداً بما لا يزيد عن 20% إلى 30% من مساحة الواجهة.» | ص12 العربية فارغة في الاستخراج.",
+   "verbatim_en": "Trad p5: 'Employ accent colors minimally, comprising no more than 10% of the façade area' | Cont p7: 'Employ accent colors minimally, no more than 20-30% of the façade.' | p12 4.1 #3: 'A maximum percentage of accent color, measured as a percentage of the total facade area, is allowed for each style: • <10% • <25% • <35%' — chart: 'Traditional Transitional Contemporary · Approximate color proportions' with pairs accent<10%/primary>90%, accent<25%/primary>75%, accent<35%/primary>65%.",
+   "requirement": "الألوان الفرعية (accent) نسبةً من مساحة الواجهة: تقليدي ≤10% · انتقالي <25% (من جدول ص12 فقط) · معاصر: ص7 تقول «لا يزيد عن 20% إلى 30%» وجدول ص12 يعطي <35% — تعارض داخلي؛ يُقترح اعتماد 30% (الأشد) مع ملاحظة.",
+   "values": {
+    "traditional": {
+     "accent_max": 0.1,
+     "primary_min": 0.9
+    },
+    "transitional": {
+     "accent_max": 0.25,
+     "primary_min": 0.75,
+     "source": "p12 chart only"
+    },
+    "contemporary": {
+     "accent_max_p7": "0.20–0.30",
+     "accent_max_p12": 0.35
+    }
+   },
+   "mandatory": false,
+   "notes": "القاعدة الحالية تغطي المعاصر فقط وتغفل التقليدي 10% والانتقالي 25%. ربط النسب <10/<25/<35 بالأنماط في ص12 يعتمد على ترتيب القائمة والرموز (رسومية) وترتيب تسميات الرسم — منطقي لكنه غير مؤكد نصياً لأن الاستخراج خلط ترتيب الأزواج. الصياغة should/ينبغي (توصية) إلا إذا ثبت الرمز الإلزامي في ص12 (عبارة 'is allowed for each style' مع رموز الأنماط توحي بإلزام)."
+  },
+  {
+   "code": "GUIDE-07",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 7,
+   "verbatim_ar": "تقليدي/انتقالي 3.3 (ص5، ص6): «تجنب… وضع النوافذ مباشرة مقابل نوافذ المباني المجاورة إذا كانت المسافة بين المباني قريبة.» | معاصر 3.3 (ص7): «ينبغي تجنب وضع النوافذ مباشرة مقابل نوافذ المباني المجاورة إذا كانت المسافة بين المباني قريبة.» | المجلد الكامل 2.9 (PDF ص26): «ينبغي على جميع الواجهات أن تحافظ على الخصوصية عن طريق حماية الفتحات. 1 يجب ألا تسمح الفتحات برؤية الفراغ الداخلي الخاص. 2 ينبغي استخدام النوافذ والفتحات الصغيرة للتحكم في مستوى الإضاءة الطبيعية والإضاءة غير المباشرة.»",
+   "verbatim_en": "Cont p7 3.3: 'Avoid placing windows directly across from existing windows on neighbouring buildings within 6m.'",
+   "requirement": "تجنب وضع نوافذ مقابلة مباشرة لنوافذ الجار القائمة عند قرب المسافة (الأنماط الثلاثة)؛ المسافة المرجعية 6م وردت في النسخة الإنجليزية للمعاصر فقط ولا ترد في العربية.",
+   "values": {
+    "patterns": [
+     "traditional",
+     "transitional",
+     "contemporary"
+    ],
+    "distance_threshold_m": {
+     "contemporary_EN_only": 6
+    }
+   },
+   "mandatory": false,
+   "notes": "PARTIAL: القاعدة الحالية صحيحة عموماً لكن ينقصها رقم 6م (EN، معاصر) ويجب التنبيه بأن العربية تقول «قريبة» دون رقم. البند المرتبط الإلزامي نصاً هو المجلد الكامل 2.9 «يجب ألا تسمح الفتحات برؤية الفراغ الداخلي الخاص» — مقترح GUIDE-24."
+  },
+  {
+   "code": "GUIDE-08",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي 3.2 (ص5): «ينبغي أن يكون المدخل الرئيسي للفيلا السكنية واضحاً في الواجهة بارتداد بسيط عن السور. كما ينبغي استخدام سواتر خشبية للمدخل الرئيسي.» تقليدي 2.3: «ينبغي تمييز المدخل الرئيسي بإطار مميز مثل استخدام ممر مزخرف أو عناصر زخرفية. أيضا ينبغي تأكيد المدخل باستخدام رواق مظلل… يتم دمج السور مع ممر وبوابات الدخول الرئيسية» | انتقالي 3.2 (ص6): «ينبغي أن يكون المدخل الرئيسي للفيلا واضحاً على الواجهة وتحت رواق مظلل مع تأكيد بوابة السور.» انتقالي 2.3: «ينبغي وضع سور حول المبنى وبوابات مؤطرة للمدخل الرئيسي ومدخل مرآب السيارة.» | معاصر 3.2 (ص7): «ينبغي تمييز المدخل الرئيسي الخشبي للفيلا على الواجهة وعلى بوابة السور.» معاصر 2.3: «ينبغي وضع سور على كامل حدود الفيلا مع وجود بوابة لمدخل السيارة والمدخل الرئيسي.» | عام 2.3 (ص8): «التأكيد على إحاطة مدخل الفيلا ومدخل مرآب السيارة بإطارات. وضع سور حول المبنى وبوابات للمدخل الرئيسي ومدخل مرآب السيارة» | عام 2.7 (ص8): «تأكيد المدخل من خلال إحاطته بقوس مظلل على مستوى الدور الأرضي.»",
+   "verbatim_en": "Trad p5 3.2: 'The main residential entrance should be clearly expressed upon the façade, slightly set back from the fenced boundary. Use timber shutters for the main entryway.' | Trans p6 3.2: '…placed under a shaded arcade, and also articulated the gate of the fenced boundary' | Cont p7 2.3: 'The inclusion of a boundary wall around the perimeter is paramount, with gates for the driveway and the main entryway.' | p8 2.7: 'Have the doorway clearly articulated through a shaded arch on the ground floor.'",
+   "requirement": "سور على كامل حدود الفيلا ببوابتين مؤطرتين (مشاة + سيارات) — الأنماط الثلاثة. المدخل الرئيسي واضح ومؤطر؛ رواق مظلل للمدخل في التقليدي والانتقالي (وقوس مظلل في الدور الأرضي في القواعد العامة)؛ التقليدي: مدخل مرتد قليلاً عن السور وسواتر/أبواب خشبية؛ المعاصر: مدخل رئيسي خشبي مميز على الواجهة وعلى بوابة السور (لا يُشترط رواق).",
+   "values": {
+    "boundary_wall": "all patterns",
+    "gates": [
+     "pedestrian/main entry",
+     "driveway"
+    ],
+    "shaded_arcade_at_entry": [
+     "traditional",
+     "transitional"
+    ],
+    "entry_setback_from_fence": "traditional (slight)",
+    "timber_entry": [
+     "traditional",
+     "contemporary (wooden main entrance)"
+    ]
+   },
+   "mandatory": false,
+   "notes": "PARTIAL: الرواق المظلل ليس مطلوباً للمعاصر في صفحته، والقاعدة الحالية تعممه. الصياغة should/ينبغي؛ وصف السور في المعاصر 'paramount' (EN). لا يذكر الدليل «دمج» البوابتين في عنصر واحد بل وجود بوابتين في السور."
+  },
+  {
+   "code": "GUIDE-09",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "4.2 (ص5، ص6، ص7): «ينبغي تشطيب سطح الجدار الأساسي بطبقة مطفية من الجص من درجات اللون الأبيض أو الأبيض الجيري (limewash) أو ما شابه ذلك. حيث يستمر هذا التشطيب من أعلى القاعدة إلى أعلى سترة السطح.» تقليدي: «ينبغي استخدام الخشب للنوافذ والأبواب والبوابات.» انتقالي: «ينبغي استخدام الخشب الداكن للنوافذ والأبواب والبوابات.» معاصر: «في هذا الطراز يمكن استخدام الزجاج بنسب أكبر في واجهات المباني مع وجود نوافذ كبيرة تغطي أغلب مساحة الواجهة.»",
+   "verbatim_en": "p5/p6/p7 4.2: 'The primary wall surface should feature a matt-finish with off-white plaster, limewash or similar. This must be continuous from above the base to the top of the parapet [cont: top of the roof].' Trad: 'Wood should be used for windows, doors, and gates.' Trans: 'Windows, doors, and shutters should use a dark timber finish.' Cont: 'Glass is used more generously across the structure'.",
+   "requirement": "الجدار الأساسي: جص مطفي بدرجات الأبيض/الأوف وايت أو الأبيض الجيري أو ما شابه، مستمر من أعلى القاعدة إلى أعلى السترة (الأنماط الثلاثة). الخشب للنوافذ والأبواب والبوابات (تقليدي)، خشب داكن (انتقالي)، والمعاصر يسمح بزجاج أوسع مع مدخل رئيسي خشبي.",
+   "values": {
+    "wall_finish": "matt off-white plaster / limewash or similar",
+    "continuity": "from above base to top of parapet/roof",
+    "joinery": {
+     "traditional": "wood",
+     "transitional": "dark timber",
+     "contemporary": "glass more generous; wooden main entrance"
+    }
+   },
+   "mandatory": false,
+   "notes": "جملة الاستمرارية بصيغة must في EN (انظر GUIDE-12 المقترح لفصلها كبند إلزامي). EN يقول 'off-white' لا الأبيض الصريح. ص4.1 العامة (ص12 EN): 'plaster and lime white color should be used for levels above the ground level'."
+  },
+  {
+   "code": "GUIDE-10",
+   "verdict": "PARTIAL",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 15,
+   "verbatim_ar": "7.1: «عدم استخدام مواد لا تنسجم مع الطابع المعماري مثل الزجاج الملون أو التكسية المعدنية عالية الانعكاس.» «ينبغي عدم استخدام مواد بناء ذات جودة سيئة بحيث تبدو مزيفة أو مقلدة للمواد الأصلية بصورة رديئة.» | 7.2: «عدم استخدام الألوان الساطعة الصناعية التي لا تتناسق مع السياق العام وتنتقص من المنظر الطبيعي والعمارة المحلية.» | 7.3: «لا يسمح بزيادة ارتفاع الحوائط باستخدام السواتر المعدنية غير المشطبة أو غيرها من المواد الخام.» «تجنب استخدام الأسلاك الشائكة على المباني» | 7.5: «تتسبب السواتر المعدنية الدوارة المكشوفة (rolling shutters) في خلق ضوضاء وتشوه بصري إذا لم يتم اخفاؤها بشكل صحيح. يُفضل أن تكون هذه الستائر مدمجة دائماً مع تصميم الواجهة ومثبتة بشكل صحيح.» | 7.6: «حيثما أمكن، ينبغي أن تكون عناصر الخدمات مثل أبراج الاتصالات، ووحدات التكييف، وأطباق الأقمار الصناعية، وخزانات وأنابيب المياه، والأسلاك، وغيرها مدمجة في التصميم بشكل مخفي.» | 7.7: «ينبغي تجنب استخدام العناصر المعمارية الدخيلة والتي لا تتوافق مع الطابع المعماري والمحلي.»",
+   "verbatim_en": "p12 4.1 #4: 'For windows’ glass, avoid using mirror-like reflective glass with bright colors…' | p15 7.1: 'Do not use building materials alien to the tradition such as metal cladding and high reflectivity and colored glass.' 7.2: 'Do not use non-contextual bright and artificial colors' 7.3: 'Do not extend walls with unfinished corrugated metals and other raw sheet materials. Do not use razor or barbed wires for typical buildings' 7.5: 'It is recommended that shutters are always integrated in the façade and properly mounted.' 7.6: 'air-conditioning units, satellite dishes, water tanks and ducts, wires, pipes… should be discreetly embedded in the design and not exposed or be seen by the public.'",
+   "requirement": "ممنوعات/مُتجنَّبات (الأنماط الثلاثة): زجاج عاكس أو ملوّن، تكسية معدنية، مواد مقلدة رديئة، ألوان صناعية ساطعة، تمديد الأسوار بصاج/مواد خام غير مشطبة، أسلاك شائكة، خدمات مكشوفة للعامة (تكييف، صحون، خزانات، أنابيب، أسلاك)، رولر شتر مكشوف (يُفضّل دمجه)، عناصر معمارية دخيلة.",
+   "values": {
+    "prohibited_do_not": [
+     "metal cladding",
+     "high-reflectivity glass",
+     "colored glass",
+     "bright artificial colors",
+     "unfinished corrugated metal wall extensions",
+     "razor/barbed wire"
+    ],
+    "should_avoid_or_hide": [
+     "exposed services (AC, dishes, tanks, ducts, wires, pipes)",
+     "fake/low-quality imitation materials",
+     "foreign imported elements"
+    ],
+    "recommended": [
+     "roller shutters integrated, colour matching"
+    ]
+   },
+   "mandatory": false,
+   "notes": "PARTIAL: البنود الأربعة الحالية موجودة لكن قوتها متفاوتة: 'Do not' (7.1، 7.2، 7.3) أقوى من 'should' (7.6) و'recommended/يُفضل' (7.5). الرولر شتر المكشوف ليس ممنوعاً صراحة بل يُوصى بدمجه. تُضاف: التكسية المعدنية، الأسلاك الشائكة، الصاج غير المشطب. ملاحظة ترجمة: العربية تنسب «عالية الانعكاس» للتكسية المعدنية، والإنجليزية للزجاج. المجلد الكامل 6.4 (PDF ص42) يضيف تجنب space frame والزجاج العنكبوتي والحوائط الستائرية الكبيرة."
+  },
+  {
+   "code": "GUIDE-11",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي 2.1 (ص5): «وعلى الرغم من أن الواجهات بشكل عام متباينة (غير متناظرة) إلا أنه لا بد من المحافظة على التناظر الموضعي في تنظيم الكتل الفردية لتحقيق الانسجام. وهذا يستلزم المحافظة على التناظر في كل قسم من الواجهة لتعزيز الاتساق في مواقع النوافذ والأروقة والعناصر الزخرفية.» | انتقالي 2.1 (ص6): «لا بد من المحافظة على التناظر الموضعي في تنظيم الكتل الفردية» | معاصر 2.1 (ص7): «فينبغي تأكيد تطبيق التناظر الموضعي على امتداد كل واجهة» | عام 2.1 (ص8): «تطبيق التناظر الموضعي على الواجهة عن طريق توزيع العناصر بطريقة متناظرة على الواجهة.»",
+   "verbatim_en": "Trad p5 2.1: 'While the overall facade may embrace asymmetry, the symmetry within individual volumes is indispensable…' Trans p6: 'maintaining symmetry within each building volume is critical.' Cont p7: 'the focus on localized symmetry… should persist across each façade.'",
+   "requirement": "تناظر موضعي داخل كل كتلة/قسم من الواجهة (النوافذ والأروقة والزخارف)، مع جواز عدم تناظر الواجهة ككل — الأنماط الثلاثة.",
+   "values": {
+    "scope": "each building volume / façade section",
+    "overall_facade_asymmetry": "allowed",
+    "patterns": [
+     "traditional",
+     "transitional",
+     "contemporary"
+    ]
+   },
+   "mandatory": false,
+   "notes": "الصياغة «لا بد/indispensable/critical» للتقليدي والانتقالي قوية لكنها ليست «يجب»؛ المعاصر ينبغي/should. قد تكون عليها رموز إلزامية (غير قابلة للتحقق نصياً)."
+  }
+ ],
+ "additional": [
+  {
+   "proposed_code": "GUIDE-12",
+   "code": "GUIDE-12",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-en",
+   "page": 5,
+   "verbatim_ar": "4.2 (ص5–7): «حيث يستمر هذا التشطيب من أعلى القاعدة إلى أعلى سترة السطح.»",
+   "verbatim_en": "p5/p6 4.2: 'This must be continuous from above the base to the top of the parapet.' p7: '…to the top of the roof.'",
+   "requirement": "استمرارية تشطيب الجص المطفي للجدار الأساسي من أعلى القاعدة إلى أعلى السترة/السطح دون انقطاع بمواد أخرى — الأنماط الثلاثة.",
+   "values": {
+    "patterns": [
+     "traditional",
+     "transitional",
+     "contemporary"
+    ]
+   },
+   "mandatory": true,
+   "notes": "must في EN فقط؛ العربية بلا «يجب»."
+  },
+  {
+   "proposed_code": "GUIDE-13",
+   "code": "GUIDE-13",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 8,
+   "verbatim_ar": "عام 2.3 (ص8): «التأكد من استخدام نفس المواد في القاعدة وجميع أنحاء الفيلا.» | انتقالي 2.3 (ص6): «من الضروري استخدام نفس المادة للقاعدة وبقية أجزاء المبنى.» | معاصر 2.3 (ص7): «استخدام نفس المادة للقاعدة وبقية أجزاء المبنى.»",
+   "verbatim_en": "p8 2.3: 'Ensure the base and rest of villa share the same material.'",
+   "requirement": "القاعدة وبقية الفيلا بنفس المادة (لا تكسية مختلفة للقاعدة) — الأنماط الثلاثة.",
+   "values": {},
+   "mandatory": false,
+   "notes": "should؛ الانتقالي «من الضروري/crucial»."
+  },
+  {
+   "proposed_code": "GUIDE-14",
+   "code": "GUIDE-14",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 6,
+   "verbatim_ar": "تقليدي (ص5): «ومن خصائص الواجهات الجانبية أن تكون فتحاتها أقل مقارنة بالواجهة الأمامية.» | انتقالي (ص6): «ينبغي أن تحتوي الواجهات الجانبية والخلفية على فتحات أقل من الواجهات الأمامية. كما ينبغي التعامل مع الواجهات الأمامية كواجهات رئيسية للمبنى والواجهات الجانبية والخلفية كواجهات ثانوية.»",
+   "verbatim_en": "Trad p5: 'Side façades should not overwhelm the front façade, featuring less openings in comparison.' Trans p6: 'Side and rear facades should have less openings than front facades and be secondary to front facades.'",
+   "requirement": "نسبة فتحات الواجهات الجانبية والخلفية أقل من الواجهة الأمامية.",
+   "values": {
+    "rule": "opening_ratio(side/rear) < opening_ratio(front)",
+    "patterns": [
+     "traditional",
+     "transitional"
+    ]
+   },
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-15",
+   "code": "GUIDE-15",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي 3.4 (ص5) وانتقالي 3.4 (ص6): «ينبغي إعطاء الأولوية لحماية خصوصية السكان باستخدام سترة سطح مرتفعة وسواتر ومظلات. ينبغي التأكد من تزيين سترة السطح العلوي بالشرف المسننة (crenelations).» | المجلد الكامل 2.6 (PDF ص24): «ينبغي أن تكون الشرف المسننة جزء من عناصر تنسيق السطح. ينبغي أن تكون الشرف المسننة مثلثة الشكل ذات تدرج خماسي مع وجود فجوة في المنتصف ويتم تشطيبها بالجص الأبيض.»",
+   "verbatim_en": "Trad p5: 'Prioritize residents’ privacy with higher parapet walls, screens, and overhead shading. Decorate the highest roof’s parapet with crenellations.' Trans p6: 'Make sure to decorate the highest roof’s parapet with crenellations.'",
+   "requirement": "تقليدي وانتقالي: تزيين دروة السطح الأعلى بالشرف المسننة، وسترة مرتفعة/سواتر/مظلات للخصوصية. المعاصر: لا شرف مسننة (GUIDE-04). عناصر الانتقالي (ص10): دروة مستوية بزوايا قريبة من خط المبنى، أو «سترة السطح (الدروة) مع فجوات».",
+   "values": {
+    "traditional": "crenellations on highest parapet",
+    "transitional": "crenellations on highest parapet (simplified/notched)",
+    "contemporary": "none"
+   },
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-16",
+   "code": "GUIDE-16",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 9,
+   "verbatim_ar": "عناصر التقليدي 3.4 (ص9) وعناصر الانتقالي 3.4 (ص10): «ينبغي أن يكون السطح مستوياً بشكل كامل.» | عام 2.6 (ص8): «أن تكون أسطح المبنى مستوية وبها شرفات (بلكونات) تستخدم من قبل السكان في طوابق مختلفة من المبنى.»",
+   "verbatim_en": "p9/p10 3.4: '1 Be completely flat.' p8 2.6: 'Incorporate flat roofs with possible accessible terraces on different levels.'",
+   "requirement": "أسطح مستوية تماماً (لا أسقف مائلة) مع إمكانية أسطح/شرفات مستخدمة على مستويات مختلفة.",
+   "values": {
+    "roof": "flat"
+   },
+   "mandatory": false,
+   "notes": "المجلد الكامل (PDF ص29) يذكر أيضاً «ليس من سمات المباني التقليدية في واحات الأحساء وجود مرافق أو غرف فوق سطح المبنى» (وصف لا قاعدة). جملة قبلها عن الوصول للأسطح مشوهة في الاستخراج — غير محسومة."
+  },
+  {
+   "proposed_code": "GUIDE-17",
+   "code": "GUIDE-17",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 6,
+   "verbatim_ar": "انتقالي 3.4 (ص6): «ينبغي أن تخلو واجهة الفيلا من الأشكال الطويلة المتصلة، وينبغي تقسيمها للمحافظة على ايقاع العمارة التقليدية في الأحساء. وذلك من خلال تقسيم الواجهات على مسافات منتظمة من أجل تحقيق المقياس الإنساني والجمال البصري على مستوى الشارع.»",
+   "verbatim_en": "Trans p6: 'The villa’s façade elevation must not form a long unbroken shape… Break frontages at frequent intervals'. Trad p5: 'avoiding long unbroken shapes, breaking frontages at regular intervals for human scale'.",
+   "requirement": "تقسيم الواجهة إلى كتل على فترات منتظمة وعدم وجود كتلة طويلة متصلة — تقليدي وانتقالي.",
+   "values": {
+    "patterns": [
+     "traditional",
+     "transitional"
+    ]
+   },
+   "mandatory": true,
+   "notes": "must في EN للانتقالي فقط."
+  },
+  {
+   "proposed_code": "GUIDE-18",
+   "code": "GUIDE-18",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 5,
+   "verbatim_ar": "تقليدي 2.2 (ص5): «ينبغي وضع النوافذ في المستويات العليا مع دمج الأروقة في المستويات الأرضية، وخاصة على الواجهات المواجهة للشارع.» | عام 2.2 (ص8): «تجميع النوافذ المتعامدة عبر المستويات. ينبغي تجميع النوافذ المقوسة مع بعضها البعض.» | المجلد الكامل 2.2 (PDF ص22): «عند تجميع النوافذ ينبغي أن تكون في الطوابق العلوية، وعند تجميع الأروقة تكون على مستوى قاعدة المبنى (هذا خاص بالواجهات المقابلة للشارع).»",
+   "verbatim_en": "Trad p5 2.2: 'Windows should be placed on the upper levels and arcades on the base levels.'",
+   "requirement": "تجميع النوافذ في الأدوار العليا والأروقة في القاعدة على الواجهات المطلة على الشارع (تقليدي)؛ الانتقالي: نوافذ متشابهة في كل قسم منفصل + أروقة بسيطة في القاعدة؛ المعاصر: تجميع حسب البرنامج الداخلي مع تنوع ارتفاع السترة عبر أكثر من طابق.",
+   "values": {},
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-19",
+   "code": "GUIDE-19",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 8,
+   "verbatim_ar": "عام 2.2 (ص8): «ينبغي أن تكون الأشكال الهندسية للأبواب والنوافذ متعامدة ومحاطة بأقواس نصف دائرية أو إطارات مربعة.» | تقليدي 2.7 (ص5): «ينبغي تجنب تصميم المبنى بشكل شبكي منتظم كما في التصاميم المعاصرة بل يكون بشكل أقل انتظاماً.» | انتقالي 2.7 (ص6) مثله.",
+   "verbatim_en": "p8 2.2: 'Ensure the geometry of doors and windows is orthogonal and framed by semicircular or square arches.' Trad/Trans 2.7: avoid an angular grid pattern suited to contemporary architecture.",
+   "requirement": "فتحات متعامدة الشكل بأقواس نصف دائرية أو إطارات مربعة؛ تجنب الشبكة المنتظمة الصارمة في التقليدي والانتقالي.",
+   "values": {},
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-20",
+   "code": "GUIDE-20",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 9,
+   "verbatim_ar": "عناصر التقليدي 3.3 (ص9): «النوافذ عادةً مستطيلة رأسية… النوافذ وإطارات النوافذ مصنوعة من الخشب والزجاج.» | عناصر الانتقالي 3.3 (ص10): «استخدام نوافذ ذات استطالة رأسية. ينبغي أن تتركز النوافذ بشكل أكبر في الطوابق العلوية وتحتوي على إطار من الجص أو مواد محلية أو دهان بلون منسجم…» | عناصر المعاصر 3.3 (ص11): «ينبغي استخدام نوافذ زجاجية رأسية مستطيلة… ينبغي استخدام النوافذ والفتحات في الطوابق العلوية، ولكن لا يصل ارتفاعها إلى مستوى ارتفاع الطابق. ينبغي أن تكون النوافذ والفتحات محاطة بإطار بسيط ومصمت ولا تبرز عن حدود المبنى.»",
+   "verbatim_en": "Cont p11 3.3: 'Openings and windows should be used mostly on upper floors, yet, not spanning the entire height of the floor level. Windows and openings should be surrounded by a minimal and muted frame, and is flush with the building line.'",
+   "requirement": "نوافذ رأسية مستطيلة لكل الأنماط؛ التقليدي خشب وزجاج مع أقواس نصف دائرية في الأعلى؛ الانتقالي إطار جصي/ملوّن؛ المعاصر زجاج بإطار بسيط مستوٍ مع خط المبنى ولا تمتد بكامل ارتفاع الطابق.",
+   "values": {},
+   "mandatory": false,
+   "notes": "تعارض داخلي: المعاصر 2.1 (ص7) يسمح 'flexibility for elements to extend vertically, spanning the full floor height'، بينما 3.3 (ص11) 'not spanning the entire height of the floor level'."
+  },
+  {
+   "proposed_code": "GUIDE-21",
+   "code": "GUIDE-21",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 13,
+   "verbatim_ar": "5 (ص13): «مراعاة التكامل ما بين الأنماط الزخرفية عند استخدام أشكال متعددة منها على الواجهة الواحدة… الرجوع إلى النماذج التاريخية والتقيد بالأنماط الهندسية والزخارف النباتية.» | تقليدي 5 (ص5): «تتموضع هذه الزخارف فوق المداخل والنوافذ.» | معاصر 5 (ص7): «فوق المداخل والنوافذ وفي أركان المبنى.» | عام 2.5 (ص8): «زخرفة سترة السطح والأحزمة الأفقية والأقواس والأبواب والعناصر الغائرة. استخدام زخرفة فريدة على امتداد الواجهة والسور. تكون تفاصيل الزخرفة بسيطة في الفلل الانتقالية مقارنة بالفلل التقليدية، وأبسط منها في الفلل المعاصرة مقارنة بالفلل الانتقالية.»",
+   "verbatim_en": "p13 5.0: 'Where multiple decorative patterns are applied across a single facade, these should be consistent… Refer directly to historic precedents and be limited to geometric and floral patterns.' Cont p7: 'Place such designs above the main entrance as well as on the corners of the structure.'",
+   "requirement": "زخارف هندسية/نباتية مستمدة من الأحساء، متسقة على الواجهة، فوق المداخل والنوافذ (والأركان في المعاصر)، وتتبسط تدريجياً من التقليدي إلى المعاصر.",
+   "values": {},
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-22",
+   "code": "GUIDE-22",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-en",
+   "page": 12,
+   "verbatim_ar": "ص12 العربية فارغة في الاستخراج.",
+   "verbatim_en": "p12 4.1 #1: 'Primary colors, the larger swatches to the right, should be used on walls and secondary colors, the smaller swatches, should be used on recessed structures on the building which tend to have a orange-beige finish. Additionally, plaster and lime white color should be used for levels above the ground level.'",
+   "requirement": "ألوان أساسية من اللوحة للجدران، والثانوية للأجزاء الغائرة، والأبيض الجصي/الجيري للأدوار فوق الأرضي.",
+   "values": {
+    "palette_ref": "see palette"
+   },
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-23",
+   "code": "GUIDE-23",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 7,
+   "verbatim_ar": "معاصر 3.4 (ص7): «إذا كان هناك شرفات (بلكونات) تستخدم من قبل السكان، فيجب المحافظة على خصوصيتهم من خلال تركيب مظلات في الشرفة.» | تقليدي/انتقالي 3.4: «ينبغي إعطاء الأولوية لحماية خصوصية السكان باستخدام سترة سطح مرتفعة وسواتر ومظلات.»",
+   "verbatim_en": "Cont p7: 'Where an accessible terraces is provided, protect residents’ privacy and outdoor exposure with the provision of a shade covering.'",
+   "requirement": "سطح/شرفة مستخدمة: مظلة لحماية الخصوصية (المعاصر — «يجب» بالعربية)؛ التقليدي والانتقالي: سترة مرتفعة وسواتر ومظلات.",
+   "values": {},
+   "mandatory": true,
+   "notes": "«فيجب» في العربية للمعاصر فقط."
+  },
+  {
+   "proposed_code": "GUIDE-24",
+   "code": "GUIDE-24",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 26,
+   "verbatim_ar": "2.9 الواجهات الثانوية (PDF ص26، مطبوع 24): «ينبغي على جميع الواجهات أن تحافظ على الخصوصية عن طريق حماية الفتحات. 1 يجب ألا تسمح الفتحات برؤية الفراغ الداخلي الخاص. 2 ينبغي استخدام النوافذ والفتحات الصغيرة للتحكم في مستوى الإضاءة الطبيعية والإضاءة غير المباشرة.»",
+   "verbatim_en": "",
+   "requirement": "الفتحات لا تكشف الفراغ الداخلي الخاص — جميع الواجهات.",
+   "values": {},
+   "mandatory": true,
+   "notes": "من المجلد الكامل لا من دليل الفلل."
+  },
+  {
+   "proposed_code": "GUIDE-25",
+   "code": "GUIDE-25",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 23,
+   "verbatim_ar": "2.4 نسبة العرض إلى الارتفاع (PDF ص23، مطبوع 21): «ينبغي أن يكون عرض المبنى أكبر من ارتفاعه. ينبغي أن تتراوح نسبة كامل عرض المبنى لارتفاعه بين 1.3:1 إلى 2.2:1» | جدول 2 (PDF ص28): «ينبغي أن تتسم مباني واحات الأحساء بنسب أفقية واضحة… والتي تتراوح ما بين 1.3:1 إلى 2.2:1.»",
+   "verbatim_en": "",
+   "requirement": "الواجهة أفقية: عرض المبنى/ارتفاعه بين 1.3:1 و2.2:1.",
+   "values": {
+    "width_to_height": {
+     "min": 1.3,
+     "max": 2.2
+    }
+   },
+   "mandatory": false,
+   "notes": "المجلد الكامل (عام لكل المباني)؛ لا يرد في دليل الفلل."
+  },
+  {
+   "proposed_code": "GUIDE-26",
+   "code": "GUIDE-26",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 34,
+   "verbatim_ar": "3.3 (PDF ص34، مطبوع 32): «ينبغي أن يكون تكوين النوافذ متناظراً رأسياً.» «ينبغي أن تكون فتحات الطابق الأرضي بسيطة ومستطيلة.» «ينبغي أن تتراوح نسبة النوافذ الرأسية بشكل عام من 1:1.5 إلى 1:2، أما نوافذ شرفات السطح التي توضع أفقياً، فتكون نسبتها حوالي 1:1 أو 2:1» | 3.1 (PDF ص32): «ينبغي محاذاة النوافذ في جميع الطوابق على محور رأسي» | جدول 2 (PDF ص28): «ينبغي أن تكون الفتحات بشكل عام رأسية، ونسبة عرض الأبواب إلى إرتفاعها من 1:2 إلى 1:5، ونسبة عرض النوافذ إلى إرتفاعها من 1:1.5 إلى 1:2»",
+   "verbatim_en": "",
+   "requirement": "نوافذ رأسية بنسبة عرض:ارتفاع 1:1.5–1:2، نوافذ السطح الأفقية ~1:1 أو 2:1، محاذاة النوافذ على محاور رأسية عبر الطوابق، فتحات الأرضي بسيطة مستطيلة.",
+   "values": {
+    "window_w_h": [
+     "1:1.5",
+     "1:2"
+    ],
+    "roof_window_w_h": [
+     "1:1",
+     "2:1"
+    ],
+    "door_w_h_as_extracted": [
+     "1:2",
+     "1:5"
+    ]
+   },
+   "mandatory": false,
+   "notes": "نسبة الأبواب «1:2 إلى 1:5» كما استُخرجت (في ص33 تظهر «.1:5» بعلامة مشوهة) — غير محسومة، تحتاج تحققاً بصرياً. هذه بنود المجلد الكامل للطراز التقليدي أساساً."
+  },
+  {
+   "proposed_code": "GUIDE-27",
+   "code": "GUIDE-27",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 29,
+   "verbatim_ar": "جدول 2 (PDF ص29): «ينبغي إظهار التقسيم الثلاثي للمبنى (قاعدة، وسط، قمة) مع اظهار خصائص مميزة لقاعدة المبنى ووسطه وقمته.» «ينبغي أن تكون المداخل أو الأروقة أو الأسقف المعلقة غائرة داخل واجهة المبنى» «يمكن أن تبرز فتحات المداخل والأروقة عن الواجهة الرئيسية والأروقة، ما دامت ضمن حدود الأرض.»",
+   "verbatim_en": "",
+   "requirement": "تقسيم ثلاثي واضح للواجهة (قاعدة/وسط/قمة)؛ المداخل والأروقة غائرة أو بارزة ضمن حدود الأرض فقط.",
+   "values": {},
+   "mandatory": false,
+   "notes": "المجلد الكامل."
+  },
+  {
+   "proposed_code": "GUIDE-28",
+   "code": "GUIDE-28",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 29,
+   "verbatim_ar": "جدول 2 (PDF ص29): «لتحسين انسيابية حركة المشاة عند تقاطعات الشوارع الضيقة أو المزدحمة، ينبغي أن تكون أركان المبنى مشطوفة أو منحنية على مستوى قاعدة المبنى (الجزء الأسفل من الواجهة).»",
+   "verbatim_en": "",
+   "requirement": "ركن المبنى عند تقاطع شوارع ضيقة/مزدحمة مشطوف أو منحنٍ في القاعدة.",
+   "values": {},
+   "mandatory": false,
+   "notes": "يكمّل CHAMF-01 من اشتراطات البلدية؛ المجلد الكامل."
+  },
+  {
+   "proposed_code": "GUIDE-29",
+   "code": "GUIDE-29",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 42,
+   "verbatim_ar": "6.4 (PDF ص42): «قد تتعارض بعض تقنيات البناء الحديثة مع الطابع المعماري، في هذه الحالة ينبغي تجنبها (على سبيل المثال: الإطارات الهيكلية ثلاثية الأبعاد (space frame)، والألواح الزجاجية ذات المفاصل العنكبوتية، والمساحات الكبيرة من الهياكل المعدنية والزجاجية (curtain walls)).» | 6.3: «أال تستخدم العناصر المعمارية مواد مزيفة تقلد المواد الأصلية بشكل سيء وغير مدروس.»",
+   "verbatim_en": "",
+   "requirement": "تجنب space frame والزجاج العنكبوتي والحوائط الستائرية الكبيرة.",
+   "values": {},
+   "mandatory": false,
+   "notes": "المجلد الكامل."
+  },
+  {
+   "proposed_code": "GUIDE-30",
+   "code": "GUIDE-30",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 14,
+   "verbatim_ar": "6.7 (ص14): «تجنب المنحدرات أو العتبات البارزة في ممتلكات الفراغات العامة.» «التأكد من مساهمة أسوار الفيلا بشكل إيجابي في تجربة وتصميم الفراغ العام.»",
+   "verbatim_en": "p14 6.7: 'Avoid protruding ramps or steps into public property.'",
+   "requirement": "لا منحدرات ولا درج يبرز خارج حد الملكية إلى الرصيف/الملك العام.",
+   "values": {},
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-31",
+   "code": "GUIDE-31",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 14,
+   "verbatim_ar": "6.6 (ص14): «ينبغي أن تكون درجة حرارة اللون المستخدم للإضاءة المعمارية في نطاق 2200 - 2700 كلفن، لتوفير الراحة البصرية والإظهار الجيد للألوان.»",
+   "verbatim_en": "p14 6.6: 'Architectural lighting should target color temperatures in the 2200K-2700K range'",
+   "requirement": "إضاءة معمارية خارجية 2200–2700 كلفن.",
+   "values": {
+    "cct_K": [
+     2200,
+     2700
+    ]
+   },
+   "mandatory": false,
+   "notes": ""
+  },
+  {
+   "proposed_code": "GUIDE-32",
+   "code": "GUIDE-32",
+   "verdict": "NEW",
+   "doc": "tmp:ahsa-villa-handbook-ar",
+   "page": 14,
+   "verbatim_ar": "6.4 (ص14): «التقليل من الاعتماد على استخدام أنواع الأشجار المستوردة، والاعتماد بشكل أكبر على الأنواع المحلية التي لديها القدرة على تحمل الجفاف ومقاومة المياه المالحة.» | 6.2: «دمج هياكل التظليل كعناصر مميزة تعكس الأسلوب والتصميم المعماري، مع ضمان تناغمها مع عناصر الواجهة الأخرى» | 6.5: «ينبغي أن تكون متكاملة ومتناسقة بشكل مدروس مع التكوين والطابع المعماري… ينبغي وضع اللوحات دائماً على الواجهة الرئيسية، بالقرب من المدخل الرئيسي.»",
+   "verbatim_en": "p14 6.4: 'Rely less on importing plant species and source drought and saline tolerant species.' Species shown: Phoenix dactylifera (Date palm), Azadirachta indica (Neem), Albizia lebbeck (Siris), Acacia ampliceps (Salt Wattle), Myrtus communis (Myrtle), Atriplex semibaccata (Saltbush), Gazania rigens, Dodonaea, Vitex agnus castus, Plumeria obtusa.",
+   "requirement": "تنسيق الموقع: نباتات محلية متحملة للجفاف والملوحة؛ مظلات خارجية متناغمة مع الواجهة؛ لوحة اسم الفيلا متكاملة قرب المدخل الرئيسي.",
+   "values": {},
+   "mandatory": false,
+   "notes": ""
+  }
+ ],
+ "palette": [
+  {
+   "source": "tmp:ahsa-villa-handbook-en",
+   "page": 12,
+   "system": "RAL",
+   "codes_listed": [
+    "RAL 1001",
+    "RAL 9001",
+    "RAL 1015",
+    "RAL 6019",
+    "RAL 9010",
+    "RAL 1002",
+    "RAL 7034",
+    "RAL 1013",
+    "RAL 1027",
+    "RAL 7033",
+    "RAL 8023",
+    "RAL 8029",
+    "RAL 2013",
+    "RAL 5022",
+    "RAL 9005",
+    "RAL 7032",
+    "RAL 7044",
+    "RAL 1036"
+   ],
+   "described_colours": "'particularly the colors of cream, gray-white and brown beige'; secondary colours on recessed structures 'tend to have a orange-beige finish'",
+   "notes": "تقسيم الرموز إلى أساسية (swatches كبيرة) وفرعية (صغيرة) غير متاح نصياً؛ ترتيب الاستخراج لا يدل على التصنيف. 'It is recommended that teams verify colors with a physical fan deck'."
+  },
+  {
+   "source": "tmp:ahsa-oasis-guidelines-ar",
+   "page": 36,
+   "system": "RAL + HEX",
+   "codes_listed": [
+    "RAL 9001",
+    "RAL 9010",
+    "RAL 7034",
+    "RAL 1027",
+    "RAL 8023",
+    "RAL 7033",
+    "RAL 9005",
+    "RAL 1015",
+    "RAL 1011",
+    "#D2B386",
+    "#A88257",
+    "#D2A747",
+    "#CC9246"
+   ],
+   "described_colours": "الأساسية: «اللون الكريمي والبيج البني والرمادي والأبيض» ؛ الفرعية: «الأبيض والأصفر الرمادي والبني البرتقالي والأزرق الفاتح والأسود»",
+   "notes": "RAL 1027 و7034 و1011 مكررة في الاستخراج. نص 4: «استخدام الألوان الترابية كألوان أساسية… مع إضافة طبقة متجانسة من الألوان الفاتحة أو الداكنة كألوان فرعية»."
+  }
+ ],
+ "regulating_plan_notes": "الدليل يحيل إلى «خرائط توزيع الأنماط المعمارية» (EN: 'regulating plans that may describe which styles are applicable to your project area'، مع رابط 'Link to Regulating Plans' في ص3) ولا يتضمنها. خطوات الاستخدام (ص4): 1) الرجوع لخرائط التوزيع لمعرفة الطراز المسموح (تقليدي/انتقالي/معاصر) 2) الاختيار من الأنماط المسموحة ومراجعة صفحات البداية 5–7 3) التقييم وفق: التكوين (2)، العناصر (3)، المواد والألوان (4)، الأنماط والزخارف (5)، الفراغ العام (6)، المسموح والممنوع (7)، النماذج (8 للاستلهام). معايير الإسناد في النص وصفية فقط: التقليدي قرب المواقع الأثرية والأنوية التاريخية؛ الانتقالي للانتقال التدريجي بين مناطق مختلفة الطابع. المجلد الكامل 6.5 (PDF ص43): «عند المزج بين أكثر من طابع معماري، ينبغي الأخذ بالاعتبار النمط/الطراز المسموح (تقليدي أو انتقالي أو معاصر) على حسب المستوى المحدد للنطاق» و«ينبغي عدم مزج أكثر من طابع معماري في المبنى الواحد». لا يوجد في الوثائق الثلاث تحديد للنطاقات أو أنواع الشوارع أو ارتدادات أو ارتفاعات قصوى للفلل؛ تلك تبقى لاشتراطات البلدية (الطبقة 1). اقتراح للنظام: يجب أن يُدخل المستخدم الطراز المسموح من خريطة التوزيع، أو يُفترض الأشد مع تنبيه.",
+ "citation_note": "الاستشهادات الحالية «ص5 إلى ص7» و«ص7 بند 2.6» و«ص7 بند 4.1» تطابق هذا الدليل نفسه (الإصدار 1.0، يوليو 2024) وليست من وثيقة أقدم. يُقترح تعديل اسم المصدر إلى: «عمارة واحات الأحساء – الموجهات التصميمية · الدليل التطبيقي – الفلل السكنية · الإصدار 1.0 (يوليو 2024)» بدل «موجهات العمارة السعودية · دليل الفلل».",
+ "unresolved": [
+  "الرموز الإلزامية رسومية؛ لم يمكن التحقق بصرياً (PDF غير قابل للتنزيل عبر البروكسي). الإلزام محدد من الصياغة فقط.",
+  "ربط نسب الألوان الفرعية في ص12 (<10/<25/<35%) بالأنماط، وتعارض المعاصر (20–30% في ص7 مقابل <35% في ص12).",
+  "الحد الأدنى للانتقالي في نسبة الفتحات: '30-45% or less'.",
+  "المسافة 6م لتقابل النوافذ في EN (المعاصر) غائبة في العربية.",
+  "نسبة عرض الأبواب للارتفاع في المجلد الكامل (1:2 إلى 1:5 أو 1:1.5) مشوهة.",
+  "جملة المجلد الكامل (PDF ص29) عن الوصول إلى الأسطح مشوهة الترتيب وقد تعني النفي.",
+  "تعارض المعاصر: امتداد العناصر بكامل ارتفاع الطابق (2.1 ص7) مقابل عدم امتدادها (3.3 ص11)."
+ ]
+}

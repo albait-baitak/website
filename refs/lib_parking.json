@@ -1,0 +1,380 @@
+{
+ "generated": "2026-10-06",
+ "sources": [
+  {
+   "src": "tmp:momah-parking-guide",
+   "title": "دليل تصميم مواقف السيارات",
+   "issuer": "MOMAH (وزارة الشؤون البلدية والقروية والإسكان)",
+   "url": "https://momah.gov.sa/sites/default/files/2023-09/dlyl-tsmym-mwaqf-alsyarat.pdf",
+   "edition": "1445هـ / 2023م; adopted by ministerial decision dated 28/1/1445هـ, replacing the 11/1/1441هـ guide",
+   "pages": 33,
+   "scope": "يغطي متطلبات مواقف السيارات بمختلف أنواعها عند إصدار رخص البناء: المواقف السطحية؛ المواقف متعددة الأدوار وأسفل المباني؛ المواقف بارتدادات المباني وعلى جانبي الطريق (p6, decoded). Exclusions: bus/transit stops, truck/bus parking, road-project design. Target users: municipalities, consultants and designers of roads and streets with parking, and parking investors. Villas are not mentioned anywhere.",
+   "text_quality": "Pages 1-2 readable. Pages 3-33 are in a legacy-font cipher. Decoded by hand from a broken legacy-font text layer (letters map many-to-one, e.g. ك=و/ق/س). Digit glyphs are also lossy: '5' encodes 4 or 5, '1' encodes 0 or 1, '.' encodes 2 or the decimal point. Verify numbers against the rendered PDF before treating them as final."
+  },
+  {
+   "src": "tmp:momah-carport-shades-guide",
+   "title": "الدليل الفني لمظلات السيارات داخل حد الملكية",
+   "issuer": "MOMAH (وزارة البلديات والإسكان)",
+   "url": "https://momah.gov.sa/sites/default/files/2025-07/aldlyl%20alfny%20lmzlat%20alsyarat%20dakhl%20hd%20almlkyt%20.pdf",
+   "edition": "الإصدار الأول 1446هـ / 2025م",
+   "pages": 28,
+   "scope": "p5 نطاق التطبيق: «يطبق هذا الدليل على مواقف السيارات داخل حد الملكية للعمائر (السكنية، السكنية تجاري إداري) الواقعة على الشوارع التجارية غير المطورة التي تحددها الأمانة، والتي صدر للموقع رخصة بناء». Permit condition 2-1-3: street width 30m to 40m. Single-family villas are NOT in scope.",
+   "text_quality": "Good (normal pdf.js artifacts only)."
+  },
+  {
+   "src": "tmp:momah-residential-current",
+   "title": "اشتراطات إنشاء المباني السكنية (current)",
+   "issuer": "MOMAH",
+   "scope": "Includes private villas (الفلل الخاصة). Only parking, driveway and carport clauses were searched.",
+   "text_quality": "Good."
+  }
+ ],
+ "rules": [
+  {
+   "code": "PARK-01",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:momah-residential-current",
+   "page": 23,
+   "clause": "4-1 الفلل السكنية، فقرة 14",
+   "verbatim": "توفير موقف سيارة داخل حدود الملكية لكل فيلا تقع على أرض مساحتها 400م2 فأقل، وموقفين للسيارات للفلل التي تقع على أرض مساحتها تزيد عن 400م2.",
+   "requirement": "Plot area ≤ 400 m² requires 1 parking space inside the property; plot area > 400 m² requires 2.",
+   "values": {
+    "plot_area_threshold_m2": 400,
+    "spaces_if_le_threshold": 1,
+    "spaces_if_gt_threshold": 2,
+    "location": "داخل حدود الملكية"
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "notes": "Clause is in section 4-1 (current_rules.txt writes it as «1-4», the RTL rendering of the same number). Neither guide sets villa space counts. Related add-ons: PARK-05 (upper annex used as a separate unit) and PARK-06 (villa split into units)."
+  },
+  {
+   "code": "PARK-02",
+   "verdict": "PARTIAL",
+   "doc": "tmp:momah-residential-current",
+   "page": 30,
+   "clause": "5-1-7 المداخل، فقرة 4 (العرض) + 5-1-16 الشطفات، فقرة 2 (الشطفات، ص35)",
+   "verbatim": "الحد الأدنى لعرض مدخل السيارات 3م للفل السكنية، ويتم الالتزام بدليل مواقف السيارات الصادر عن الوزارة في جميع أنواع العمائر. || [5-1-16 ف2، ص35] لا يسمح بعمل مداخل السيارات في الشطفات.",
+   "requirement": "Car entrance width must be at least 3.0 m for villas. No car entrances may be placed in corner chamfers.",
+   "values": {
+    "min_car_entrance_width_m": 3.0,
+    "entrance_in_chamfer": "prohibited"
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "notes": "Both values are confirmed. The citation is incomplete: the chamfer ban is clause 5-1-16 ف2 (p35), not 5-1-7 ف4. Fix the source string to «بند 5-1-7 ف4 · بند 5-1-16 ف2». 5-1-7 ف4 also sends apartment buildings, not villas, to the parking guide for entrance design. The guide's 3.5m one-way / 7m two-way lot entrance widths (p9) therefore do not govern villas."
+  },
+  {
+   "code": "PARK-03",
+   "verdict": "CONFIRMED",
+   "doc": "tmp:momah-parking-guide",
+   "page": 8,
+   "clause": "1- المعايير التصميمية لمواقف السيارات، 2- المواقف المائلة أو العمودية (ص8، المطبوع 7) + جدول رقم (1) (ص10، المطبوع 9)",
+   "verbatim": "(decoded) ويكون عرض الموقف المائل أو العمودي 2.8م أما طوله فيكون 5.5م كما هو موضح بالشكل (2) .. تكون جميع أبعاد المواقف المائلة (بمختلف درجاتها) والعمودية (90 درجة) بعرض 2.8م وطول 5.5م.",
+   "requirement": "Angled stalls (30/45/60°) and perpendicular stalls (90°) are 2.80 m wide × 5.50 m long. Parallel stalls are 2.5 m × 6.5 m.",
+   "values": {
+    "perpendicular_or_angled_stall_w_m": 2.8,
+    "perpendicular_or_angled_stall_l_m": 5.5,
+    "parallel_stall_w_m": 2.5,
+    "parallel_stall_l_m": 6.5,
+    "table1_aisle_90deg_m": 7.5,
+    "table1_aisle_parallel_two_way_m": 7
+   },
+   "raw_text": "دهٔف صٍ٘ف أثكةداىٍٔاكف اىٍةايح أل ثٍؼذيف درصةدٓة كاىكةٌٔدٗح أل91درصح ثكؿض..8ـ كؼٔؿ5.5ـ",
+   "applies_to_villas": false,
+   "mandatory": false,
+   "notes": "The values match the current reference. Decoded by hand from a broken legacy-font text layer (letters map many-to-one, e.g. ك=و/ق/س). Digit glyphs are also lossy: '5' encodes 4 or 5, '1' encodes 0 or 1, '.' encodes 2 or the decimal point. Verify numbers against the rendered PDF before treating them as final. The 5.5 reading (glyph '5'=4/5) agrees with the existing library and with the 2.8m width the residential regs use for tandem stalls (4 ف6). The guide never mentions villas. Residential §4 ف2 orders compliance with this guide for residential buildings generally, but 5-1-7 ف4 limits it to «جميع أنواع العمائر». So keep it as a reference value for villas (tier 2), not a hard check. The note «لا ينص على الفلل» is accurate. The parallel-stall and aisle values carry the same digit uncertainty."
+  }
+ ],
+ "additional": [
+  {
+   "proposed_code": "PARK-04",
+   "doc": "tmp:momah-residential-current",
+   "page": 19,
+   "clause": "4 متطلبات التنظيم المكاني، فقرة 6",
+   "verbatim": "يسمح بعمل مواقف السيارات المزدوجة (back to back) لنفس الوحدة السكنية، وفي العمائر السكنية يجب ألا يقل مجموع عدد المواقف المزدوجة والمفردة عن عدد الشقق، ويجب أن لا يقل عرض الموقف المزدوج عن (2.8م) ولا يقل طوله عن (11م).",
+   "requirement": "Tandem (back-to-back) parking is allowed when both stalls serve the same unit. A tandem stall must be at least 2.8 m wide and 11 m long.",
+   "values": {
+    "tandem_min_width_m": 2.8,
+    "tandem_min_length_m": 11.0
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": "This is the only stall-dimension rule in the residential regulations. It is binding when a villa provides its 2 required spaces in tandem."
+  },
+  {
+   "proposed_code": "PARK-05",
+   "doc": "tmp:momah-residential-current",
+   "page": 19,
+   "clause": "4-1 الفلل السكنية، فقرة 3 (وأيضاً 5-1-14 ف1، ص34)",
+   "verbatim": ".. وفي حال استخدام الملحق العلوي كوحدة سكنية مستقلة يجب توفير موقف سيارة إضافي داخل حدود الملكية.",
+   "requirement": "If the upper annex is used as an independent dwelling unit, one more parking space is required inside the property, on top of PARK-01.",
+   "values": {
+    "additional_spaces": 1,
+    "trigger": "ملحق علوي كوحدة سكنية مستقلة"
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": ""
+  },
+  {
+   "proposed_code": "PARK-06",
+   "doc": "tmp:momah-residential-current",
+   "page": 23,
+   "clause": "4-1 الفلل السكنية، فقرة 11",
+   "verbatim": "يسمح بفصل الأدوار في الفلل السكنية (بعد موافقة الأمانة أو البلدية) بحيث يكون كل دور وحدة سكنية منفصلة ولها مدخل مستقل بشرط توفير موقف لكل وحدة سكنية داخل حدود الملكية وألا يقل عرض القطعة على الشارع عن 12م في الفلل المنفصلة، ولا يقل عرض القطعة عن 10م في الفلل المتصلة وشبه المتصلة، ويسمح في هذه الحالة بإلغاء السور الأمامي جهة الشارع لتكون مساحة الارتداد النظامي مواقف سيارات للوحدات السكنية التابعة للفيلا لزيادة عدد مواقف السيارات.",
+   "requirement": "When a villa is split into floor units, each unit needs one parking space inside the property. Street frontage must be at least 12 m for detached villas and at least 10 m for attached or semi-attached villas. The front fence may be removed so the front setback can be used for parking.",
+   "values": {
+    "spaces_per_unit": 1,
+    "min_frontage_detached_m": 12,
+    "min_frontage_attached_semi_m": 10
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": "Applies only when the design splits the villa into units."
+  },
+  {
+   "proposed_code": "PARK-07",
+   "doc": "tmp:momah-residential-current",
+   "page": 18,
+   "clause": "4 متطلبات التنظيم المكاني، فقرة 3",
+   "verbatim": "يجب أن تكون السلالم الخارجية ومداخل السيارات والمنحدرات ضمن حدود ملكية العقار لكافة المباني، عدا الفلل السكنية لا تتجاوز عرض الرصيف.",
+   "requirement": "Other building types must keep external stairs, car entrances and ramps inside the property line. Villas are excepted: these elements may extend past the property line but must not extend beyond the sidewalk width.",
+   "values": {
+    "villa_limit": "لا تتجاوز عرض الرصيف"
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": "Check that a driveway apron or ramp drawn outside the plot stays within the sidewalk."
+  },
+  {
+   "proposed_code": "PARK-08",
+   "doc": "tmp:momah-residential-current",
+   "page": 31,
+   "clause": "5-1-8 القبو، فقرة 4",
+   "verbatim": "يجب توفير مدخل ومخرج لدور/أدوار المواقف بالقبو (إن وجدت)، ويسمح بتوفير منحدر واحد بعرض لا يقل عن 4م بالمواقف التي لا تزيد سعتها عن 25 موقف، أما في حال زيادة عدد المواقف عن 25 موقفاً، فيلزم توفير مدخل ومخرج منفصلين لا يقل عرض أي منهما عن 3.50م. وفق ما ورد بدليل تصميم مواقف السيارات الصادر عن الوزارة.",
+   "requirement": "Basement parking needs an entrance and an exit. A single shared ramp is allowed for 25 spaces or fewer and must be at least 4.0 m wide. Above 25 spaces, separate entrance and exit are required, each at least 3.50 m wide.",
+   "values": {
+    "single_ramp_min_width_m": 4.0,
+    "single_ramp_max_capacity": 25,
+    "separate_in_out_min_width_m": 3.5
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": "Applies to villas with basement parking (basements are permitted for villas, 5-1-8 ف1-2). The parking guide p9 has the matching surface-lot rule, which decodes as fewer than 25 spaces and lane width ≥ 4m. That decoding resolves the ambiguous '5' glyph as 4."
+  },
+  {
+   "proposed_code": "PARK-09",
+   "doc": "tmp:momah-residential-current",
+   "page": 19,
+   "clause": "4 متطلبات التنظيم المكاني، فقرة 10",
+   "verbatim": ".. ويسمح في الفلل السكنية والعمائر السكنية بعمل مدخل/مخرج لمواقف السيارات لدور القبو للأراضي الواقعة على أكثر من شارع من جميع تلك الشوارع.",
+   "requirement": "A villa plot on more than one street may have its basement parking entrance or exit on any of those streets.",
+   "values": {},
+   "applies_to_villas": true,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Permissive rule (informational). It should never fail a design."
+  },
+  {
+   "proposed_code": "PARK-10",
+   "doc": "tmp:momah-parking-guide",
+   "page": 12,
+   "clause": "2- حالات مواقف السيارات، 2- المواقف متعددة الأدوار وأسفل المباني — الاعتبارات التصميمية (ص12، المطبوع 11)",
+   "verbatim": "(decoded) يجب ألا يقل الارتفاع الصافي للقبو أو الأدوار المتكررة بالمواقف عن 2.5م وهو الارتفاع الأدنى الذي يسمح بمرور السيارات كما يجب ألا يقل ارتفاع فتحة الدخول أو الخروج من المواقف عن 2.5م",
+   "raw_text": "ٗضت أال ٗلو االردفةع اىطةف ٖ ىيلج ٔ أك األدكاراىٍذهؿرة ثةىٍٔاكف ق..5َ ـ .. أال ٗلو اردفةع فذعح اىؽػٔؿ أك اىؼؿكج ٌَ اىٍٔاكف ق..5ـ",
+   "requirement": "Clear height of basement parking floors and of the car entry/exit opening must be at least 2.5 m.",
+   "values": {
+    "min_clear_height_m": 2.5,
+    "min_entry_opening_height_m": 2.5
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "medium",
+   "notes": "Decoded by hand from a broken legacy-font text layer (letters map many-to-one, e.g. ك=و/ق/س). Digit glyphs are also lossy: '5' encodes 4 or 5, '1' encodes 0 or 1, '.' encodes 2 or the decimal point. Verify numbers against the rendered PDF before treating them as final. Glyph sequence '..5' reads 2.5 (could be 2.4). Residential §4 ف5 uses 2.5m for ground-floor parking in apartment buildings, which supports 2.5. The guide targets multi-storey and under-building parking and does not mention villas. Use as an advisory check for villa basement garages."
+  },
+  {
+   "proposed_code": "PARK-11",
+   "doc": "tmp:momah-parking-guide",
+   "page": 13,
+   "clause": "المتطلبات التصميمية للمنحدرات في المواقف متعددة الأدوار وأسفل المباني — المنحدر المستقيم (ص13، المطبوع 12)",
+   "verbatim": "(decoded) يجب ألا يقل عرض المنحدر عن 3.5م للاتجاه الواحد. يجب ألا يزيد ميل المنحدر عن 15%. في حالة زيادة ميل المنحدر عن 15% يتم استخدام ميل [..]% في بداية ونهاية المنحدر لمسافة [..]م أما الجزء الأوسط من المنحدر فيجب ألا يزيد ميله عن [..]%",
+   "raw_text": "ٗضت اال ٗلو قؿض اىٍِعؽر ق3.5ـ ىإلدضةق اىٔاظؽ. ٗضت أال ٗـٗؽ ٌ٘و اىٍِعؽر ق15.% .. ٌ٘و15% ف ٖ ثؽاٗح كُٓةٗح اىٍِعؽر ىٍكةفح5َ ـ .. أال ٗـٗؽ ٌ٘ي ّ ق18 ْ%",
+   "requirement": "A straight one-way car ramp must be at least 3.5 m wide, with a maximum slope of 15%. Transition-zone values cannot be decoded reliably.",
+   "values": {
+    "straight_ramp_min_width_one_way_m": 3.5,
+    "straight_ramp_two_way_min_width_m": 7,
+    "max_slope_pct": 15
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "medium (width), low-medium (slope)",
+   "notes": "Decoded by hand from a broken legacy-font text layer (letters map many-to-one, e.g. ك=و/ق/س). Digit glyphs are also lossy: '5' encodes 4 or 5, '1' encodes 0 or 1, '.' encodes 2 or the decimal point. Verify numbers against the rendered PDF before treating them as final. '15' could also read 14. The transition and middle-section percentages and the transition length are omitted on purpose: they cannot be decoded reliably. For villa basement ramps, residential 5-1-8 ف4 (PARK-08) is the binding width rule. Treat slope as advisory until verified visually."
+  },
+  {
+   "proposed_code": "PARK-12",
+   "doc": "tmp:momah-residential-current",
+   "page": 12,
+   "clause": "2 المصطلحات والتعريفات — إجمالي مساحة البناء",
+   "verbatim": "مجموع مساحة أدوار المبنى وتشمل مساحة جميع المباني المسقوفة، باستثناء المناور والأفنية الداخلية المكشوفة، والمظلات المفتوحة، وأدوار الميزانين وأدوار مواقف السيارات تحت الأرض (القبو).",
+   "requirement": "Open shades (including open carports) and underground parking floors are excluded from total built-up area.",
+   "values": {
+    "excluded_from_gfa": [
+     "المظلات المفتوحة",
+     "أدوار مواقف السيارات تحت الأرض (القبو)"
+    ]
+   },
+   "applies_to_villas": true,
+   "mandatory": true,
+   "confidence": "high",
+   "notes": "This is a counting rule, not a pass/fail rule. Use it so area calculations do not count an open carport in GFA. Ground-floor coverage limits (COVER-01) are a separate question that no source addresses."
+  },
+  {
+   "proposed_code": "PARK-13",
+   "doc": "tmp:momah-residential-current",
+   "page": 28,
+   "clause": "5-1-3 متطلبات الوصول الشامل، فقرة 1",
+   "verbatim": "يجب تطبيق متطلبات الوصول الشامل على العمائر السكنية المكونة من 4 وحدات سكنية فأكثر، والعمائر السكنية التجارية، والسكنية الإدارية، ولا يشترط تطبيق متطلبات الوصول الشامل على الفلل الخاصة.",
+   "requirement": "Accessible parking stalls (parking guide 1-3 and carport guide 3-1-9) are not required for private villas.",
+   "values": {
+    "accessible_parking_required_for_villas": false
+   },
+   "applies_to_villas": true,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Exemption. Use it to suppress accessibility parking checks on villas."
+  },
+  {
+   "proposed_code": "PARK-14",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 15,
+   "clause": "1-4 متطلبات المظلات، البنود 1.1.4 و3.1.4",
+   "verbatim": "يجب ألا يتجاوز بروز المظلة (3.80 أمتار) كحد أقصى .. يجب أن يتراوح ارتفاع المظلة من 2.5 إلى 3 أمتار كحد أقصى",
+   "requirement": "A carport shade may project at most 3.80 m. Its height must be between 2.5 m and 3.0 m.",
+   "values": {
+    "max_projection_m": 3.8,
+    "height_min_m": 2.5,
+    "height_max_m": 3.0
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "OUT OF SCOPE for villas: the guide covers apartment buildings (عمائر) on undeveloped commercial streets 30-40m wide (p5; 2-1-3). Use only as a best-practice reference for villa carports."
+  },
+  {
+   "proposed_code": "PARK-15",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 15,
+   "clause": "1-4 متطلبات المظلات، البند 2.1.4",
+   "verbatim": "يجب ألا تتجاوز المظلات حدود الملكية.",
+   "requirement": "A carport shade must not cross the property line.",
+   "values": {},
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas (see PARK-14). It is a sensible advisory check. Clause 17.1.4 allows the canopy to extend behind the column toward the sidewalk edge without crossing it."
+  },
+  {
+   "proposed_code": "PARK-16",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 15,
+   "clause": "1-4 متطلبات المظلات، البند 5.1.4",
+   "verbatim": "يمنع إنشاء المظلات في المواقف الواقعة على زاوية الارتداد لعدم حجب الرؤية لقائدي المركبات.",
+   "requirement": "No carport shade at the setback corner of a corner plot, because it blocks drivers' sight lines.",
+   "values": {},
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas. It is a useful visibility advisory for corner villa plots."
+  },
+  {
+   "proposed_code": "PARK-17",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 16,
+   "clause": "1-4 متطلبات المظلات، البند 11.1.4",
+   "verbatim": "يمنع بناء المظلات على البوابة الرئيسية.",
+   "requirement": "No carport shade over the main gate.",
+   "values": {},
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas; advisory only."
+  },
+  {
+   "proposed_code": "PARK-18",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 15,
+   "clause": "1-4 متطلبات المظلات، البنود 4.1.4، 8.1.4، 9.1.4",
+   "verbatim": "يمنع تغطية جوانب المظلة بالأشرعة أو بامتداد كامل الهيكل الإنشائي .. يجب أن يكون تثبيت عمود المظلة بعد 0.2 إلى 0.5 متر من حد الرصيف كحد أقصى. يجب ألا يتجاوز عرض عمود المظلة عن 0.35 متر.",
+   "requirement": "Shade sides must not be enclosed. Columns must be set 0.2 m to 0.5 m from the sidewalk edge, and column width must not exceed 0.35 m.",
+   "values": {
+    "sides_enclosed": "prohibited",
+    "column_offset_from_sidewalk_m": [
+     0.2,
+     0.5
+    ],
+    "max_column_width_m": 0.35
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas; advisory only."
+  },
+  {
+   "proposed_code": "PARK-19",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 16,
+   "clause": "1-4 متطلبات المظلات، البنود 13.1.4، 14.1.4، 12.1.4، 15.1.4، 16.1.4، 6.1.4",
+   "verbatim": "يمنع استخدام الأخشاب غير المعالجة لمقاومة الحريق وأقمشة البولستر والشينكو والمواد القابلة للاشتعال لإنشاء المظلات. يسمح باستخدام المواد الموضحة في الشكل رقم (11) لإنشاء المظلات. .. يجب أن تخلو الأرضيات الخاصة بالمظلات من الحفر والتشوهات وأن يتم زفلتتها أو رصفها بالإنترلوك بشكل كامل. .. يجب الالتزام بنموذج مظلة واحد لمواقف المبنى الواحد.",
+   "requirement": "Prohibited shade materials: timber not treated for fire resistance, polyester fabric, corrugated sheet (شينكو), and flammable materials. Allowed materials are those in figure 11: steel tubes or members, PVC slats, aluminium panels, and wood cladding on galvanized steel (models 1-4). Flooring must be fully asphalted or interlock-paved. One shade model per building. Colours must match the building and the local urban code.",
+   "values": {
+    "prohibited_materials": [
+     "أخشاب غير معالجة لمقاومة الحريق",
+     "أقمشة البولستر",
+     "الشينكو",
+     "المواد القابلة للاشتعال"
+    ],
+    "floor_finish": [
+     "أسفلت",
+     "إنترلوك"
+    ],
+    "models_per_building": 1
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas. The ban on polyester/shinko/flammable materials is the most transferable advisory check for villa carports."
+  },
+  {
+   "proposed_code": "PARK-20",
+   "doc": "tmp:momah-carport-shades-guide",
+   "page": 10,
+   "clause": "1-3 متطلبات المواقف، البنود 3-1-3، 3-1-5، 3-1-6، 3-1-7",
+   "verbatim": "يجب ألا تقل المسافة بين الارتداد وحد الملكية عن (6 متر) .. يجب أن تكون المصدات بارتفاع (15سم) وعرض (15سم) وطول (180سم) .. يجب أن تكون المسافة بين المصدات والرصيف لا تقل عن (50سم) .. يجب ألا تقل المسافة بين المصدات والرصيف عن (2.2 متر) كحد أدنى",
+   "requirement": "Setback parking depth must be at least 6 m. Wheel stops are 15 × 15 × 180 cm.",
+   "values": {
+    "min_setback_parking_depth_m": 6,
+    "wheel_stop_cm": [
+     15,
+     15,
+     180
+    ]
+   },
+   "applies_to_villas": false,
+   "mandatory": false,
+   "confidence": "high",
+   "notes": "Out of scope for villas. The source contradicts itself on the stop-to-sidewalk distance: 3-1-6 says at least 50 cm, 3-1-7 says at least 2.2 m. Do not encode either. The parking guide p25 lists wheel stops of about 150×150 mm (decoded, uncertain)."
+  }
+ ],
+ "summary_findings": [
+  "Carport shades guide scope = apartment buildings (عمائر) on undeveloped commercial streets 30-40m; NOT villas. All carport items are advisory only.",
+  "Parking design guide never mentions villas; residential regs 5-1-7 ف4 limit its use to apartment buildings (عمائر), while §4 ف2 references it generally.",
+  "Parking guide text layer (pp3-33) is cipher-encoded with lossy digits; decoded values need visual verification against the PDF (download blocked by proxy 403 in this session).",
+  "PARK-02 citation should add 5-1-16 ف2 for the chamfer ban."
+ ]
+}

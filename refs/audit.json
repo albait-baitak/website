@@ -1,0 +1,878 @@
+{
+ "residential": [
+  {
+   "code": "SETBACK-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 4، 1-4 بند 5 (مع 4 بند 11، 1-4 بند 8)",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p19 (4-1 items 4,5; 4 item 11), p21 (4-1 item 8). Source literally reads «عرضها عن 30 مترا أو أكثر» (typo in original). Values correct.",
+   "correction": {}
+  },
+  {
+   "code": "SETBACK-02",
+   "status": "OK",
+   "clause_visual": "1-4 بند 4",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Verified p19.",
+   "correction": {}
+  },
+  {
+   "code": "SETBACK-03",
+   "status": "OK",
+   "clause_visual": "1-4 بند 4، 1-4 بند 7",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Verified p19, p21.",
+   "correction": {}
+  },
+  {
+   "code": "COVER-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 1 (مع 13-1-5 بند 2، 16-1-5 بند 3، تعريف نسبة البناء ص10)",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 5-1-13 (مطبوع: 13-1-5) الملحق الأرضي | 5-1-16 (مطبوع: 16-1-5) الشطفات",
+   "issues": "Verified p19, p34, p35, p10.",
+   "correction": {}
+  },
+  {
+   "code": "COVER-02",
+   "status": "OK",
+   "clause_visual": "1-4 بند 2 (مع 11-1-5 بند 1)",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 5-1-11 (مطبوع: 11-1-5) البروزات",
+   "issues": "Verified p19, p32.",
+   "correction": {}
+  },
+  {
+   "code": "ANNEX-01",
+   "status": "OK",
+   "clause_visual": "1-4 بنود 3 و6 و7؛ 14-1-5 بنود 1-5",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 5-1-14 (مطبوع: 14-1-5) الملحق العلوي",
+   "issues": "Verified p19, p20, p21, p34. Minor omission: 5-1-14 item 6 (roof insulation of upper annex, p35) not mentioned; not a plan-geometry check.",
+   "correction": {}
+  },
+  {
+   "code": "HEIGHT-01",
+   "status": "OK",
+   "clause_visual": "5-1-5 بند 3، بند 4",
+   "heading": "5-1-5 (مطبوع: 5-1-5) ارتفاعات الأدوار والفراغات الداخلية",
+   "issues": "Verified p29; definition p10; 3-1 p15.",
+   "correction": {}
+  },
+  {
+   "code": "LEVEL-01",
+   "status": "OK",
+   "clause_visual": "5-1-5 بند 2",
+   "heading": "5-1-5 (مطبوع: 5-1-5) ارتفاعات الأدوار والفراغات الداخلية",
+   "issues": "Verified p29.",
+   "correction": {}
+  },
+  {
+   "code": "PARAPET-01",
+   "status": "OK",
+   "clause_visual": "5-1-5 بند 5، بند 6؛ 14-1-5 بند 3",
+   "heading": "5-1-5 (مطبوع: 5-1-5) ارتفاعات الأدوار والفراغات الداخلية | 5-1-14 (مطبوع: 14-1-5) الملحق العلوي",
+   "issues": "Verified p29, p34. Source item 6 says «سترة ملحق السطح» (interpreted as upper-annex roof parapet; consistent with 5-1-14 item 3).",
+   "correction": {}
+  },
+  {
+   "code": "PARK-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 14 (مع 1-4 بند 3، 1-4 بند 11، 4 بند 2)",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p23, p19, p18.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-02",
+   "status": "OK",
+   "clause_visual": "7-1-5 بند 4؛ 16-1-5 بند 2؛ 4 بند 3",
+   "heading": "5-1-7 (مطبوع: 7-1-5) المداخل | 5-1-16 (مطبوع: 16-1-5) الشطفات | 4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p30, p35, p18.",
+   "correction": {}
+  },
+  {
+   "code": "ROOM-MIN-01",
+   "status": "OK",
+   "clause_visual": "4-1-5 بند 1، بند 2 (جدول)",
+   "heading": "5-1-4 (مطبوع: 4-1-5) مساحات الغرف والفراغات السكنية",
+   "issues": "Verified p28. Table cells are glued in extraction (11.22.8, 6.52.1, 51.8, 2.81.4, 1.51, 6.52.1, -0.90); the split used is the only sensible one.",
+   "correction": {}
+  },
+  {
+   "code": "CORR-01",
+   "status": "OK",
+   "clause_visual": "4-1-5 بند 2 (جدول)",
+   "heading": "5-1-4 (مطبوع: 4-1-5) مساحات الغرف والفراغات السكنية",
+   "issues": "Verified p28.",
+   "correction": {}
+  },
+  {
+   "code": "DOOR-01",
+   "status": "OK",
+   "clause_visual": "7-1-5 بند 2",
+   "heading": "5-1-7 (مطبوع: 7-1-5) المداخل",
+   "issues": "Verified p30.",
+   "correction": {}
+  },
+  {
+   "code": "LIGHT-01",
+   "status": "OK",
+   "clause_visual": "15-1-5 بند 2 (مع بند 1، بند 4)",
+   "heading": "5-1-15 (مطبوع: 15-1-5) التهوية والاضاءة الطبيعية",
+   "issues": "Verified p35.",
+   "correction": {}
+  },
+  {
+   "code": "LIGHT-02",
+   "status": "OK",
+   "clause_visual": "15-1-5 بند 3؛ 6-1-5 بند 2",
+   "heading": "5-1-15 (مطبوع: 15-1-5) التهوية والاضاءة الطبيعية | 5-1-6 (مطبوع: 6-1-5) المناور",
+   "issues": "Verified p35, p30.",
+   "correction": {}
+  },
+  {
+   "code": "SHAFT-01",
+   "status": "OK",
+   "clause_visual": "6-1-5 بند 1 (جدول) وبنود 2-7",
+   "heading": "5-1-6 (مطبوع: 6-1-5) المناور",
+   "issues": "Verified table p29 and items 2-7 p30; all 8 rows and the +30cm/+60cm per floor up to 14 floors match.",
+   "correction": {}
+  },
+  {
+   "code": "STAIR-01",
+   "status": "OK",
+   "clause_visual": "12-1-5 بند 2 (مع بند 3، بند 4)",
+   "heading": "5-1-12 (مطبوع: 12-1-5) الدرج",
+   "issues": "Verified p33-34.",
+   "correction": {}
+  },
+  {
+   "code": "RAIL-01",
+   "status": "OK",
+   "clause_visual": "1-1-5 بند 1؛ 11-1-5 بند 5",
+   "heading": "5-1-1 (مطبوع: 1-1-5) متطلبات الأمن والصحة والسلامة | 5-1-11 (مطبوع: 11-1-5) البروزات",
+   "issues": "Verified p26, p33. Internal conflict (85-95 vs ≥90) is real in source.",
+   "correction": {}
+  },
+  {
+   "code": "SERV-01",
+   "status": "OK",
+   "clause_visual": "10-1-5 بند 4 (مع 4 بند 12، 10-1-5 بند 5، 11-1-5 بند 5)",
+   "heading": "5-1-10 (مطبوع: 10-1-5) الواجهات الخارجية | 4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p32, p19, p33. Restriction to «الطرق والشوارع الرئيسية» is correct.",
+   "correction": {}
+  },
+  {
+   "code": "PROJ-01",
+   "status": "OK",
+   "clause_visual": "11-1-5 بند 1، 2، 3",
+   "heading": "5-1-11 (مطبوع: 11-1-5) البروزات",
+   "issues": "Verified p32-33.",
+   "correction": {}
+  },
+  {
+   "code": "CHAMF-01",
+   "status": "OK",
+   "clause_visual": "16-1-5 بند 1 (مع بند 2، بند 3)",
+   "heading": "5-1-16 (مطبوع: 16-1-5) الشطفات",
+   "issues": "Verified p35.",
+   "correction": {}
+  },
+  {
+   "code": "PLAN-01",
+   "status": "OK",
+   "clause_visual": "4 بند 1",
+   "heading": "4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p18.",
+   "correction": {}
+  },
+  {
+   "code": "SETBACK-04",
+   "status": "OK",
+   "clause_visual": "1-4 بند 7",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Verified p21.",
+   "correction": {}
+  },
+  {
+   "code": "SETBACK-05",
+   "status": "OK",
+   "clause_visual": "1-4 بند 8",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Verified p21.",
+   "correction": {}
+  },
+  {
+   "code": "ZEROLOT-01",
+   "status": "FIX",
+   "clause_visual": "1-4 بند 9، بند 10",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Quotes/values verified p22-23. Mandatory flag wrong: item 10 is «يجب فصل الهيكل الإنشائي...» and «يجب الالتزام بتشطيب الجزء الظاهر للمجاورين...» — binding conditions once zero-lot is used; item 9's 3m opposite-side setback is a «بشرط» condition. Requirement also omits the finishing obligation.",
+   "correction": {
+    "mandatory": true,
+    "conditional_on": "البناء على الصامت (بعد موافقة الأمانة أو البلدية)",
+    "requirement_add": "يجب تشطيب الجزء الظاهر للمجاورين بنفس مواد الجار القائم، ويمكن استخدام مواد أخرى بموافقة الأمانة أو البلدية (1-4 بند 10).",
+    "evidence": "4-1 بند 10 (ص23): «...يجب فصل الهيكل الإنشائي بعمل جدار مزدوج بفاصل إنشائي عن المجاورين، ويجب الالتزام بتشطيب الجزء الظاهر للمجاورين عند البناء على الصامت بنفس المواد المستخدمة لديهم (في حالة الجار القائم)...»"
+   }
+  },
+  {
+   "code": "SPLIT-01",
+   "status": "FIX",
+   "clause_visual": "1-4 بند 11",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Quote/values verified p23 (12m detached, 10m attached/semi). Flag mandatory:false would make frontage and per-unit parking advisory; they are «بشرط» conditions binding whenever floor-splitting is proposed.",
+   "correction": {
+    "mandatory": true,
+    "conditional_on": "فصل الأدوار إلى وحدات مستقلة (بعد موافقة الأمانة أو البلدية)",
+    "evidence": "«يسمح بفصل الأدوار ... بشرط توفير موقف لكل وحدة سكنية داخل حدود الملكية وألا يقل عرض القطعة على الشارع عن 12م في الفلل المنفصلة، ولا يقل عرض القطعة عن 10م في الفلل المتصلة وشبه المتصلة»"
+   }
+  },
+  {
+   "code": "GANNEX-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 12، بند 13؛ 13-1-5 بنود 1-3 و1-2 (المكررة)",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية | 5-1-13 (مطبوع: 13-1-5) الملحق الأرضي",
+   "issues": "Verified p23, p34; duplicated numbering 1,2,3,1,2 confirmed.",
+   "correction": {}
+  },
+  {
+   "code": "FENCE-01",
+   "status": "OK",
+   "clause_visual": "4 بند 8، بند 9",
+   "heading": "4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p19.",
+   "correction": {}
+  },
+  {
+   "code": "DRIVER-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 15",
+   "heading": "4-1 (مطبوع: 1-4) الفلل السكنية",
+   "issues": "Verified p23.",
+   "correction": {}
+  },
+  {
+   "code": "SETROOF-01",
+   "status": "OK",
+   "clause_visual": "4 بند 12",
+   "heading": "4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p19.",
+   "correction": {}
+  },
+  {
+   "code": "STEP-01",
+   "status": "OK",
+   "clause_visual": "4 بند 3",
+   "heading": "4 (مطبوع: 4) متطلبات التنظيم المكاني",
+   "issues": "Verified p18.",
+   "correction": {}
+  },
+  {
+   "code": "BSMT-01",
+   "status": "OK",
+   "clause_visual": "4 بند 10؛ 8-1-5 بنود 1-4؛ تعريف دور القبو ص10",
+   "heading": "4 (مطبوع: 4) متطلبات التنظيم المكاني | 5-1-8 (مطبوع: 8-1-5) القبو | 2 (مطبوع: 2) المصطلحات والتعريفات",
+   "issues": "Verified p10, p19, p30-31. «وإلا يعد دوراً» is an interpretation, not source text.",
+   "correction": {}
+  },
+  {
+   "code": "SAFE-01",
+   "status": "OK",
+   "clause_visual": "1-1-5 بند 2",
+   "heading": "5-1-1 (مطبوع: 1-1-5) متطلبات الأمن والصحة والسلامة",
+   "issues": "Verified p26.",
+   "correction": {}
+  },
+  {
+   "code": "DRAIN-01",
+   "status": "OK",
+   "clause_visual": "1-1-5 بند 5",
+   "heading": "5-1-1 (مطبوع: 1-1-5) متطلبات الأمن والصحة والسلامة",
+   "issues": "Verified p26.",
+   "correction": {}
+  },
+  {
+   "code": "SHAFT-02",
+   "status": "OK",
+   "clause_visual": "6-1-5 بند 6",
+   "heading": "5-1-6 (مطبوع: 6-1-5) المناور",
+   "issues": "Verified p30.",
+   "correction": {}
+  },
+  {
+   "code": "BALC-01",
+   "status": "OK",
+   "clause_visual": "11-1-5 بند 6",
+   "heading": "5-1-11 (مطبوع: 11-1-5) البروزات",
+   "issues": "Verified p33.",
+   "correction": {}
+  },
+  {
+   "code": "STAIR-02",
+   "status": "OK",
+   "clause_visual": "11-1-5 بند 4",
+   "heading": "5-1-11 (مطبوع: 11-1-5) البروزات",
+   "issues": "Verified p33.",
+   "correction": {}
+  },
+  {
+   "code": "STAIR-03",
+   "status": "OK",
+   "clause_visual": "12-1-5 بند 4",
+   "heading": "5-1-12 (مطبوع: 12-1-5) الدرج",
+   "issues": "Verified p34.",
+   "correction": {}
+  },
+  {
+   "code": "TERRAIN-01",
+   "status": "FIX",
+   "clause_visual": "9-1-5 بنود 1، 2، 4",
+   "heading": "5-1-9 (مطبوع: 9-1-5) دور التسوية",
+   "issues": "Quotes/values verified p31 (3.00m, 70%); item 4 is on p32 not p31. Flag mandatory:false wrong for the 70% cap and floor-area counting, which are binding limits («تحدد نسبة البناء بدور التسوية بما لا يزيد عن (70%)») whenever a تسوية level is drawn.",
+   "correction": {
+    "mandatory": true,
+    "conditional_on": "وجود دور تسوية في المخطط",
+    "page": "31-32"
+   }
+  },
+  {
+   "code": "FACADE-01",
+   "status": "OK",
+   "clause_visual": "10-1-5 بند 3، بند 6",
+   "heading": "5-1-10 (مطبوع: 10-1-5) الواجهات الخارجية",
+   "issues": "Verified p32; «مراعاة/يراعى» advisory correct.",
+   "correction": {}
+  },
+  {
+   "code": "ANNEX-02",
+   "status": "OK",
+   "clause_visual": "14-1-5 بند 3",
+   "heading": "5-1-14 (مطبوع: 14-1-5) الملحق العلوي",
+   "issues": "Verified p34.",
+   "correction": {}
+  },
+  {
+   "code": "KITCHEN-02",
+   "status": "OK",
+   "clause_visual": "15-1-5 بند 6",
+   "heading": "5-1-15 (مطبوع: 15-1-5) التهوية والاضاءة الطبيعية",
+   "issues": "Verified p35.",
+   "correction": {}
+  },
+  {
+   "code": "SKYLIGHT-01",
+   "status": "OK",
+   "clause_visual": "15-1-5 بند 5",
+   "heading": "5-1-15 (مطبوع: 15-1-5) التهوية والاضاءة الطبيعية",
+   "issues": "Verified p35.",
+   "correction": {}
+  },
+  {
+   "code": "SEPTIC-01",
+   "status": "OK",
+   "clause_visual": "5-5 بند 5، 6، 7",
+   "heading": "5-5 (مطبوع: 5-5) متطلبات الأعمال الصحية",
+   "issues": "Verified p39. Source says «الخزان» (context of item 4 = water tank).",
+   "correction": {}
+  },
+  {
+   "code": "TANK-01",
+   "status": "OK",
+   "clause_visual": "5-5 بند 4",
+   "heading": "5-5 (مطبوع: 5-5) متطلبات الأعمال الصحية",
+   "issues": "Verified p39.",
+   "correction": {}
+  },
+  {
+   "code": "UNIT-01",
+   "status": "OK",
+   "clause_visual": "4-1-5 بند 1",
+   "heading": "5-1-4 (مطبوع: 4-1-5) مساحات الغرف والفراغات السكنية",
+   "issues": "Verified p28.",
+   "correction": {}
+  },
+  {
+   "code": "ACCESS-00",
+   "status": "OK",
+   "clause_visual": "3-1-5 بند 1",
+   "heading": "5-1-3 (مطبوع: 3-1-5) متطلبات الوصول الشامل",
+   "issues": "Verified p28.",
+   "correction": {}
+  }
+ ],
+ "ahsa": [
+  {
+   "code": "GUIDE-01",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Quotes verified AR p5/6/7/8, EN p5/6/7/8, oasis PDF p25, p48. Numbers and style assignment correct (trad 20-35, trans ≤45 with ambiguous 30 floor, cont ≤60, general ~35). Entry-level mandatory:true wrongly makes the contemporary 60% cap mandatory: AR «يفضّل» / EN «should be prioritized».",
+   "correction": {
+    "mandatory_by_style": {
+     "traditional": true,
+     "transitional": "ambiguous (EN must / AR ينبغي)",
+     "contemporary": false
+    },
+    "evidence": "AR p7: «يفضّل استخدام النوافذ الكبيرة ... ونسبة الفتحات ... تساوي 60% كحد أقصى»; EN p7: 'large windows should be prioritized, therefore allocating a maximum of 60%'"
+   }
+  },
+  {
+   "code": "GUIDE-02",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/7 (يجب trad/trans, ينبغي cont), EN must for all three.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-03",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p5-6; advisory correct; not in contemporary.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-04",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "All quotes verified (AR p7 2.6/3.4, p11 3.4; EN p7, p11). mandatory:true is too broad: only 'roof silhouette must be flat and rectangular' (EN p7 2.6; AR ينبغي) carries must; no crenellations / no high parapet ('does not use… preferred'), flush parapet ('should'), and step-back at least once per façade ('should') are advisory.",
+   "correction": {
+    "mandatory_items": [
+     "roof_silhouette flat and rectangular (EN must; AR ينبغي)"
+    ],
+    "advisory_items": [
+     "no crenellations / high parapet",
+     "parapet flush with building line",
+     "roof wall step-back ≥1 per façade",
+     "glass railing allowed"
+    ]
+   }
+  },
+  {
+   "code": "GUIDE-05",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Quotes and values verified (AR p5/6, EN p5/6; 1–1.2m minimum, ≥1 floor). mandatory:true should apply to transitional only (EN 'must not form a long unbroken shape'/'roofline must not be one single straight line'); traditional is should/ينبغي. Omission: EN p6 trans 2.6 'The parapet line and roof silhouette must be flat and rectangular' (AR p6 «ينبغي أن يكون منظر سترة السطح والخط البصري لسقف المبنى مستويين ومستطيلين») not captured in any entry. values.roof_step_min_per_facade lists contemporary although patterns excludes it (contemporary step is the roof-wall setback of GUIDE-04).",
+   "correction": {
+    "mandatory_by_style": {
+     "traditional": false,
+     "transitional": true
+    },
+    "add_transitional": "parapet line and roof silhouette flat and rectangular (EN p6 must / AR ينبغي)",
+    "values.roof_step_min_per_facade": {
+     "traditional": 1
+    }
+   }
+  },
+  {
+   "code": "GUIDE-06",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/7, EN p5/7/12. Contemporary conflict 20–30% (p7) vs <35% (p12) is real. Mapping of <10/<25/<35 to the three styles on p12 relies on list/chart order (extraction scrambles chart pairs) — correctly flagged as uncertain.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-07",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/7 (no distance), EN p7 'within 6m' contemporary only; oasis PDF p26.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-08",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/7/8, EN p5/6/7/8. Shaded arcade correctly limited to trad/trans (+ general 2.7).",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-09",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN 4.2 p5/6/7 and EN p12.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-10",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "All quotes verified (AR/EN p15, EN p12). Two problems: (1) mandatory:false for the whole entry, but 7.3 AR «لا يسمح بزيادة ارتفاع الحوائط باستخدام السواتر المعدنية غير المشطبة» and 7.1/7.2 'Do not'/«عدم استخدام» are prohibitions; (2) blanket 'metal cladding' prohibition overstated: AR 7.1 limits it to «التكسية المعدنية عالية الانعكاس», and EN p12 4.2 lists 'Perforated metal cladding' among acceptable substitute materials. Barbed wire is «تجنب» in AR (advisory) vs 'Do not' in EN.",
+   "correction": {
+    "mandatory_items": [
+     "unfinished corrugated metal / raw sheet wall extensions (لا يسمح)",
+     "coloured glass and highly reflective glass/metal cladding (Do not / عدم استخدام)",
+     "non-contextual bright artificial colours (Do not)"
+    ],
+    "prohibited_do_not_replace": "metal cladding → highly reflective metal cladding (AR p15 7.1); note perforated metal cladding listed as acceptable substitute EN p12 4.2",
+    "advisory_items": [
+     "fake/low-quality imitation materials (AR ينبغي)",
+     "barbed wire (AR تجنب)",
+     "exposed services 7.6",
+     "roller shutters 7.5 (يُفضل)",
+     "foreign elements 7.7"
+    ]
+   }
+  },
+  {
+   "code": "GUIDE-11",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p5/6/7/8.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-12",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified EN must p5/6/7; AR without يجب.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-13",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p6/7/8, EN p8.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-14",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p5/6.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-15",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/10, EN p5/6, oasis PDF p24.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-16",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p9/10/8, EN p8. Oasis PDF p29 sentence on roof access is garbled (reads «ولا ينبغي الوصول إلى الأسطح…») — correctly left unresolved.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-17",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Quote verified AR p6, EN p5/6. mandatory:true applies only to transitional (EN 'must not form a long unbroken shape'; AR ينبغي); traditional is advisory (EN 'Ensure… avoiding', AR ينبغي).",
+   "correction": {
+    "mandatory_by_style": {
+     "traditional": false,
+     "transitional": true
+    }
+   }
+  },
+  {
+   "code": "GUIDE-18",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/7/8, EN p5, oasis PDF p22.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-19",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/6/8, EN p8.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-20",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p9/10/11, EN p7/11; internal conflict on full-height windows is real.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-21",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR p5/7/8/13, EN p7/13.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-22",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified EN p12; AR p12 empty in extraction.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-23",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Quote verified AR p7 («فيجب المحافظة على خصوصيتهم من خلال تركيب مظلات في الشرفة») and AR p5/6. Mandatory applies to contemporary only (and EN p7 has no must); trad/trans privacy measures are ينبغي.",
+   "correction": {
+    "mandatory_by_style": {
+     "traditional": false,
+     "transitional": false,
+     "contemporary": "true per AR يجب (EN advisory)"
+    }
+   }
+  },
+  {
+   "code": "GUIDE-24",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p26 (printed 24).",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-25",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p23 and p28.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-26",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p32/33/34/28 (windows 1:1.5–1:2, roof windows ~1:1 or 2:1). Door ratio prints as «1:5 إلى 1:2» (RTL) — 1:2–1:5 unconfirmed; correctly flagged.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-27",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p29.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-28",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p29.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-29",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified oasis PDF p42.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-30",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p14 6.7.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-31",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p14 6.6.",
+   "correction": {}
+  },
+  {
+   "code": "GUIDE-32",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified AR/EN p14 6.2/6.4/6.5.",
+   "correction": {}
+  }
+ ],
+ "parking": [
+  {
+   "code": "PARK-01",
+   "status": "OK",
+   "clause_visual": "1-4 بند 14 (الفلل السكنية)",
+   "heading": "",
+   "issues": "Verified residential p23.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-02",
+   "status": "OK",
+   "clause_visual": "7-1-5 بند 4 (المداخل)؛ 16-1-5 بند 2 (الشطفات)",
+   "heading": "",
+   "issues": "Verified residential p30, p35.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-03",
+   "status": "UNVERIFIABLE",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Parking guide p8/p10 text is legacy-font cipher: width glyphs '..8' and length '5.5' ('5' may be 4 or 5, '.' may be 2 or decimal). Table 1 row 90°: '7.51 7,51 ..8x5.5'; parallel: '7 5 6,5x..5'. Decode 2.8×5.5, parallel 2.5×6.5, aisles 7.5 / 7 is plausible and consistent but cannot be confirmed from text; needs rendered PDF. Flags (not villa, not mandatory) appropriate.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-04",
+   "status": "OK",
+   "clause_visual": "4 بند 6 (متطلبات التنظيم المكاني)",
+   "heading": "",
+   "issues": "Verified residential p19.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-05",
+   "status": "OK",
+   "clause_visual": "1-4 بند 3؛ 14-1-5 بند 1",
+   "heading": "",
+   "issues": "Verified residential p19, p34.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-06",
+   "status": "OK",
+   "clause_visual": "1-4 بند 11",
+   "heading": "",
+   "issues": "Verified residential p23.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-07",
+   "status": "OK",
+   "clause_visual": "4 بند 3",
+   "heading": "",
+   "issues": "Verified residential p18.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-08",
+   "status": "OK",
+   "clause_visual": "8-1-5 بند 4 (القبو)",
+   "heading": "",
+   "issues": "Verified residential p31. Note's claim about parking-guide p9 ('<25 spaces, lane ≥4m') rests on an ambiguous glyph decode ('ق5ـ' = 4 or 5 m) — keep out of checks.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-09",
+   "status": "OK",
+   "clause_visual": "4 بند 10",
+   "heading": "",
+   "issues": "Verified residential p19.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-10",
+   "status": "UNVERIFIABLE",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Parking guide p12 glyphs '..5' for both heights: 2.5 m is plausible (could be 2.4); cannot confirm from text. Advisory flags appropriate.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-11",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Parking guide p13 decodes only the one-way width 3.5 m and slope '15%' (glyph-ambiguous). values.straight_ramp_two_way_min_width_m = 7 is not on p13 (the 7 m two-way figure on p9/p10 is for surface-lot entrances/aisles, not ramps). Also omitted: last line of p13 limits the longitudinal slope of ramps used as parking to a low % (glyph '8%' — unconfirmed).",
+   "correction": {
+    "remove": "values.straight_ramp_two_way_min_width_m",
+    "status_of_remaining_numbers": "UNVERIFIABLE (3.5 m, 15%) until checked against rendered PDF"
+   }
+  },
+  {
+   "code": "PARK-12",
+   "status": "OK",
+   "clause_visual": "تعريف «اجمالي مساحة البناء» (الفصل 2) ص12",
+   "heading": "",
+   "issues": "Verified residential p12.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-13",
+   "status": "OK",
+   "clause_visual": "3-1-5 بند 1",
+   "heading": "",
+   "issues": "Verified residential p28.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-14",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p15 (1.1.4, 3.1.4). Wording is mandatory within guide scope; mandatory:false justified only because applies_to_villas=false.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-15",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p15 (2.1.4); 17.1.4 p16.",
+   "correction": {}
+  },
+  {
+   "code": "PARK-16",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p15 (5.1.4).",
+   "correction": {}
+  },
+  {
+   "code": "PARK-17",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p16 (11.1.4).",
+   "correction": {}
+  },
+  {
+   "code": "PARK-18",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p15 (4.1.4, 8.1.4, 9.1.4).",
+   "correction": {}
+  },
+  {
+   "code": "PARK-19",
+   "status": "OK",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Verified carport p16 (12-16.1.4), p15 (6.1.4 — page cited as 16; actually p15), materials p19/p20/p22 (steel tubes, PVC slats, aluminium panels, galvanized steel with timber cladding).",
+   "correction": {}
+  },
+  {
+   "code": "PARK-20",
+   "status": "FIX",
+   "clause_visual": "",
+   "heading": "",
+   "issues": "Values verified, but only 3-1-3 (6 m) is on p10; 3-1-5, 3-1-6, 3-1-7 are on p11. Contradiction 50 cm vs 2.2 m confirmed.",
+   "correction": {
+    "page": "10-11"
+   }
+  }
+ ],
+ "summary": "residential: OK=45, FIX=3, UNVERIFIABLE=0; ahsa: OK=26, FIX=6, UNVERIFIABLE=0; parking: OK=16, FIX=2, UNVERIFIABLE=2. Residential clause_visual = printed (RTL-displayed) form; heading shows logical number, printed number and title. No numeric errors found in residential; FIXes are mandatory-flag/omission/page issues. Ahsa FIXes are per-style mandatory scoping and GUIDE-10 metal-cladding overstatement. Parking FIX: PARK-11 unsupported 7 m two-way ramp width; PARK-20 page."
+}
