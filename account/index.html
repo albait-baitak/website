@@ -203,11 +203,12 @@ function route(){
   if(!user){$('btnOut').hidden=true;if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
   $('btnOut').hidden=false;var p=profile||{};
   if(p.status==='approved'&&p.role){
-    var tools=BBA.toolsFor(p.role);
+    var tools=BBA.toolsFor(p.role).filter(function(t){return t.live||p.role==='admin'});
     $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
     var box=$('hTools');box.innerHTML='';
     tools.forEach(function(t){var a=el(t.live?'a':'div','tool'+(t.live?'':' soon'));if(t.live)a.href='../'+t.href;
       a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,t.live?'افتح':'قريباً'));box.appendChild(a)});
+    if(!tools.length){var q=el('p','muted','أدوات مرحلتك تُبنى تباعاً، وتظهر لك هنا حين تكتمل.');box.appendChild(q)}
     only('vHome');return;
   }
   if(p.status==='rejected'){state('لم يُعتمد الحساب','لم يُعتمد طلب تسجيلك. للاستفسار تواصل مع صيّاح السميران.');return}

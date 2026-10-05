@@ -416,3 +416,47 @@ details.lay summary .cnts{margin-inline-start:auto;font-family:var(--mono);font-
 .cta-band span{font-size:14px;opacity:.8}
 .cta-band .btn{background:var(--terra);border-color:var(--terra)}
 footer a{color:inherit}
+
+/* ===== التنفس ===== */
+section{padding-block:clamp(56px,9vw,112px)}
+.sh p,.who p{max-width:65ch}
+.btn.line.on-ink{color:var(--paper);border-color:rgba(255,255,255,.35)}
+.btn.line.on-ink:hover{border-color:var(--paper)}
+
+/* ===== الحركة: تشرح البنية ولا تزينها ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1)}
+/* المرور: ارتفاع 2px وظل هادئ */
+.btn,.tool,.gate,.who{transition:transform .12s var(--ease),box-shadow .12s var(--ease),background-color .12s,border-color .12s}
+.btn:hover,a.tool:hover{transform:translateY(-2px);box-shadow:0 6px 14px -8px rgba(31,26,23,.35)}
+.btn:active{transform:none;box-shadow:none}
+.btn:disabled:hover{transform:none;box-shadow:none}
+/* روابط التنقل: خط سفلي ينزلق من اليمين */
+.top nav a{background:linear-gradient(currentColor,currentColor) no-repeat right bottom/0 1px;padding-bottom:2px;transition:background-size .2s var(--ease),color .12s}
+.top nav a:hover,.top nav a.cur{background-size:100% 1px;color:var(--ink)}
+/* شريط تقدم القراءة */
+.readbar{position:absolute;inset-inline:0;bottom:-1px;height:2px;background:var(--terra);transform-origin:right;transform:scaleX(0);pointer-events:none}
+/* الظهور عند التمرير (يُفعَّل بالسكربت فقط) */
+.mo .rv{opacity:0;transform:translateY(20px);transition:opacity .52s var(--ease),transform .52s var(--ease);transition-delay:var(--d,0ms)}
+.mo .rv.in{opacity:1;transform:none}
+/* بطاقة التقرير في الافتتاح */
+.mo .doc.pre .rows tbody tr{opacity:0;transform:translateY(8px)}
+.mo .doc .rows tbody tr{transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:var(--d,0ms)}
+.mo .doc .got .mk{display:inline-block;transition:opacity .3s var(--ease),transform .3s var(--ease);transition-delay:var(--d,0ms)}
+.mo .doc.pre .got .mk{opacity:0;transform:scale(.6)}
+.mo .doc .verdict .on,.mo .doc .verdict .on i{transition:background-color .45s var(--ease),border-color .45s var(--ease),color .45s;transition-delay:var(--d,0ms)}
+.mo .doc.pre .verdict .on{background:transparent;color:var(--ink-2)}
+.mo .doc.pre .verdict .on i{background:transparent;border-color:var(--line-2)}
+/* خط الخطوات يُرسم مع التمرير */
+.steps{position:relative}
+.steps .draw{position:absolute;top:-2px;inset-inline:0;width:100%;height:2px;overflow:visible;pointer-events:none}
+.steps .draw line{stroke:var(--terra);stroke-width:2}
+.mo .steps{border-top-color:var(--line-2)}
+@media (prefers-reduced-motion:reduce){
+  .mo .rv,.mo .doc.pre .rows tbody tr,.mo .doc.pre .got .mk{opacity:1!important;transform:none!important}
+  .mo .doc.pre .verdict .on{background:var(--paper);color:var(--ink)}
+  .mo .doc.pre .verdict .on i{background:var(--terra);border-color:var(--terra)}
+  .btn:hover,a.tool:hover{transform:none}
+  .readbar,.steps .draw{display:none}
+  .mo .steps{border-top-color:var(--ink)}
+}
+.sh .ref{font-family:var(--font);direction:rtl;text-align:right;font-size:13px;letter-spacing:0}
