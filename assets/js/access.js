@@ -8,7 +8,7 @@ var TOOLS=[
   {id:'fahs',   name:'الفحص الفني',                desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',      href:'fahs/app.html',         roles:['office','admin'],      live:true},
   {id:'t01',    name:'أسئلة الجلسة الأولى مع مصممك', desc:'عشرون سؤالاً تكشف من أمامك.. قبل أن توقع',            href:'tools/first-session/',  roles:['owner','admin'],       live:true},
   {id:'t02',    name:'دليل اختيار الأرض',           desc:'ما تفحصه قبل أن تشتري أرض بيت العمر',                 href:'tools/land/',           roles:['owner','admin'],       live:true},
-  {id:'qty',    name:'جداول الكميات والتكاليف',     desc:'من فراغات المخطط إلى كميات التشطيب وتكلفتها.. والميزانية بنداً بنداً', href:'tools/quantities/', roles:['office','admin'], live:true},
+  {id:'qty',    name:'جداول الكميات والتكاليف',     desc:'من فراغات بيتك إلى كميات التشطيب وتكلفتها.. قبل أن تتفق مع مقاول التشطيب', href:'tools/quantities/', roles:ALL, live:true},
   {id:'t08',    name:'حاسبة البنود والتكاليف',      desc:'ميزانية بيتك بنداً بنداً.. قبل أن تبدأ',                href:'tools/budget/',          roles:['owner','contractor','admin'], live:true},
   {id:'t03',    name:'خمسون سؤالاً قبل أن تصمم بيتك', desc:'حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط',     href:'tools/fifty/',          roles:['owner','admin'],       live:true},
   {id:'t04',    name:'اختبار القرار الذكي',          desc:'ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»',          href:'tools/smart/',                      roles:['owner','admin'],       live:true},

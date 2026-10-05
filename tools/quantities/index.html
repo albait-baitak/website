@@ -26,14 +26,14 @@
 
 <main class="tool-main">
 <div class="wrap">
-  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../fahs/">الفحص الفني</a><span>›</span><span>جداول الكميات والتكاليف</span></nav>
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التنفيذ</a><span>›</span><span>جداول الكميات والتكاليف</span></nav>
   <div class="tool-hero nonum">
-    <span class="stage-tag">للمكاتب الهندسية · مع الفحص الفني</span>
+    <span class="stage-tag">مرحلة التنفيذ</span>
     <h1>جداول الكميات والتكاليف</h1>
-    <p class="sub">من فراغات المخطط إلى كميات التشطيب وتكلفتها.. والميزانية بنداً بنداً</p>
+    <p class="sub">من فراغات بيتك إلى كميات التشطيب وتكلفتها.. قبل أن تتفق مع مقاول التشطيب</p>
   </div>
   <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
-    <div><h2>متى تستخدمها؟</h2><p>من أول تقدير للميزانية، ثم قبل الاتفاق مع أي مقاول تشطيب وقبل شراء المواد، وطوال التنفيذ لتتابع المصروف الفعلي مقابل تقديرك.</p></div>
+    <div><h2>متى تستخدمها؟</h2><p>بعد اعتماد المخطط، وقبل الاتفاق مع أي مقاول تشطيب وقبل شراء المواد، ثم طوال التنفيذ لتتابع المصروف الفعلي مقابل تقديرك. وميزانيتك هنا هي نفسها التي كتبتها في «حاسبة البنود والتكاليف».</p></div>
     <div><h2>كيف تستخدمها؟</h2><ol>
       <li>أدخل فراغات بيتك بأبعادها، أو استوردها من ملف DXF للمخطط.</li>
       <li>راجع جدول الكميات، واكتب المواصفة المتفق عليها نصاً وسعر الوحدة لكل بند.</li>
@@ -120,8 +120,6 @@
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
 <script src="../../assets/js/session.js?v=VERSION"></script>
-<script src="../../assets/js/access.js?v=VERSION"></script>
-<script>BBA.guard(['office'],'../../account/');</script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script src="../../assets/vendor/dxf-parser-1.1.2.js?v=VERSION"></script>
 <script src="../../assets/js/dxf.js?v=VERSION"></script>
@@ -342,38 +340,42 @@ function drawRoomTable(){
   T.appendChild(tb);
 }
 
-/* ===== الميزانية ===== */
-$('bTotal').value=S.bud.total;$('bTotal').addEventListener('input',function(){S.bud.total=this.value;save();drawBud(true)});
-function bit(i){return S.bud.it[i]||(S.bud.it[i]={n:'',e:'',a:''})}
+/* ===== الميزانية: مشتركة مع «حاسبة البنود والتكاليف» (مخزن واحد) ===== */
+function bfresh(){var s={v:1,total:'',area:'',it:{},act:{},note:{}};
+  try{if(S.bud){s.total=S.bud.total||'';Object.keys(S.bud.it||{}).forEach(function(k){var x=S.bud.it[k]||{};if(x.e)s.it[k]=x.e;if(x.a)s.act[k]=x.a;if(x.n)s.note[k]=x.n})}}catch(e){}
+  return s}
+var BST=TK.store('bb_tool_budget_v1',bfresh,1),B=BST.get();B.act=B.act||{};B.note=B.note||{};
+function bsave(){BST.save()}
+$('bTotal').value=B.total;$('bTotal').addEventListener('input',function(){B.total=this.value;bsave();drawBud(true)});
+function sums(){var E=0,A=0;BUD.forEach(function(x,i){E+=num(B.it[i]);A+=num(B.act[i])});return {E:E,A:A}}
 function drawBud(soft){
-  var T=$('bt'),total=num(S.bud.total),E=0,A=0;
-  BUD.forEach(function(x,i){var it=S.bud.it[i];if(it){E+=num(it.e);A+=num(it.a)}});
+  var T=$('bt'),total=num(B.total),s=sums(),E=s.E,A=s.A;
   var k=$('bK');k.innerHTML='';
   [['الميزانية',total?fmt(total,0)+' ريال':'لم تُدخل'],['مجموع التقديرات',fmt(E,0)+' ريال'],['المصروف الفعلي',fmt(A,0)+' ريال'],['المتبقي بعد التقديرات',total?fmt(total-E,0)+' ريال':'']].forEach(function(x,j){var d=el('div');d.appendChild(el('span',null,x[0]));var b=el('b',j===3&&total&&total-E<0?'neg':null,x[1]);d.appendChild(b);k.appendChild(d)});
   var w=$('bWarn');w.innerHTML='';if(total&&E>total)w.appendChild(el('div','warn','تقديراتك تتجاوز الميزانية بـ '+fmt(E-total,0)+' ريال. راجع البنود قبل أن تبدأ.'));
-  if(soft&&T.rows.length){var trs=T.tBodies[0].rows;BUD.forEach(function(x,i){var c=trs[i].cells[5];var it=S.bud.it[i];c.textContent=it&&num(it.e)&&total?fmt(num(it.e)/total*100,1)+'٪':''});totRow();return}
+  if(soft&&T.rows.length){var trs=T.tBodies[0].rows;BUD.forEach(function(x,i){var c=trs[i].cells[5];c.textContent=num(B.it[i])&&total?fmt(num(B.it[i])/total*100,1)+'٪':''});totRow();return}
   T.innerHTML='';var th=el('thead'),hr=el('tr');['البند','ملاحظات النطاق والاتفاق','التقدير (ريال)','المصروف الفعلي (ريال)','الفرق (ريال)','نسبة التقدير من الميزانية'].forEach(function(h){hr.appendChild(el('th',null,h))});th.appendChild(hr);T.appendChild(th);
   var tb=el('tbody');
-  BUD.forEach(function(name,i){var it=bit(i),tr=el('tr');tr.appendChild(el('td',null,name));
-    var nt=el('td'),ni=el('input','note');ni.value=it.n;ni.setAttribute('aria-label','ملاحظات '+name);ni.addEventListener('input',function(){it.n=ni.value;save()});nt.appendChild(ni);tr.appendChild(nt);
+  BUD.forEach(function(name,i){var tr=el('tr');tr.appendChild(el('td',null,name));
+    var nt=el('td'),ni=el('input','note');ni.value=B.note[i]||'';ni.setAttribute('aria-label','ملاحظات '+name);ni.addEventListener('input',function(){if(ni.value)B.note[i]=ni.value;else delete B.note[i];bsave()});nt.appendChild(ni);tr.appendChild(nt);
     var dt=el('td','n'),pc=el('td','n');
-    ['e','a'].forEach(function(key){var td=el('td'),inp=el('input');inp.inputMode='decimal';inp.value=it[key];inp.setAttribute('aria-label',(key==='e'?'تقدير ':'مصروف ')+name);
-      inp.addEventListener('input',function(){it[key]=inp.value;save();diff();drawBud(true)});td.appendChild(inp);tr.appendChild(td)});
-    function diff(){var e=num(it.e),a=num(it.a);dt.className='n';if(!it.e&&!it.a){dt.textContent='';return}var d=it.a?e-a:e;dt.textContent=fmt(d,0);if(it.a)dt.classList.add(d<0?'neg':'pos')}
-    diff();tr.appendChild(dt);pc.textContent=num(it.e)&&total?fmt(num(it.e)/total*100,1)+'٪':'';tr.appendChild(pc);tb.appendChild(tr)});
+    [['it','تقدير '],['act','مصروف ']].forEach(function(p){var key=p[0],td=el('td'),inp=el('input');inp.inputMode='decimal';inp.value=B[key][i]||'';inp.setAttribute('aria-label',p[1]+name);
+      inp.addEventListener('input',function(){if(inp.value)B[key][i]=inp.value;else delete B[key][i];bsave();diff();drawBud(true)});td.appendChild(inp);tr.appendChild(td)});
+    function diff(){var e=num(B.it[i]),a=num(B.act[i]);dt.className='n';if(!B.it[i]&&!B.act[i]){dt.textContent='';return}var d=B.act[i]?e-a:e;dt.textContent=fmt(d,0);if(B.act[i])dt.classList.add(d<0?'neg':'pos')}
+    diff();tr.appendChild(dt);pc.textContent=num(B.it[i])&&total?fmt(num(B.it[i])/total*100,1)+'٪':'';tr.appendChild(pc);tb.appendChild(tr)});
   var t1=el('tr','tot');t1.id='bTot';tb.appendChild(t1);T.appendChild(tb);totRow();
 }
-function totRow(){var t=$('bTot');if(!t)return;t.innerHTML='';var E=0,A=0;BUD.forEach(function(x,i){var it=S.bud.it[i];if(it){E+=num(it.e);A+=num(it.a)}});var total=num(S.bud.total);
+function totRow(){var t=$('bTot');if(!t)return;t.innerHTML='';var s=sums(),E=s.E,A=s.A,total=num(B.total);
   var l=el('td',null,'الإجمالي');l.colSpan=2;t.appendChild(l);t.appendChild(el('td','n',fmt(E,0)));t.appendChild(el('td','n',fmt(A,0)));t.appendChild(el('td','n',A?fmt(E-A,0):''));t.appendChild(el('td','n',total&&E?fmt(E/total*100,1)+'٪':''))}
 $('pushFin').addEventListener('click',function(){
   var R=qrows(calc()),sum={floor:0,paint:0,gyps:0,wp:0},any=false;
   R.forEach(function(r){var c=rowCost(r);if(!c||c.tot==null)return;any=true;
     if(r.k.indexOf('floor:')===0||r.k==='skirt'||r.k==='tile')sum.floor+=c.tot;else if(r.k==='paintW'||r.k==='paintC')sum.paint+=c.tot;else if(r.k==='gyps')sum.gyps+=c.tot;else if(r.k==='wp')sum.wp+=c.tot});
   if(!any){ST.flash('لا أسعار في جدول الكميات بعد');return}
-  [[B_FLOOR,sum.floor],[B_PAINT,sum.paint],[B_GYPS,sum.gyps],[B_WP,sum.wp]].forEach(function(p){if(p[1]){var it=bit(p[0]);it.e=String(Math.round(p[1]));if(!it.n)it.n='من جدول الكميات'}});
-  save();drawBud();ST.flash('نُقلت تكلفة التشطيب إلى الميزانية');
+  [[B_FLOOR,sum.floor],[B_PAINT,sum.paint],[B_GYPS,sum.gyps],[B_WP,sum.wp]].forEach(function(p){if(p[1]){B.it[p[0]]=fmt(Math.round(p[1]),0);if(!B.note[p[0]])B.note[p[0]]='من جدول الكميات'}});
+  bsave();drawBud();ST.flash('نُقلت تكلفة التشطيب إلى الميزانية');
 });
-$('pushRes').addEventListener('click',function(){var t=num(S.bud.total);if(!t){ST.flash('أدخل الميزانية الإجمالية أولاً');return}var it=bit(B_RES);it.e=String(Math.round(t*0.1));save();drawBud();ST.flash('حُسب الاحتياطي')});
+$('pushRes').addEventListener('click',function(){var t=num(B.total);if(!t){ST.flash('أدخل الميزانية الإجمالية أولاً');return}B.it[B_RES]=fmt(Math.round(t*0.1),0);bsave();drawBud();ST.flash('حُسب الاحتياطي')});
 
 /* ===== التبويب والتصدير ===== */
 var TABS=[['rooms','tab-rooms','p-rooms'],['qty','tab-qty','p-qty'],['bud','tab-bud','p-bud']];
@@ -389,7 +391,7 @@ $('btnCsv').addEventListener('click',function(){
   S.floors.forEach(function(f){S.rooms.filter(function(r){return r.floor===f.id}).forEach(function(r){var g=geo(r);if(g.err.length)return;rows.push([f.name,r.name,+g.A.toFixed(2),+g.P.toFixed(2),g.noH?'':g.h,+(g.doorA+g.winA).toFixed(2),g.noH?'':+g.tile.toFixed(2),g.noH?'':+g.paint.toFixed(2),+g.skirt.toFixed(2)])})});
   TK.csv(rows,'جداول الكميات - البيت بيتك.csv');
 });
-TK.resetButton($('btnReset'),function(){S=ST.clear();$('gH').value='';$('bTotal').value='';drawFins();drawRooms();show('rooms');ST.flash('بدأت من جديد')});
+TK.resetButton($('btnReset'),function(){S=ST.clear();$('gH').value='';drawFins();drawRooms();show('rooms');ST.flash('بدأت من جديد')});
 
 drawFins();drawRooms();show(S.tab||'rooms');
 })();
