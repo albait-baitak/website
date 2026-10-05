@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610051930">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610051930">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610052350">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610052350">
 </head>
 <body>
 <header class="top">
@@ -28,7 +28,7 @@
     <div id="vApp" hidden style="display:none">
       <div class="tabs" role="tablist" id="mainTabs">
         <button type="button" role="tab" data-m="acc" aria-selected="true">الحسابات<span class="badge" id="pendBadge" hidden></span></button>
-        <button type="button" role="tab" data-m="req" aria-selected="false">طلبات الفحص</button>
+        <button type="button" role="tab" data-m="req" aria-selected="false">طلبات الفحص<span class="badge" id="reqBadge" hidden></span></button>
       </div>
 
       <section class="card" id="vAcc">
@@ -109,12 +109,12 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610051930"></script>
-<script src="../assets/js/config.js?v=202610051930"></script>
-<script src="../assets/js/access.js?v=202610051930"></script>
-<script src="../assets/js/session.js?v=202610051930"></script>
-<script src="../assets/js/rules.js?v=202610051930"></script>
-<script src="../assets/js/report.js?v=202610051930"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610052350"></script>
+<script src="../assets/js/config.js?v=202610052350"></script>
+<script src="../assets/js/access.js?v=202610052350"></script>
+<script src="../assets/js/session.js?v=202610052350"></script>
+<script src="../assets/js/rules.js?v=202610052350"></script>
+<script src="../assets/js/report.js?v=202610052350"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -125,7 +125,7 @@ function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' 
 function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
 function vis(id,on){var e=$(id);e.hidden=!on;if(e.style.display==='contents'||e.style.display==='none'||e.dataset.c){e.dataset.c=1;e.style.display=on?'contents':'none'}}
 
-BBA.guard(['admin'],'../account/').then(function(){vis('vApp',true);loadAcc();loadReqs()});
+BBA.guard(['admin'],'../account/').then(function(){vis('vApp',true);loadAcc().then(loadReqs)});
 
 /* التبويب الرئيسي */
 $('mainTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
@@ -136,7 +136,7 @@ $('mainTabs').addEventListener('click',function(e){var b=e.target.closest('butto
 var accs=[],accF='pending';
 var REQ={office:'مكتب هندسي',contractor:'مقاول',owner:'صاحب بيت'};
 $('accFilt').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;accF=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});drawAcc()});
-function loadAcc(){BB.from('profiles').select('*').order('registered_at',{ascending:false,nullsFirst:false}).then(function(r){accs=r.data||[];drawAcc()})}
+function loadAcc(){return BB.from('profiles').select('*').order('registered_at',{ascending:false,nullsFirst:false}).then(function(r){accs=r.data||[];drawAcc()})}
 function drawAcc(){
   var pend=accs.filter(function(p){return p.status==='pending'&&p.registered_at});
   $('pendBadge').hidden=!pend.length;$('pendBadge').textContent=pend.length;
@@ -166,7 +166,10 @@ function review(p,st,role){
 
 /* الطلبات */
 $('filt').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});drawReqs()});
-function loadReqs(){BB.from('requests').select('*').order('created_at',{ascending:false}).then(function(r){all=r.data||[];drawReqs()})}
+var firstReqs=true;
+function loadReqs(){BB.from('requests').select('*').order('created_at',{ascending:false}).then(function(r){all=r.data||[];drawReqs();
+  var w=all.filter(function(q){return q.status==='submitted'||q.status==='in_review'}).length;$('reqBadge').hidden=!w;$('reqBadge').textContent=w;
+  if(firstReqs){firstReqs=false;if(w&&$('pendBadge').hidden)document.querySelector('[data-m="req"]').click()}})}
 function drawReqs(){
   var rows=all.filter(function(q){return filter==='all'||(filter==='published'?q.status==='published':(q.status==='submitted'||q.status==='in_review'))});
   var tb=$('reqBody');tb.innerHTML='';$('reqEmpty').hidden=!!rows.length;
