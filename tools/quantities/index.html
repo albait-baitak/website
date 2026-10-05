@@ -26,12 +26,11 @@
 
 <main class="tool-main">
 <div class="wrap">
-  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>جداول الكميات والتكاليف</span></nav>
-  <div class="tool-hero">
-    <span class="tool-no" aria-hidden="true">08</span>
-    <span class="stage-tag">من القرار إلى آخر التنفيذ</span>
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../fahs/">الفحص الفني</a><span>›</span><span>جداول الكميات والتكاليف</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">للمكاتب الهندسية · مع الفحص الفني</span>
     <h1>جداول الكميات والتكاليف</h1>
-    <p class="sub">من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً</p>
+    <p class="sub">من فراغات المخطط إلى كميات التشطيب وتكلفتها.. والميزانية بنداً بنداً</p>
   </div>
   <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمها؟</h2><p>من أول تقدير للميزانية، ثم قبل الاتفاق مع أي مقاول تشطيب وقبل شراء المواد، وطوال التنفيذ لتتابع المصروف الفعلي مقابل تقديرك.</p></div>
@@ -121,6 +120,8 @@
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
 <script src="../../assets/js/session.js?v=VERSION"></script>
+<script src="../../assets/js/access.js?v=VERSION"></script>
+<script>BBA.guard(['office'],'../../account/');</script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script src="../../assets/vendor/dxf-parser-1.1.2.js?v=VERSION"></script>
 <script src="../../assets/js/dxf.js?v=VERSION"></script>

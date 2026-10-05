@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>حاسبة البنود والتكاليف · البيت بيتك</title>
+<meta name="description" content="ميزانية بيتك بنداً بنداً قبل أن تبدأ: خمسة وعشرون بنداً من التصميم إلى الاحتياطي، وما يبقى لك بعد كل تقدير.">
+<meta property="og:title" content="حاسبة البنود والتكاليف">
+<meta property="og:description" content="ميزانية بيتك بنداً بنداً.. قبل أن تبدأ.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=VERSION">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=VERSION">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>حاسبة البنود والتكاليف</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">08</span>
+    <span class="stage-tag">مرحلة القرار</span>
+    <h1>حاسبة البنود والتكاليف</h1>
+    <p class="sub">ميزانية بيتك بنداً بنداً.. قبل أن تبدأ</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمها؟</h2><p>قبل أن تلتزم بأرض أو مصمم أو مقاول، وكلما تغيّر قرار كبير في رحلتك. الميزانية التي لا تُوزَّع على بنودها ليست ميزانية، بل رقم تتمنى أن يكفي.</p></div>
+    <div><h2>كيف تستخدمها؟</h2><ol>
+      <li>اكتب ميزانيتك الإجمالية، ومساحة البناء التقريبية إن عرفتها.</li>
+      <li>اكتب تقديرك لكل بند، وما لا تعرفه اسأل عنه قبل أن تكتبه.</li>
+      <li>احجز الاحتياطي أولاً، ثم راجع ما يبقى لك قبل أن تبدأ.</li>
+    </ol></div>
+  </div></details>
+
+  <div class="settings bset">
+    <div class="fld"><label for="bTotal">الميزانية الإجمالية <span class="o">ريال</span></label><input id="bTotal" class="num" inputmode="decimal" placeholder="مثال: 1,500,000"></div>
+    <div class="fld"><label for="bArea">مساحة البناء التقريبية <span class="o">م² · اختياري</span></label><input id="bArea" class="num" inputmode="decimal" placeholder="مثال: 450"></div>
+    <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushRes">احجز الاحتياطي 10٪</button></div>
+  </div>
+  <div class="kpis" id="bK"></div>
+  <div id="bWarn"></div>
+
+  <ol class="blist" id="bl"></ol>
+
+  <div class="note-box"><b>تنويه</b><p>التقديرات تقديراتك أنت، وتختلف حسب السوق والمواصفات ومساحة البيت. الحاسبة تنظّم قرارك ولا تعطيك أسعاراً.</p></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الميزانية أو احفظها PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
+<script src="../../assets/js/config.js?v=VERSION"></script>
+<script src="../../assets/js/session.js?v=VERSION"></script>
+<script src="../../assets/js/toolkit.js?v=VERSION"></script>
+<script>
+(function(){
+var el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var BUD=['رسوم التصميم (المعماري والتخصصات)','إدارة التنفيذ / الإشراف','تقرير التربة والرفع المساحي','رخصة البناء والتأمين والرسوم','تجهيز الموقع والحفر والردم','العظم: مواد (حديد، أسمنت، بلوك)','العظم: أجور المقاول','الكهرباء: تأسيس وتمديدات','الكهرباء: تشطيب (أفياش ولوحات)','السباكة: تغذية وصرف وتأسيس','التكييف: تأسيس ومسارات','التكييف: أجهزة وتركيب','العزل المائي والحراري','اللياسة','الأرضيات والبلاط (مواد وتركيب)','الجبس والأسقف المستعارة','النجارة والأبواب الداخلية','الألمنيوم والزجاج','الدهان (مواد وأجور)','الأطقم الصحية والخلاطات','المطبخ','الأبواب الخارجية والسور والبوابات','تنسيق الحوش والخارج','الإنارة الديكورية والإكسسوارات','احتياطي الطوارئ (ننصح بـ 10٪)'];
+var RES=24;
+function fresh(){
+  var s={v:1,total:'',area:'',it:{}};
+  try{var q=JSON.parse(localStorage.getItem('bb_tool_qty_v1')||'null');if(q&&q.bud){s.total=q.bud.total||'';Object.keys(q.bud.it||{}).forEach(function(k){var e=q.bud.it[k]&&q.bud.it[k].e;if(e)s.it[k]=e})}}catch(e){}
+  return s}
+var ST=TK.store('bb_tool_budget_v1',fresh,1),S=ST.get();
+function save(){ST.save()}
+var shares=[];
+function sumE(){var E=0;BUD.forEach(function(x,i){E+=num(S.it[i])});return E}
+function kpis(){
+  var total=num(S.total),E=sumE(),area=num(S.area),k=$('bK');k.innerHTML='';
+  var rest=total-E;
+  [['الميزانية',total?fmt(total,0)+' ريال':'لم تُكتب بعد'],['مجموع التقديرات',fmt(E,0)+' ريال'],['المتبقي بعد التقديرات',total?fmt(rest,0)+' ريال':'..'],['تكلفة المتر المربع',area&&E?fmt(E/area,0)+' ريال/م²':'..']].forEach(function(x,j){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',j===2&&total&&rest<0?'neg':null,x[1]));k.appendChild(d)});
+  var w=$('bWarn');w.innerHTML='';
+  if(total&&E>total)w.appendChild(el('div','warn','تقديراتك تتجاوز الميزانية بـ '+fmt(E-total,0)+' ريال. راجع البنود قبل أن تبدأ، فالتجاوز على الورق أرخص منه في الموقع.'));
+  else if(total&&E&&!num(S.it[RES]))w.appendChild(el('div','disc','لم تحجز احتياطياً بعد. البيت الذي يُبنى بلا احتياطي يتوقف عند أول مفاجأة.'));
+  shares.forEach(function(f){f()});
+}
+function draw(){
+  var L=$('bl');L.innerHTML='';shares=[];
+  BUD.forEach(function(name,i){
+    var li=el('li','brow'+(i===RES?' res':''));
+    li.appendChild(el('span','n',String(i+1)));
+    var nm=el('label',null,name);nm.htmlFor='b'+i;li.appendChild(nm);
+    var inp=el('input');inp.id='b'+i;inp.inputMode='decimal';inp.placeholder='تقديرك بالريال';inp.value=S.it[i]||'';
+    inp.addEventListener('input',function(){if(inp.value)S.it[i]=inp.value;else delete S.it[i];save();kpis()});
+    li.appendChild(inp);
+    var bar=el('span','bar'),fill=el('i'),pc=el('small');bar.appendChild(fill);li.appendChild(bar);li.appendChild(pc);
+    shares.push(function(){var t=num(S.total),e=num(S.it[i]);var p=t&&e?e/t*100:0;fill.style.width=Math.min(p,100)+'%';pc.textContent=p?fmt(p,1)+'٪':''});
+    L.appendChild(li)});
+  kpis();
+}
+$('bTotal').value=S.total;$('bTotal').addEventListener('input',function(){S.total=this.value;save();kpis()});
+$('bArea').value=S.area;$('bArea').addEventListener('input',function(){S.area=this.value;save();kpis()});
+$('pushRes').addEventListener('click',function(){var t=num(S.total);if(!t){ST.flash('اكتب الميزانية الإجمالية أولاً');return}S.it[RES]=fmt(Math.round(t*0.1),0);save();$('b'+RES).value=S.it[RES];kpis();ST.flash('حُجز الاحتياطي')});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();S.it={};S.total='';S.area='';$('bTotal').value='';$('bArea').value='';save();draw();ST.flash('بدأت من جديد')});
+draw();
+})();
+</script>
+</body>
+</html>
