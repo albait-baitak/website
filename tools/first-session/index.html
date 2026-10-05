@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أسئلة الجلسة الأولى مع مصممك · البيت بيتك</title>
+<meta name="description" content="عشرون سؤالاً تكشف من أمامك قبل أن توقع: أداة تفاعلية تستخدمها قبل لقاء أي مصمم مرشح وأثناء الجلسة الأولى معه، وتقارن بها بين المرشحين.">
+<meta property="og:title" content="أسئلة الجلسة الأولى مع مصممك">
+<meta property="og:description" content="عشرون سؤالاً تكشف من أمامك.. قبل أن توقع.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610052230">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610052230">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>أسئلة الجلسة الأولى مع مصممك</span></nav>
+
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">01</span>
+    <span class="stage-tag">مرحلة القرار</span>
+    <h1>أسئلة الجلسة الأولى مع مصممك</h1>
+    <p class="sub">عشرون سؤالاً تكشف من أمامك.. قبل أن توقع</p>
+  </div>
+
+  <div class="howto">
+    <div><h2>متى تستخدمها؟</h2><p>قبل لقاء أي مصمم مرشح، وأثناء الجلسة الأولى معه. الجلسة الأولى ليست مجاملة تعارف؛ إنها أهم فحص في رحلتك كلها.</p></div>
+    <div><h2>كيف تستخدمها؟</h2><ol>
+      <li>اقرأ الأسئلة قبل الجلسة وعلّم أهمها عندك.</li>
+      <li>اسأل بلطف خلال الحديث، ولا تحوّل الجلسة لاستجواب.</li>
+      <li>قارن ما سمعته بـ«الإجابة الجيدة».. ثم املأ جدول المقارنة آخر الأداة.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="cands" id="cands">
+  <div class="wrap cands-in">
+    <span class="cands-lbl">المرشح الحالي:</span>
+    <div id="candList" class="cands-in" role="group" aria-label="المرشحون"></div>
+    <div class="segs" role="group" aria-label="عرض الأسئلة"><button type="button" id="vAll" aria-pressed="true">كل الأسئلة</button><button type="button" id="vStar" aria-pressed="false">المهمة عندي</button></div>
+    <span class="hint" id="saved" aria-live="polite"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="tsec" aria-labelledby="h-q">
+    <h2 id="h-q"><span class="k">١</span>الأسئلة العشرون</h2>
+    <p class="lead2">علّم الأسئلة المهمة عندك قبل الجلسة، وفي الجلسة اكتب تحت كل سؤال ما سمعته من المرشح الحالي.</p>
+    <div id="qs"></div>
+    <p class="empty-star" id="noStar" hidden>لم تعلّم أي سؤال بعد. ارجع إلى «كل الأسئلة» واضغط «مهم عندي» على ما يهمك.</p>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-f">
+    <h2 id="h-f"><span class="k">٢</span>العلامات</h2>
+    <p class="lead2">بعد الجلسة، علّم ما لاحظته على <b id="fWho"></b>.</p>
+    <div class="flags">
+      <div class="bad"><h3>علامات «اهرب فوراً»</h3><div id="flBad"></div></div>
+      <div class="good"><h3>وعلامات «ارتح.. أنت في مكان صحيح»</h3><div id="flGood"></div></div>
+    </div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-c">
+    <h2 id="h-c"><span class="k">٣</span>جدول المقارنة.. بعد لقاء المرشحين</h2>
+    <p class="lead2">قيّم من ١ إلى ٥ بعد كل جلسة.</p>
+    <div class="cmp-wrap"><table class="cmp" id="cmp"></table></div>
+    <p class="rule">الأهم: لا تقارن الأسعار قبل اكتمال بقية الصفوف. لذلك يبقى سطر السعر مقفلاً لكل مرشح حتى تقيّمه في المعايير السبعة كلها.</p>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>لا يوجد مصمم «يجيب صح» على كل الأسئلة؛ المطلوب أن تخرج من الجلسة وأنت تعرف: هل سمعني؟ هل صارحني؟ وهل أرتاح لرحلة سنة كاملة معه؟ فالتناغم أهم من التصميم.</p>
+  </div>
+
+  <section class="tsec print-only" id="printSum" aria-hidden="true"></section>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الملخص أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<dialog class="rn" id="dlg">
+  <form method="dialog" id="dlgForm">
+    <h3>اسم المرشح</h3>
+    <input id="dlgIn" maxlength="40" autocomplete="off" aria-label="اسم المرشح">
+    <div class="row"><button class="btn sm" value="ok">حفظ</button><button class="btn sm line" value="cancel" formnovalidate>إلغاء</button></div>
+  </form>
+</dialog>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610052230"></script>
+<script src="../../assets/js/config.js?v=202610052230"></script>
+<script src="../../assets/js/session.js?v=202610052230"></script>
+<script>
+(function(){
+/* نص الأداة كما هو */
+var GROUPS=[
+ {t:'عن الرحلة والمنهج',q:[
+  ['صف لي رحلة التصميم عندك من أول جلسة إلى آخر تسليم.. ما مراحلها؟','مراحل واضحة مسماة، تبدأ بالجلوس معك لا بالرسم.'],
+  ['كيف تتعرف على احتياجي واحتياج عائلتي قبل أول رسمة؟ هل عندك ورشة أو برنامج معماري؟','ورشة أو برنامج معماري حقيقي.. لا «أرسل لي صور اللي يعجبك».'],
+  ['ماذا تحتاج مني أنا لكي ينجح المشروع؟','يطلب وقتك وصدقك وقراراتك.. لا توقيعك فقط.'],
+  ['كيف تتعامل مع التعديلات؟ وهل لها عدد محدد؟','مرونة مع منهج واضح.. لا عدد صارم يقفل النقاش.'],
+  ['حدثني عن مشروع لم ينجح كما تمنيت.. وماذا تعلمت منه؟','يحكي بصدق عن خطأ وتعلّم منه.. الكامل المزعوم أخطرهم.'],
+  ['كيف تدرس التكلفة أثناء التصميم؟ وهل تراجع البدائل الأوفر لكل حل؟','التكلفة حاضرة من التصميم.. ويذكر بدائل أوفر بنفسه.']]},
+ {t:'عن نموذج العمل',q:[
+  ['كم مشروعاً تعمل عليه حالياً في نفس الوقت؟','عدد محدود يحفظ لمشروعك تركيزه.'],
+  ['من سيعمل على مشروعي فعلياً: أنت أم فريق؟ ومن ألتقي في كل مرحلة؟','تلتقي صاحب الخبرة نفسه في المراحل المهمة.'],
+  ['من أين تكسب: من عدد المشاريع أم من نتيجة كل مشروع؟ (اسمع كيف يشرح نموذجه)','يشرح نموذجه بلا تجميل: عمق لا حجم.'],
+  ['من ينفذ الإنشائي والكهربائي والصحي والرخصة؟ وكيف تديرهم؟','منظومة واضحة يديرها هو.. لا «كلٌ يدبر أموره».'],
+  ['هل سبق أن اعتذرت عن مشروع؟ ولماذا؟','نعم مع سبب مقنع: النضج يعرف حدوده.'],
+  ['هل تتابع مشاريعك أثناء التنفيذ؟ وبأي صفة؟','متابعة بصفة واضحة ومسؤولية مسماة.']]},
+ {t:'عن التفاصيل العملية',q:[
+  ['ماذا يشمل التسليم النهائي بالضبط؟ (اطلب قائمة المخرجات مكتوبة)','قائمة مخرجات مكتوبة محددة.. لا «كل شي بيكون تمام».'],
+  ['ما مدة كل مرحلة؟ وماذا يحدث لو تأخرت أنا أو تأخرت أنت؟','مدد واقعية والتزامات متبادلة للطرفين.'],
+  ['كيف تكون الدفعات؟ وبماذا ترتبط؟','دفعات مربوطة بمراحل مسلّمة.. لا بتواريخ صمّاء.'],
+  ['هل أستطيع زيارة مشروع نفذته وكلام أصحابه؟','ترحيب فوري بالزيارة وأرقام أصحاب مشاريع.'],
+  ['ما الذي يجعل بيتاً «ناجحاً» في نظرك؟ (إجابته تكشف فلسفته)','إجابة عن الساكن وراحته.. لا عن الصور والجوائز.'],
+  ['ما أكثر خطأ يرتكبه العملاء وتتمنى ألا أرتكبه؟','إجابة فيها خبرة مواقف حقيقية.'],
+  ['إذا اختلفنا في الذوق.. رأي من يمشي؟','منهج واضح للخلاف: يسمع ويشرح ويصارح.. والقرار الأخير لك.'],
+  ['لماذا أختارك أنت تحديداً؟ (ليس للإحراج.. بل لتسمع هل يبيعك حجماً أم عمقاً)','يبيعك عمقاً ورحلة.. لا حجماً ولافتة.']]}
+];
+var BAD=['يعرض تصميماً «مطابقاً» لتصميم أعجبك بلا تردد ولا نقاش.','يعد بتسليم كامل في أيام معدودة ويعتبرها ميزة.','يفتتح الحديث بالسعر والخصم قبل أن يسأل عنك وعن عائلتك.','يرد على «حدثني عن رحلتك» بعرض صور نهائية فقط.','عدد التعديلات بند صارم في أول جملة.','لا يستطيع تسمية من سيعمل على مشروعك فعلياً.','يتحدث عن مشاريعه السابقة بلا خطأ واحد يعترف به.'];
+var GOOD=['سألك عن يومكم وعائلتك أكثر مما تكلم عن نفسه.','قال «لا أنصحك» عن شيء كان سيكسبه مالاً.','شرح لك لماذا قبل ماذا في كل جواب.','عرّفك بحدوده وبمن يكمل النقص عنده.','خرجت من الجلسة تفهم رحلتك أوضح مما دخلت.'];
+var CRIT=['سمعني وسأل عن حياتنا قبل أذواقنا','رحلته واضحة المراحل والمخرجات','صارحني بحدوده وأخطائه','نموذجه: عمق وتفرغ لا حجم وعدد','التكلفة حاضرة في تفكيره التصميمي','الدفعات والمدد واضحة مكتوبة','ارتياحي وتناغمي معه'];
+var AR='٠١٢٣٤٥٦٧٨٩';function ar(n){return String(n).replace(/\d/g,function(d){return AR[d]})}
+
+/* الحالة والحفظ في الجهاز */
+var KEY='bb_tool_first_session_v1';
+function fresh(){return {v:1,cands:[{id:'a',name:'المرشح أ'},{id:'b',name:'المرشح ب'},{id:'c',name:'المرشح ج'}],active:'a',star:{},notes:{a:{},b:{},c:{}},flags:{a:{bad:{},good:{}},b:{bad:{},good:{}},c:{bad:{},good:{}}},scores:{a:{},b:{},c:{}},price:{a:'',b:'',c:''},onlyStar:false}}
+var S;try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+if(!S||S.v!==1)S=fresh();
+var tSave=null;
+function save(){clearTimeout(tSave);tSave=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S));flash('حُفظ في هذا الجهاز')}catch(e){flash('تعذر الحفظ في هذا المتصفح')}},250)}
+var tFl=null;function flash(t){var s=$('saved');s.textContent=t;clearTimeout(tFl);tFl=setTimeout(function(){s.textContent=''},1800)}
+var $=function(id){return document.getElementById(id)};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function cand(id){for(var i=0;i<S.cands.length;i++)if(S.cands[i].id===id)return S.cands[i]}
+
+/* شريط المرشحين */
+function drawCands(){
+  var box=$('candList');box.innerHTML='';
+  S.cands.forEach(function(c,i){
+    var w=el('div','cand'+(c.id===S.active?' on':''));
+    var p=el('button','pick');p.type='button';p.setAttribute('aria-pressed',String(c.id===S.active));
+    p.appendChild(document.createTextNode(c.name));
+    p.addEventListener('click',function(){S.active=c.id;save();drawCands();drawNotes();drawFlags()});
+    var r=el('button','ren');r.type='button';r.setAttribute('aria-label','تسمية '+c.name);
+    r.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M11.5 2.5l2 2L6 12l-3 1 1-3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    r.addEventListener('click',function(){rename(c)});
+    w.appendChild(p);w.appendChild(r);box.appendChild(w);
+  });
+  $('fWho').textContent=cand(S.active).name;
+}
+function rename(c){
+  var d=$('dlg'),inp=$('dlgIn');inp.value=c.name;
+  if(typeof d.showModal!=='function'){var v=window.prompt('اسم المرشح',c.name);if(v&&v.trim()){c.name=v.trim().slice(0,40);save();drawAll()}return}
+  d.returnValue='';d.showModal();inp.select();
+  d.onclose=function(){if(d.returnValue==='ok'&&inp.value.trim()){c.name=inp.value.trim().slice(0,40);save();drawAll()}};
+}
+
+/* الأسئلة */
+var qEls=[];
+function drawQs(){
+  var host=$('qs');host.innerHTML='';qEls=[];var n=0;
+  GROUPS.forEach(function(g){
+    var sec=el('div','qgroup');var h=el('h3',null,g.t);h.appendChild(el('span',null,ar(g.q.length)+' أسئلة'));sec.appendChild(h);
+    g.q.forEach(function(q){
+      n++;var id=n;
+      var row=el('div','q');row.dataset.q=id;
+      row.appendChild(el('span','n',ar(id)));
+      row.appendChild(el('div','t',q[0]));
+      var st=el('button','star');st.type='button';
+      st.innerHTML='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6 4.2 13.6l.7-4.3-3.1-3 4.3-.6z" fill="currentColor"/></svg><span>مهم عندي</span>';
+      st.addEventListener('click',function(){S.star[id]=!S.star[id];if(!S.star[id])delete S.star[id];save();paintStar(row,id);applyFilter()});
+      row.appendChild(st);
+      var gd=el('div','good');gd.appendChild(el('b',null,'الإجابة الجيدة:'));gd.appendChild(el('span',null,q[1]));row.appendChild(gd);
+      var nt=el('div','note');var lb=el('label');lb.htmlFor='nt'+id;nt.appendChild(lb);
+      var ta=el('textarea');ta.id='nt'+id;ta.rows=1;
+      ta.addEventListener('input',function(){S.notes[S.active][id]=ta.value;if(!ta.value)delete S.notes[S.active][id];save();grow(ta)});
+      nt.appendChild(ta);row.appendChild(nt);
+      sec.appendChild(row);qEls.push({row:row,id:id,ta:ta,lb:lb,st:st});paintStar(row,id);
+    });
+    host.appendChild(sec);
+  });
+}
+function grow(ta){ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight+2,320)+'px'}
+function paintStar(row,id){var b=row.querySelector('.star');b.setAttribute('aria-pressed',String(!!S.star[id]))}
+function drawNotes(){var c=cand(S.active);qEls.forEach(function(o){o.lb.textContent='ما سمعته من '+c.name+':';o.ta.value=S.notes[S.active][o.id]||'';o.ta.placeholder='اكتب هنا أثناء الجلسة أو بعدها..';grow(o.ta)})}
+function applyFilter(){
+  $('vAll').setAttribute('aria-pressed',String(!S.onlyStar));$('vStar').setAttribute('aria-pressed',String(S.onlyStar));
+  var any=false;qEls.forEach(function(o){var h=S.onlyStar&&!S.star[o.id];o.row.classList.toggle('hide',h);if(!h)any=true});
+  document.querySelectorAll('.qgroup').forEach(function(g){g.hidden=S.onlyStar&&!g.querySelector('.q:not(.hide)')});
+  $('noStar').hidden=any||!S.onlyStar;
+}
+$('vAll').addEventListener('click',function(){S.onlyStar=false;save();applyFilter()});
+$('vStar').addEventListener('click',function(){S.onlyStar=true;save();applyFilter()});
+
+/* العلامات */
+function drawFlags(){
+  [['flBad',BAD,'bad'],['flGood',GOOD,'good']].forEach(function(set){
+    var box=$(set[0]);box.innerHTML='';
+    set[1].forEach(function(t,i){
+      var lab=el('label','fl');var cb=el('input');cb.type='checkbox';cb.checked=!!S.flags[S.active][set[2]][i];
+      cb.addEventListener('change',function(){if(cb.checked)S.flags[S.active][set[2]][i]=1;else delete S.flags[S.active][set[2]][i];save();drawCmp()});
+      lab.appendChild(cb);lab.appendChild(el('span',null,(set[2]==='bad'?'✕ ':'✓ ')+t));box.appendChild(lab);
+    });
+  });
+  $('fWho').textContent=cand(S.active).name;
+}
+
+/* جدول المقارنة */
+function drawCmp(){
+  var T=$('cmp');T.innerHTML='';
+  var th=el('thead'),hr=el('tr');hr.appendChild(el('th',null,'المعيار'));
+  S.cands.forEach(function(c){hr.appendChild(el('th','c',c.name))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  CRIT.forEach(function(cr,ri){
+    var tr=el('tr');tr.appendChild(el('td',null,cr));
+    S.cands.forEach(function(c){
+      var td=el('td','c'),g=el('div','score');g.setAttribute('role','group');g.setAttribute('aria-label',cr+' · '+c.name);
+      for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(S.scores[c.id][ri]===v));b.setAttribute('aria-label',ar(v)+' من ٥');
+        b.addEventListener('click',function(){S.scores[c.id][ri]=S.scores[c.id][ri]===v?undefined:v;if(S.scores[c.id][ri]===undefined)delete S.scores[c.id][ri];save();drawCmp()});g.appendChild(b)})(v);
+      td.appendChild(g);tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  var tot=el('tr','total');tot.appendChild(el('td',null,'المجموع من ٣٥'));
+  S.cands.forEach(function(c){
+    var sc=S.scores[c.id],k=Object.keys(sc).length,sum=0;Object.keys(sc).forEach(function(x){sum+=sc[x]});
+    var td=el('td','c');
+    if(!k)td.appendChild(el('div','lock','لم يُقيَّم بعد'));
+    else{td.appendChild(el('b',null,ar(sum)));if(k<CRIT.length)td.appendChild(el('div','lock','قيّمت '+ar(k)+' من '+ar(CRIT.length)))}
+    var bad=Object.keys(S.flags[c.id].bad).length,good=Object.keys(S.flags[c.id].good).length;
+    if(bad||good){var fc=el('div','flagcnt');if(bad)fc.appendChild(el('span','r','✕ '+ar(bad)+' '));if(good)fc.appendChild(el('span','g','✓ '+ar(good)));td.appendChild(fc)}
+    tot.appendChild(td);
+  });
+  tb.appendChild(tot);
+  var pr=el('tr','price');pr.appendChild(el('td',null,'السعر'));
+  S.cands.forEach(function(c){
+    var td=el('td','c'),done=Object.keys(S.scores[c.id]).length===CRIT.length;
+    if(!done){td.appendChild(el('span','lock','يُفتح بعد اكتمال التقييم'))}
+    else{var i=el('input','pr');i.inputMode='decimal';i.placeholder='بالريال';i.value=S.price[c.id]||'';i.setAttribute('aria-label','سعر '+c.name);
+      i.addEventListener('input',function(){S.price[c.id]=i.value.replace(/[^\d.,٠-٩]/g,'');save()});td.appendChild(i)}
+    pr.appendChild(td);
+  });
+  tb.appendChild(pr);T.appendChild(tb);
+}
+
+function drawAll(){drawCands();drawNotes();drawFlags();drawCmp()}
+
+/* الطباعة: ملخص كل مرشح بملاحظاته وعلاماته */
+function buildPrint(){
+  var P=$('printSum');P.innerHTML='';var h=el('h2');h.appendChild(el('span','k','٤'));h.appendChild(document.createTextNode('ملخص المرشحين'));P.appendChild(h);
+  var allQ=[];GROUPS.forEach(function(g){g.q.forEach(function(q){allQ.push(q[0])})});
+  S.cands.forEach(function(c){
+    var box=el('div','ps');box.appendChild(el('h3',null,c.name));
+    var any=false,ul=el('ol');
+    allQ.forEach(function(q,i){var t=S.notes[c.id][i+1];if(t){any=true;var li=el('li');li.value=i+1;li.appendChild(el('b',null,q));li.appendChild(el('p',null,t));ul.appendChild(li)}});
+    if(any)box.appendChild(ul);
+    var fb=Object.keys(S.flags[c.id].bad).map(function(i){return '✕ '+BAD[i]}),fg=Object.keys(S.flags[c.id].good).map(function(i){return '✓ '+GOOD[i]});
+    fb.concat(fg).forEach(function(t){box.appendChild(el('p','pf',t))});
+    if(!any&&!fb.length&&!fg.length)box.appendChild(el('p','pf','لا ملاحظات مسجلة.'));
+    P.appendChild(box);
+  });
+}
+window.addEventListener('beforeprint',buildPrint);
+$('btnPrint').addEventListener('click',function(){buildPrint();window.print()});
+var armed=false,tArm=null;
+$('btnReset').addEventListener('click',function(){
+  var b=this;
+  if(!armed){armed=true;b.textContent='اضغط مرة ثانية لمسح كل شيء';clearTimeout(tArm);tArm=setTimeout(function(){armed=false;b.textContent='ابدأ من جديد'},4000);return}
+  armed=false;b.textContent='ابدأ من جديد';S=fresh();try{localStorage.removeItem(KEY)}catch(e){}
+  drawQs();drawAll();applyFilter();flash('بدأت من جديد');
+});
+
+drawQs();drawAll();applyFilter();
+})();
+</script>
+</body>
+</html>

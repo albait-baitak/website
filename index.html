@@ -13,7 +13,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/fahs.css?v=202610052140">
+<link rel="stylesheet" href="assets/css/fahs.css?v=202610052230">
 <style>
 .home-hero{padding-block:clamp(56px,9vw,104px) clamp(36px,5vw,56px);max-width:44em}
 .home-hero h1{font-size:clamp(38px,5.6vw,62px)}
@@ -31,17 +31,28 @@
 .svc b{font-size:16px}
 .svc span{font-size:13.5px;color:var(--ink-2);line-height:1.7}
 .svc .who-for{font-size:12px;color:var(--ink-2)}
+.svc .no{font-family:var(--mono);font-size:11.5px;color:var(--terra)}
 .svc em{font-style:normal;font-size:12px;font-weight:700;align-self:flex-start;padding:1px 9px;border:1px solid var(--line-2);color:var(--ink-2);margin-top:2px}
 .svc.soon{background:transparent;border-style:dashed}
 .svc.quiet-svc{border-color:var(--line);color:var(--ink-2)}
 a.svc{border-color:var(--terra);border-width:1px 1px 1px 1px;box-shadow:inset -3px 0 0 var(--terra)}
 a.svc em{border-color:var(--terra);background:var(--terra);color:var(--on-terra)}
 a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 8px 18px -12px rgba(31,26,23,.45)}
-.offices{display:grid;grid-template-columns:1fr auto;gap:18px 32px;align-items:center;background:#1F1A17;color:#F6F5F1;border:1px solid var(--line);padding:26px 30px;margin-bottom:clamp(56px,8vw,96px)}
+.offices{background:#1F1A17;color:#F6F5F1;border:1px solid var(--line);padding:clamp(24px,4vw,40px);margin-bottom:clamp(56px,8vw,96px);scroll-margin-top:80px}
+.offices .off-head{max-width:70ch}
+.off-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px;border-top:1px solid rgba(246,245,241,.22)}
+.off-cols>div{padding-block:18px 4px;padding-inline:0 22px;min-width:0}
+.off-cols>div+div{border-right:1px solid rgba(246,245,241,.22);padding-inline-start:22px}
+.off-cols h3{font-size:16px;color:#E2B9A2;margin-bottom:8px}
+.off-cols p,.off-cols li{font-size:14.5px;opacity:.86;line-height:1.85;margin-bottom:8px}
+.off-cols b{opacity:1;color:#F6F5F1}
+.off-cols ol{margin:0;padding-inline-start:20px}
+.off-cta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+@media (max-width:860px){.off-cols{grid-template-columns:1fr}.off-cols>div+div{border-right:0;border-top:1px solid rgba(246,245,241,.22);padding-inline-start:0}}
 .offices>*{min-width:0}
 .offices .k{font-size:13px;font-weight:700;color:#E2B9A2}
-.offices h2{font-size:clamp(22px,2.6vw,28px);margin-top:2px;color:inherit}
-.offices p{opacity:.82;margin-top:6px;max-width:62ch;font-size:15px}
+.offices h2{font-size:clamp(22px,2.8vw,30px);margin-top:4px;color:inherit;line-height:1.4}
+.offices .off-head p{opacity:.85;margin-top:8px;font-size:15.5px}
 .offices .row{display:flex;gap:10px;flex-wrap:wrap}
 .offices .btn.line.on-ink{color:#F6F5F1}
 @media (max-width:980px){.journey{grid-template-columns:1fr 1fr}.stage:nth-child(3){border-right:0}.stage:nth-child(n+3){border-top:1px solid var(--line);margin-top:8px}.stage:nth-child(n+3)::before{display:none}}
@@ -53,7 +64,7 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./"><img alt="SAYAH" src="assets/img/sayah.png"><b>البيت بيتك</b></a>
-    <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="fahs/">الفحص الفني</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="account/">الدخول</a></div>
   </div>
 </header>
@@ -63,41 +74,51 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
   <div class="home-hero" data-rv>
     <p class="kicker">بيت العمر.. من القرار إلى السكن</p>
     <h1>البيت بيتك</h1>
-    <p class="lead">أربع محطات يمر بها كل من يبني بيته: القرار، ثم التصميم، ثم التنفيذ، ثم السكن. ولكل محطة أدوات تشتغل معك على بيتك أنت، فتُدخل بياناتك وتخرج بما تحتاجه لخطوتك التالية.</p>
+    <p class="lead">أربع محطات يمر بها كل من يبني بيته: القرار، ثم التصميم، ثم التنفيذ، ثم السكن. ولكل محطة أدوات عملية تشتغل معك على بيتك أنت، فتخرج منها بما تحتاجه لخطوتك التالية.</p>
   </div>
 
   <div class="journey" id="journey" aria-label="مراحل رحلة بيت العمر">
-    <div class="stage" data-rv>
+    <div class="stage live" data-rv>
       <span class="k">01</span><h2>القرار</h2>
-      <p>قبل أن تبدأ: هل أنت جاهز لبيت العمر، وبأي ثمن؟</p>
-      <div class="svc soon quiet-svc"><span>أدوات هذه المرحلة تُبنى.</span></div>
+      <p>من يحمل معك مسؤولية أول القرارات.. وأثقلها؟</p>
+      <a class="svc" href="tools/first-session/"><span class="no">01</span><b>أسئلة الجلسة الأولى مع مصممك</b><span>عشرون سؤالاً تكشف من أمامك.. قبل أن توقع</span><em>متاحة الآن</em></a>
+      <div class="svc soon"><span class="no">02</span><b>دليل اختيار الأرض</b><span>ما تفحصه قبل أن تشتري أرض بيت العمر</span><em>قريباً</em></div>
+      <div class="svc soon"><span class="no">08</span><b>حاسبة البنود والتكاليف</b><span>ميزانيتك بنداً بنداً.. من أول تقدير وطوال التنفيذ</span><em>قريباً</em></div>
     </div>
     <div class="stage" data-rv>
       <span class="k">02</span><h2>التصميم</h2>
-      <p>قبل أن تجلس مع المصمم: ماذا تحتاج فعلاً من بيتك؟</p>
-      <div class="svc soon"><b>مولد البرنامج المعماري</b><span>تجيب عن أسئلة أسرتك وأيامك، فيخرج لك برنامج الفراغات ومساحاتها لتأخذه إلى المصمم.</span><em>قريباً</em></div>
+      <p>هل تشتري مخططات.. أم تصنع قصة حياة؟</p>
+      <div class="svc soon"><span class="no">03</span><b>خمسون سؤالاً قبل أن تصمم بيتك</b><span>حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط</span><em>قريباً</em></div>
+      <div class="svc soon"><span class="no">04</span><b>اختبار القرار الذكي</b><span>ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»</span><em>قريباً</em></div>
     </div>
     <div class="stage" data-rv>
       <span class="k">03</span><h2>التنفيذ</h2>
-      <p>من المخطط إلى الموقع، بأرقام واضحة ومتابعة منتظمة.</p>
-      <div class="svc soon"><b>جداول الكميات</b><span>كميات البناء والتشطيب من بيانات بيتك.</span><em>قريباً</em></div>
-      <div class="svc soon"><b>إدارة التنفيذ</b><span>مراحل البناء ونقاط الاستلام في كل مرحلة.</span><em>قريباً</em></div>
+      <p>من يقود منظومة لا قائد لها؟</p>
+      <div class="svc soon"><span class="no">05</span><b>خارطة بنود تنفيذ بيتك</b><span>عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق</span><em>قريباً</em></div>
+      <div class="svc soon"><span class="no">06</span><b>نموذج اتفاق البند الواحد</b><span>صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل</span><em>قريباً</em></div>
+      <div class="svc soon"><span class="no">09</span><b>جدول مقارنة عروض المقاولين</b><span>للبند الواحد.. قبل الترسية</span><em>قريباً</em></div>
     </div>
     <div class="stage" data-rv>
       <span class="k">04</span><h2>السكن</h2>
-      <p>البيت بعد الاستلام: يُشغَّل ويُصان ليبقى.</p>
-      <div class="svc soon"><b>الصيانة والتشغيل</b><span>جدول صيانة لبيتك بأنظمته ومواده.</span><em>قريباً</em></div>
+      <p>ماذا يبقى من الرحلة بعد المفتاح؟</p>
+      <div class="svc soon"><span class="no">07</span><b>ملف بيتك: الاستلام والسجلات</b><span>قائمة الاستلام النهائي.. وسجلات هوية البيت</span><em>قريباً</em></div>
+      <div class="svc soon"><span class="no">10</span><b>دفتر السنة الأولى</b><span>سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى</span><em>قريباً</em></div>
     </div>
   </div>
 
-  <div class="offices" data-rv>
-    <div>
+  <section class="offices" id="offices" aria-labelledby="off-h" data-rv>
+    <div class="off-head">
       <span class="k">للمكاتب الهندسية</span>
-      <h2>افحص المخطط قبل أن تفحصه الأمانة</h2>
-      <p>تقرير يحدد كل ملاحظة بمرجعها ودرجتها وعلاجها، قبل الرفع على بلدي.</p>
+      <h2 id="off-h">الفحص الفني.. افحص المخطط قبل أن تفحصه الأمانة</h2>
+      <p>خدمة مستقلة عن أدوات الأفراد، خاصة بالمكاتب الهندسية ومصممي المساكن. ترفع المخطط قبل تقديمه على بلدي، فيصلك تقرير يحدد كل ملاحظة بمرجعها ودرجتها وعلاجها.</p>
     </div>
-    <div class="row"><a class="btn" href="fahs/">تعرّف على الفحص الفني</a><a class="btn line on-ink" href="account/?new">سجّل حساب المكتب</a></div>
-  </div>
+    <div class="off-cols">
+      <div><h3>ما الذي يُفحص</h3><p><b>فحص المطابقة:</b> الاشتراطات البلدية وكود البناء وموجهات العمارة السعودية، ومنه وحده يُبنى حكم المطابقة.</p><p><b>فحص جودة التصميم:</b> صلاحية الفراغات للعيش وقواعد البيت السعودي، ولا يدخل في الحكم.</p></div>
+      <div><h3>ما تستلمه</h3><p>تقرير الفحص الفني: حكم المطابقة (جاهز للرفع، أو يُرفع بعد العلاج، أو يعاد للتصميم)، وكل ملاحظة بمرجعها ودرجتها وعلاجها، وأسئلة لم يجب عنها المخطط. يصلك في حسابك ويُنزّل PDF.</p></div>
+      <div><h3>كيف تطلبه</h3><ol><li>سجّل حساب المكتب.</li><li>يُفعَّل الحساب بعد المراجعة.</li><li>ارفع المخطط: DXF أو PDF أو صور.</li><li>يصلك التقرير في حسابك بعد مراجعة مختص.</li></ol></div>
+    </div>
+    <div class="row off-cta"><a class="btn" href="fahs/">التفاصيل وتقرير العينة</a><a class="btn line on-ink" href="account/?new">سجّل حساب المكتب</a></div>
+  </section>
 </div>
 </main>
 
@@ -107,9 +128,9 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
     <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span>
   </div>
 </footer>
-<script src="assets/vendor/supabase-2.117.2.js?v=202610052140"></script>
-<script src="assets/js/config.js?v=202610052140"></script>
-<script src="assets/js/session.js?v=202610052140"></script>
-<script src="assets/js/motion.js?v=202610052140"></script>
+<script src="assets/vendor/supabase-2.117.2.js?v=202610052230"></script>
+<script src="assets/js/config.js?v=202610052230"></script>
+<script src="assets/js/session.js?v=202610052230"></script>
+<script src="assets/js/motion.js?v=202610052230"></script>
 </body>
 </html>

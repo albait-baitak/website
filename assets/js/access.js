@@ -2,13 +2,20 @@
    أي أداة جديدة تُضاف هنا مع الأنواع التي تظهر لها، ولا تظهر لغيرهم. */
 (function(){
 var ROLE={admin:'مدير النظام',office:'مكتب هندسي',contractor:'مقاول',owner:'صاحب بيت'};
+var ALL=['owner','contractor','office','admin'];
 var TOOLS=[
-  {id:'admin',  name:'لوحة الإدارة',          desc:'الحسابات وطلبات الفحص والتقارير.',                         href:'admin/',         roles:['admin'],                         live:true},
-  {id:'fahs',   name:'الفحص الفني',           desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',         href:'fahs/app.html',  roles:['office','admin'],                live:true},
-  {id:'program',name:'مولد البرنامج المعماري', desc:'برنامج الفراغات ومساحاتها من أسئلة أسرتك وأيامك.',       href:'',               roles:['owner','admin'],                 live:false},
-  {id:'boq',    name:'جداول الكميات',         desc:'كميات البناء والتشطيب من بيانات البيت.',                 href:'',               roles:['owner','contractor','office','admin'], live:false},
-  {id:'exec',   name:'إدارة التنفيذ',          desc:'مراحل البناء ونقاط الاستلام في كل مرحلة.',               href:'',               roles:['owner','contractor','admin'],    live:false},
-  {id:'maint',  name:'الصيانة والتشغيل',       desc:'جدول صيانة للبيت بأنظمته ومواده.',                       href:'',               roles:['owner','admin'],                 live:false}
+  {id:'admin',  name:'لوحة الإدارة',               desc:'الحسابات وطلبات الفحص والتقارير.',                      href:'admin/',                roles:['admin'],               live:true},
+  {id:'fahs',   name:'الفحص الفني',                desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',      href:'fahs/app.html',         roles:['office','admin'],      live:true},
+  {id:'t01',    name:'أسئلة الجلسة الأولى مع مصممك', desc:'عشرون سؤالاً تكشف من أمامك.. قبل أن توقع',            href:'tools/first-session/',  roles:['owner','admin'],       live:true},
+  {id:'t02',    name:'دليل اختيار الأرض',           desc:'ما تفحصه قبل أن تشتري أرض بيت العمر',                 href:'',                      roles:['owner','admin'],       live:false},
+  {id:'t08',    name:'حاسبة البنود والتكاليف',      desc:'ميزانيتك بنداً بنداً.. من أول تقدير وطوال التنفيذ',    href:'',                      roles:ALL,                     live:false},
+  {id:'t03',    name:'خمسون سؤالاً قبل أن تصمم بيتك', desc:'حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط',     href:'',                      roles:['owner','admin'],       live:false},
+  {id:'t04',    name:'اختبار القرار الذكي',          desc:'ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»',          href:'',                      roles:['owner','admin'],       live:false},
+  {id:'t05',    name:'خارطة بنود تنفيذ بيتك',        desc:'عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق', href:'',                     roles:['owner','contractor','admin'], live:false},
+  {id:'t06',    name:'نموذج اتفاق البند الواحد',     desc:'صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل',      href:'',                      roles:['owner','contractor','admin'], live:false},
+  {id:'t09',    name:'جدول مقارنة عروض المقاولين',   desc:'للبند الواحد.. قبل الترسية',                          href:'',                      roles:['owner','admin'],       live:false},
+  {id:'t07',    name:'ملف بيتك: الاستلام والسجلات',  desc:'قائمة الاستلام النهائي.. وسجلات هوية البيت',            href:'',                      roles:['owner','admin'],       live:false},
+  {id:'t10',    name:'دفتر السنة الأولى',            desc:'سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى',          href:'',                      roles:['owner','admin'],       live:false}
 ];
 function toolsFor(role){return TOOLS.filter(function(t){return t.roles.indexOf(role)>=0})}
 function load(){
