@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,14 +33,14 @@
     <h1>دليل اختيار الأرض</h1>
     <p class="sub">ما تفحصه قبل أن تشتري أرض بيت العمر</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>قبل الشراء وقبل دفع العربون. الأرض هي القرار الذي يحكم كل ما بعده؛ فأفضل مخطط في العالم لا يصلح أرضاً اختيرت غلط.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>افحص كل أرض مرشحة بالقوائم الخمس، بزيارات في أوقات مختلفة.</li>
       <li>علّم: <b style="color:var(--ok)">سليم</b>، <b style="color:var(--major)">△ يحتاج تحقق</b>، <b style="color:var(--stop)">✕ مشكلة محتملة</b>.</li>
       <li>احسب التكلفة الحقيقية ثم احسم بجدول المقارنة.</li>
     </ol></div>
-  </div>
+  </div></details>
 </div>
 
 <div class="cands">
@@ -53,21 +53,21 @@
 
 <div class="wrap">
   <section class="tsec" aria-labelledby="h-l">
-    <h2 id="h-l"><span class="k">١</span>القوائم الخمس</h2>
+    <h2 id="h-l"><span class="k">1</span>القوائم الخمس</h2>
     <p class="lead2">افحص <b class="who-now"></b> بنداً بنداً. ويمكنك أن تكتب تحت أي بند ما وجدته.</p>
     <div class="prog-line" id="progLine"></div>
     <div id="lists"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-c">
-    <h2 id="h-c"><span class="k">٢</span>التكلفة الحقيقية.. لا سعر اللوحة</h2>
+    <h2 id="h-c"><span class="k">2</span>التكلفة الحقيقية.. لا سعر اللوحة</h2>
     <p class="lead2">التكلفة الكاملة = السعر + الردم أو المعالجة + التوصيلات + الرسوم. اكتب المبالغ بالريال، ويُحسب الإجمالي وحده.</p>
     <div class="cmp-wrap"><table class="cmp cost" id="cost"></table></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-d">
-    <h2 id="h-d"><span class="k">٣</span>جدول الحسم</h2>
-    <p class="lead2">قيّم كل أرض من ١ إلى ٥ في كل معيار.</p>
+    <h2 id="h-d"><span class="k">3</span>جدول الحسم</h2>
+    <p class="lead2">قيّم كل أرض من 1 إلى 5 في كل معيار.</p>
     <div class="cmp-wrap"><table class="cmp" id="dec"></table></div>
   </section>
 
@@ -94,7 +94,7 @@
   </form>
 </dialog>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -175,11 +175,11 @@ function drawDec(){
   var tb=el('tbody');
   CRIT.forEach(function(cr,ri){var tr=el('tr');tr.appendChild(el('td',null,cr));
     S.lands.forEach(function(c){var td=el('td','c'),g=el('div','score');g.setAttribute('role','group');g.setAttribute('aria-label',cr+' · '+c.name);
-      for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(S.dec[c.id][ri]===v));b.setAttribute('aria-label',ar(v)+' من ٥');
+      for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(S.dec[c.id][ri]===v));b.setAttribute('aria-label',ar(v)+' من 5');
         b.addEventListener('click',function(){if(S.dec[c.id][ri]===v)delete S.dec[c.id][ri];else S.dec[c.id][ri]=v;ST.save();drawDec()});g.appendChild(b)})(v);
       td.appendChild(g);tr.appendChild(td)});
     tb.appendChild(tr)});
-  var tot=el('tr','total');tot.appendChild(el('td',null,'المجموع من ٣٠'));
+  var tot=el('tr','total');tot.appendChild(el('td',null,'المجموع من 30'));
   S.lands.forEach(function(c){var sc=S.dec[c.id],k=Object.keys(sc).length,sum=0;Object.keys(sc).forEach(function(x){sum+=sc[x]});
     var td=el('td','c');if(!k)td.appendChild(el('div','lock','لم تُقيَّم بعد'));else{td.appendChild(el('b',null,ar(sum)));if(k<CRIT.length)td.appendChild(el('div','lock','قيّمت '+ar(k)+' من '+ar(CRIT.length)))}
     var ct=counts(c.id);if(ct.bad||ct.chk2){var tl=el('div','tally-line');if(ct.bad)tl.appendChild(el('span','r','✕ '+ar(ct.bad)+'  '));if(ct.chk2)tl.appendChild(el('span','y','△ '+ar(ct.chk2)));td.appendChild(tl)}
@@ -188,7 +188,7 @@ function drawDec(){
 }
 
 function buildPrint(){
-  var P=$('printSum');P.innerHTML='';var h=el('h2');h.appendChild(el('span','k','٤'));h.appendChild(document.createTextNode('ملخص الأراضي'));P.appendChild(h);
+  var P=$('printSum');P.innerHTML='';var h=el('h2');h.appendChild(el('span','k','4'));h.appendChild(document.createTextNode('ملخص الأراضي'));P.appendChild(h);
   var all=[];LISTS.forEach(function(L){L.i.forEach(function(t){all.push(t)})});
   S.lands.forEach(function(c){
     var box=el('div','ps');box.appendChild(el('h3',null,c.name));var any=false;

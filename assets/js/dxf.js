@@ -5,7 +5,7 @@
 var ARABIC=/[؀-ۿ]/;
 var UNITS={1:['بوصة',0.0254],2:['قدم',0.3048],4:['ملم',0.001],5:['سم',0.01],6:['متر',1]};
 
-/* ١. القراءة وفك الترميز */
+/* 1. القراءة وفك الترميز */
 function decode(buf){
   var head=new TextDecoder('latin1').decode(new Uint8Array(buf,0,Math.min(buf.byteLength,200000)));
   if(/^AutoCAD Binary DXF/.test(head))throw new Error('binary_dxf');
@@ -24,7 +24,7 @@ function clean(s){
   return s.replace(/[ \t]+/g,' ').trim();
 }
 
-/* ٢. تحويلات الكتل */
+/* 2. تحويلات الكتل */
 function mul(A,B){return [A[0]*B[0]+A[2]*B[1],A[1]*B[0]+A[3]*B[1],A[0]*B[2]+A[2]*B[3],A[1]*B[2]+A[3]*B[3],A[0]*B[4]+A[2]*B[5]+A[4],A[1]*B[4]+A[3]*B[5]+A[5]]}
 function ap(M,p){return [M[0]*p.x+M[2]*p.y+M[4],M[1]*p.x+M[3]*p.y+M[5]]}
 function scaleOf(M){return Math.sqrt(Math.abs(M[0]*M[3]-M[1]*M[2]))||1}
@@ -51,7 +51,7 @@ function vertsOf(e){
   return pts;
 }
 
-/* ٣. جمع العناصر بعد فك الكتل */
+/* 3. جمع العناصر بعد فك الكتل */
 function collect(dxf){
   var P={lines:[],polys:[],texts:[],dims:[],closed:[],layers:{}},count=0,LIMIT=400000;
   function addLine(pts,layer,kind){if(pts.length>1&&count<LIMIT){P.lines.push({p:pts,l:layer,k:kind||''});count+=pts.length}}
@@ -108,7 +108,7 @@ function collect(dxf){
   return P;
 }
 
-/* ٤. الحدود والتجمعات (كل لوحة أو مسقط وحده) */
+/* 4. الحدود والتجمعات (كل لوحة أو مسقط وحده) */
 function pct(a,q){if(!a.length)return 0;var i=Math.min(a.length-1,Math.max(0,Math.floor(q*(a.length-1))));return a[i]}
 function bboxOf(P){
   var xs=[],ys=[];
@@ -149,7 +149,7 @@ function clusters(P,bb){
   return cl;
 }
 
-/* ٥. الرسم */
+/* 5. الرسم */
 function render(P,box,maxSide){
   var pad=0.03,w=box.x1-box.x0,h=box.y1-box.y0,bx0=box.x0-w*pad,by0=box.y0-h*pad;w*=1+2*pad;h*=1+2*pad;
   var s=maxSide/Math.max(w,h),W=Math.max(200,Math.round(w*s)),H=Math.max(200,Math.round(h*s));
@@ -182,7 +182,7 @@ function toBlob(cv){return new Promise(function(res){cv.toBlob(function(b){
   if(b&&b.size<4.5*1048576)return res({blob:b,type:'image/png',ext:'png'});
   cv.toBlob(function(j){res({blob:j,type:'image/jpeg',ext:'jpg'})},'image/jpeg',0.85)},'image/png')})}
 
-/* ٦. الاستخراج */
+/* 6. الاستخراج */
 function area(p){var a=0;for(var i=0;i<p.length-1;i++)a+=p[i][0]*p[i+1][1]-p[i+1][0]*p[i][1];return Math.abs(a)/2}
 function inside(pt,p){var c=false;for(var i=0,j=p.length-1;i<p.length;j=i++){var xi=p[i][0],yi=p[i][1],xj=p[j][0],yj=p[j][1];if(((yi>pt[1])!==(yj>pt[1]))&&(pt[0]<(xj-xi)*(pt[1]-yi)/(yj-yi)+xi))c=!c}return c}
 function r2(n){return Math.round(n*100)/100}
@@ -225,7 +225,7 @@ function extract(P,dxf,meta,bb,cls){
   };
 }
 
-/* ٧. نص مختصر يقرؤه الفحص الآلي */
+/* 7. نص مختصر يقرؤه الفحص الآلي */
 function summary(x){
   var L=[];
   L.push('ملف DXF: '+x.file+' · نسخة '+(x.version||'غير معروفة')+' · الوحدة: '+x.units.name+(x.units.guessed?' (مستنتجة من حجم الرسم، تحقق منها)':' (من رأس الملف)')+' · امتداد الرسم '+x.extents_m.w+' × '+x.extents_m.h+' م');
@@ -242,7 +242,7 @@ function summary(x){
   var s=L.join('\n');return s.length>90000?s.slice(0,90000)+'\n..':s;
 }
 
-/* ٨. الواجهة */
+/* 8. الواجهة */
 function process(file){
   return file.arrayBuffer().then(function(buf){
     var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);

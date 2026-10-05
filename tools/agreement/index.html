@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,14 +33,14 @@
     <h1>نموذج اتفاق البند الواحد</h1>
     <p class="sub">صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>مع كل مقاول بند، قبل بدء العمل وقبل أول دفعة. الاتفاق الشفهي «كم تاخذ؟ توكلنا» هو أبو فجوات المسؤولية كلها.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>أنشئ اتفاقاً مستقلاً لكل بند من بنود بيتك.</li>
       <li>املأه مع المقاول بحضوره وناقشا كل سطر.</li>
       <li>اطبعه نسختين ووقّعاها.. واحدة لكل طرف، وارجعا لها عند أي خلاف.</li>
     </ol></div>
-  </div>
+  </div></details>
   <div class="disc"><b>تنويه مهم: </b>هذا نموذج استرشادي لتنظيم الاتفاق وتوثيقه، وليس صيغة قانونية؛ للعقود الملزمة والمشاريع الكبيرة استعن بمختص.</div>
 </div>
 
@@ -56,13 +56,13 @@
 <div class="wrap">
   <div class="okbox" id="fromOffers" hidden></div>
   <section class="tsec" aria-labelledby="h-f">
-    <h2 id="h-f"><span class="k">١</span>املأ الاتفاق</h2>
+    <h2 id="h-f"><span class="k">1</span>املأ الاتفاق</h2>
     <p class="lead2">ما تكتبه هنا يظهر مباشرة في صفحة الاتفاق أدناه. ما تتركه فارغاً يُطبع سطراً منقطاً يُكمل بالقلم.</p>
     <div id="form"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-d">
-    <h2 id="h-d"><span class="k">٢</span>صفحة الاتفاق للطباعة والتوقيع</h2>
+    <h2 id="h-d"><span class="k">2</span>صفحة الاتفاق للطباعة والتوقيع</h2>
     <p class="lead2">راجعها مع المقاول سطراً سطراً، ثم اطبعها نسختين.</p>
   </section>
   <div id="docWrap"><div class="agdoc" id="doc"></div></div>
@@ -83,7 +83,7 @@
   </form>
 </dialog>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -151,28 +151,28 @@ function drawForm(){
   g.appendChild(fld('الطرف الثاني (المنفذ)','con'));g.appendChild(fld('جوال الطرف الثاني','conPh',{type:'tel'}));
   g.appendChild(fld('تاريخ الاتفاق','date',{type:'date'}));s0.appendChild(g);F.appendChild(s0);
 
-  var s1=sec('١','نطاق العمل'),g1=el('div','fgrid');
+  var s1=sec('1','نطاق العمل'),g1=el('div','fgrid');
   g1.appendChild(fld('يشمل هذا البند تنفيذ','inc',{ta:1,full:1,ph:'اكتب الأعمال بالتفصيل..'}));
   g1.appendChild(fld('ولا يشمل (المستثنيات نصاً)','exc',{ta:1,full:1,ph:'أكثر الخلافات تولد من كلمة «شامل».. اكتب المستثنيات هنا.'}));
   var mf=el('div','fld full');mf.appendChild(el('label',null,'المواد على الطرف'));var mrow=el('div');mrow.appendChild(ab('mat'));mf.appendChild(mrow);g1.appendChild(mf);
   g1.appendChild(fld('وتشمل المواد','matInc',{ta:1}));g1.appendChild(fld('ولا تشمل','matExc',{ta:1}));s1.appendChild(g1);F.appendChild(s1);
 
-  var s2=sec('٢','حدود البند والتداخل');
+  var s2=sec('2','حدود البند والتداخل');
   s2.appendChild(ck('b1',['من يفتح ومن يسد ومن ينظف خلفه: ',inl('open','..',true)]));
   s2.appendChild(ck('b2',['حماية أعمال البنود السابقة أثناء العمل مسؤولية المنفذ، وأي كسر عرضي يصلحه على حسابه.']));
   s2.appendChild(ck('b3',['عند تعارض هذا البند مع بند آخر يكون الإصلاح على: ',inl('conflict','..',true)]));F.appendChild(s2);
 
-  var s3=sec('٣','الموقع والتشغيل أثناء العمل');
+  var s3=sec('3','الموقع والتشغيل أثناء العمل');
   s3.appendChild(ck('c1',['الكهرباء والماء أثناء التنفيذ على الطرف: ',ab('util')]));
   s3.appendChild(ck('c2',['ساعات العمل من ',inl('hFrom','الساعة'),' إلى ',inl('hTo','الساعة'),' مراعاةً للجيران.']));
   s3.appendChild(ck('c3',['نظافة الموقع أولاً بأول ورفع المخلفات على المنفذ.']));
   s3.appendChild(ck('c4',['لا إقامة للعمالة في الموقع إلا باتفاق مكتوب.']));F.appendChild(s3);
 
-  var s4=sec('٤','المدة والتأخير'),g4=el('div','fgrid');
+  var s4=sec('4','المدة والتأخير'),g4=el('div','fgrid');
   g4.appendChild(fld('مدة التنفيذ','days',{num:1,o:'(يوماً)'}));g4.appendChild(fld('من تاريخ','from',{type:'date'}));
   g4.appendChild(fld('وفي حال التأخير غير المبرر','delay',{ta:1,full:1,ph:'مدة بلا أثر للتأخير = وعد ودي لا التزام.'}));s4.appendChild(g4);F.appendChild(s4);
 
-  var s5=sec('٥','الدفعات.. مربوطة بالإنجاز المستلم');
+  var s5=sec('5','الدفعات.. مربوطة بالإنجاز المستلم');
   var g5=el('div','fgrid');g5.appendChild(fld('قيمة البند الإجمالية','price',{num:1,o:'(ريال، اختياري للمطابقة)'}));s5.appendChild(g5);
   var w=el('div','cmp-wrap'),T=el('table','cmp');var th=el('thead'),hr=el('tr');['الدفعة','تُصرف عند إنجاز واستلام','المبلغ (ريال)',''].forEach(function(h,i){hr.appendChild(el('th',i===2?'c':null,h))});th.appendChild(hr);T.appendChild(th);
   var tb=el('tbody');
@@ -188,7 +188,7 @@ function drawForm(){
   var pw=el('div','warn');pw.id='payWarn';pw.hidden=true;s5.appendChild(pw);
   F.appendChild(s5);sumPay();
 
-  var s6=sec('٦','الاستلام والتوثيق والضمان');
+  var s6=sec('6','الاستلام والتوثيق والضمان');
   s6.appendChild(ck('e1',['تُستلم كل مرحلة فنياً قبل تغطيتها، وتُوثق بالصور المؤرخة.']));
   s6.appendChild(ck('e2',['لا يبدأ بندٌ فوق مرحلة لم تُستلم.']));
   s6.appendChild(ck('e3',['الضمان على أعمال هذا البند: ',inl('war','عدد السنوات'),' سنة/سنوات من الاستلام النهائي.']));F.appendChild(s6);
@@ -219,32 +219,32 @@ function drawDoc(){
     var tr=el('tr');tr.appendChild(el('th',null,r[0]));var td=el('td');td.appendChild(span(r[1]));tr.appendChild(td);tb.appendChild(tr)});
   t.appendChild(tb);D.appendChild(t);
 
-  D.appendChild(el('h4',null,'١. نطاق العمل'));
+  D.appendChild(el('h4',null,'1. نطاق العمل'));
   var p1=line(D,['يشمل هذا البند تنفيذ: ']);multi(p1,a.inc);
   var p2=line(D,['ولا يشمل (المستثنيات نصاً): ']);multi(p2,a.exc);
   line(D,['المواد: على الطرف ',span(a.mat?PARTY[a.mat]:null,1),'، وتشمل: ',span(a.matInc),' ولا تشمل: ',span(a.matExc)]);
 
-  D.appendChild(el('h4',null,'٢. حدود البند والتداخل'));
+  D.appendChild(el('h4',null,'2. حدود البند والتداخل'));
   line(D,[box(a.b1)+'من يفتح ومن يسد ومن ينظف خلفه: ',span(a.open)]);
   line(D,[box(a.b2)+'حماية أعمال البنود السابقة أثناء العمل مسؤولية المنفذ، وأي كسر عرضي يصلحه على حسابه.']);
   line(D,[box(a.b3)+'عند تعارض هذا البند مع بند آخر يكون الإصلاح على: ',span(a.conflict)]);
 
-  D.appendChild(el('h4',null,'٣. الموقع والتشغيل أثناء العمل'));
+  D.appendChild(el('h4',null,'3. الموقع والتشغيل أثناء العمل'));
   line(D,[box(a.c1)+'الكهرباء والماء أثناء التنفيذ على الطرف: ',span(a.util?PARTY[a.util]:null,1),'.']);
   line(D,[box(a.c2)+'ساعات العمل من ',span(a.hFrom,1),' إلى ',span(a.hTo,1),' مراعاةً للجيران.']);
   line(D,[box(a.c3)+'نظافة الموقع أولاً بأول ورفع المخلفات على المنفذ.']);
   line(D,[box(a.c4)+'لا إقامة للعمالة في الموقع إلا باتفاق مكتوب.']);
 
-  D.appendChild(el('h4',null,'٤. المدة والتأخير'));
+  D.appendChild(el('h4',null,'4. المدة والتأخير'));
   line(D,['مدة التنفيذ: ',span(a.days?ar(a.days):null,1),' يوماً من تاريخ: ',span(dt(a.from),1),'. وفي حال التأخير غير المبرر: ',span(a.delay)]);
 
-  D.appendChild(el('h4',null,'٥. الدفعات.. مربوطة بالإنجاز المستلم'));
+  D.appendChild(el('h4',null,'5. الدفعات.. مربوطة بالإنجاز المستلم'));
   var pt=el('table'),ph=el('thead'),phr=el('tr');['الدفعة','تُصرف عند إنجاز واستلام','المبلغ'].forEach(function(h){phr.appendChild(el('th',null,h))});ph.appendChild(phr);pt.appendChild(ph);
   var pb=el('tbody');a.pays.forEach(function(p){var tr=el('tr');[p.n,p.w,p.a?fmt(num(p.a),0)+' ريال':null].forEach(function(x){var td=el('td');td.appendChild(span(x,1));tr.appendChild(td)});pb.appendChild(tr)});
   var s=paySum(a);if(s!=null){var tr=el('tr');tr.appendChild(el('th',null,'المجموع'));tr.appendChild(el('td'));tr.appendChild(el('td',null,fmt(s,0)+' ريال'));pb.appendChild(tr)}
   pt.appendChild(pb);D.appendChild(pt);
 
-  D.appendChild(el('h4',null,'٦. الاستلام والتوثيق والضمان'));
+  D.appendChild(el('h4',null,'6. الاستلام والتوثيق والضمان'));
   line(D,[box(a.e1)+'تُستلم كل مرحلة فنياً قبل تغطيتها، وتُوثق بالصور المؤرخة.']);
   line(D,[box(a.e2)+'لا يبدأ بندٌ فوق مرحلة لم تُستلم.']);
   line(D,[box(a.e3)+'الضمان على أعمال هذا البند: ',span(a.war?ar(a.war):null,1),' سنة/سنوات من الاستلام النهائي.']);

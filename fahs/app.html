@@ -14,7 +14,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="./"><img alt="SAYAH" src="../assets/img/sayah.png"><b>الفحص الفني</b></a>
+    <a class="brand" href="./"><span class="bn">البيت بيتك</span><b>الفحص الفني</b></a>
     <nav aria-label="روابط"><a href="./">عن الخدمة</a><a href="./#try">تقرير العينة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../account/">الدخول</a></div>
   </div>
@@ -92,7 +92,7 @@
   </div>
 </main>
 
-<footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>SAYAH · الأحساء</span></div></footer>
+<footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../assets/js/config.js?v=VERSION"></script>
@@ -175,7 +175,7 @@ $('fNew').addEventListener('submit',function(e){
   if(!$('nAgree').checked){msg('nMsg','الإقرار بالسرية والمسؤولية شرط لإرسال الطلب.','bad');return}
   sending=true;$('nSubmit').disabled=true;
   var batch=(crypto.randomUUID?crypto.randomUUID():String(Date.now())),uploaded=[],queue=[],bars=$('nList').querySelectorAll('.prog i'),warn=[];
-  // ١. قراءة ملفات DXF في المتصفح قبل الرفع
+  // 1. قراءة ملفات DXF في المتصفح قبل الرفع
   var chain=Promise.resolve();
   files.forEach(function(f,i){
     var base=user.id+'/'+batch+'/'+(i+1);
@@ -189,7 +189,7 @@ $('fNew').addEventListener('submit',function(e){
       o.images.forEach(function(im,k){queue.push({blob:im.blob,path:base+'-view-'+(k+1)+'.'+im.ext,meta:{name:'معاينة DXF ('+im.label+'): '+f.name,size:im.blob.size,type:im.type,role:'dxf_view',of:f.name}})});
     }).catch(function(err){warn.push(f.name+(String(err&&err.message).indexOf('binary')>=0?' (DXF ثنائي)':''))});
   });
-  // ٢. الرفع
+  // 2. الرفع
   var done=0;
   function next(){
     if(done>=queue.length)return Promise.resolve();

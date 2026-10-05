@@ -2,6 +2,8 @@
 (function(){
 var BASE=(document.currentScript&&document.currentScript.src||'').replace(/assets\/js\/session\.js.*$/,'');
 var ROLE={admin:'مدير النظام',office:'مكتب هندسي',contractor:'مقاول',owner:'صاحب بيت'};
+/* طريقة الاستخدام: مفتوحة على الشاشات الواسعة، مطوية على الجوال حتى تظهر الأداة من أول نظرة */
+try{if(window.matchMedia&&matchMedia('(min-width:900px)').matches)document.querySelectorAll('details.howto').forEach(function(d){d.open=true})}catch(e){}
 var KEY='sb-mafsmebubzvbyahmwyym-auth-token';
 var head=document.querySelector('header.top .wrap');if(!head)return;
 

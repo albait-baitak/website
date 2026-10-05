@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,14 +33,14 @@
     <h1>اختبار القرار الذكي</h1>
     <p class="sub">ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>قبل شراء أي جهاز أو نظام ذكي لبيتك، وأمام كل عرض مغرٍ في المعارض. القاعدة الذهبية: في بيتك، أنت من يجب أن يكون الذكي.. وليس البيت.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>أجب عن الأسئلة الستة بصدق عن الجهاز المحدد.</li>
       <li>امنح نقطتين عن كل إجابة تطابق الإجابة الخضراء، ونقطة للإجابة الجزئية.</li>
       <li>اجمع واحكم بجدول النتيجة.. والتزم بالحكم.</li>
     </ol></div>
-  </div>
+  </div></details>
 </div>
 
 <div class="cands">
@@ -54,18 +54,18 @@
 
 <div class="wrap">
   <section class="tsec" aria-labelledby="h-q">
-    <h2 id="h-q"><span class="k">١</span>الأسئلة الستة</h2>
+    <h2 id="h-q"><span class="k">1</span>الأسئلة الستة</h2>
     <p class="lead2">عن <b class="who-now"></b>: اقرأ السؤال، ثم قارن جوابك الصادق بالإجابة الخضراء.</p>
     <div id="qs"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-r">
-    <h2 id="h-r"><span class="k">٢</span>النتيجة والحكم</h2>
+    <h2 id="h-r"><span class="k">2</span>النتيجة والحكم</h2>
     <div class="sverdict" id="verdict"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-c" id="cmpSec">
-    <h2 id="h-c"><span class="k">٣</span>أجهزتك في نظرة واحدة</h2>
+    <h2 id="h-c"><span class="k">3</span>أجهزتك في نظرة واحدة</h2>
     <div class="cmp-wrap"><table class="cmp" id="cmp"></table></div>
   </section>
 
@@ -90,7 +90,7 @@
   </form>
 </dialog>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -108,8 +108,8 @@ var Q=[
  {t:'بعد سنة من الآن.. هل ستكون مستخدماً له فعلاً، أم لعبة انطفأ حماسها من أول شهر؟',g:'نعم، سأستخدمه فعلاً بعد سنة.',ph:'ملاحظتك..'}
 ];
 var COSTS=['الشراء','التركيب','الصيانة (سنوياً)','الاشتراكات (سنوياً)'];
-var PTS=[['ok','تطابق','٢',2],['chk2','جزئياً','١',1],['bad','لا تطابق','٠',0]];
-var BANDS=[{min:10,max:12,r:'١٠ - ١٢',t:'اشترِ مطمئناً.. هذا استثمار لا رفاهية.',c:'var(--ok)'},{min:6,max:9,r:'٦ - ٩',t:'أجّل وفكر: جرب عند صديق، أو ابدأ بواحد لا بمنظومة.',c:'var(--major)'},{min:0,max:5,r:'٠ - ٥',t:'وفّر مالك.. هذه لعبة سينطفئ حماسها من أول شهر.',c:'var(--stop)'}];
+var PTS=[['ok','تطابق','2',2],['chk2','جزئياً','1',1],['bad','لا تطابق','0',0]];
+var BANDS=[{min:10,max:12,r:'10 - 12',t:'اشترِ مطمئناً.. هذا استثمار لا رفاهية.',c:'var(--ok)'},{min:6,max:9,r:'6 - 9',t:'أجّل وفكر: جرب عند صديق، أو ابدأ بواحد لا بمنظومة.',c:'var(--major)'},{min:0,max:5,r:'0 - 5',t:'وفّر مالك.. هذه لعبة سينطفئ حماسها من أول شهر.',c:'var(--stop)'}];
 
 function newDev(n){return {id:'d'+Date.now().toString(36)+Math.floor(Math.random()*999),name:'الجهاز '+ar(n),p:{},n:{},c:{}}}
 function fresh(){var d=newDev(1);return {v:1,devs:[d],active:d.id}}
@@ -168,8 +168,8 @@ function score(d){var k=0,s=0;for(var i=0;i<6;i++){if(d.p[i]!=null){k++;s+=d.p[i
 function band(s){for(var i=0;i<BANDS.length;i++)if(s>=BANDS[i].min&&s<=BANDS[i].max)return BANDS[i]}
 function drawVerdict(){
   var d=cur(),r=score(d),V=$('verdict');V.innerHTML='';
-  var sc=el('div','sc');sc.appendChild(el('span',null,'مجموع '+d.name));var b=el('b',null,r.k?ar(r.s):'..');b.appendChild(el('small',null,' من ١٢'));sc.appendChild(b);
-  sc.appendChild(el('span',null,r.k?'أجبت عن '+ar(r.k)+' من ٦':'لم تجب بعد'));V.appendChild(sc);
+  var sc=el('div','sc');sc.appendChild(el('span',null,'مجموع '+d.name));var b=el('b',null,r.k?ar(r.s):'..');b.appendChild(el('small',null,' من 12'));sc.appendChild(b);
+  sc.appendChild(el('span',null,r.k?'أجبت عن '+ar(r.k)+' من 6':'لم تجب بعد'));V.appendChild(sc);
   var bs=el('div','bands');var on=r.k===6?band(r.s):null;
   BANDS.forEach(function(B){var x=el('div','band'+(on===B?' on':''));x.style.setProperty('--c',B.c);x.appendChild(el('span','r',B.r));x.appendChild(el('p',null,B.t));bs.appendChild(x)});
   if(r.k<6)bs.appendChild(el('div','pending','يظهر الحكم حين تجيب عن الأسئلة الستة كلها.'));
@@ -180,8 +180,8 @@ function drawCmp(){
   var T=$('cmp');T.innerHTML='';var th=el('thead'),hr=el('tr');['الجهاز','المجموع','الحكم','التكلفة أول سنة'].forEach(function(h,i){hr.appendChild(el('th',i?'c':null,h))});th.appendChild(hr);T.appendChild(th);
   var tb=el('tbody');
   S.devs.forEach(function(d){var r=score(d),tr=el('tr');tr.appendChild(el('td',null,d.name));
-    tr.appendChild(el('td','c num',r.k?ar(r.s)+' / ١٢':'..'));
-    var B=r.k===6?band(r.s):null;var td=el('td','c');if(B){var pl=el('span','pill '+(B.min===10?'g':B.min===6?'y':'r'),B.min===10?'اشترِ':B.min===6?'أجّل وفكر':'وفّر مالك');td.appendChild(pl)}else td.appendChild(el('span','lock',r.k?'أجبت عن '+ar(r.k)+' من ٦':'لم تجب بعد'));tr.appendChild(td);
+    tr.appendChild(el('td','c num',r.k?ar(r.s)+' / 12':'..'));
+    var B=r.k===6?band(r.s):null;var td=el('td','c');if(B){var pl=el('span','pill '+(B.min===10?'g':B.min===6?'y':'r'),B.min===10?'اشترِ':B.min===6?'أجّل وفكر':'وفّر مالك');td.appendChild(pl)}else td.appendChild(el('span','lock',r.k?'أجبت عن '+ar(r.k)+' من 6':'لم تجب بعد'));tr.appendChild(td);
     var c=costTotal(d);tr.appendChild(el('td','c num',c==null?'..':fmt(c,0)+' ريال'));tb.appendChild(tr)});
   T.appendChild(tb);
 }

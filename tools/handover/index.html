@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,23 +33,23 @@
     <h1>ملف بيتك</h1>
     <p class="sub">قائمة الاستلام النهائي.. وسجلات هوية البيت</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>يوم الاستلام النهائي، ثم طوال عمر البيت. لحظة الاستلام آخر فرصة تطلب فيها الإصلاح وأنت في موقع قوة.. قبل توقيع المحضر والدفعة الأخيرة.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>يوم الاستلام: افحص بالقوائم غرفةً غرفة، وعلّم: <b style="color:var(--ok)">سليم</b>، <b style="color:var(--major)">△ إصلاح بسيط</b>، <b style="color:var(--stop)">✕ يعالج قبل التوقيع</b>.</li>
       <li>لا توقع قبل معالجة كل ✕ أو توثيقها بمهلة مكتوبة.</li>
       <li>بعدها: عبّئ بطاقة البيت وسجلاته.. واحفظ الملف ورقياً وسحابياً.</li>
     </ol></div>
-  </div>
+  </div></details>
 
   <div class="qtabs" role="tablist" aria-label="أقسام ملف بيتك">
-    <button role="tab" id="tb1" aria-controls="p1" aria-selected="true"><span class="k">١</span>قائمة الاستلام النهائي</button>
-    <button role="tab" id="tb2" aria-controls="p2" aria-selected="false"><span class="k">٢</span>بطاقة البيت وسجلاته</button>
-    <button role="tab" id="tb3" aria-controls="p3" aria-selected="false"><span class="k">٣</span>فحص الموسمين</button>
+    <button role="tab" id="tb1" aria-controls="p1" aria-selected="true"><span class="k">1</span>قائمة الاستلام النهائي</button>
+    <button role="tab" id="tb2" aria-controls="p2" aria-selected="false"><span class="k">2</span>بطاقة البيت وسجلاته</button>
+    <button role="tab" id="tb3" aria-controls="p3" aria-selected="false"><span class="k">3</span>فحص الموسمين</button>
   </div>
   <span class="hint" id="saved" aria-live="polite" style="font-size:13px;color:var(--ink-2)"></span>
 
-  <div class="panel" id="p1" role="tabpanel" aria-labelledby="tb1">
+  <div class="qpanel" id="p1" role="tabpanel" aria-labelledby="tb1">
     <div class="gate" id="gate"></div>
     <div class="prog-line" id="progLine"></div>
     <div id="lists"></div>
@@ -59,13 +59,13 @@
     </div>
   </div>
 
-  <div class="panel recs" id="p2" role="tabpanel" aria-labelledby="tb2" hidden>
+  <div class="qpanel recs" id="p2" role="tabpanel" aria-labelledby="tb2" hidden>
     <p class="lead2" style="color:var(--ink-2)">اجمع في ملف واحد (ورقي وسحابي) كل ما يوثق بيتك؛ فهذه السجلات «هويته» لأي صيانة أو إضافة مستقبلاً.</p>
     <section class="tsec" aria-labelledby="h-card"><h2 id="h-card"><span class="k">أ</span>بطاقة بيانات البيت</h2><div class="form-sec"><div class="fgrid" id="card"></div></div></section>
     <div id="recs"></div>
   </div>
 
-  <div class="panel" id="p3" role="tabpanel" aria-labelledby="tb3" hidden>
+  <div class="qpanel" id="p3" role="tabpanel" aria-labelledby="tb3" hidden>
     <p class="lead2" style="color:var(--ink-2)">فحص الموسمين.. عادة تحفظ بيتك. سجّل تاريخ آخر مرة نفذت فيها كل عمل.</p>
     <div class="season" id="season"></div>
     <div class="note-box">
@@ -83,7 +83,7 @@
 </div>
 </main>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>

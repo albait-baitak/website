@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,24 +33,24 @@
     <h1>جداول الكميات والتكاليف</h1>
     <p class="sub">من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمها؟</h2><p>من أول تقدير للميزانية، ثم قبل الاتفاق مع أي مقاول تشطيب وقبل شراء المواد، وطوال التنفيذ لتتابع المصروف الفعلي مقابل تقديرك.</p></div>
     <div><h2>كيف تستخدمها؟</h2><ol>
       <li>أدخل فراغات بيتك بأبعادها، أو استوردها من ملف DXF للمخطط.</li>
       <li>راجع جدول الكميات، واكتب المواصفة المتفق عليها نصاً وسعر الوحدة لكل بند.</li>
       <li>انقل تكلفة التشطيب إلى الميزانية، وسجّل المصروف الفعلي أولاً بأول.</li>
     </ol></div>
-  </div>
+  </div></details>
 
   <div class="qtabs" role="tablist" aria-label="أقسام الأداة">
-    <button type="button" role="tab" id="tab-rooms" aria-controls="p-rooms" aria-selected="true"><span class="k">١</span>فراغات البيت</button>
-    <button type="button" role="tab" id="tab-qty" aria-controls="p-qty" aria-selected="false"><span class="k">٢</span>جدول الكميات</button>
-    <button type="button" role="tab" id="tab-bud" aria-controls="p-bud" aria-selected="false"><span class="k">٣</span>الميزانية بالبنود</button>
+    <button type="button" role="tab" id="tab-rooms" aria-controls="p-rooms" aria-selected="true"><span class="k">1</span>فراغات البيت</button>
+    <button type="button" role="tab" id="tab-qty" aria-controls="p-qty" aria-selected="false"><span class="k">2</span>جدول الكميات</button>
+    <button type="button" role="tab" id="tab-bud" aria-controls="p-bud" aria-selected="false"><span class="k">3</span>الميزانية بالبنود</button>
     <span class="hint saved-tab" id="saved" aria-live="polite" style="margin-inline-start:auto;align-self:center;font-size:13px;color:var(--ink-2)"></span>
   </div>
 
-  <!-- ١. الفراغات -->
-  <section class="panel" id="p-rooms" role="tabpanel" aria-labelledby="tab-rooms">
+  <!-- 1. الفراغات -->
+  <section class="qpanel" id="p-rooms" role="tabpanel" aria-labelledby="tab-rooms">
     <div class="settings">
       <div class="fld"><label for="gH">ارتفاع السقف الصافي <span class="o">م · لكل الفراغات</span></label><input id="gH" class="num" inputmode="decimal" placeholder="مثال: 3.00"></div>
       <div class="fld" style="grid-column:span 2"><label>أنواع الأرضيات في بيتك</label>
@@ -80,12 +80,12 @@
     <div class="room-actions"><button class="btn line sm" type="button" id="addFloor">إضافة دور</button></div>
   </section>
 
-  <!-- ٢. الكميات -->
-  <section class="panel" id="p-qty" role="tabpanel" aria-labelledby="tab-qty" hidden>
+  <!-- 2. الكميات -->
+  <section class="qpanel" id="p-qty" role="tabpanel" aria-labelledby="tab-qty" hidden>
     <div class="kpis" id="qK"></div>
     <div id="qWarn"></div>
     <div class="cmp-wrap"><table class="qt" id="qt"></table></div>
-    <p class="rule">الهدر الافتراضي ٨٪ للبلاط والتكسيات، وهو مثال الكتاب: «من دفعة إنتاج واحدة +٨٪ فائض». عدّله لكل مادة حسب مقاسها ونمط تركيبها.</p>
+    <p class="rule">الهدر الافتراضي 8٪ للبلاط والتكسيات، وهو مثال الكتاب: «من دفعة إنتاج واحدة +8٪ فائض». عدّله لكل مادة حسب مقاسها ونمط تركيبها.</p>
     <div class="note-box">
       <b>حدود هذه الكميات</b>
       <p>الكميات هنا هندسية صافية محسوبة من أبعادك أنت، وتُراجع مع المقاول قبل الشراء. ولا تحسب الأداة كميات العظم (الخرسانة والحديد والبلوك)، فهذه تؤخذ من المخططات الإنشائية وجداولها. وفي التكسيات يُفترض أن النوافذ فوق ارتفاع التكسية.</p>
@@ -94,12 +94,12 @@
     <div class="cmp-wrap"><table class="qt" id="rt"></table></div>
   </section>
 
-  <!-- ٣. الميزانية -->
-  <section class="panel" id="p-bud" role="tabpanel" aria-labelledby="tab-bud" hidden>
+  <!-- 3. الميزانية -->
+  <section class="qpanel" id="p-bud" role="tabpanel" aria-labelledby="tab-bud" hidden>
     <div class="settings">
       <div class="fld"><label for="bTotal">الميزانية الإجمالية <span class="o">ريال</span></label><input id="bTotal" class="num" inputmode="decimal" placeholder="مثال: 1,500,000"></div>
       <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushFin">انقل تكلفة التشطيب من جدول الكميات</button></div>
-      <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushRes">احسب الاحتياطي ١٠٪ من الميزانية</button></div>
+      <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushRes">احسب الاحتياطي 10٪ من الميزانية</button></div>
     </div>
     <div class="kpis" id="bK"></div>
     <div id="bWarn"></div>
@@ -116,7 +116,7 @@
 </div>
 </main>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -130,7 +130,7 @@ var ar=function(n){return String(n)},el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var TYPES=[['majlis','مجلس'],['living','صالة / معيشة'],['dining','طعام'],['bed','غرفة نوم'],['kitchen','مطبخ'],['bath','حمام'],['laundry','غسيل'],['store','مستودع / غرفة ملابس'],['circ','ممر / مدخل / درج'],['other','أخرى']];
 var WET=['bath','laundry'];
 var CEIL=[['paint','دهان'],['gypsum','جبس ودهان'],['none','بلا تشطيب']];
-var BUD=['رسوم التصميم (المعماري والتخصصات)','إدارة التنفيذ / الإشراف','تقرير التربة والرفع المساحي','رخصة البناء والتأمين والرسوم','تجهيز الموقع والحفر والردم','العظم: مواد (حديد، أسمنت، بلوك)','العظم: أجور المقاول','الكهرباء: تأسيس وتمديدات','الكهرباء: تشطيب (أفياش ولوحات)','السباكة: تغذية وصرف وتأسيس','التكييف: تأسيس ومسارات','التكييف: أجهزة وتركيب','العزل المائي والحراري','اللياسة','الأرضيات والبلاط (مواد وتركيب)','الجبس والأسقف المستعارة','النجارة والأبواب الداخلية','الألمنيوم والزجاج','الدهان (مواد وأجور)','الأطقم الصحية والخلاطات','المطبخ','الأبواب الخارجية والسور والبوابات','تنسيق الحوش والخارج','الإنارة الديكورية والإكسسوارات','احتياطي الطوارئ (ننصح بـ ١٠٪)'];
+var BUD=['رسوم التصميم (المعماري والتخصصات)','إدارة التنفيذ / الإشراف','تقرير التربة والرفع المساحي','رخصة البناء والتأمين والرسوم','تجهيز الموقع والحفر والردم','العظم: مواد (حديد، أسمنت، بلوك)','العظم: أجور المقاول','الكهرباء: تأسيس وتمديدات','الكهرباء: تشطيب (أفياش ولوحات)','السباكة: تغذية وصرف وتأسيس','التكييف: تأسيس ومسارات','التكييف: أجهزة وتركيب','العزل المائي والحراري','اللياسة','الأرضيات والبلاط (مواد وتركيب)','الجبس والأسقف المستعارة','النجارة والأبواب الداخلية','الألمنيوم والزجاج','الدهان (مواد وأجور)','الأطقم الصحية والخلاطات','المطبخ','الأبواب الخارجية والسور والبوابات','تنسيق الحوش والخارج','الإنارة الديكورية والإكسسوارات','احتياطي الطوارئ (ننصح بـ 10٪)'];
 var B_FLOOR=14,B_GYPS=15,B_PAINT=18,B_WP=12,B_RES=24;
 
 var uid=function(){return Math.random().toString(36).slice(2,9)};
@@ -187,7 +187,7 @@ function qrows(a){
   if(a.winN)R.push({k:'win',g:'الفتحات',n:'نوافذ ('+ar(a.winN)+' نافذة)',u:'م²',q:a.win,w:0});
   return R;
 }
-function PH(k){if(k.indexOf('floor:')===0)return 'مثال: بورسلان ٦٠×٦٠ درجة أولى من دفعة واحدة';if(k==='skirt')return 'مثال: من نفس بلاط الأرضية';if(k==='tile')return 'مثال: سيراميك جدران لامع';if(k.indexOf('paint')===0)return 'مثال: دهان مائي مطفي على طبقتين';if(k==='gyps')return 'مثال: جبس بورد مقاوم للرطوبة في المناطق الرطبة';if(k==='wp')return 'مثال: عزل أسمنتي مرن';if(k.indexOf('door:')===0)return 'مثال: خشب مع الحلق والإكسسوارات';if(k==='win')return 'مثال: ألمنيوم بزجاج مزدوج';return 'اكتب المواصفة'}
+function PH(k){if(k.indexOf('floor:')===0)return 'مثال: بورسلان 60×60 درجة أولى من دفعة واحدة';if(k==='skirt')return 'مثال: من نفس بلاط الأرضية';if(k==='tile')return 'مثال: سيراميك جدران لامع';if(k.indexOf('paint')===0)return 'مثال: دهان مائي مطفي على طبقتين';if(k==='gyps')return 'مثال: جبس بورد مقاوم للرطوبة في المناطق الرطبة';if(k==='wp')return 'مثال: عزل أسمنتي مرن';if(k.indexOf('door:')===0)return 'مثال: خشب مع الحلق والإكسسوارات';if(k==='win')return 'مثال: ألمنيوم بزجاج مزدوج';return 'اكتب المواصفة'}
 function qmeta(k,w){var m=S.q[k];if(!m){m=S.q[k]={sp:'',w:String(w),pr:''}}return m}
 function rowCost(r){var m=qmeta(r.k,r.w);if(r.q==null)return null;var buy=r.int?r.q:r.q*(1+num(m.w)/100);var p=num(m.pr);return {buy:buy,tot:p>0?buy*p:null}}
 

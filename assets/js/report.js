@@ -136,10 +136,10 @@ window.FQ_pages=function(rep,host,logoSrc){
   var pages=[],cur=null;
   function newPage(){
     var p=el('section','pp');
-    var h=el('header','pp-h');var im=el('img');im.src=logoSrc;im.alt='SAYAH';h.appendChild(im);
-    var pt=el('div','pt');pt.appendChild(el('b',null,'تقرير الفحص الفني · البيت بيتك'));pt.appendChild(el('span',null,(rep.ref||'')+' · '+date));h.appendChild(pt);p.appendChild(h);
+    var h=el('header','pp-h');h.appendChild(el('b','pp-bn','البيت بيتك'));
+    var pt=el('div','pt');pt.appendChild(el('b',null,'تقرير الفحص الفني'));pt.appendChild(el('span',null,(rep.ref||'')+' · '+date));h.appendChild(pt);p.appendChild(h);
     var c=el('div','pp-c');p.appendChild(c);
-    var f=el('footer','pp-f');f.appendChild(el('span',null,'الفحص الفني · SAYAH · الأحساء · التقرير فحص سابق للرفع، والاعتماد للأمانة'));var n=el('span','n');f.appendChild(n);p.appendChild(f);
+    var f=el('footer','pp-f');f.appendChild(el('span',null,'الفحص الفني · الأحساء · التقرير فحص سابق للرفع، والاعتماد للأمانة'));var fe=el('span','pp-fe');if(logoSrc){var im=el('img');im.src=logoSrc;im.alt='SAYAH';fe.appendChild(im)}var n=el('span','n');fe.appendChild(n);f.appendChild(fe);p.appendChild(f);
     host.appendChild(p);pages.push(p);cur=c;return c;
   }
   function add(b){

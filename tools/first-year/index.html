@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,21 +33,21 @@
     <h1>دفتر السنة الأولى</h1>
     <p class="sub">سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>من يوم الاستلام وطوال سنتك الأولى في البيت: كل صوت غريب، باب يحتك، بقعة مهما صغرت، مفتاح في مكان غير عملي، أو فراغ اكتشفت أنه أذكى مما توقعت.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>دوّن الملاحظة بتاريخها فور رصدها، وصوّرها بجوالك.</li>
       <li>صنّفها: «الآن» (ماء/كهرباء/سلامة: لا تُؤجل)، «الموسم» (تُجمع لزيارة فني واحدة)، «تعايش» (يُعاد توظيفها).</li>
       <li>قبل نهاية كل ضمان، ارجع للدفتر وطالب بما يخصه بصورة مؤرخة لا بذاكرة.</li>
     </ol></div>
-  </div>
+  </div></details>
 </div>
 
 <div class="wrap">
   <div id="alerts"></div>
 
   <section class="tsec" aria-labelledby="h-a">
-    <h2 id="h-a"><span class="k">١</span>دوّن ملاحظة</h2>
+    <h2 id="h-a"><span class="k">1</span>دوّن ملاحظة</h2>
     <div class="form-sec no-print">
       <div class="fgrid">
         <div class="fld"><label for="nDate">التاريخ</label><input id="nDate" type="date"></div>
@@ -60,14 +60,14 @@
   </section>
 
   <section class="tsec" aria-labelledby="h-l">
-    <h2 id="h-l"><span class="k">٢</span>سجل الملاحظات</h2>
+    <h2 id="h-l"><span class="k">2</span>سجل الملاحظات</h2>
     <div class="cnt" id="cnt"></div>
     <div class="filters no-print"><div class="segs" id="flt" role="group" aria-label="عرض"></div></div>
     <div class="cmp-wrap"><table class="cmp" id="log"></table></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-w">
-    <h2 id="h-w"><span class="k">٣</span>مواعيد انتهاء الضمانات.. لا تفوتها</h2>
+    <h2 id="h-w"><span class="k">3</span>مواعيد انتهاء الضمانات.. لا تفوتها</h2>
     <p class="lead2" id="impLine"></p>
     <div class="cmp-wrap"><table class="cmp" id="war"></table></div>
     <button class="btn sm line addrow" type="button" id="wAdd">+ ضمان</button>
@@ -87,7 +87,7 @@
 </div>
 </main>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -161,7 +161,7 @@ function drawImp(){
         (H.con||[]).forEach(function(r){if(r.item&&r.until)cand.push({item:r.item+(r.name?' · '+r.name:''),end:r.until,who:r.ph||''})})}
   var have={};S.war.forEach(function(w){have[(w.item||'')+'|'+(w.end||'')]=1});
   cand=cand.filter(function(c){return !have[c.item+'|'+c.end]});
-  if(!cand.length){L.textContent='اكتب كل ضمان وتاريخ انتهائه؛ تتلون الأسطر حين يقترب الموعد (٦٠ يوماً) أو يفوت.';return}
+  if(!cand.length){L.textContent='اكتب كل ضمان وتاريخ انتهائه؛ تتلون الأسطر حين يقترب الموعد (60 يوماً) أو يفوت.';return}
   L.appendChild(document.createTextNode('في «ملف بيتك» على هذا الجهاز '+ar(cand.length)+' من الضمانات لم تُنقل هنا بعد. '));
   var b=el('button','btn sm line','انقلها');b.type='button';b.addEventListener('click',function(){S.war=S.war.filter(function(w){return Object.keys(w).length});cand.forEach(function(c){S.war.push(c)});ST.save();drawWar();drawImp();drawAlerts();ST.flash('نُقلت الضمانات')});L.appendChild(b);
 }

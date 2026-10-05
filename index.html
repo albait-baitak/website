@@ -27,18 +27,14 @@
 .stage .k{font-family:var(--mono);font-size:12px;color:var(--terra)}
 .stage h2{font-size:26px;line-height:1.3}
 .stage>p{font-size:14.5px;color:var(--ink-2);line-height:1.75;min-height:3.5em}
-.svc{border:1px solid var(--line);background:var(--sheet);padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;transition:transform .12s var(--ease),box-shadow .12s var(--ease),border-color .12s}
-.svc b{font-size:16px}
+.svc{position:relative;border:1px solid var(--line);border-radius:var(--r-card);background:var(--sheet);padding:14px 16px 15px 40px;display:flex;flex-direction:column;gap:4px;text-decoration:none;color:inherit;transition:transform .15s var(--ease),box-shadow .15s var(--ease),border-color .15s}
+.svc b{font-size:16px;line-height:1.55}
 .svc span{font-size:13.5px;color:var(--ink-2);line-height:1.7}
-.svc .who-for{font-size:12px;color:var(--ink-2)}
 .svc .no{font-family:var(--mono);font-size:11.5px;color:var(--terra)}
-.svc em{font-style:normal;font-size:12px;font-weight:700;align-self:flex-start;padding:1px 9px;border:1px solid var(--line-2);color:var(--ink-2);margin-top:2px}
-.svc.soon{background:transparent;border-style:dashed}
-.svc.quiet-svc{border-color:var(--line);color:var(--ink-2)}
-a.svc{border-color:var(--terra);border-width:1px 1px 1px 1px;box-shadow:inset -3px 0 0 var(--terra)}
-a.svc em{border-color:var(--terra);background:var(--terra);color:var(--on-terra)}
-a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 8px 18px -12px rgba(31,26,23,.45)}
-.offices{background:#1F1A17;color:#F6F5F1;border:1px solid var(--line);padding:clamp(24px,4vw,40px);margin-bottom:clamp(56px,8vw,96px);scroll-margin-top:80px}
+a.svc::after{content:"";position:absolute;left:18px;top:50%;width:7px;height:7px;border-left:1.5px solid var(--ink-2);border-bottom:1.5px solid var(--ink-2);transform:translateY(-50%) rotate(45deg);transition:left .15s var(--ease),border-color .15s}
+a.svc:hover{transform:translateY(-2px);border-color:var(--line-2);box-shadow:var(--lift)}
+a.svc:hover::after{left:14px;border-color:var(--terra)}
+.offices{background:#1F1A17;color:#F6F5F1;border:1px solid var(--line);border-radius:var(--r-card);padding:clamp(24px,4vw,40px);margin-bottom:clamp(56px,8vw,96px);scroll-margin-top:80px}
 .offices .off-head{max-width:70ch}
 .off-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px;border-top:1px solid rgba(246,245,241,.22)}
 .off-cols>div{padding-block:18px 4px;padding-inline:0 22px;min-width:0}
@@ -63,7 +59,7 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="./"><img alt="SAYAH" src="assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="./"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="account/">الدخول</a></div>
   </div>
@@ -81,28 +77,28 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
     <div class="stage live" data-rv>
       <span class="k">01</span><h2>القرار</h2>
       <p>من يحمل معك مسؤولية أول القرارات.. وأثقلها؟</p>
-      <a class="svc" href="tools/first-session/"><span class="no">01</span><b>أسئلة الجلسة الأولى مع مصممك</b><span>عشرون سؤالاً تكشف من أمامك.. قبل أن توقع</span><em>متاحة الآن</em></a>
-      <a class="svc" href="tools/land/"><span class="no">02</span><b>دليل اختيار الأرض</b><span>ما تفحصه قبل أن تشتري أرض بيت العمر</span><em>متاح الآن</em></a>
-      <a class="svc" href="tools/quantities/"><span class="no">08</span><b>جداول الكميات والتكاليف</b><span>من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً</span><em>متاحة الآن</em></a>
+      <a class="svc" href="tools/first-session/"><span class="no">01</span><b>أسئلة الجلسة الأولى مع مصممك</b><span>عشرون سؤالاً تكشف من أمامك.. قبل أن توقع</span></a>
+      <a class="svc" href="tools/land/"><span class="no">02</span><b>دليل اختيار الأرض</b><span>ما تفحصه قبل أن تشتري أرض بيت العمر</span></a>
+      <a class="svc" href="tools/quantities/"><span class="no">08</span><b>جداول الكميات والتكاليف</b><span>من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً</span></a>
     </div>
     <div class="stage live" data-rv>
       <span class="k">02</span><h2>التصميم</h2>
       <p>هل تشتري مخططات.. أم تصنع قصة حياة؟</p>
-      <a class="svc" href="tools/fifty/"><span class="no">03</span><b>خمسون سؤالاً قبل أن تصمم بيتك</b><span>حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط</span><em>متاح الآن</em></a>
-      <a class="svc" href="tools/smart/"><span class="no">04</span><b>اختبار القرار الذكي</b><span>ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»</span><em>متاح الآن</em></a>
+      <a class="svc" href="tools/fifty/"><span class="no">03</span><b>خمسون سؤالاً قبل أن تصمم بيتك</b><span>حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط</span></a>
+      <a class="svc" href="tools/smart/"><span class="no">04</span><b>اختبار القرار الذكي</b><span>ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»</span></a>
     </div>
     <div class="stage live" data-rv>
       <span class="k">03</span><h2>التنفيذ</h2>
       <p>من يقود منظومة لا قائد لها؟</p>
-      <a class="svc" href="tools/roadmap/"><span class="no">05</span><b>خارطة بنود تنفيذ بيتك</b><span>عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق</span><em>متاحة الآن</em></a>
-      <a class="svc" href="tools/agreement/"><span class="no">06</span><b>نموذج اتفاق البند الواحد</b><span>صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل</span><em>متاح الآن</em></a>
-      <a class="svc" href="tools/offers/"><span class="no">09</span><b>جدول مقارنة عروض المقاولين</b><span>للبند الواحد.. قبل الترسية</span><em>متاح الآن</em></a>
+      <a class="svc" href="tools/roadmap/"><span class="no">05</span><b>خارطة بنود تنفيذ بيتك</b><span>عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق</span></a>
+      <a class="svc" href="tools/agreement/"><span class="no">06</span><b>نموذج اتفاق البند الواحد</b><span>صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل</span></a>
+      <a class="svc" href="tools/offers/"><span class="no">09</span><b>جدول مقارنة عروض المقاولين</b><span>للبند الواحد.. قبل الترسية</span></a>
     </div>
     <div class="stage live" data-rv>
       <span class="k">04</span><h2>السكن</h2>
       <p>ماذا يبقى من الرحلة بعد المفتاح؟</p>
-      <a class="svc" href="tools/handover/"><span class="no">07</span><b>ملف بيتك: الاستلام والسجلات</b><span>قائمة الاستلام النهائي.. وسجلات هوية البيت</span><em>متاح الآن</em></a>
-      <a class="svc" href="tools/first-year/"><span class="no">10</span><b>دفتر السنة الأولى</b><span>سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى</span><em>متاح الآن</em></a>
+      <a class="svc" href="tools/handover/"><span class="no">07</span><b>ملف بيتك: الاستلام والسجلات</b><span>قائمة الاستلام النهائي.. وسجلات هوية البيت</span></a>
+      <a class="svc" href="tools/first-year/"><span class="no">10</span><b>دفتر السنة الأولى</b><span>سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى</span></a>
     </div>
   </div>
 
@@ -124,8 +120,8 @@ a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 
 
 <footer>
   <div class="wrap">
-    <span>البيت بيتك · منظومة بيت العمر · SAYAH · الأحساء</span>
-    <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span>
+    <span>البيت بيتك · منظومة بيت العمر · الأحساء</span>
+    <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="assets/img/sayah.png"></a></div>
   </div>
 </footer>
 <script src="assets/vendor/supabase-2.117.2.js?v=VERSION"></script>

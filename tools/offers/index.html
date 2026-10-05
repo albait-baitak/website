@@ -18,7 +18,7 @@
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
     <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
   </div>
@@ -33,14 +33,14 @@
     <h1>جدول مقارنة عروض المقاولين</h1>
     <p class="sub">للبند الواحد.. قبل الترسية</p>
   </div>
-  <div class="howto">
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>عند المفاضلة بين عرضين أو ثلاثة لبند واحد (عظم، لياسة، كهرباء..). أنشئ جدولاً لكل بند تنوي الترسية عليه.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>عبّئ الجدول من العروض المكتوبة ومن أسئلتك المباشرة، لا من الظن.</li>
       <li>انتبه لسطري «يشمل» و«لا يشمل»: هنا يختبئ الفرق الحقيقي بين العروض.</li>
       <li>لا تحسم بالسعر قبل اكتمال كل الصفوف.. ثم قرر ووثّق قرارك بنموذج اتفاق البند.</li>
     </ol></div>
-  </div>
+  </div></details>
 </div>
 
 <div class="cands">
@@ -54,14 +54,14 @@
 
 <div class="wrap">
   <section class="tsec" aria-labelledby="h-t">
-    <h2 id="h-t"><span class="k">١</span>المقارنة: <span class="who-now"></span></h2>
+    <h2 id="h-t"><span class="k">1</span>المقارنة: <span class="who-now"></span></h2>
     <p class="lead2">اكتب كما ورد في العرض المكتوب. يظهر تحت كل عرض كم صفاً اكتمل منه.</p>
     <div class="cmp-wrap"><table class="cmp" id="tbl"></table></div>
     <div class="rule" id="priceRule"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-d">
-    <h2 id="h-d"><span class="k">٢</span>القرار</h2>
+    <h2 id="h-d"><span class="k">2</span>القرار</h2>
     <div class="form-sec">
       <div class="fgrid">
         <div class="fld"><label for="win">رسّيت على</label><select id="win"></select></div>
@@ -92,7 +92,7 @@
   </form>
 </dialog>
 
-<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
@@ -112,7 +112,7 @@ var ROWS=[
  {k:'pay',t:'جدول الدفعات وربطها بالإنجاز',ty:'ta'},
  {k:'war',t:'الضمان ومدته',ty:'in'},
  {k:'prev',t:'سابقة أعمال زرتها وكلمت أصحابها؟',ty:'sel',o:['','نعم، زرتها وكلمت أصحابها','رأيت صوراً فقط','لا']},
- {k:'clr',t:'وضوح التواصل والرد',s:'(١-٥)',ty:'score'},
+ {k:'clr',t:'وضوح التواصل والرد',s:'(1-5)',ty:'score'},
  {k:'note',t:'ملاحظاتي',ty:'ta',opt:true}
 ];
 var REQ=ROWS.filter(function(r){return !r.opt}).length;
@@ -138,7 +138,7 @@ function drawSh(){
 function filled(o,r){var v=o[r.k];return v!=null&&String(v).trim()!==''}
 function cnt(o){var n=0;ROWS.forEach(function(r){if(!r.opt&&filled(o,r))n++});return n}
 function used(o){return ROWS.some(function(r){return filled(o,r)})}
-function label(k){var o=cur().o[k];var nm=(o.con||'').split(/[\n،,·\-0-9٠-٩+]/)[0].trim();return OFF.filter(function(x){return x[0]===k})[0][1]+(nm?' · '+nm.slice(0,24):'')}
+function label(k){var o=cur().o[k];var nm=(o.con||'').split(/[\n،,·\-0-90-9+]/)[0].trim();return OFF.filter(function(x){return x[0]===k})[0][1]+(nm?' · '+nm.slice(0,24):'')}
 
 var cells={};
 function drawTbl(){
@@ -150,7 +150,7 @@ function drawTbl(){
     OFF.forEach(function(x){var o=sh.o[x[0]],td=el('td','c'),inp;
       if(r.ty==='ta'){inp=el('textarea','tx');inp.value=o[r.k]||''}
       else if(r.ty==='sel'){inp=el('select','tx');r.o.forEach(function(v){var op=el('option',null,v||'اختر');op.value=v;inp.appendChild(op)});inp.value=o[r.k]||''}
-      else if(r.ty==='score'){inp=el('div','score');inp.setAttribute('role','group');for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(+o[r.k]===v));b.setAttribute('aria-label',ar(v)+' من ٥');
+      else if(r.ty==='score'){inp=el('div','score');inp.setAttribute('role','group');for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(+o[r.k]===v));b.setAttribute('aria-label',ar(v)+' من 5');
           b.addEventListener('click',function(){o[r.k]=(+o[r.k]===v)?'':String(v);ST.save();drawTbl();drawDecision()});inp.appendChild(b)})(v)}
       else {inp=el('input',r.ty==='num'?'pr':'tx');if(r.ty==='num'){inp.inputMode='decimal';inp.placeholder='ريال'}inp.value=o[r.k]||''}
       inp.setAttribute&&inp.setAttribute('aria-label',r.t+' · '+x[1]);

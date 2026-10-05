@@ -6,7 +6,7 @@ if(reduce||!('IntersectionObserver' in window))return;
 var root=document.documentElement;root.classList.add('mo');
 function once(els,fn,th){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);fn(e.target)}})},{threshold:th||0,rootMargin:'0px 0px -10% 0px'});els.forEach(function(el){io.observe(el)})}
 
-/* ١. ظهور الأقسام: كل قسم يدخل مرة واحدة، وعناصره تتتابع بفارق 70ms */
+/* 1. ظهور الأقسام: كل قسم يدخل مرة واحدة، وعناصره تتتابع بفارق 70ms */
 var groups=[];
 document.querySelectorAll('main section').forEach(function(sec){
   var items=sec.querySelectorAll('.sh, .matrix-wrap, .steps, .cols>.list, .who, .cta-band, #report, .muted');
@@ -18,7 +18,7 @@ groups.forEach(function(items){
   once(Array.prototype.slice.call(items),function(el){el.classList.add('in')});
 });
 
-/* ٢. عدّاد الأرقام: نحو ثانية، مرة واحدة */
+/* 2. عدّاد الأرقام: نحو ثانية، مرة واحدة */
 var nums=document.querySelectorAll('.facts b');
 nums.forEach(function(b){var t=parseInt(b.textContent,10);if(isNaN(t))return;b.dataset.to=t;b.textContent='0'});
 once(Array.prototype.slice.call(nums),function(b){
@@ -27,7 +27,7 @@ once(Array.prototype.slice.call(nums),function(b){
   requestAnimationFrame(step);
 },0.6);
 
-/* ٣. بطاقة التقرير: الصفوف صفاً صفاً، ثم العلامات، ثم الحكم آخر الكل */
+/* 3. بطاقة التقرير: الصفوف صفاً صفاً، ثم العلامات، ثم الحكم آخر الكل */
 var doc=document.querySelector('.hero .doc');
 if(doc){
   var rows=doc.querySelectorAll('.rows tbody tr'),n=rows.length;
@@ -43,12 +43,12 @@ if(doc){
   once([doc],function(){requestAnimationFrame(function(){doc.classList.remove('pre')})},0.3);
 }
 
-/* ٤. شريط تقدم القراءة وتظليل القسم النشط في الشريط العلوي */
+/* 4. شريط تقدم القراءة وتظليل القسم النشط في الشريط العلوي */
 var top=document.querySelector('header.top'),bar=null;
 var links=Array.prototype.slice.call(document.querySelectorAll('.top nav a[href^="#"]'));
 var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
 if(top&&secs.length){bar=document.createElement('div');bar.className='readbar';top.appendChild(bar)}
-/* ٥. خط الخطوات يُرسم مع التمرير */
+/* 5. خط الخطوات يُرسم مع التمرير */
 var steps=[];
 document.querySelectorAll('.steps').forEach(function(ol){
   var ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),ln=document.createElementNS(ns,'line');

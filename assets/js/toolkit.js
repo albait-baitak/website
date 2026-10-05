@@ -1,7 +1,7 @@
 /* أدوات مشتركة لأدوات رحلة بيت العمر: الحفظ في الجهاز، وبناء العناصر، والأرقام العربية، والطباعة، وإعادة البدء */
 (function(){
 var AR='٠١٢٣٤٥٦٧٨٩';
-function ar(n){return String(n).replace(/\d/g,function(d){return AR[d]})}
+function ar(n){return String(n)}
 function toEn(s){return String(s==null?'':s).replace(/[٠-٩]/g,function(d){return AR.indexOf(d)}).replace(/[,٬\s]/g,'').replace(/٫/g,'.').replace(/[^\d.\-]/g,'')}
 function num(s){var v=parseFloat(toEn(s));return isFinite(v)?v:0}
 function fmt(n,dec){if(n==null||!isFinite(n))return '';var d=dec==null?2:dec;var s=(Math.round(n*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:0});return s}
