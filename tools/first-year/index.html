@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دفتر السنة الأولى · البيت بيتك</title>
+<meta name="description" content="سجل ملاحظات بيتك في سنتك الأولى بتاريخها وفئتها، ومواعيد انتهاء الضمانات حتى لا تفوتك.">
+<meta property="og:title" content="دفتر السنة الأولى">
+<meta property="og:description" content="سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610051900">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610051900">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة السكن</a><span>›</span><span>دفتر السنة الأولى</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">10</span>
+    <span class="stage-tag">مرحلة السكن</span>
+    <h1>دفتر السنة الأولى</h1>
+    <p class="sub">سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>من يوم الاستلام وطوال سنتك الأولى في البيت: كل صوت غريب، باب يحتك، بقعة مهما صغرت، مفتاح في مكان غير عملي، أو فراغ اكتشفت أنه أذكى مما توقعت.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>دوّن الملاحظة بتاريخها فور رصدها، وصوّرها بجوالك.</li>
+      <li>صنّفها: «الآن» (ماء/كهرباء/سلامة: لا تُؤجل)، «الموسم» (تُجمع لزيارة فني واحدة)، «تعايش» (يُعاد توظيفها).</li>
+      <li>قبل نهاية كل ضمان، ارجع للدفتر وطالب بما يخصه بصورة مؤرخة لا بذاكرة.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="alerts"></div>
+
+  <section class="tsec" aria-labelledby="h-a">
+    <h2 id="h-a"><span class="k">١</span>دوّن ملاحظة</h2>
+    <div class="form-sec no-print">
+      <div class="fgrid">
+        <div class="fld"><label for="nDate">التاريخ</label><input id="nDate" type="date"></div>
+        <div class="fld"><label>الفئة</label><div class="segs" id="nCat" role="group" aria-label="الفئة"></div></div>
+        <div class="fld full"><label for="nText">الملاحظة</label><textarea id="nText" placeholder="مثال: صوت طقطقة في سقف غرفة النوم بعد الظهر"></textarea></div>
+        <div class="fld"><label class="docs" style="font-weight:400"><input type="checkbox" id="nPhoto"> صوّرتها بجوالي</label></div>
+      </div>
+      <div class="tool-actions" style="margin-top:12px"><button class="btn sm" type="button" id="nAdd">أضفها للدفتر</button><span class="hint" id="saved" aria-live="polite" style="font-size:13px;color:var(--ink-2)"></span></div>
+    </div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-l">
+    <h2 id="h-l"><span class="k">٢</span>سجل الملاحظات</h2>
+    <div class="cnt" id="cnt"></div>
+    <div class="filters no-print"><div class="segs" id="flt" role="group" aria-label="عرض"></div></div>
+    <div class="cmp-wrap"><table class="cmp" id="log"></table></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-w">
+    <h2 id="h-w"><span class="k">٣</span>مواعيد انتهاء الضمانات.. لا تفوتها</h2>
+    <p class="lead2" id="impLine"></p>
+    <div class="cmp-wrap"><table class="cmp" id="war"></table></div>
+    <button class="btn sm line addrow" type="button" id="wAdd">+ ضمان</button>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>الفرق بين من يطالب بصورة مؤرخة وملاحظة مدونة، ومن يتصل بعد سنتين يصف من الذاكرة.. هو الفرق بين إصلاح مجاني وفاتورة جديدة.</p>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الدفتر أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل الدفتر (CSV)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">يُحفظ دفترك في هذا الجهاز فقط، ولا يُرسل لأحد. الصور تبقى في جوالك؛ اكتب في الملاحظة ما يدلك عليها.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610051900"></script>
+<script src="../../assets/js/config.js?v=202610051900"></script>
+<script src="../../assets/js/session.js?v=202610051900"></script>
+<script src="../../assets/js/toolkit.js?v=202610051900"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$;
+var CATS=[['now','الآن'],['season','الموسم'],['live','تعايش']];
+var CATN={now:'الآن',season:'الموسم',live:'تعايش'};
+var FLT=[['all','الكل'],['open','لم تُعالج'],['now','الآن'],['season','الموسم'],['live','تعايش'],['done','عولجت']];
+function fresh(){return {v:1,notes:[],war:[{},{}],flt:'all'}}
+var ST=TK.store('bb_tool_firstyear_v1',fresh,1),S=ST.get();
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function days(a,b){return Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/864e5)}
+function dt(d){if(!d)return '';var p=d.split('-');return ar(p[2])+'/'+ar(p[1])+'/'+ar(p[0])}
+
+/* الإضافة */
+var nCat='';
+function drawCat(){var g=$('nCat');g.innerHTML='';CATS.forEach(function(c){var b=el('button',null,c[1]);b.type='button';b.setAttribute('aria-pressed',String(nCat===c[0]));b.addEventListener('click',function(){nCat=nCat===c[0]?'':c[0];drawCat()});g.appendChild(b)})}
+$('nDate').value=today();
+$('nAdd').addEventListener('click',function(){
+  var t=$('nText').value.trim();if(!t){$('nText').focus();ST.flash('اكتب الملاحظة أولاً');return}
+  S.notes.push({id:'n'+Date.now().toString(36),date:$('nDate').value||today(),text:t,cat:nCat,photo:$('nPhoto').checked,fixed:''});
+  $('nText').value='';$('nPhoto').checked=false;nCat='';drawCat();$('nDate').value=today();ST.save();drawLog();drawAlerts();ST.flash('أُضيفت للدفتر')});
+
+/* السجل */
+function drawFlt(){var g=$('flt');g.innerHTML='';FLT.forEach(function(f){var b=el('button',null,f[1]);b.type='button';b.setAttribute('aria-pressed',String(S.flt===f[0]));b.addEventListener('click',function(){S.flt=f[0];ST.save();drawFlt();drawLog()});g.appendChild(b)})}
+function pass(n){var f=S.flt;if(f==='all')return true;if(f==='open')return !n.fixed;if(f==='done')return !!n.fixed;return n.cat===f}
+function drawLog(){
+  var T=$('log');T.innerHTML='';var th=el('thead'),hr=el('tr');[['التاريخ'],['الملاحظة'],['الفئة','c'],['صورة؟','c'],['عولجت في','c'],['','c']].forEach(function(h){hr.appendChild(el('th',h[1]||null,h[0]))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');var list=S.notes.slice().sort(function(a,b){return a.date<b.date?1:a.date>b.date?-1:0}).filter(pass);
+  list.forEach(function(n){var tr=el('tr');if(n.cat==='now'&&!n.fixed)tr.className='late';
+    var t1=el('td'),d1=el('input','dt');d1.type='date';d1.value=n.date;d1.setAttribute('aria-label','تاريخ الملاحظة');d1.addEventListener('change',function(){n.date=d1.value||n.date;ST.save()});t1.appendChild(d1);tr.appendChild(t1);
+    var t2=el('td'),ta=el('textarea','tx');ta.value=n.text;ta.setAttribute('aria-label','الملاحظة');ta.addEventListener('input',function(){n.text=ta.value;ST.save();TK.grow(ta)});t2.appendChild(ta);tr.appendChild(t2);
+    var t3=el('td','c'),sl=el('select','tx');[['','اختر']].concat(CATS).forEach(function(c){var o=el('option',null,c[1]);o.value=c[0];sl.appendChild(o)});sl.value=n.cat||'';sl.setAttribute('aria-label','الفئة');
+      sl.addEventListener('change',function(){n.cat=sl.value;ST.save();drawLog();drawAlerts()});t3.appendChild(sl);tr.appendChild(t3);
+    var t4=el('td','c'),cb=el('input');cb.type='checkbox';cb.checked=!!n.photo;cb.setAttribute('aria-label','صورة');cb.style.accentColor='var(--terra)';cb.addEventListener('change',function(){n.photo=cb.checked;ST.save()});t4.appendChild(cb);tr.appendChild(t4);
+    var t5=el('td','c'),d5=el('input','dt');d5.type='date';d5.value=n.fixed||'';d5.setAttribute('aria-label','عولجت في');d5.addEventListener('change',function(){n.fixed=d5.value;ST.save();drawLog();drawAlerts()});t5.appendChild(d5);tr.appendChild(t5);
+    var t6=el('td','c'),x=el('button','x','×');x.type='button';x.setAttribute('aria-label','حذف الملاحظة');var armed=false;
+      x.addEventListener('click',function(){if(!armed){armed=true;x.textContent='حذف؟';setTimeout(function(){armed=false;x.textContent='×'},3000);return}S.notes=S.notes.filter(function(z){return z!==n});ST.save();drawLog();drawAlerts()});t6.appendChild(x);tr.appendChild(t6);
+    tb.appendChild(tr)});
+  if(!list.length){var tr=el('tr'),td=el('td',null,S.notes.length?'لا ملاحظات في هذا العرض.':'لم تدوّن ملاحظة بعد. أول صوت غريب أو بقعة صغيرة.. مكانها هنا.');td.colSpan=6;td.style.color='var(--ink-2)';tr.appendChild(td);tb.appendChild(tr)}
+  T.appendChild(tb);T.querySelectorAll('textarea').forEach(TK.grow);
+  var c={now:0,season:0,live:0,open:0,done:0};S.notes.forEach(function(n){if(n.cat)c[n.cat]++;if(n.fixed)c.done++;else c.open++});
+  var C=$('cnt');C.innerHTML='';[['الملاحظات',ar(S.notes.length)],['لم تُعالج',ar(c.open)],['الآن',ar(c.now)],['الموسم',ar(c.season)],['تعايش',ar(c.live)]].forEach(function(x){var s=el('span',null,x[0]+': ');s.appendChild(el('b',null,x[1]));C.appendChild(s)});
+}
+
+/* الضمانات */
+var WC=[['item','البند المضمون'],['end','ينتهي في','date'],['who','جهة التواصل'],['res','طالبت؟ / النتيجة']];
+function drawWar(){
+  var T=$('war');T.innerHTML='';var th=el('thead'),hr=el('tr');WC.forEach(function(c){hr.appendChild(el('th',null,c[1]))});hr.appendChild(el('th'));th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody'),td0=today();
+  S.war.forEach(function(w,i){var tr=el('tr');
+    if(w.end&&!w.res){var n=days(w.end,td0);if(n<0)tr.className='late';else if(n<=60)tr.className='soonx'}
+    WC.forEach(function(c){var td=el('td'),inp=el('input',c[2]?'dt':'tx');inp.type=c[2]||'text';inp.value=w[c[0]]||'';inp.setAttribute('aria-label',c[1]);
+      inp.addEventListener(c[2]?'change':'input',function(){if(inp.value)w[c[0]]=inp.value;else delete w[c[0]];ST.save();if(c[0]==='end'||c[0]==='res'){drawWar();drawAlerts()}});td.appendChild(inp);
+      if(c[0]==='end'&&w.end){var n=days(w.end,td0);td.appendChild(el('div','lock',n<0?'انتهى قبل '+ar(-n)+' يوماً':n===0?'ينتهي اليوم':'بعد '+ar(n)+' يوماً'))}
+      tr.appendChild(td)});
+    var tx=el('td','c'),x=el('button','x','×');x.type='button';x.setAttribute('aria-label','حذف السطر');x.addEventListener('click',function(){S.war.splice(i,1);ST.save();drawWar();drawAlerts()});tx.appendChild(x);tr.appendChild(tx);
+    tb.appendChild(tr)});
+  T.appendChild(tb);
+}
+$('wAdd').addEventListener('click',function(){S.war.push({});ST.save();drawWar()});
+
+/* استيراد من «ملف بيتك» */
+function handover(){try{return JSON.parse(localStorage.getItem('bb_tool_handover_v1')||'null')}catch(e){return null}}
+function drawImp(){
+  var L=$('impLine');L.innerHTML='';var H=handover();var cand=[];
+  if(H){(H.war||[]).forEach(function(r){if(r.item&&r.end)cand.push({item:r.item,end:r.end,who:r.sup||''})});
+        (H.con||[]).forEach(function(r){if(r.item&&r.until)cand.push({item:r.item+(r.name?' · '+r.name:''),end:r.until,who:r.ph||''})})}
+  var have={};S.war.forEach(function(w){have[(w.item||'')+'|'+(w.end||'')]=1});
+  cand=cand.filter(function(c){return !have[c.item+'|'+c.end]});
+  if(!cand.length){L.textContent='اكتب كل ضمان وتاريخ انتهائه؛ تتلون الأسطر حين يقترب الموعد (٦٠ يوماً) أو يفوت.';return}
+  L.appendChild(document.createTextNode('في «ملف بيتك» على هذا الجهاز '+ar(cand.length)+' من الضمانات لم تُنقل هنا بعد. '));
+  var b=el('button','btn sm line','انقلها');b.type='button';b.addEventListener('click',function(){S.war=S.war.filter(function(w){return Object.keys(w).length});cand.forEach(function(c){S.war.push(c)});ST.save();drawWar();drawImp();drawAlerts();ST.flash('نُقلت الضمانات')});L.appendChild(b);
+}
+
+/* التنبيهات */
+function drawAlerts(){
+  var A=$('alerts');A.innerHTML='';var td0=today();
+  var nowOpen=S.notes.filter(function(n){return n.cat==='now'&&!n.fixed}).length;
+  if(nowOpen){var d=el('div','warn');d.textContent='لديك '+ar(nowOpen)+' من ملاحظات «الآن» لم تُعالج: ماء أو كهرباء أو سلامة.. لا تُؤجل.';A.appendChild(d)}
+  var soon=S.war.filter(function(w){if(!w.end||w.res)return false;var n=days(w.end,td0);return n>=0&&n<=60});
+  var open=S.notes.filter(function(n){return !n.fixed}).length;
+  if(soon.length){var d2=el('div','warn');d2.style.borderColor='var(--major)';d2.style.color='var(--major)';
+    d2.textContent='ضمان يقترب من نهايته: '+soon.map(function(w){return (w.item||'بلا اسم')+' ('+dt(w.end)+')'}).join('، ')+'.'+(open?' ارجع للدفتر: فيه '+ar(open)+' من الملاحظات لم تُعالج، وطالب بما يخص هذا الضمان بصورة مؤرخة.':'');A.appendChild(d2)}
+}
+$('btnCsv').addEventListener('click',function(){
+  var out=[['سجل الملاحظات'],['التاريخ','الملاحظة','الفئة','صورة؟','عولجت في']];
+  S.notes.slice().sort(function(a,b){return a.date<b.date?-1:1}).forEach(function(n){out.push([n.date,n.text,CATN[n.cat]||'',n.photo?'نعم':'',n.fixed||''])});
+  out.push([]);out.push(['مواعيد انتهاء الضمانات']);out.push(WC.map(function(c){return c[1]}));S.war.forEach(function(w){if(Object.keys(w).length)out.push(WC.map(function(c){return w[c[0]]||''}))});
+  TK.csv(out,'دفتر-السنة-الأولى.csv')});
+$('btnPrint').addEventListener('click',function(){var f=S.flt;S.flt='all';drawLog();window.print();S.flt=f;drawLog()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
+function drawAll(){drawCat();drawFlt();drawLog();drawWar();drawImp();drawAlerts()}
+drawAll();
+})();
+</script>
+</body>
+</html>

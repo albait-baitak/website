@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ملف بيتك: الاستلام والسجلات · البيت بيتك</title>
+<meta name="description" content="قائمة الاستلام النهائي بنداً بنداً قبل التوقيع والدفعة الأخيرة، ثم سجلات هوية البيت وفحص الموسمين.">
+<meta property="og:title" content="ملف بيتك: الاستلام والسجلات">
+<meta property="og:description" content="قائمة الاستلام النهائي.. وسجلات هوية البيت.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610051900">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610051900">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة السكن</a><span>›</span><span>ملف بيتك</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">07</span>
+    <span class="stage-tag">مرحلة السكن</span>
+    <h1>ملف بيتك</h1>
+    <p class="sub">قائمة الاستلام النهائي.. وسجلات هوية البيت</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>يوم الاستلام النهائي، ثم طوال عمر البيت. لحظة الاستلام آخر فرصة تطلب فيها الإصلاح وأنت في موقع قوة.. قبل توقيع المحضر والدفعة الأخيرة.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>يوم الاستلام: افحص بالقوائم غرفةً غرفة، وعلّم: <b style="color:var(--ok)">سليم</b>، <b style="color:var(--major)">△ إصلاح بسيط</b>، <b style="color:var(--stop)">✕ يعالج قبل التوقيع</b>.</li>
+      <li>لا توقع قبل معالجة كل ✕ أو توثيقها بمهلة مكتوبة.</li>
+      <li>بعدها: عبّئ بطاقة البيت وسجلاته.. واحفظ الملف ورقياً وسحابياً.</li>
+    </ol></div>
+  </div>
+
+  <div class="qtabs" role="tablist" aria-label="أقسام ملف بيتك">
+    <button role="tab" id="tb1" aria-controls="p1" aria-selected="true"><span class="k">١</span>قائمة الاستلام النهائي</button>
+    <button role="tab" id="tb2" aria-controls="p2" aria-selected="false"><span class="k">٢</span>بطاقة البيت وسجلاته</button>
+    <button role="tab" id="tb3" aria-controls="p3" aria-selected="false"><span class="k">٣</span>فحص الموسمين</button>
+  </div>
+  <span class="hint" id="saved" aria-live="polite" style="font-size:13px;color:var(--ink-2)"></span>
+
+  <div class="panel" id="p1" role="tabpanel" aria-labelledby="tb1">
+    <div class="gate" id="gate"></div>
+    <div class="prog-line" id="progLine"></div>
+    <div id="lists"></div>
+    <div class="note-box">
+      <b>تنويه</b>
+      <p>لا توقع المحضر النهائي ولا تسلم الدفعة الأخيرة قبل معالجة كل نقاط (✕) أو توثيقها كتابياً بمهلة محددة. التوقيع قبل المعالجة تنازل مجاني عن حقك.</p>
+    </div>
+  </div>
+
+  <div class="panel recs" id="p2" role="tabpanel" aria-labelledby="tb2" hidden>
+    <p class="lead2" style="color:var(--ink-2)">اجمع في ملف واحد (ورقي وسحابي) كل ما يوثق بيتك؛ فهذه السجلات «هويته» لأي صيانة أو إضافة مستقبلاً.</p>
+    <section class="tsec" aria-labelledby="h-card"><h2 id="h-card"><span class="k">أ</span>بطاقة بيانات البيت</h2><div class="form-sec"><div class="fgrid" id="card"></div></div></section>
+    <div id="recs"></div>
+  </div>
+
+  <div class="panel" id="p3" role="tabpanel" aria-labelledby="tb3" hidden>
+    <p class="lead2" style="color:var(--ink-2)">فحص الموسمين.. عادة تحفظ بيتك. سجّل تاريخ آخر مرة نفذت فيها كل عمل.</p>
+    <div class="season" id="season"></div>
+    <div class="note-box">
+      <b>تنويه</b>
+      <p>البيت الذي معه ملفه الكامل يُصان بمعلومة لا بتخمين.. ويُباع «إن شاء الله بغير حاجة» بثقة وسعر مختلفين.</p>
+    </div>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الملف أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل السجلات (CSV)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">يُحفظ ملفك في هذا الجهاز فقط، ولا يُرسل لأحد. احفظ نسخة مطبوعة أو PDF في ملفك السحابي.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610051900"></script>
+<script src="../../assets/js/config.js?v=202610051900"></script>
+<script src="../../assets/js/session.js?v=202610051900"></script>
+<script src="../../assets/js/toolkit.js?v=202610051900"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$;
+var LISTS=[
+ {t:'المطابقة',i:['مطابقة الغرف والمساحات والارتفاعات للمخطط المعتمد.','تنفيذ كل البنود المتفق عليها بلا نواقص.','مطابقة المواد للمواصفات والاتفاقات.']},
+ {t:'الجدران والأسقف والأرضيات',i:['استواء الجدران والأسقف وخلوها من الشقوق.','جودة الدهان: تغطية متساوية بلا بقع أو آثار فرش.','استواء الأرضيات وعدم وجود بلاط مفكوك.. اطرق واستمع.','خطوط الفواصل منتظمة ونظيفة.']},
+ {t:'الأبواب والنوافذ',i:['فتح وإغلاق كل باب ونافذة بسلاسة وإحكام.','سلامة المقابض والأقفال والمفصلات.','عزل النوافذ: لا تسرب هواء أو صوت أو ماء.','سلامة الزجاج من الخدوش والكسر.']},
+ {t:'الكهرباء',i:['تشغيل كل نقاط الإنارة والمفاتيح.','اختبار كل الأفياش فعلياً.','لوحة الكهرباء منظمة وموسومة وآمنة.','عمل الجرس/الإنتركم وكل الأنظمة المركبة.']},
+ {t:'السباكة والصرف',i:['ضغط الماء في كل الحمامات والمطبخ.','سرعة التصريف وعدم وجود انسداد أو روائح.','لا تسريب تحت الأحواض وحول المراحيض.','عمل السخانات والخزان والمضخة.']},
+ {t:'التكييف والتهوية',i:['تبريد فعلي لكل الغرف.','تصريف المكيفات سليم وبعيد عن الجدران.','عمل الشفاطات في الحمامات والمطبخ.']},
+ {t:'الخارج والسطح',i:['عزل السطح وميول التصريف.. لا برك.','الأسوار والبوابات والمظلات.','الواجهات خالية من التشققات.','تصريف الحوش بعيداً عن أساس المبنى.']},
+ {t:'الوثائق والتسليم',i:['البيت نظيف خالٍ من مخلفات البناء.','استلام المخططات كما نفذت وكفالات الأجهزة والمواد.','استلام مفاتيح كل الأبواب موسومة.','توثيق أي ملاحظة متبقية في المحضر بمهلة إصلاح.']}
+];
+var STATES=[['ok','سليم','☐'],['chk2','إصلاح بسيط','△'],['bad','يعالج قبل التوقيع','✕']];
+var CARD=[['addr','العنوان الوطني ورقم القطعة'],['deed','رقم الصك وتاريخه'],['area','مساحة الأرض / مساحة البناء'],['elec','رقم عداد الكهرباء'],['water','رقم عداد الماء'],['recv','تاريخ الاستلام النهائي','date']];
+var RECS=[
+ {k:'con',t:'سجل المقاولين والفنيين',c:[['item','البند'],['name','الاسم'],['ph','الجوال','tel'],['until','الضمان حتى','date']],exp:'until'},
+ {k:'war',t:'سجل الضمانات والكفالات',c:[['item','الجهاز / المادة'],['sup','المورد'],['buy','تاريخ الشراء','date'],['end','ينتهي في','date']],exp:'end'},
+ {k:'mnt',t:'سجل الصيانة السنوية',c:[['date','التاريخ','date'],['work','العمل المنفذ'],['by','المنفذ']]}
+];
+var PHOTOS=['القواعد وما تحت الأرض','حديد الأسقف والسليفات','التمديدات قبل التغطية','العزل قبل التبليط','ما بعد التشطيب'];
+var SEASON=[{t:'قبل الصيف ☀',i:['تنظيف فلاتر المكيفات وفحص التبريد','فحص تصريف المكيفات','فحص عزل الشبابيك والأبواب من الحر','فحص المضخة والخزان قبل ذروة الاستهلاك']},
+            {t:'قبل الشتاء ☂',i:['تنظيف مصارف السطح والميازيب','فحص سيليكون الحمامات والمطبخ وتجديد المتشقق','اختبار عام للأسقف بعد أول مطرة','فحص السخانات وقواطع الكهرباء']}];
+var TOTAL=0;LISTS.forEach(function(l){TOTAL+=l.i.length});
+function blankRows(n,cols){var a=[];for(var i=0;i<n;i++)a.push({});return a}
+function fresh(){return {v:1,st:{},notes:{},dl:{},card:{},con:blankRows(3),war:blankRows(3),mnt:blankRows(2),ph:{},sea:{}}}
+var ST=TK.store('bb_tool_handover_v1',fresh,1),S=ST.get();
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function days(a,b){return Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/864e5)}
+
+/* التبويبات */
+var tabs=[$('tb1'),$('tb2'),$('tb3')];
+tabs.forEach(function(b,i){b.addEventListener('click',function(){tabs.forEach(function(x,j){x.setAttribute('aria-selected',String(i===j));$('p'+(j+1)).hidden=i!==j});try{sessionStorage.setItem('bb_ho_tab',i)}catch(e){}})});
+try{var tsv=+sessionStorage.getItem('bb_ho_tab');if(tsv)tabs[tsv].click()}catch(e){}
+
+/* قائمة الاستلام */
+var rows=[];
+function drawLists(){
+  var host=$('lists');host.innerHTML='';rows=[];var n=0;
+  LISTS.forEach(function(L,li){
+    var g=el('div','qgroup');var h=el('h3',null,ar(li+1)+'. '+L.t);h.appendChild(el('span',null,ar(L.i.length)+' بنود'));g.appendChild(h);
+    L.i.forEach(function(t){
+      n++;var id=n;var row=el('div','lchk');row.appendChild(el('div','t',t));
+      var tri=el('div','tri');tri.setAttribute('role','group');tri.setAttribute('aria-label','حالة البند');
+      STATES.forEach(function(s){var b=el('button',s[0]);b.type='button';b.appendChild(el('span','s',s[2]));b.appendChild(document.createTextNode(s[1]));
+        b.addEventListener('click',function(){if(S.st[id]===s[0])delete S.st[id];else S.st[id]=s[0];ST.save();paint()});tri.appendChild(b)});
+      row.appendChild(tri);
+      var dl=el('div','dl');dl.appendChild(document.createTextNode('مهلة الإصلاح المكتوبة في المحضر حتى:'));var di=el('input');di.type='date';di.setAttribute('aria-label','مهلة الإصلاح');
+      di.addEventListener('change',function(){if(di.value)S.dl[id]=di.value;else delete S.dl[id];ST.save();paint()});dl.appendChild(di);row.appendChild(dl);
+      var nt=el('div','note'),ta=el('textarea');ta.rows=1;ta.placeholder='أين؟ وما الملاحظة؟ (اذكر الغرفة)';ta.setAttribute('aria-label','ملاحظة: '+t);
+      ta.addEventListener('input',function(){if(ta.value)S.notes[id]=ta.value;else delete S.notes[id];ST.save();TK.grow(ta)});
+      nt.appendChild(ta);row.appendChild(nt);g.appendChild(row);rows.push({id:id,tri:tri,ta:ta,dl:dl,di:di});
+    });
+    host.appendChild(g);
+  });
+}
+function paint(){
+  var c={ok:0,chk2:0,bad:0},open=0;
+  rows.forEach(function(r){var v=S.st[r.id];if(v)c[v]++;r.tri.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.classList.contains(v)))});
+    r.dl.hidden=v!=='bad';r.di.value=S.dl[r.id]||'';if(v==='bad'&&!S.dl[r.id])open++;
+    if(document.activeElement!==r.ta){r.ta.value=S.notes[r.id]||'';TK.grow(r.ta)}});
+  var done=c.ok+c.chk2+c.bad,pl=$('progLine');pl.innerHTML='';
+  [['فُحص',ar(done)+' من '+ar(TOTAL)],['سليم',ar(c.ok)],['إصلاح بسيط',ar(c.chk2)],['يعالج قبل التوقيع',ar(c.bad)]].forEach(function(x){var s=el('span',null,x[0]+': ');s.appendChild(el('b',null,x[1]));pl.appendChild(s)});
+  var G=$('gate');G.innerHTML='';
+  if(open){G.className='gate no';G.appendChild(el('b',null,'لا توقع المحضر ولا تسلم الدفعة الأخيرة بعد'));G.appendChild(el('p',null,ar(open)+' من نقاط (✕) بلا معالجة ولا مهلة مكتوبة. عالجها، أو وثّقها في المحضر بمهلة واكتب تاريخها هنا.'))}
+  else if(done<TOTAL){G.className='gate';G.appendChild(el('b',null,'الفحص لم يكتمل'));G.appendChild(el('p',null,'فحصت '+ar(done)+' من '+ar(TOTAL)+' بنداً. أكمل القوائم كلها قبل التوقيع.'))}
+  else{G.className='gate yes';G.appendChild(el('b',null,'اكتمل الفحص'));G.appendChild(el('p',null,c.bad?'كل نقاط (✕) موثقة بمهلة مكتوبة. احتفظ بنسخة من المحضر في ملف بيتك.':'لا نقاط (✕). تأكد من توثيق ملاحظات (△) في المحضر، ثم وقّع.'))}
+}
+
+/* البطاقة والسجلات */
+function drawCard(){var g=$('card');g.innerHTML='';CARD.forEach(function(f){var d=el('div','fld');var i=el('input');i.id='cd_'+f[0];i.type=f[2]||'text';var l=el('label',null,f[1]);l.htmlFor=i.id;i.value=S.card[f[0]]||'';
+  i.addEventListener('input',function(){if(i.value)S.card[f[0]]=i.value;else delete S.card[f[0]];ST.save()});d.appendChild(l);d.appendChild(i);g.appendChild(d)})}
+function expPill(v){if(!v)return null;var n=days(v,today());if(n<0)return el('span','pill r','انتهى');if(n<=60)return el('span','pill y','بعد '+ar(n)+' يوماً');return null}
+function drawRecs(){
+  var host=$('recs');host.innerHTML='';
+  RECS.forEach(function(R,ri){
+    var s=el('section','tsec');var h=el('h2');h.appendChild(el('span','k',['ب','ج','د'][ri]));h.appendChild(document.createTextNode(R.t));s.appendChild(h);
+    var w=el('div','cmp-wrap'),T=el('table','cmp'),th=el('thead'),hr=el('tr');R.c.forEach(function(c){hr.appendChild(el('th',null,c[1]))});hr.appendChild(el('th'));th.appendChild(hr);T.appendChild(th);
+    var tb=el('tbody');
+    S[R.k].forEach(function(row,i){var tr=el('tr');
+      R.c.forEach(function(c){var td=el('td'),inp=el('input',c[2]==='date'?'dt':'tx');inp.type=c[2]||'text';inp.value=row[c[0]]||'';inp.setAttribute('aria-label',c[1]);
+        inp.addEventListener(c[2]==='date'?'change':'input',function(){if(inp.value)row[c[0]]=inp.value;else delete row[c[0]];ST.save();if(c[0]===R.exp)drawRecs()});td.appendChild(inp);
+        if(c[0]===R.exp){var p=expPill(row[c[0]]);if(p){td.appendChild(document.createTextNode(' '));td.appendChild(p)}}
+        tr.appendChild(td)});
+      var tx=el('td','c');var x=el('button','x','×');x.type='button';x.setAttribute('aria-label','حذف السطر');x.addEventListener('click',function(){S[R.k].splice(i,1);ST.save();drawRecs()});tx.appendChild(x);tr.appendChild(tx);
+      tb.appendChild(tr)});
+    T.appendChild(tb);w.appendChild(T);s.appendChild(w);
+    var ad=el('button','btn sm line addrow','+ سطر');ad.type='button';ad.addEventListener('click',function(){S[R.k].push({});ST.save();drawRecs()});s.appendChild(ad);
+    host.appendChild(s);
+  });
+  var s=el('section','tsec');var h=el('h2');h.appendChild(el('span','k','هـ'));h.appendChild(document.createTextNode('فهرس أرشيف الصور'));s.appendChild(h);
+  var w=el('div','cmp-wrap'),T=el('table','cmp'),th=el('thead'),hr=el('tr');hr.appendChild(el('th',null,'المرحلة'));hr.appendChild(el('th',null,'مكان الحفظ (مجلد/رابط)'));th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');PHOTOS.forEach(function(p,i){var tr=el('tr');tr.appendChild(el('td','k',p));var td=el('td'),inp=el('input','tx');inp.value=S.ph[i]||'';inp.placeholder='مثال: مجلد «بيتي/صور العزل»';inp.setAttribute('aria-label','مكان حفظ صور: '+p);
+    inp.addEventListener('input',function(){if(inp.value)S.ph[i]=inp.value;else delete S.ph[i];ST.save()});td.appendChild(inp);tr.appendChild(td);tb.appendChild(tr)});
+  T.appendChild(tb);w.appendChild(T);s.appendChild(w);host.appendChild(s);
+}
+/* الموسمان */
+function drawSeason(){
+  var host=$('season');host.innerHTML='';
+  SEASON.forEach(function(Z,zi){var b=el('div');b.appendChild(el('h3',null,Z.t));
+    Z.i.forEach(function(t,ii){var key=zi+'_'+ii,row=el('div','sit');row.appendChild(el('span',null,t));var inp=el('input');inp.type='date';inp.value=S.sea[key]||'';inp.setAttribute('aria-label','آخر مرة: '+t);
+      var ago=el('span','ago');function upd(){var v=S.sea[key];if(!v){ago.textContent='لم يُسجل بعد';return}var n=days(today(),v);ago.textContent=n<0?'تاريخ قادم':n===0?'نُفذ اليوم':'آخر مرة قبل '+ar(n)+' يوماً'+(n>365?'.. حان وقته':'')}
+      inp.addEventListener('change',function(){if(inp.value)S.sea[key]=inp.value;else delete S.sea[key];ST.save();upd()});upd();
+      row.appendChild(inp);row.appendChild(ago);b.appendChild(row)});
+    host.appendChild(b)});
+}
+$('btnCsv').addEventListener('click',function(){
+  var out=[['بطاقة بيانات البيت']];CARD.forEach(function(f){out.push([f[1],S.card[f[0]]||''])});
+  RECS.forEach(function(R){out.push([]);out.push([R.t]);out.push(R.c.map(function(c){return c[1]}));S[R.k].forEach(function(r){if(Object.keys(r).length)out.push(R.c.map(function(c){return r[c[0]]||''}))})});
+  out.push([]);out.push(['فهرس أرشيف الصور']);PHOTOS.forEach(function(p,i){out.push([p,S.ph[i]||''])});
+  TK.csv(out,'ملف-بيتك-السجلات.csv')});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
+function drawAll(){paint();drawCard();drawRecs();drawSeason()}
+drawLists();drawAll();
+})();
+</script>
+</body>
+</html>

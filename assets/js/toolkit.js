@@ -10,20 +10,22 @@ function $(id){return document.getElementById(id)}
 function store(key,fresh,version){
   var S=null;try{S=JSON.parse(localStorage.getItem(key)||'null')}catch(e){}
   if(!S||S.v!==version)S=fresh();
-  var t=null,fl=null;
+  var t=null,fl=null,dirty=false;
+  function write(){clearTimeout(t);if(!dirty)return;dirty=false;try{localStorage.setItem(key,JSON.stringify(S));flash('حُفظ في هذا الجهاز')}catch(e){flash('تعذر الحفظ في هذا المتصفح')}}
+  window.addEventListener('pagehide',write);document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden')write()});
   function flash(msg){var s=$('saved');if(!s)return;s.textContent=msg;clearTimeout(fl);fl=setTimeout(function(){s.textContent=''},1800)}
   return {
     get:function(){return S},
     set:function(v){S=v},
-    save:function(){clearTimeout(t);t=setTimeout(function(){try{localStorage.setItem(key,JSON.stringify(S));flash('حُفظ في هذا الجهاز')}catch(e){flash('تعذر الحفظ في هذا المتصفح')}},250)},
-    clear:function(){S=fresh();try{localStorage.removeItem(key)}catch(e){};return S},
+    save:function(){dirty=true;clearTimeout(t);t=setTimeout(write,250)},
+    clear:function(){S=fresh();dirty=false;clearTimeout(t);try{localStorage.removeItem(key)}catch(e){};return S},
     flash:flash
   };
 }
-function resetButton(btn,onReset){
+function resetButton(btn,onReset,armedLabel){
   var armed=false,t=null,label=btn.textContent;
   btn.addEventListener('click',function(){
-    if(!armed){armed=true;btn.textContent='اضغط مرة ثانية لمسح كل شيء';clearTimeout(t);t=setTimeout(function(){armed=false;btn.textContent=label},4000);return}
+    if(!armed){armed=true;btn.textContent=armedLabel||'اضغط مرة ثانية لمسح كل شيء';clearTimeout(t);t=setTimeout(function(){armed=false;btn.textContent=label},4000);return}
     armed=false;btn.textContent=label;onReset();
   });
 }

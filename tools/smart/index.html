@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>اختبار القرار الذكي · البيت بيتك</title>
+<meta name="description" content="ستة أسئلة ونتيجة واحدة قبل شراء أي جهاز أو نظام «ذكي» لبيتك.">
+<meta property="og:title" content="اختبار القرار الذكي">
+<meta property="og:description" content="ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي».">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610051900">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610051900">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التصميم</a><span>›</span><span>اختبار القرار الذكي</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">04</span>
+    <span class="stage-tag">مرحلة التصميم</span>
+    <h1>اختبار القرار الذكي</h1>
+    <p class="sub">ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>قبل شراء أي جهاز أو نظام ذكي لبيتك، وأمام كل عرض مغرٍ في المعارض. القاعدة الذهبية: في بيتك، أنت من يجب أن يكون الذكي.. وليس البيت.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أجب عن الأسئلة الستة بصدق عن الجهاز المحدد.</li>
+      <li>امنح نقطتين عن كل إجابة تطابق الإجابة الخضراء، ونقطة للإجابة الجزئية.</li>
+      <li>اجمع واحكم بجدول النتيجة.. والتزم بالحكم.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="cands">
+  <div class="wrap cands-in">
+    <span class="cands-lbl">الجهاز الحالي:</span>
+    <div id="candList" class="cands-in" role="group" aria-label="الأجهزة"></div>
+    <button class="addc" type="button" id="addDev">+ جهاز آخر</button>
+    <span class="hint" id="saved" aria-live="polite"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="tsec" aria-labelledby="h-q">
+    <h2 id="h-q"><span class="k">١</span>الأسئلة الستة</h2>
+    <p class="lead2">عن <b class="who-now"></b>: اقرأ السؤال، ثم قارن جوابك الصادق بالإجابة الخضراء.</p>
+    <div id="qs"></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-r">
+    <h2 id="h-r"><span class="k">٢</span>النتيجة والحكم</h2>
+    <div class="sverdict" id="verdict"></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-c" id="cmpSec">
+    <h2 id="h-c"><span class="k">٣</span>أجهزتك في نظرة واحدة</h2>
+    <div class="cmp-wrap"><table class="cmp" id="cmp"></table></div>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>كل جهاز ذكي تضيفه نقطة عطل وصيانة إضافية، ويحتاج شبكة تغطي البيت. القليل المدروس خير من الكثير المبهر.. والبنية التحتية الجيدة (شبكة وتمديدات) أهم من أي جهاز.</p>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع النتيجة أو احفظها PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<dialog class="rn" id="dlg">
+  <form method="dialog">
+    <h3>اسم الجهاز</h3>
+    <input id="dlgIn" maxlength="40" autocomplete="off" aria-label="اسم الجهاز" placeholder="مثال: ستائر ذكية للمجلس">
+    <div class="row"><button class="btn sm" value="ok">حفظ</button><button class="btn sm line" value="cancel" formnovalidate>إلغاء</button></div>
+  </form>
+</dialog>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610051900"></script>
+<script src="../../assets/js/config.js?v=202610051900"></script>
+<script src="../../assets/js/session.js?v=202610051900"></script>
+<script src="../../assets/js/toolkit.js?v=202610051900"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var Q=[
+ {t:'ما المشكلة الحقيقية التي يحلها؟ اكتبها في جملة واحدة.. إن لم تستطع فأنت لا تحتاجه.',g:'كتبتها في جملة واحدة واضحة.',ph:'المشكلة التي يحلها، في جملة واحدة..'},
+ {t:'هل يوفر مالاً (فواتير، صيانة) أو يحمي بيتك وعائلتك؟ أم يوفر عليك «حركة» فقط؟',g:'يوفر مالاً أو يحمي.. لا «يريح من حركة» فقط.',ph:'ماذا يوفر أو يحمي تحديداً؟'},
+ {t:'إذا تعطل أو انقطع الإنترنت.. هل يستمر بيتك بالعمل طبيعياً؟',g:'يستمر البيت طبيعياً بلا إنترنت.',ph:'ما الذي يتوقف لو انقطع الإنترنت؟'},
+ {t:'هل سيستبدل عادة صحية مفيدة بعادة كسل؟',g:'لن يستبدل عادة صحية بكسل.',ph:'ملاحظتك..'},
+ {t:'ما تكلفته الكاملة: الشراء + التركيب + الصيانة + الاشتراكات؟',g:'التكلفة الكاملة معقولة مقابل أثره.',ph:'ملاحظتك على التكلفة..',cost:true},
+ {t:'بعد سنة من الآن.. هل ستكون مستخدماً له فعلاً، أم لعبة انطفأ حماسها من أول شهر؟',g:'نعم، سأستخدمه فعلاً بعد سنة.',ph:'ملاحظتك..'}
+];
+var COSTS=['الشراء','التركيب','الصيانة (سنوياً)','الاشتراكات (سنوياً)'];
+var PTS=[['ok','تطابق','٢',2],['chk2','جزئياً','١',1],['bad','لا تطابق','٠',0]];
+var BANDS=[{min:10,max:12,r:'١٠ - ١٢',t:'اشترِ مطمئناً.. هذا استثمار لا رفاهية.',c:'var(--ok)'},{min:6,max:9,r:'٦ - ٩',t:'أجّل وفكر: جرب عند صديق، أو ابدأ بواحد لا بمنظومة.',c:'var(--major)'},{min:0,max:5,r:'٠ - ٥',t:'وفّر مالك.. هذه لعبة سينطفئ حماسها من أول شهر.',c:'var(--stop)'}];
+
+function newDev(n){return {id:'d'+Date.now().toString(36)+Math.floor(Math.random()*999),name:'الجهاز '+ar(n),p:{},n:{},c:{}}}
+function fresh(){var d=newDev(1);return {v:1,devs:[d],active:d.id}}
+var ST=TK.store('bb_tool_smart_v1',fresh,1),S=ST.get();
+function dev(id){for(var i=0;i<S.devs.length;i++)if(S.devs[i].id===id)return S.devs[i];return S.devs[0]}
+function cur(){return dev(S.active)}
+
+function drawDevs(){
+  var box=$('candList');box.innerHTML='';
+  S.devs.forEach(function(c){
+    var w=el('div','cand'+(c.id===S.active?' on':''));
+    var p=el('button','pick',c.name);p.type='button';p.setAttribute('aria-pressed',String(c.id===S.active));
+    p.addEventListener('click',function(){S.active=c.id;ST.save();drawAll()});
+    var r=el('button','ren');r.type='button';r.setAttribute('aria-label','تسمية '+c.name);
+    r.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M11.5 2.5l2 2L6 12l-3 1 1-3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    r.addEventListener('click',function(){TK.rename(c.name,function(v){c.name=v;ST.save();drawAll()})});
+    w.appendChild(p);w.appendChild(r);
+    if(S.devs.length>1){var x=el('button','del','×');x.type='button';x.setAttribute('aria-label','حذف '+c.name);x.title='حذف';
+      var armed=false;x.addEventListener('click',function(){if(!armed){armed=true;x.textContent='حذف؟';setTimeout(function(){armed=false;x.textContent='×'},3000);return}
+        S.devs=S.devs.filter(function(d){return d.id!==c.id});if(S.active===c.id)S.active=S.devs[0].id;ST.save();drawAll()});w.appendChild(x)}
+    box.appendChild(w);
+  });
+  $('addDev').hidden=S.devs.length>=8;
+  document.querySelectorAll('.who-now').forEach(function(e){e.textContent=cur().name});
+}
+
+var refs=[];
+function drawQs(){
+  var host=$('qs');host.innerHTML='';refs=[];
+  Q.forEach(function(q,i){
+    var row=el('div','sq');row.appendChild(el('div','n',ar(i+1)));row.appendChild(el('div','t',q.t));
+    var g=el('div','green');g.appendChild(el('b',null,'الإجابة الخضراء: '));g.appendChild(document.createTextNode(q.g));row.appendChild(g);
+    var r2=el('div','row2');var tri=el('div','tri');tri.setAttribute('role','group');tri.setAttribute('aria-label','نقاط السؤال '+ar(i+1));
+    PTS.forEach(function(p){var b=el('button',p[0]);b.type='button';b.appendChild(el('span','s',p[2]));b.appendChild(document.createTextNode(p[1]));
+      b.addEventListener('click',function(){var d=cur();if(d.p[i]===p[3])delete d.p[i];else d.p[i]=p[3];ST.save();paint();drawVerdict();drawCmp()});tri.appendChild(b)});
+    r2.appendChild(tri);row.appendChild(r2);
+    var cst=null;
+    if(q.cost){cst=el('div','costs');var ins=[];
+      COSTS.forEach(function(c,ci){var f=el('div','fld');var lb=el('label',null,c);var inp=el('input');inp.inputMode='decimal';inp.placeholder='ريال';inp.id='c'+ci;lb.htmlFor=inp.id;
+        inp.addEventListener('input',function(){var d=cur();if(inp.value)d.c[ci]=inp.value;else delete d.c[ci];ST.save();sumCost()});f.appendChild(lb);f.appendChild(inp);cst.appendChild(f);ins.push(inp)});
+      var tot=el('div','tot');tot.appendChild(document.createTextNode('أول سنة كاملة'));var tb=el('b');tot.appendChild(tb);cst.appendChild(tot);cst.ins=ins;cst.tb=tb;row.appendChild(cst)}
+    var ta=el('textarea');ta.rows=1;ta.placeholder=q.ph;ta.setAttribute('aria-label','ملاحظة السؤال '+ar(i+1));
+    ta.addEventListener('input',function(){var d=cur();if(ta.value)d.n[i]=ta.value;else delete d.n[i];ST.save();TK.grow(ta)});
+    row.appendChild(ta);host.appendChild(row);refs.push({tri:tri,ta:ta,cst:cst});
+  });
+}
+function costTotal(d){var s=0,any=false;for(var k=0;k<4;k++){if(d.c[k]){any=true;s+=num(d.c[k])}}return any?s:null}
+function sumCost(){refs.forEach(function(r){if(r.cst){var v=costTotal(cur());r.cst.tb.textContent=v==null?'..':fmt(v,0)+' ريال'}})}
+function paint(){
+  var d=cur();
+  refs.forEach(function(r,i){r.tri.querySelectorAll('button').forEach(function(b,k){b.setAttribute('aria-pressed',String(d.p[i]===PTS[k][3]))});r.ta.value=d.n[i]||'';TK.grow(r.ta);
+    if(r.cst)r.cst.ins.forEach(function(inp,ci){inp.value=d.c[ci]||''})});
+  sumCost();
+}
+function score(d){var k=0,s=0;for(var i=0;i<6;i++){if(d.p[i]!=null){k++;s+=d.p[i]}}return {k:k,s:s}}
+function band(s){for(var i=0;i<BANDS.length;i++)if(s>=BANDS[i].min&&s<=BANDS[i].max)return BANDS[i]}
+function drawVerdict(){
+  var d=cur(),r=score(d),V=$('verdict');V.innerHTML='';
+  var sc=el('div','sc');sc.appendChild(el('span',null,'مجموع '+d.name));var b=el('b',null,r.k?ar(r.s):'..');b.appendChild(el('small',null,' من ١٢'));sc.appendChild(b);
+  sc.appendChild(el('span',null,r.k?'أجبت عن '+ar(r.k)+' من ٦':'لم تجب بعد'));V.appendChild(sc);
+  var bs=el('div','bands');var on=r.k===6?band(r.s):null;
+  BANDS.forEach(function(B){var x=el('div','band'+(on===B?' on':''));x.style.setProperty('--c',B.c);x.appendChild(el('span','r',B.r));x.appendChild(el('p',null,B.t));bs.appendChild(x)});
+  if(r.k<6)bs.appendChild(el('div','pending','يظهر الحكم حين تجيب عن الأسئلة الستة كلها.'));
+  V.appendChild(bs);
+}
+function drawCmp(){
+  $('cmpSec').hidden=S.devs.length<2;
+  var T=$('cmp');T.innerHTML='';var th=el('thead'),hr=el('tr');['الجهاز','المجموع','الحكم','التكلفة أول سنة'].forEach(function(h,i){hr.appendChild(el('th',i?'c':null,h))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  S.devs.forEach(function(d){var r=score(d),tr=el('tr');tr.appendChild(el('td',null,d.name));
+    tr.appendChild(el('td','c num',r.k?ar(r.s)+' / ١٢':'..'));
+    var B=r.k===6?band(r.s):null;var td=el('td','c');if(B){var pl=el('span','pill '+(B.min===10?'g':B.min===6?'y':'r'),B.min===10?'اشترِ':B.min===6?'أجّل وفكر':'وفّر مالك');td.appendChild(pl)}else td.appendChild(el('span','lock',r.k?'أجبت عن '+ar(r.k)+' من ٦':'لم تجب بعد'));tr.appendChild(td);
+    var c=costTotal(d);tr.appendChild(el('td','c num',c==null?'..':fmt(c,0)+' ريال'));tb.appendChild(tr)});
+  T.appendChild(tb);
+}
+$('addDev').addEventListener('click',function(){var d=newDev(S.devs.length+1);S.devs.push(d);S.active=d.id;ST.save();drawAll();TK.rename(d.name,function(v){d.name=v;ST.save();drawAll()})});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
+function drawAll(){drawDevs();paint();drawVerdict();drawCmp()}
+drawQs();drawAll();
+})();
+</script>
+</body>
+</html>

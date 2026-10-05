@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>نموذج اتفاق البند الواحد · البيت بيتك</title>
+<meta name="description" content="صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل، وتطبعها نسختين للتوقيع.">
+<meta property="og:title" content="نموذج اتفاق البند الواحد">
+<meta property="og:description" content="صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610051900">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610051900">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التنفيذ</a><span>›</span><span>نموذج اتفاق البند الواحد</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">06</span>
+    <span class="stage-tag">مرحلة التنفيذ</span>
+    <h1>نموذج اتفاق البند الواحد</h1>
+    <p class="sub">صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>مع كل مقاول بند، قبل بدء العمل وقبل أول دفعة. الاتفاق الشفهي «كم تاخذ؟ توكلنا» هو أبو فجوات المسؤولية كلها.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أنشئ اتفاقاً مستقلاً لكل بند من بنود بيتك.</li>
+      <li>املأه مع المقاول بحضوره وناقشا كل سطر.</li>
+      <li>اطبعه نسختين ووقّعاها.. واحدة لكل طرف، وارجعا لها عند أي خلاف.</li>
+    </ol></div>
+  </div>
+  <div class="disc"><b>تنويه مهم: </b>هذا نموذج استرشادي لتنظيم الاتفاق وتوثيقه، وليس صيغة قانونية؛ للعقود الملزمة والمشاريع الكبيرة استعن بمختص.</div>
+</div>
+
+<div class="cands">
+  <div class="wrap cands-in">
+    <span class="cands-lbl">الاتفاق الحالي:</span>
+    <div id="candList" class="cands-in" role="group" aria-label="الاتفاقات"></div>
+    <button class="addc" type="button" id="addAg">+ اتفاق بند آخر</button>
+    <span class="hint" id="saved" aria-live="polite"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="okbox" id="fromOffers" hidden></div>
+  <section class="tsec" aria-labelledby="h-f">
+    <h2 id="h-f"><span class="k">١</span>املأ الاتفاق</h2>
+    <p class="lead2">ما تكتبه هنا يظهر مباشرة في صفحة الاتفاق أدناه. ما تتركه فارغاً يُطبع سطراً منقطاً يُكمل بالقلم.</p>
+    <div id="form"></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-d">
+    <h2 id="h-d"><span class="k">٢</span>صفحة الاتفاق للطباعة والتوقيع</h2>
+    <p class="lead2">راجعها مع المقاول سطراً سطراً، ثم اطبعها نسختين.</p>
+  </section>
+  <div id="docWrap"><div class="agdoc" id="doc"></div></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الاتفاق أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnDel">احذف هذا الاتفاق</button>
+    <span class="saved">تُحفظ اتفاقاتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<dialog class="rn" id="dlg">
+  <form method="dialog">
+    <h3>اسم البند</h3>
+    <input id="dlgIn" maxlength="40" autocomplete="off" aria-label="اسم البند" placeholder="مثال: بند الكهرباء">
+    <div class="row"><button class="btn sm" value="ok">حفظ</button><button class="btn sm line" value="cancel" formnovalidate>إلغاء</button></div>
+  </form>
+</dialog>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610051900"></script>
+<script src="../../assets/js/config.js?v=202610051900"></script>
+<script src="../../assets/js/session.js?v=202610051900"></script>
+<script src="../../assets/js/toolkit.js?v=202610051900"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var PARTY={'1':'الأول','2':'الثاني'};
+function newAg(n){return {id:'g'+Date.now().toString(36)+Math.floor(Math.random()*999),item:'البند '+ar(n),owner:'',ownerPh:'',con:'',conPh:'',site:'',date:'',
+  inc:'',exc:'',mat:'',matInc:'',matExc:'',
+  b1:false,open:'',b2:true,b3:false,conflict:'',
+  c1:false,util:'',c2:false,hFrom:'',hTo:'',c3:true,c4:true,
+  days:'',from:'',delay:'',
+  pays:[{n:'الأولى',w:'',a:''},{n:'الثانية',w:'',a:''},{n:'الأخيرة (بعد الاستلام النهائي)',w:'',a:''}],price:'',
+  e1:true,e2:true,e3:false,war:'',
+  sig1:'',sig2:'',wit:''}}
+function fresh(){var g=newAg(1);return {v:1,ags:[g],active:g.id}}
+var ST=TK.store('bb_tool_agree_v1',fresh,1),S=ST.get();
+function cur(){for(var i=0;i<S.ags.length;i++)if(S.ags[i].id===S.active)return S.ags[i];return S.ags[0]}
+
+/* استقبال العرض المُرسى من جدول مقارنة العروض */
+(function(){
+  if(!/[?&]from=offers/.test(location.search))return;
+  var h=null;try{h=JSON.parse(localStorage.getItem('bb_handoff_agree')||'null')}catch(e){}
+  if(h){var g=newAg(S.ags.length+1);g.item=(h.item||g.item).slice(0,40);g.con=h.con||'';g.inc=h.inc||'';g.exc=h.exc||'';g.matInc=h.mat||'';g.price=h.price||'';g.war=h.war||'';
+    if(h.dur)g.days=TK.toEn(h.dur)?h.dur:'';
+    S.ags.push(g);S.active=g.id;ST.save();try{localStorage.removeItem('bb_handoff_agree')}catch(e){}
+    var b=$('fromOffers');b.hidden=false;b.textContent='أنشأنا اتفاقاً جديداً لبند «'+g.item+'» من العرض الذي رسّيت عليه. أكمل بقية السطور مع المقاول.';}
+  try{history.replaceState(null,'',location.pathname)}catch(e){}
+})();
+
+function drawAgs(){
+  var box=$('candList');box.innerHTML='';
+  S.ags.forEach(function(c){
+    var w=el('div','cand'+(c.id===S.active?' on':''));
+    var p=el('button','pick',c.item);p.type='button';p.setAttribute('aria-pressed',String(c.id===S.active));
+    p.addEventListener('click',function(){S.active=c.id;ST.save();drawAll()});
+    var r=el('button','ren');r.type='button';r.setAttribute('aria-label','تسمية '+c.item);
+    r.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M11.5 2.5l2 2L6 12l-3 1 1-3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    r.addEventListener('click',function(){TK.rename(c.item,function(v){c.item=v;ST.save();drawAll()})});
+    w.appendChild(p);w.appendChild(r);box.appendChild(w);
+  });
+  $('addAg').hidden=S.ags.length>=20;
+}
+
+/* عناصر النموذج */
+function fld(label,key,opt){opt=opt||{};var f=el('div','fld'+(opt.full?' full':''));var id='f_'+key;var l=el('label',null,label);l.htmlFor=id;if(opt.o)l.appendChild(el('span','o',' '+opt.o));
+  var i=el(opt.ta?'textarea':'input');i.id=id;if(!opt.ta){i.type=opt.type||'text';if(opt.num){i.inputMode='decimal';i.className='num'}}if(opt.ph)i.placeholder=opt.ph;
+  i.value=cur()[key]||'';i.addEventListener('input',function(){cur()[key]=i.value;if(key==='item'){drawAgs()}ST.save();drawDoc()});f.appendChild(l);f.appendChild(i);return f}
+function inl(key,ph,w){var i=el('input','fill'+(w?' w':''));i.placeholder=ph||'..';i.value=cur()[key]||'';i.setAttribute('aria-label',ph||key);
+  i.addEventListener('input',function(){cur()[key]=i.value;ST.save();drawDoc()});if(!w)i.style.width=Math.max(90,(ph||'').length*8)+'px';return i}
+function ab(key){var g=el('span','ab');g.setAttribute('role','group');['1','2'].forEach(function(v){var b=el('button',null,PARTY[v]);b.type='button';b.setAttribute('aria-pressed',String(cur()[key]===v));
+  b.addEventListener('click',function(){var a=cur();a[key]=a[key]===v?'':v;ST.save();drawForm();drawDoc()});g.appendChild(b)});return g}
+function ck(key,parts){var row=el('div','ck');var c=el('input');c.type='checkbox';c.checked=!!cur()[key];c.setAttribute('aria-label','متفق عليه');
+  c.addEventListener('change',function(){cur()[key]=c.checked;ST.save();drawDoc()});row.appendChild(c);var d=el('div');
+  parts.forEach(function(p){if(typeof p==='string')d.appendChild(document.createTextNode(p));else d.appendChild(p)});row.appendChild(d);return row}
+function sec(k,t){var s=el('div','form-sec');var h=el('h3');h.appendChild(el('span','k',k));h.appendChild(document.createTextNode(t));s.appendChild(h);return s}
+
+function drawForm(){
+  var F=$('form'),a=cur();F.innerHTML='';
+  var s0=sec('','بيانات الاتفاق'),g=el('div','fgrid');
+  g.appendChild(fld('اسم البند','item',{ph:'مثال: بند الكهرباء'}));g.appendChild(fld('موقع المشروع','site',{ph:'الحي والمدينة'}));
+  g.appendChild(fld('الطرف الأول (المالك)','owner'));g.appendChild(fld('جوال الطرف الأول','ownerPh',{type:'tel'}));
+  g.appendChild(fld('الطرف الثاني (المنفذ)','con'));g.appendChild(fld('جوال الطرف الثاني','conPh',{type:'tel'}));
+  g.appendChild(fld('تاريخ الاتفاق','date',{type:'date'}));s0.appendChild(g);F.appendChild(s0);
+
+  var s1=sec('١','نطاق العمل'),g1=el('div','fgrid');
+  g1.appendChild(fld('يشمل هذا البند تنفيذ','inc',{ta:1,full:1,ph:'اكتب الأعمال بالتفصيل..'}));
+  g1.appendChild(fld('ولا يشمل (المستثنيات نصاً)','exc',{ta:1,full:1,ph:'أكثر الخلافات تولد من كلمة «شامل».. اكتب المستثنيات هنا.'}));
+  var mf=el('div','fld full');mf.appendChild(el('label',null,'المواد على الطرف'));var mrow=el('div');mrow.appendChild(ab('mat'));mf.appendChild(mrow);g1.appendChild(mf);
+  g1.appendChild(fld('وتشمل المواد','matInc',{ta:1}));g1.appendChild(fld('ولا تشمل','matExc',{ta:1}));s1.appendChild(g1);F.appendChild(s1);
+
+  var s2=sec('٢','حدود البند والتداخل');
+  s2.appendChild(ck('b1',['من يفتح ومن يسد ومن ينظف خلفه: ',inl('open','..',true)]));
+  s2.appendChild(ck('b2',['حماية أعمال البنود السابقة أثناء العمل مسؤولية المنفذ، وأي كسر عرضي يصلحه على حسابه.']));
+  s2.appendChild(ck('b3',['عند تعارض هذا البند مع بند آخر يكون الإصلاح على: ',inl('conflict','..',true)]));F.appendChild(s2);
+
+  var s3=sec('٣','الموقع والتشغيل أثناء العمل');
+  s3.appendChild(ck('c1',['الكهرباء والماء أثناء التنفيذ على الطرف: ',ab('util')]));
+  s3.appendChild(ck('c2',['ساعات العمل من ',inl('hFrom','الساعة'),' إلى ',inl('hTo','الساعة'),' مراعاةً للجيران.']));
+  s3.appendChild(ck('c3',['نظافة الموقع أولاً بأول ورفع المخلفات على المنفذ.']));
+  s3.appendChild(ck('c4',['لا إقامة للعمالة في الموقع إلا باتفاق مكتوب.']));F.appendChild(s3);
+
+  var s4=sec('٤','المدة والتأخير'),g4=el('div','fgrid');
+  g4.appendChild(fld('مدة التنفيذ','days',{num:1,o:'(يوماً)'}));g4.appendChild(fld('من تاريخ','from',{type:'date'}));
+  g4.appendChild(fld('وفي حال التأخير غير المبرر','delay',{ta:1,full:1,ph:'مدة بلا أثر للتأخير = وعد ودي لا التزام.'}));s4.appendChild(g4);F.appendChild(s4);
+
+  var s5=sec('٥','الدفعات.. مربوطة بالإنجاز المستلم');
+  var g5=el('div','fgrid');g5.appendChild(fld('قيمة البند الإجمالية','price',{num:1,o:'(ريال، اختياري للمطابقة)'}));s5.appendChild(g5);
+  var w=el('div','cmp-wrap'),T=el('table','cmp');var th=el('thead'),hr=el('tr');['الدفعة','تُصرف عند إنجاز واستلام','المبلغ (ريال)',''].forEach(function(h,i){hr.appendChild(el('th',i===2?'c':null,h))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  a.pays.forEach(function(p,pi){var tr=el('tr');
+    var t1=el('td');var i1=el('input','tx');i1.value=p.n;i1.setAttribute('aria-label','اسم الدفعة');i1.addEventListener('input',function(){p.n=i1.value;ST.save();drawDoc()});t1.appendChild(i1);tr.appendChild(t1);
+    var t2=el('td');var i2=el('input','tx');i2.value=p.w;i2.placeholder='مثال: استلام التمديدات قبل اللياسة';i2.setAttribute('aria-label','تُصرف عند');i2.addEventListener('input',function(){p.w=i2.value;ST.save();drawDoc()});t2.appendChild(i2);tr.appendChild(t2);
+    var t3=el('td','c');var i3=el('input','pr');i3.inputMode='decimal';i3.value=p.a;i3.setAttribute('aria-label','المبلغ');i3.addEventListener('input',function(){p.a=i3.value;ST.save();sumPay();drawDoc()});t3.appendChild(i3);tr.appendChild(t3);
+    var t4=el('td','c');if(a.pays.length>1){var x=el('button','x','×');x.type='button';x.setAttribute('aria-label','حذف الدفعة');x.addEventListener('click',function(){a.pays.splice(pi,1);ST.save();drawForm();drawDoc()});t4.appendChild(x)}tr.appendChild(t4);
+    tb.appendChild(tr)});
+  var tot=el('tr','total');tot.appendChild(el('td',null,'المجموع'));tot.appendChild(el('td'));var tt=el('td','c num');tt.id='payTot';tot.appendChild(tt);tot.appendChild(el('td'));tb.appendChild(tot);
+  T.appendChild(tb);w.appendChild(T);s5.appendChild(w);
+  var ad=el('button','btn sm line addrow','+ دفعة');ad.type='button';ad.addEventListener('click',function(){var at=a.pays.length-1;a.pays.splice(at<0?0:at,0,{n:'الدفعة '+ar(a.pays.length),w:'',a:''});ST.save();drawForm();drawDoc()});s5.appendChild(ad);
+  var pw=el('div','warn');pw.id='payWarn';pw.hidden=true;s5.appendChild(pw);
+  F.appendChild(s5);sumPay();
+
+  var s6=sec('٦','الاستلام والتوثيق والضمان');
+  s6.appendChild(ck('e1',['تُستلم كل مرحلة فنياً قبل تغطيتها، وتُوثق بالصور المؤرخة.']));
+  s6.appendChild(ck('e2',['لا يبدأ بندٌ فوق مرحلة لم تُستلم.']));
+  s6.appendChild(ck('e3',['الضمان على أعمال هذا البند: ',inl('war','عدد السنوات'),' سنة/سنوات من الاستلام النهائي.']));F.appendChild(s6);
+
+  var s7=sec('','التوقيعات'),g7=el('div','fgrid');
+  g7.appendChild(fld('اسم الطرف الأول في التوقيع','sig1',{ph:'يُؤخذ من بيانات الاتفاق إن تُرك'}));g7.appendChild(fld('اسم الطرف الثاني في التوقيع','sig2',{ph:'يُؤخذ من بيانات الاتفاق إن تُرك'}));
+  g7.appendChild(fld('شاهد','wit',{o:'(اختياري)'}));s7.appendChild(g7);F.appendChild(s7);
+}
+function paySum(a){var s=0,any=false;a.pays.forEach(function(p){if(p.a){any=true;s+=num(p.a)}});return any?s:null}
+function sumPay(){var a=cur(),s=paySum(a),t=$('payTot');if(t)t.textContent=s==null?'':fmt(s,0)+' ريال';
+  var w=$('payWarn');if(!w)return;var pr=num(a.price);
+  if(s!=null&&pr&&Math.abs(s-pr)>0.5){w.hidden=false;w.textContent='مجموع الدفعات '+fmt(s,0)+' ريال لا يساوي قيمة البند '+fmt(pr,0)+' ريال. الفرق '+fmt(Math.abs(s-pr),0)+' ريال.'}else w.hidden=true}
+
+/* صفحة الاتفاق */
+var DOTS='..............................';
+function v(x,d){return x&&String(x).trim()?String(x).trim():null}
+function span(x,short){var s=el('span',v(x)?null:'blank',v(x)||(short?'..........':DOTS));return s}
+function line(parent,parts){var p=el('div');parts.forEach(function(x){if(typeof x==='string')p.appendChild(document.createTextNode(x));else p.appendChild(x)});parent.appendChild(p);return p}
+function box(b){return b?'☑ ':'☐ '}
+function dt(d){if(!d)return null;var p=d.split('-');return ar(p[2])+'/'+ar(p[1])+'/'+ar(p[0])}
+function multi(parent,txt){if(!v(txt)){parent.appendChild(el('span','blank',DOTS+DOTS));return}String(txt).split(/\n+/).forEach(function(l,i){if(i)parent.appendChild(el('br'));parent.appendChild(document.createTextNode(l))})}
+function drawDoc(){
+  var a=cur(),D=$('doc');D.innerHTML='';
+  D.appendChild(el('h2',null,'اتفاق تنفيذ بند: '+(v(a.item)||'')));
+  D.appendChild(el('div','dsub','نموذج اتفاق البند الواحد · البيت بيتك'));
+  var t=el('table'),tb=el('tbody');
+  [['البند',a.item],['الطرف الأول (المالك) وجواله',[a.owner,a.ownerPh].filter(Boolean).join(' · ')],['الطرف الثاني (المنفذ) وجواله',[a.con,a.conPh].filter(Boolean).join(' · ')],['موقع المشروع',a.site],['تاريخ الاتفاق',dt(a.date)]].forEach(function(r){
+    var tr=el('tr');tr.appendChild(el('th',null,r[0]));var td=el('td');td.appendChild(span(r[1]));tr.appendChild(td);tb.appendChild(tr)});
+  t.appendChild(tb);D.appendChild(t);
+
+  D.appendChild(el('h4',null,'١. نطاق العمل'));
+  var p1=line(D,['يشمل هذا البند تنفيذ: ']);multi(p1,a.inc);
+  var p2=line(D,['ولا يشمل (المستثنيات نصاً): ']);multi(p2,a.exc);
+  line(D,['المواد: على الطرف ',span(a.mat?PARTY[a.mat]:null,1),'، وتشمل: ',span(a.matInc),' ولا تشمل: ',span(a.matExc)]);
+
+  D.appendChild(el('h4',null,'٢. حدود البند والتداخل'));
+  line(D,[box(a.b1)+'من يفتح ومن يسد ومن ينظف خلفه: ',span(a.open)]);
+  line(D,[box(a.b2)+'حماية أعمال البنود السابقة أثناء العمل مسؤولية المنفذ، وأي كسر عرضي يصلحه على حسابه.']);
+  line(D,[box(a.b3)+'عند تعارض هذا البند مع بند آخر يكون الإصلاح على: ',span(a.conflict)]);
+
+  D.appendChild(el('h4',null,'٣. الموقع والتشغيل أثناء العمل'));
+  line(D,[box(a.c1)+'الكهرباء والماء أثناء التنفيذ على الطرف: ',span(a.util?PARTY[a.util]:null,1),'.']);
+  line(D,[box(a.c2)+'ساعات العمل من ',span(a.hFrom,1),' إلى ',span(a.hTo,1),' مراعاةً للجيران.']);
+  line(D,[box(a.c3)+'نظافة الموقع أولاً بأول ورفع المخلفات على المنفذ.']);
+  line(D,[box(a.c4)+'لا إقامة للعمالة في الموقع إلا باتفاق مكتوب.']);
+
+  D.appendChild(el('h4',null,'٤. المدة والتأخير'));
+  line(D,['مدة التنفيذ: ',span(a.days?ar(a.days):null,1),' يوماً من تاريخ: ',span(dt(a.from),1),'. وفي حال التأخير غير المبرر: ',span(a.delay)]);
+
+  D.appendChild(el('h4',null,'٥. الدفعات.. مربوطة بالإنجاز المستلم'));
+  var pt=el('table'),ph=el('thead'),phr=el('tr');['الدفعة','تُصرف عند إنجاز واستلام','المبلغ'].forEach(function(h){phr.appendChild(el('th',null,h))});ph.appendChild(phr);pt.appendChild(ph);
+  var pb=el('tbody');a.pays.forEach(function(p){var tr=el('tr');[p.n,p.w,p.a?fmt(num(p.a),0)+' ريال':null].forEach(function(x){var td=el('td');td.appendChild(span(x,1));tr.appendChild(td)});pb.appendChild(tr)});
+  var s=paySum(a);if(s!=null){var tr=el('tr');tr.appendChild(el('th',null,'المجموع'));tr.appendChild(el('td'));tr.appendChild(el('td',null,fmt(s,0)+' ريال'));pb.appendChild(tr)}
+  pt.appendChild(pb);D.appendChild(pt);
+
+  D.appendChild(el('h4',null,'٦. الاستلام والتوثيق والضمان'));
+  line(D,[box(a.e1)+'تُستلم كل مرحلة فنياً قبل تغطيتها، وتُوثق بالصور المؤرخة.']);
+  line(D,[box(a.e2)+'لا يبدأ بندٌ فوق مرحلة لم تُستلم.']);
+  line(D,[box(a.e3)+'الضمان على أعمال هذا البند: ',span(a.war?ar(a.war):null,1),' سنة/سنوات من الاستلام النهائي.']);
+
+  D.appendChild(el('h4',null,'التوقيعات'));
+  var sg=el('div','sig');[['الطرف الأول',a.sig1||a.owner],['الطرف الثاني',a.sig2||a.con]].forEach(function(x){var d=el('div');d.appendChild(el('b',null,x[0]));line(d,['الاسم: ',span(x[1])]);line(d,['التوقيع: ',el('span','blank',DOTS)]);sg.appendChild(d)});D.appendChild(sg);
+  line(D,['شاهد (اختياري): الاسم: ',span(a.wit),'  التوقيع: ',el('span','blank','..................')]).style.marginTop='12px';
+  D.appendChild(el('div','foot','صفحة واحدة واضحة خير من مئة مكالمة «اتفقنا». الورقة لا تمنع خطأ العامل.. لكنها تمنع يُتم العيب: كل عيب يجد أباه. · هذا نموذج استرشادي لتنظيم الاتفاق وتوثيقه، وليس صيغة قانونية.'));
+}
+$('addAg').addEventListener('click',function(){var g=newAg(S.ags.length+1);S.ags.push(g);S.active=g.id;ST.save();drawAll();TK.rename(g.item,function(v){g.item=v;ST.save();drawAll()})});
+window.addEventListener('beforeprint',function(){document.body.classList.add('print-doc')});
+window.addEventListener('afterprint',function(){document.body.classList.remove('print-doc')});
+$('btnPrint').addEventListener('click',function(){document.body.classList.add('print-doc');window.print()});
+TK.resetButton($('btnDel'),function(){var id=S.active;S.ags=S.ags.filter(function(g){return g.id!==id});if(!S.ags.length){S.ags=[newAg(1)]}S.active=S.ags[0].id;ST.save();drawAll();ST.flash('حُذف الاتفاق')},'اضغط مرة ثانية لحذف هذا الاتفاق');
+function drawAll(){drawAgs();drawForm();drawDoc()}
+drawAll();
+})();
+</script>
+</body>
+</html>

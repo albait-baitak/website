@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>خارطة بنود تنفيذ بيتك · البيت بيتك</title>
+<meta name="description" content="عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق. من قبل أول مقاول إلى تسليم المفتاح.">
+<meta property="og:title" content="خارطة بنود تنفيذ بيتك">
+<meta property="og:description" content="عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610051900">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610051900">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التنفيذ</a><span>›</span><span>خارطة بنود تنفيذ بيتك</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">05</span>
+    <span class="stage-tag">مرحلة التنفيذ</span>
+    <h1>خارطة بنود تنفيذ بيتك</h1>
+    <p class="sub">عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>من قبل أول مقاول إلى تسليم المفتاح. أغلب بيوتنا تُبنى «بالبنود»: كل بند اتفاق مستقل ومقاول مستقل، وهذه الخارطة ترتب الرحلة وتمنع فجوات المسؤولية.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>قبل كل محطة: راجع بنود «اتفق وتأكد» مع مقاولها.</li>
+      <li>علّم ✓ عند تحقق كل بند، ووثق بالصور المؤرخة.</li>
+      <li>لا تنتقل لمحطة قبل استلام التي قبلها.. وحدّث لوحة التقدم بالتواريخ.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="tsec" aria-labelledby="h-b">
+    <h2 id="h-b"><span class="k">١</span>لوحة تقدم الرحلة.. بيتك في نظرة واحدة</h2>
+    <p class="lead2">تتحدث اللوحة وحدها من المحطات أدناه. اضغط اسم المحطة لتنتقل إليها. <span class="hint" id="saved" aria-live="polite"></span></p>
+    <div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+    <div class="cnt" id="cnt"></div>
+    <div class="cmp-wrap"><table class="cmp" id="board"></table></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-s">
+    <h2 id="h-s"><span class="k">٢</span>المحطات العشر</h2>
+    <p class="lead2">في كل محطة: بنود «اتفق وتأكد» ولماذا يهمك كل بند، ثم تاريخ الاستلام وطريقة التوثيق.</p>
+    <div class="no-print" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm line" type="button" id="openAll">افتح المحطات كلها</button><button class="btn sm line" type="button" id="closeAll">اطوها</button></div>
+    <div id="stations"></div>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>القاعدة التي تحكم الخارطة كلها: ما دُفن بلا استلام سيخرج يوماً بلا استئذان. والدفعة تُصرف لمرحلة مستلمة.. لا لتاريخ في التقويم.</p>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الخارطة أو احفظها PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610051900"></script>
+<script src="../../assets/js/config.js?v=202610051900"></script>
+<script src="../../assets/js/session.js?v=202610051900"></script>
+<script src="../../assets/js/toolkit.js?v=202610051900"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$;
+var A6='<a href="../agreement/">نموذج اتفاق البند الواحد</a>',A7='<a href="../handover/">ملف بيتك: الاستلام والسجلات</a>';
+var STN=[
+ {t:'جاهزيتك قبل أول مقاول',i:[
+  ['مخططاتك تنفيذية كاملة (معماري، إنشائي، كهربائي، صحي)؟','مخطط ناقص = اجتهاد عمالة في الموقع.'],
+  ['الرخصة والتصاريح جاهزة قبل فتح الموقع؟','التصاريح المتأخرة توقف الموقع والمقاول لا ينتظر مجاناً.'],
+  ['ميزانية إجمالية + احتياطي ١٠–١٥٪ للمفاجآت؟','بدون احتياطي ستمول المفاجآت من بنود الجودة. (تساعدك أداة <a href="../quantities/">جداول الكميات والتكاليف</a>)'],
+  ['جدول زمني مبدئي لتسلسل البنود؟','الجدول خط الدفاع الأول ضد إعادة الشغل والدفع مرتين.'],
+  ['تعرف أسعار السوق لكل بند رئيسي؟','اطلب ثلاثة أسعار قبل أي مفاوضة.. الرقم الواحد ليس سعراً. (قارنها في <a href="../offers/">جدول مقارنة عروض المقاولين</a>)'],
+  ['من يدير المشروع وينسق: أنت أم مختص؟','أهم سؤال في الخارطة كلها.. حدد القائد قبل أول صبة.'],
+  ['آلية توثيق الاتفاقات والتعديلات؟','مجلد واحد: اتفاقات + صور + دفعات.. الورق يحفظ ما تنساه الذاكرة.'],
+  ['أي المواد عليك وأيها على المقاول؟','خلط الذمم يفتح باب «هذي مو موادي» عند كل عيب.']]},
+ {t:'قواعد ثابتة مع كل مقاول',i:[
+  ['رأيت أعمالاً سابقة له وكلمت أصحابها؟','سابقة الأعمال تُرى في الموقع لا في الجوال.'],
+  ['الاتفاق شامل المواد أم مصنعية؟ وما المستثنى؟','أكثر الخلافات تولد من كلمة «شامل».. اكتب المستثنيات نصاً.'],
+  ['الدفعات مربوطة بإنجاز يُفحص قبل الدفع؟','ادفع للإنجاز المستلم لا للوقت.'],
+  ['المدة وأثر التأخير مكتوبان؟','مدة بلا أثر للتأخير = وعد ودي لا التزام.'],
+  ['من يتحمل تعارض بنده مع البنود الأخرى؟','فجوات المسؤولية بين المقاولين مقبرة الجودة.'],
+  ['الاتفاق مكتوب وموقع ولو صفحة؟','صفحة واضحة خير من مئة مكالمة «اتفقنا». (انظر '+A6+')']]},
+ {t:'العظم.. أساس الرحلة كلها',i:[
+  ['فُحصت التربة ونفذت القواعد وفق تقريرها؟','لا تقبل نظرية «الأرض كلها طينة وحدة».'],
+  ['درجة الخرسانة ومصدرها واختبار المكعبات؟','اشترط تقرير اختبار لكل صبة.'],
+  ['الحديد وأقطاره مطابقة للمخطط الإنشائي؟','قارن قبل الصبة.. بعدها لا رجعة.'],
+  ['سليفات الكهرباء والسباكة جاهزة قبل كل صبة؟','نسيان سليف = تكسير في عظم جديد.'],
+  ['معالجة الخرسانة بالرش المنتظم؟','أرخص بند وأكثره إهمالاً وأثره عمر البيت.'],
+  ['استلام الاستقامة والأبعاد قبل كل دفعة؟','الاعوجاج هنا تدفعه في اللياسة والأرضيات.'],
+  ['عزل ما تحت الأرض منفذ ومصور قبل الردم؟','ما يدفن لا تراه عينك مرة أخرى.'],
+  ['توثيق كل سقف وجدار بالصور قبل الإغلاق؟','أرشيف الصور مرجعك عند أي خلاف أو صيانة.']]},
+ {t:'التمديدات الكهربائية',i:[
+  ['توزيع الأفياش والمفاتيح معتمد منك أنت؟','تمشَّ في بيتك ذهنياً قبل السحب.. التعديل بعد اللياسة تكسير.'],
+  ['قواطع اللوحة وأحمالها موزعة وموثقة؟','لوحة مرتبة اليوم = صيانة سهلة عشرين سنة.'],
+  ['مواسير التيار الخفيف مستقلة وباحتياط؟','أرخص خط هو الذي تمدده قبل اللياسة.'],
+  ['اختبار التوصيلات قبل إغلاق الجدران؟','اختبار بسيط يغنيك عن تخمين الأعطال خلف الجبس.'],
+  ['إنارة الحوش والواجهة مشمولة نصاً؟','أكثر المنسيات شيوعاً في بند الكهرباء.']]},
+ {t:'السباكة والتكييف',i:[
+  ['مسارات الصرف بميولها مختبرة بالماء؟','الصرف العكسي أغلى إصلاح في البيت.'],
+  ['خطوط التغذية مختبرة بالضغط قبل الإغلاق؟','ساعة ضغط ٢٤ ساعة توفر تكسير حمامات كاملة.'],
+  ['مخارج التكييف منسقة مع الجبس والديكور؟','نسقها على الورق لا في السقف.'],
+  ['ميول أرضيات الحمامات والأسطح مستلمة؟','جربها بالماء فعلياً.. لا تكتفِ بالنظر.'],
+  ['مشتملات بند التكييف واضحة (وحدات، تمديد، تصريف)؟','تصريف منسي = بقع جدران دائمة.']]},
+ {t:'العزل.. المائي والحراري',i:[
+  ['عزل السطح مائي وحراري بسماكات متفق عليها؟','فاتورتك وراحة الدور العلوي كلها هنا.'],
+  ['اختبار الغمر ٤٨ ساعة للسطح والحمامات؟','شرط استلام.. لا مجاملة.'],
+  ['جدران الواجهات معزولة بمواد مناسبة؟','استثمار يرجع إليك في الفاتورة كل شهر.'],
+  ['العزل موثق بالصور قبل تغطيته؟','ما بعد التغطية لا يثبته إلا الأرشيف.']]},
+ {t:'اللياسة',i:[
+  ['استلمت عينة غرفة قبل تعميم العمل؟','العينة معيار الاستلام لبقية البيت.. اعتمدها كتابياً.'],
+  ['الزوايا والاستواء مستلمة بالقدة والميزان؟','كل تعرج يظهر مضاعفاً مع الدهان والإنارة الجانبية.'],
+  ['الشبك مثبت على مسارات التمديد؟','بدونه تظهر شعور الشقوق على كل مسار.']]},
+ {t:'الأرضيات والجبس',i:[
+  ['منسوب الأرضيات موحد مع الأبواب والممرات؟','فروق المناسيب عتبات دائمة تحت أقدام عائلتك.'],
+  ['كمية البلاط كاملة من دفعة واحدة وبهدر محسوب؟','دفعات الإنتاج تختلف درجاتها.. زد ٧–١٠٪.'],
+  ['تصميم الجبس منسق مع الإنارة والتكييف؟','الجبس آخر من يعلم وأول من يتكسر.'],
+  ['الفواصل والميول وترويب البلاط مستلمة؟','الصوت الأجوف اليوم بلاطة مقلوعة غداً.']]},
+ {t:'النجارة والألمنيوم والدهان',i:[
+  ['مقاسات الأبواب والشبابيك بعد اللياسة لا قبلها؟','المقاس المبكر يورثك فراغات وحشوات.'],
+  ['عينة الدهان معتمدة على جدارك أنت؟','اللون يتغير مع إضاءة بيتك.. جربه ليلاً ونهاراً.'],
+  ['الألمنيوم بالقطاعات والعوازل المتفق عليها؟','المقلد يشبه الأصلي شكلاً ويخونه حراً وضجيجاً.'],
+  ['تركيب النجارة النهائي بعد الأعمال المغبرة؟','الغبار والدهان أعداء التشطيب النهائي.']]},
+ {t:'الاستلام النهائي والتشغيل',i:[
+  ['مشيت على البيت بقائمة ملاحظات بنداً بنداً؟','وثق كل ملاحظة ولا تسلم آخر دفعة قبل إغلاقها. (انظر '+A7+')'],
+  ['استلمت الضمانات والفواتير وأرشيف الصور؟','هذا الملف «هوية بيتك» لأي صيانة مستقبلية.'],
+  ['شغلت كل شيء فعلياً: ماء، كهرباء، تكييف، صرف؟','التشغيل الفعلي هو الاستلام الحقيقي.. لا تستلم بالعين.']]}
+];
+var DOCS=[['ph','صور'],['vd','فيديو'],['wr','إقرار مكتوب']];
+var TOTAL=0;STN.forEach(function(s){TOTAL+=s.i.length});
+function fresh(){var o={v:1,s:[]};STN.forEach(function(){o.s.push({c:{},start:'',recv:'',d:{},note:''})});return o}
+var ST=TK.store('bb_tool_roadmap_v1',fresh,1),S=ST.get();
+
+function done(k){var n=0;Object.keys(S.s[k].c).forEach(function(x){if(S.s[k].c[x])n++});return n}
+function status(k){var s=S.s[k];if(s.recv)return 'done';if(s.start||done(k))return 'go';return ''}
+var STL={'':'لم تبدأ',go:'جارية',done:'مستلمة'};
+function fmtD(d){if(!d)return '';var p=d.split('-');return ar(p[2])+'/'+ar(p[1])+'/'+ar(p[0])}
+
+var refs=[];
+function drawStations(){
+  var host=$('stations');host.innerHTML='';refs=[];
+  STN.forEach(function(stn,k){
+    var D=el('details','stn');D.id='st'+(k+1);
+    var sm=el('summary');sm.appendChild(el('span','sn',ar(k+1)));var h=el('h3',null,'المحطة '+ar(k+1)+': '+stn.t);sm.appendChild(h);var st=el('span','st');sm.appendChild(st);
+    var bar=el('div','bar');var bi=el('i');bar.appendChild(bi);sm.appendChild(el('span'));sm.appendChild(bar);D.appendChild(sm);
+    var B=el('div','body');var sh=el('div','qgroup');var h3=el('h3',null,'اتفق وتأكد');h3.appendChild(el('span',null,'لماذا يهمك؟'));sh.appendChild(h3);B.appendChild(sh);
+    var its=[];
+    stn.i.forEach(function(it,j){var L=el('label','it');var cb=el('input');cb.type='checkbox';L.appendChild(cb);L.appendChild(el('span','t',it[0]));var w=el('span','w');w.innerHTML=it[1];L.appendChild(w);
+      cb.addEventListener('change',function(){if(cb.checked)S.s[k].c[j]=1;else delete S.s[k].c[j];ST.save();upd(k);drawBoard()});
+      B.appendChild(L);its.push({L:L,cb:cb})});
+    var rv=el('div','recv');
+    var f1=el('div','fld');var l1=el('label',null,'استُلمت المحطة بتاريخ');var d1=el('input');d1.type='date';d1.id='rv'+k;l1.htmlFor=d1.id;f1.appendChild(l1);f1.appendChild(d1);rv.appendChild(f1);
+    d1.addEventListener('change',function(){S.s[k].recv=d1.value;ST.save();upd(k);if(k<9)upd(k+1);drawBoard()});
+    var dc=el('div','docs');dc.appendChild(el('b',null,'التوثيق:'));var dcs={};
+    DOCS.forEach(function(x){var lb=el('label');var c=el('input');c.type='checkbox';lb.appendChild(c);lb.appendChild(document.createTextNode(x[1]));dc.appendChild(lb);dcs[x[0]]=c;
+      c.addEventListener('change',function(){if(c.checked)S.s[k].d[x[0]]=1;else delete S.s[k].d[x[0]];ST.save();upd(k)})});
+    rv.appendChild(dc);B.appendChild(rv);
+    var wn=el('div','warn');wn.hidden=true;B.appendChild(wn);
+    var nt=el('textarea','snote');nt.rows=1;nt.placeholder='ملاحظة على هذه المحطة (اسم المقاول، رقم الاتفاق، مكان الصور)..';nt.setAttribute('aria-label','ملاحظة المحطة '+ar(k+1));
+    nt.addEventListener('input',function(){S.s[k].note=nt.value;ST.save();TK.grow(nt);drawBoard()});B.appendChild(nt);
+    D.appendChild(B);host.appendChild(D);
+    refs.push({D:D,st:st,bi:bi,its:its,d1:d1,dcs:dcs,wn:wn,nt:nt});
+  });
+}
+function upd(k){
+  var r=refs[k],s=S.s[k],n=STN[k].i.length,dn=done(k),stt=status(k);
+  r.its.forEach(function(x,j){x.cb.checked=!!s.c[j];x.L.classList.toggle('on',!!s.c[j])});
+  r.d1.value=s.recv||'';DOCS.forEach(function(x){r.dcs[x[0]].checked=!!s.d[x[0]]});
+  if(document.activeElement!==r.nt){r.nt.value=s.note||'';TK.grow(r.nt)}
+  r.st.className='st '+stt;r.st.textContent=STL[stt]+' · '+(dn?ar(dn)+' من '+ar(n):ar(n)+' بنود');r.bi.style.width=(dn/n*100)+'%';
+  var w=[];
+  if(s.recv&&dn<n)w.push('سجلت استلام المحطة وفيها '+ar(n-dn)+' من البنود لم تُعلَّم بعد. راجعها قبل صرف الدفعة.');
+  if(s.recv&&!Object.keys(s.d).length)w.push('لم تحدد طريقة توثيق الاستلام: صور أو فيديو أو إقرار مكتوب.');
+  if(k>0&&(s.recv||s.start||dn)&&!S.s[k-1].recv)w.push('المحطة السابقة «'+STN[k-1].t+'» لم تُستلم بعد.. لا تنتقل لمحطة قبل استلام التي قبلها.');
+  r.wn.hidden=!w.length;r.wn.innerHTML='';w.forEach(function(t){r.wn.appendChild(el('div',null,t))});
+}
+function drawBoard(){
+  var T=$('board');T.innerHTML='';var th=el('thead'),hr=el('tr');[['المحطة'],['بدأت في','c'],['استُلمت في','c'],['البنود','c'],['ملاحظة']].forEach(function(h){hr.appendChild(el('th',h[1]||null,h[0]))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody'),all=0,rec=0;
+  STN.forEach(function(stn,k){var s=S.s[k],tr=el('tr');var td=el('td');var a=el('a',null,ar(k+1)+'. '+stn.t);a.href='#st'+(k+1);
+      a.addEventListener('click',function(){refs[k].D.open=true});td.appendChild(a);tr.appendChild(td);
+    var t2=el('td','c'),i2=el('input','dt');i2.type='date';i2.value=s.start||'';i2.setAttribute('aria-label','بدأت في · '+stn.t);
+      i2.addEventListener('change',function(){s.start=i2.value;ST.save();upd(k);drawBoard()});t2.appendChild(i2);tr.appendChild(t2);
+    var t3=el('td','c'),i3=el('input','dt');i3.type='date';i3.value=s.recv||'';i3.setAttribute('aria-label','استُلمت في · '+stn.t);
+      i3.addEventListener('change',function(){s.recv=i3.value;ST.save();upd(k);if(k<9)upd(k+1);drawBoard()});t3.appendChild(i3);
+      if(s.start&&s.recv&&s.recv<s.start)t3.appendChild(el('div','lock','تاريخ الاستلام قبل البدء؟'));tr.appendChild(t3);
+    var dn=done(k);all+=dn;if(s.recv)rec++;
+    var t4=el('td','c');var stt=status(k);t4.appendChild(el('span','pill '+(stt==='done'?'g':stt==='go'?'y':''),dn?ar(dn)+' / '+ar(STN[k].i.length):ar(STN[k].i.length)+' بنود'));tr.appendChild(t4);
+    tr.appendChild(el('td',null,s.note?s.note.slice(0,60)+(s.note.length>60?'..':''):''));
+    tb.appendChild(tr)});
+  T.appendChild(tb);
+  $('pbar').style.width=(all/TOTAL*100)+'%';
+  var c=$('cnt');c.innerHTML='';[['المحطات المستلمة',ar(rec)+' من ١٠'],['البنود المتحققة',ar(all)+' من '+ar(TOTAL)]].forEach(function(x){var s=el('span',null,x[0]+': ');s.appendChild(el('b',null,x[1]));c.appendChild(s)});
+}
+$('openAll').addEventListener('click',function(){refs.forEach(function(r){r.D.open=true})});
+$('closeAll').addEventListener('click',function(){refs.forEach(function(r){r.D.open=false})});
+var openState=null;
+window.addEventListener('beforeprint',function(){openState=refs.map(function(r){return r.D.open});refs.forEach(function(r){r.D.open=true})});
+window.addEventListener('afterprint',function(){if(openState)refs.forEach(function(r,i){r.D.open=openState[i]})});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
+function drawAll(){STN.forEach(function(_,k){upd(k)});drawBoard()}
+drawStations();drawAll();
+// افتح أول محطة لم تُستلم
+for(var k=0;k<10;k++){if(!S.s[k].recv){refs[k].D.open=true;break}}
+})();
+</script>
+</body>
+</html>
