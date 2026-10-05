@@ -15,16 +15,28 @@ type Rule = { c: string; l: number; n: string; r: string; s: string };
 const RULES = (rulesData as { RULES: Rule[] }).RULES;
 const LNAME: Record<number, string> = { 1: "النظامية", 2: "العملية", 3: "الموجهات", 4: "الثقافية" };
 
-function buildPrompt(meta: string): string {
-  const rules = RULES.map((R) =>
-    `${R.c} | ${R.l === 1 || R.l === 3 ? "مطابقة" : "جودة تصميم"} · ${LNAME[R.l]} | ${R.n} | المطلوب: ${R.r}`
-  ).join("\n");
-  return "أنت فاحص معماري لمخططات المسكن السعودي، تُجري الفحص الفني للمخطط قبل رفعه للأمانة وفق بروتوكول ثابت: استخراج الفراغات وقياساتها، ثم فحص المطابقة (الطبقة النظامية: الاشتراطات والكود، ثم طبقة الموجهات: موجهات العمارة السعودية لطراز الموقع)، ثم فحص جودة التصميم (الطبقة العملية: صلاحية الفراغات للعيش، ثم الطبقة الثقافية: قواعد البيت السعودي).\n\n" +
+const GROUPS = {
+  comp: { layers: [1, 3], name: "فحص المطابقة", desc: "الطبقة النظامية: الاشتراطات والكود، ثم طبقة الموجهات: موجهات العمارة السعودية لطراز الموقع" },
+  qual: { layers: [2, 4], name: "فحص جودة التصميم", desc: "الطبقة العملية: صلاحية الفراغات للعيش، ثم الطبقة الثقافية: قواعد البيت السعودي" },
+} as const;
+type GroupId = keyof typeof GROUPS;
+
+function buildPrompt(meta: string, g: GroupId): string {
+  const G = GROUPS[g];
+  const list = RULES.filter((R) => (G.layers as readonly number[]).includes(R.l));
+  const rules = list.map((R) => `${R.c} | ${LNAME[R.l]} | ${R.n} | المطلوب: ${R.r}`).join("\n");
+  const common = "أنت فاحص معماري لمخططات المسكن السعودي، تُجري الفحص الفني للمخطط قبل رفعه للأمانة. مهمتك الآن: " + G.name + " (" + G.desc + ").\n\n" +
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
-    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه (المساحات المحسوبة من المضلعات المغلقة، وقيم الأبعاد، والمناسيب، والنصوص) مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه، وإن وُسمت «مستنتجة» فاذكر ذلك. والمضلع المغلق قد يكون حد الأرض أو فراغاً أو عنصراً آخر، فاعتمد على اسمه وموقعه ومساحته.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- الدرجة في فحص المطابقة: stop للمخالفة النظامية الصريحة وللموجهات الملزمة الصريحة، major لما يُعالج قبل الرفع، minor للتحسين.\n- الدرجة في فحص جودة التصميم: major أو minor فقط، ولا stop أبداً.\n- حكم المطابقة يُبنى من فحص المطابقة وحده: ready إن لم توجد فيه stop ولا major، وfix إن كانت علاجاته موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُذكر نمط الطراز فافحص على المعاصر واذكر ذلك في الافتراضات.\n- اكتب بالعربية الفصحى، جملاً قصيرة، والعلاج محدد قابل للتنفيذ. استخدم «..» لا «…».\n\n" +
-    "القواعد (الرمز | القسم · الطبقة | الاسم | المطلوب):\n" + rules + "\n\n" +
-    'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":["خلاصة فحص المطابقة في سطر","خلاصة فحص جودة التصميم في سطر"],"assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"ما وُجد في المخطط بالأرقام","fix":"العلاج إن خالف","note":"ملاحظة اختيارية"}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}\n' +
-    "ضع في results كل الرموز المذكورة دون استثناء.";
+    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n" +
+    (g === "comp"
+      ? "- الدرجة: stop للمخالفة النظامية الصريحة وللموجهات الملزمة الصريحة، major لما يُعالج قبل الرفع، minor للتحسين.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُذكر نمط الطراز فافحص على المعاصر واذكر ذلك في الافتراضات.\n"
+      : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
+    "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
+    "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";
+  const shape = g === "comp"
+    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}'
+    : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
+  return common + "أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n" + shape + "\nضع في results كل الرموز المذكورة أعلاه دون استثناء، ولا رمزاً غيرها.";
 }
 
 function b64(buf: ArrayBuffer): string {
@@ -40,6 +52,45 @@ function extractJson(text: string): unknown {
   if (start < 0 || end < start) throw new Error("no_json");
   return JSON.parse(text.slice(start, end + 1));
 }
+
+
+// يستدعي Claude بالبث حتى لا ينقطع الاتصال في الطلبات الطويلة، ويجمع النص والاستهلاك وسبب التوقف
+async function callClaude(apiKey: string, model: string, content: unknown[]): Promise<{ text: string; usage: Record<string, number>; stop: string }> {
+  const resp = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+    body: JSON.stringify({ model, max_tokens: 48000, stream: true, messages: [{ role: "user", content }] }),
+  });
+  if (!resp.ok || !resp.body) {
+    const j = await resp.json().catch(() => ({}));
+    throw new Error("api_error:" + (j?.error?.message ?? resp.status));
+  }
+  const reader = resp.body.pipeThrough(new TextDecoderStream()).getReader();
+  let buf = "", text = "", stop = "";
+  const usage: Record<string, number> = {};
+  for (;;) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buf += value;
+    let k;
+    while ((k = buf.indexOf("\n")) >= 0) {
+      const line = buf.slice(0, k).trim();
+      buf = buf.slice(k + 1);
+      if (!line.startsWith("data:")) continue;
+      let ev: any;
+      try { ev = JSON.parse(line.slice(5)); } catch { continue; }
+      if (ev.type === "content_block_delta" && ev.delta?.type === "text_delta") text += ev.delta.text;
+      else if (ev.type === "message_start") Object.assign(usage, ev.message?.usage ?? {});
+      else if (ev.type === "message_delta") { Object.assign(usage, ev.usage ?? {}); if (ev.delta?.stop_reason) stop = ev.delta.stop_reason; }
+      else if (ev.type === "error") throw new Error("api_error:" + (ev.error?.message ?? "stream"));
+    }
+  }
+  return { text, usage, stop };
+}
+
+const PRICE: Record<string, [number, number]> = {
+  "claude-opus-5-5": [4, 20], "claude-sonnet-5-5": [2, 10], "claude-haiku-4-5": [1, 5], "claude-fable-5-1": [10, 50],
+};
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
@@ -64,85 +115,102 @@ Deno.serve(async (req) => {
   const { data: rq, error: rqErr } = await db.from("requests").select("*").eq("id", request_id).single();
   if (rqErr || !rq) return json({ error: "request_not_found" }, 404);
 
-  const p = rq.project ?? {};
-  const meta = [
-    p.type && `نوع المسكن: ${p.type}`, p.floors && `الأدوار: ${p.floors}`,
-    (p.city || p.district) && `الموقع: ${[p.city, p.district].filter(Boolean).join(" · ")}`,
-    p.area && `مساحة الأرض: ${p.area} م²`, p.streets && `الشوارع: ${p.streets}`,
-    p.pattern && `نمط الموجهات: ${p.pattern}`, p.prev && `ملاحظات سابقة من الأمانة: ${p.prev}`,
-  ].filter(Boolean).join(" · ") || "لم تُدخل بيانات";
+  // تشغيل واحد في كل مرة لكل طلب
+  const { data: running } = await db.from("analysis_runs").select("id,created_at").eq("request_id", request_id).eq("status", "running")
+    .gte("created_at", new Date(Date.now() - 8 * 60 * 1000).toISOString()).limit(1);
+  if (running && running.length) return json({ ok: true, run_id: running[0].id, already: true }, 202);
 
-  // تجهيز المرفقات: PDF، صور، واستخراج DXF وصور معاينته (تُولَّد في متصفح المكتب عند الرفع)
-  type F = { path: string; name: string; type?: string; size?: number; role?: string; of?: string };
-  const blocks: unknown[] = [];
-  const skipped: string[] = [];
-  const dxfTexts: string[] = [];
-  let budget = 24 * 1024 * 1024; // حد آمن لحجم الطلب
-  const all = (rq.files ?? []) as F[];
-  // ملفات الاستخراج أولاً ثم بقية المرفقات
-  const ordered = [...all.filter((f) => f.role === "dxf_extract"), ...all.filter((f) => f.role !== "dxf_extract")];
-  for (const f of ordered) {
-    const lower = (f.path || f.name).toLowerCase();
-    if (f.role === "dxf_extract") {
-      const { data: blob } = await db.storage.from("plans").download(f.path);
-      if (!blob) { skipped.push(f.name); continue; }
-      try { const ex = JSON.parse(await blob.text()); if (ex?.text) dxfTexts.push(ex.text); } catch { skipped.push(f.name); }
-      continue;
+  const { data: run, error: runErr } = await db.from("analysis_runs").insert({ request_id, model, status: "running" }).select("id").single();
+  if (runErr || !run) return json({ error: "run_insert" }, 500);
+
+  const job = (async () => {
+    const t0 = Date.now();
+    const fail = async (msg: string, extra: Record<string, unknown> = {}) => {
+      await db.from("analysis_runs").update({ status: "error", error: msg, finished_at: new Date().toISOString(), ...extra }).eq("id", run.id);
+    };
+    try {
+      const p = rq.project ?? {};
+      const meta = [
+        p.type && `نوع المسكن: ${p.type}`, p.floors && `الأدوار: ${p.floors}`,
+        (p.city || p.district) && `الموقع: ${[p.city, p.district].filter(Boolean).join(" · ")}`,
+        p.area && `مساحة الأرض: ${p.area} م²`, p.streets && `الشوارع: ${p.streets}`,
+        p.pattern && `نمط الموجهات: ${p.pattern}`, p.prev && `ملاحظات سابقة من الأمانة: ${p.prev}`,
+      ].filter(Boolean).join(" · ") || "لم تُدخل بيانات";
+
+      type F = { path: string; name: string; type?: string; size?: number; role?: string; of?: string };
+      const blocks: unknown[] = [];
+      const skipped: string[] = [];
+      const dxfTexts: string[] = [];
+      let budget = 24 * 1024 * 1024;
+      const all = (rq.files ?? []) as F[];
+      const ordered = [...all.filter((f) => f.role === "dxf_extract"), ...all.filter((f) => f.role !== "dxf_extract")];
+      for (const f of ordered) {
+        const lower = (f.path || f.name).toLowerCase();
+        if (f.role === "dxf_extract") {
+          const { data: blob } = await db.storage.from("plans").download(f.path);
+          if (!blob) { skipped.push(f.name); continue; }
+          try { const ex = JSON.parse(await blob.text()); if (ex?.text) dxfTexts.push(ex.text); } catch { skipped.push(f.name); }
+          continue;
+        }
+        if (lower.endsWith(".dxf")) continue;
+        const isPdf = lower.endsWith(".pdf");
+        const imgType = lower.endsWith(".png") ? "image/png" : (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) ? "image/jpeg" : lower.endsWith(".webp") ? "image/webp" : null;
+        if (!isPdf && !imgType) { skipped.push(f.name); continue; }
+        if (imgType && (f.size ?? 0) > 5 * 1024 * 1024) { skipped.push(f.name + " (أكبر من 5MB)"); continue; }
+        if ((f.size ?? 0) * 1.37 > budget) { skipped.push(f.name + " (تجاوز حجم الطلب)"); continue; }
+        const { data: blob, error } = await db.storage.from("plans").download(f.path);
+        if (error || !blob) { skipped.push(f.name); continue; }
+        const buf = await blob.arrayBuffer();
+        budget -= buf.byteLength * 1.37;
+        const data = b64(buf);
+        if (f.role === "dxf_view") blocks.push({ type: "text", text: "صورة معاينة مرسومة من ملف DXF: " + f.name });
+        blocks.push(isPdf
+          ? { type: "document", source: { type: "base64", media_type: "application/pdf", data } }
+          : { type: "image", source: { type: "base64", media_type: imgType, data } });
+      }
+      if (!blocks.length && !dxfTexts.length) return await fail("no_readable_files", { result: { skipped } });
+      if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات DXF المرفوعة (أرقام مقروءة من ملف الرسم نفسه):\n\n" + dxfTexts.join("\n\n---\n\n") });
+
+      // مساران متوازيان: المطابقة وجودة التصميم
+      const [rc, rqal] = await Promise.all((["comp", "qual"] as GroupId[]).map((g) =>
+        callClaude(apiKey, model, [...blocks, { type: "text", text: buildPrompt(meta, g) }])));
+      const usage = { comp: { ...rc.usage, stop: rc.stop }, qual: { ...rqal.usage, stop: rqal.stop }, seconds: Math.round((Date.now() - t0) / 1000), usd: 0 };
+      const pr = PRICE[model] ?? [0, 0];
+      usage.usd = Math.round(((((rc.usage.input_tokens ?? 0) + (rqal.usage.input_tokens ?? 0)) * pr[0] + ((rc.usage.output_tokens ?? 0) + (rqal.usage.output_tokens ?? 0)) * pr[1]) / 1e6) * 1000) / 1000;
+
+      let A: Record<string, any>, Q: Record<string, any>;
+      try { A = extractJson(rc.text) as Record<string, any>; } catch { return await fail("bad_json", { usage, result: { part: "comp", stop: rc.stop, text: rc.text.slice(0, 20000) } }); }
+      try { Q = extractJson(rqal.text) as Record<string, any>; } catch { return await fail("bad_json", { usage, result: { part: "qual", stop: rqal.stop, text: rqal.text.slice(0, 20000) } }); }
+
+      const uniq = (a: unknown[]) => [...new Set(a.filter(Boolean))];
+      const report = {
+        kind: "live", ref: rq.ref,
+        title: (A.title as string) || "مخطط مرفوع",
+        sub: (A.sub as string) || "",
+        verdict: A.verdict ?? "fix",
+        summary: [A.summary ?? "", Q.summary ?? ""],
+        assumptions: uniq([...(A.assumptions ?? []), ...(Q.assumptions ?? [])]),
+        results: { ...(Q.results ?? {}), ...(A.results ?? {}) },
+        extraction: A.extraction ?? [],
+        questions: uniq([...(A.questions ?? []), ...(Q.questions ?? [])]),
+        files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
+        skipped,
+        foot: "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
+      };
+      await db.from("analysis_runs").update({ status: "done", result: report, usage, finished_at: new Date().toISOString() }).eq("id", run.id);
+      const { data: existing } = await db.from("reports").select("id,published").eq("request_id", request_id).maybeSingle();
+      if (!existing) await db.from("reports").insert({ request_id, data: report });
+      else if (!existing.published) await db.from("reports").update({ data: report }).eq("id", existing.id);
+      if (rq.status === "submitted") await db.from("requests").update({ status: "in_review" }).eq("id", request_id);
+    } catch (e) {
+      const m = String((e as Error)?.message ?? e);
+      await fail(m.startsWith("api_error:") ? m : "exception:" + m.slice(0, 500));
     }
-    if (lower.endsWith(".dxf")) continue; // يُقرأ عبر ملف الاستخراج وصور المعاينة
-    const isPdf = lower.endsWith(".pdf");
-    const imgType = lower.endsWith(".png") ? "image/png" : (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) ? "image/jpeg" : lower.endsWith(".webp") ? "image/webp" : null;
-    if (!isPdf && !imgType) { skipped.push(f.name); continue; }
-    if (imgType && (f.size ?? 0) > 5 * 1024 * 1024) { skipped.push(f.name + " (أكبر من 5MB)"); continue; }
-    if ((f.size ?? 0) * 1.37 > budget) { skipped.push(f.name + " (تجاوز حجم الطلب)"); continue; }
-    const { data: blob, error } = await db.storage.from("plans").download(f.path);
-    if (error || !blob) { skipped.push(f.name); continue; }
-    const buf = await blob.arrayBuffer();
-    budget -= buf.byteLength * 1.37;
-    const data = b64(buf);
-    if (f.role === "dxf_view") blocks.push({ type: "text", text: "صورة معاينة مرسومة من ملف DXF: " + f.name });
-    blocks.push(isPdf
-      ? { type: "document", source: { type: "base64", media_type: "application/pdf", data } }
-      : { type: "image", source: { type: "base64", media_type: imgType, data } });
-  }
-  if (!blocks.length && !dxfTexts.length) return json({ error: "no_readable_files", skipped }, 400);
-  if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات DXF المرفوعة (أرقام مقروءة من ملف الرسم نفسه):\n\n" + dxfTexts.join("\n\n---\n\n") });
-  blocks.push({ type: "text", text: buildPrompt(meta) });
+  })();
 
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-    body: JSON.stringify({ model, max_tokens: 16000, messages: [{ role: "user", content: blocks }] }),
-  });
-  const out = await resp.json();
-  if (!resp.ok) {
-    await db.from("analysis_runs").insert({ request_id, model, error: JSON.stringify(out).slice(0, 4000) });
-    return json({ error: "api_error", detail: out?.error?.message ?? resp.status }, 502);
-  }
-  const text = (out.content ?? []).filter((c: { type: string }) => c.type === "text").map((c: { text: string }) => c.text).join("");
-  let parsed: Record<string, unknown>;
-  try { parsed = extractJson(text) as Record<string, unknown>; }
-  catch {
-    await db.from("analysis_runs").insert({ request_id, model, error: "bad_json", result: { text: text.slice(0, 20000) } });
-    return json({ error: "bad_json" }, 502);
-  }
-
-  const report = {
-    kind: "live", ref: rq.ref,
-    title: (parsed.title as string) || "مخطط مرفوع",
-    sub: (parsed.sub as string) || "",
-    verdict: parsed.verdict ?? "fix",
-    summary: parsed.summary ?? [], assumptions: parsed.assumptions ?? [],
-    results: parsed.results ?? {}, extraction: parsed.extraction ?? [], questions: parsed.questions ?? [],
-    files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
-    skipped,
-    foot: "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
-  };
-  await db.from("analysis_runs").insert({ request_id, model, result: report });
-  const { data: existing } = await db.from("reports").select("id,published").eq("request_id", request_id).maybeSingle();
-  if (!existing) await db.from("reports").insert({ request_id, data: report });
-  else if (!existing.published) await db.from("reports").update({ data: report }).eq("id", existing.id);
-  if (rq.status === "submitted") await db.from("requests").update({ status: "in_review" }).eq("id", request_id);
-
-  return json({ ok: true, report, skipped, usage: out.usage });
+  // يكمل الفحص في الخلفية، ويرجع الرد فوراً حتى لا ينقطع اتصال المتصفح
+  // deno-lint-ignore no-explicit-any
+  const rt = (globalThis as any).EdgeRuntime;
+  if (rt?.waitUntil) rt.waitUntil(job); else await job;
+  return json({ ok: true, run_id: run.id }, 202);
 });

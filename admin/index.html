@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610052350">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610052350">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610060010">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610060010">
 </head>
 <body>
 <header class="top">
@@ -109,12 +109,12 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610052350"></script>
-<script src="../assets/js/config.js?v=202610052350"></script>
-<script src="../assets/js/access.js?v=202610052350"></script>
-<script src="../assets/js/session.js?v=202610052350"></script>
-<script src="../assets/js/rules.js?v=202610052350"></script>
-<script src="../assets/js/report.js?v=202610052350"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610060010"></script>
+<script src="../assets/js/config.js?v=202610060010"></script>
+<script src="../assets/js/access.js?v=202610060010"></script>
+<script src="../assets/js/session.js?v=202610060010"></script>
+<script src="../assets/js/rules.js?v=202610060010"></script>
+<script src="../assets/js/report.js?v=202610060010"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -188,6 +188,9 @@ function openReq(q){
   var fl=$('rqFiles');fl.innerHTML='';
   (q.files||[]).forEach(function(f){BB.storage.from('plans').createSignedUrl(f.path,3600).then(function(r){var a=el('a',null,f.name);if(r.data){a.href=r.data.signedUrl;a.target='_blank';a.rel='noopener'}fl.appendChild(a)})});
   msg('aMsg','');loadReport();loadGap();
+  clearTimeout(pollT);$('btnAnalyze').disabled=false;
+  BB.from('analysis_runs').select('id,status,created_at').eq('request_id',q.id).order('created_at',{ascending:false}).limit(1).then(function(r){var x=r.data&&r.data[0];
+    if(x&&x.status==='running'&&cur&&cur.id===q.id){var b=$('btnAnalyze');b.disabled=true;pollRun(x.id,b,new Date(x.created_at).getTime())}});
 }
 function blankReport(){var p=cur.project||{};return {kind:'live',ref:cur.ref,title:'',sub:[p.city,p.area?('أرض '+p.area+'م²'):'',p.floors].filter(Boolean).join(' · '),verdict:'fix',summary:['',''],assumptions:[],results:{},extraction:[],questions:[],files:(cur.files||[]).map(function(f){return f.name}).join(' · ')}}
 function loadReport(){
@@ -242,15 +245,29 @@ $('btnSave').addEventListener('click',function(){save(false)});
 $('btnPub').addEventListener('click',function(){save(true)});
 $('btnUnpub').addEventListener('click',function(){if(!reportRow)return;BB.from('reports').update({published:false}).eq('id',reportRow.id).then(function(){return BB.from('requests').update({status:'in_review'}).eq('id',cur.id)}).then(function(){reportRow.published=false;cur.status='in_review';openReqHead();$('btnUnpub').hidden=true;msg('eMsg','أُلغي النشر.');loadReqs()})});
 
-/* الفحص الآلي */
+/* الفحص الآلي: يبدأ في الخلفية ثم تتابع اللوحة حالته */
+var ERRS={missing_api_key:'أضف مفتاح ANTHROPIC_API_KEY في أسرار دوال Supabase.',no_readable_files:'لا ملفات قابلة للقراءة (PDF أو صور). ملفات DWG تُفحص يدوياً.',bad_json:'جاء رد التحليل ناقصاً. أعد التشغيل، وإن تكرر فأبلغ الدعم الفني.',not_admin:'الحساب ليس مشرفاً.'};
+function errText(e){e=String(e||'');if(ERRS[e])return ERRS[e];if(e.indexOf('api_error:')===0)return 'خطأ من خدمة التحليل: '+e.slice(10);return 'تعذر التشغيل'+(e?' ('+e.slice(0,160)+')':'')+'.'}
+var pollT=null;
+function pollRun(id,b,t0){
+  clearTimeout(pollT);
+  BB.from('analysis_runs').select('id,status,error,usage').eq('id',id).single().then(function(r){
+    var x=r.data;
+    if(x&&x.status==='done'){var u=x.usage||{};b.disabled=false;
+      msg('aMsg','اكتملت المسودة الآلية'+(u.seconds?' في '+Math.round(u.seconds/60*10)/10+' دقيقة':'')+(u.usd!=null?'، وتكلفتها نحو '+u.usd+' دولار':'')+'. راجعها في المحرر قبل النشر.','good');loadReport();loadReqs();return}
+    if(x&&x.status==='error'){b.disabled=false;msg('aMsg',errText(x.error),'bad');return}
+    var sec=Math.round((Date.now()-t0)/1000);
+    if(sec>9*60){b.disabled=false;msg('aMsg','تجاوز الفحص الوقت المتوقع. أعد تحميل الصفحة بعد قليل، فإن لم تظهر المسودة فأعد التشغيل.','bad');return}
+    msg('aMsg','يقرأ الملفات ويفحصها على القواعد في مسارين: المطابقة وجودة التصميم.. مضى '+Math.floor(sec/60)+':'+('0'+sec%60).slice(-2)+'. يمكنك ترك الصفحة والعودة لاحقاً.');
+    pollT=setTimeout(function(){pollRun(id,b,t0)},5000);
+  });
+}
 $('btnAnalyze').addEventListener('click',function(){
-  if(!cur)return;var b=this;b.disabled=true;msg('aMsg','يقرأ الملفات ويفحصها على القواعد.. قد يستغرق دقيقة إلى ثلاث.');
+  if(!cur)return;var b=this;b.disabled=true;msg('aMsg','يبدأ الفحص..');
   BB.functions.invoke('analyze',{body:{request_id:cur.id}}).then(function(r){
     if(r.error){return r.error.context&&r.error.context.json?r.error.context.json().then(function(j){throw j}):Promise.reject({})}
-    var d=r.data;rep=d.report;rep.ref=cur.ref;fillEditor();
-    msg('aMsg','اكتملت المسودة الآلية.'+(d.skipped&&d.skipped.length?' لم تُقرأ: '+d.skipped.join('، ')+'.':'')+' راجعها في المحرر قبل النشر.','good');loadReport();loadReqs();
-  }).catch(function(j){var m={missing_api_key:'أضف مفتاح ANTHROPIC_API_KEY في أسرار دوال Supabase.',no_readable_files:'لا ملفات قابلة للقراءة (PDF أو صور). ملفات DWG تُفحص يدوياً.',bad_json:'جاء الرد بصيغة غير مكتملة. أعد التشغيل.',not_admin:'الحساب ليس مشرفاً.',api_error:'خطأ من خدمة التحليل: '+((j&&j.detail)||'')}[j&&j.error];msg('aMsg',m||'تعذر التشغيل.','bad')})
-  .then(function(){b.disabled=false});
+    pollRun(r.data.run_id,b,Date.now());
+  }).catch(function(j){b.disabled=false;msg('aMsg',errText(j&&j.error),'bad')});
 });
 
 /* التبويبات */
