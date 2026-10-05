@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>جداول الكميات والتكاليف · البيت بيتك</title>
+<meta name="description" content="من فراغات بيتك إلى كميات التشطيب وتكلفتها، وميزانيتك بنداً بنداً: أرضيات، وزرات، تكسيات، دهانات، أسقف، عزل، أبواب ونوافذ.. ويمكنك استيراد الفراغات من ملف DXF.">
+<meta property="og:title" content="جداول الكميات والتكاليف">
+<meta property="og:description" content="من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060010">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060010">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>جداول الكميات والتكاليف</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">08</span>
+    <span class="stage-tag">من القرار إلى آخر التنفيذ</span>
+    <h1>جداول الكميات والتكاليف</h1>
+    <p class="sub">من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمها؟</h2><p>من أول تقدير للميزانية، ثم قبل الاتفاق مع أي مقاول تشطيب وقبل شراء المواد، وطوال التنفيذ لتتابع المصروف الفعلي مقابل تقديرك.</p></div>
+    <div><h2>كيف تستخدمها؟</h2><ol>
+      <li>أدخل فراغات بيتك بأبعادها، أو استوردها من ملف DXF للمخطط.</li>
+      <li>راجع جدول الكميات، واكتب المواصفة المتفق عليها نصاً وسعر الوحدة لكل بند.</li>
+      <li>انقل تكلفة التشطيب إلى الميزانية، وسجّل المصروف الفعلي أولاً بأول.</li>
+    </ol></div>
+  </div>
+
+  <div class="qtabs" role="tablist" aria-label="أقسام الأداة">
+    <button type="button" role="tab" id="tab-rooms" aria-controls="p-rooms" aria-selected="true"><span class="k">١</span>فراغات البيت</button>
+    <button type="button" role="tab" id="tab-qty" aria-controls="p-qty" aria-selected="false"><span class="k">٢</span>جدول الكميات</button>
+    <button type="button" role="tab" id="tab-bud" aria-controls="p-bud" aria-selected="false"><span class="k">٣</span>الميزانية بالبنود</button>
+    <span class="hint saved-tab" id="saved" aria-live="polite" style="margin-inline-start:auto;align-self:center;font-size:13px;color:var(--ink-2)"></span>
+  </div>
+
+  <!-- ١. الفراغات -->
+  <section class="panel" id="p-rooms" role="tabpanel" aria-labelledby="tab-rooms">
+    <div class="settings">
+      <div class="fld"><label for="gH">ارتفاع السقف الصافي <span class="o">م · لكل الفراغات</span></label><input id="gH" class="num" inputmode="decimal" placeholder="مثال: 3.00"></div>
+      <div class="fld" style="grid-column:span 2"><label>أنواع الأرضيات في بيتك</label>
+        <div class="chips" id="finChips"></div>
+        <div class="addline" style="margin-top:6px"><input id="finNew" placeholder="أضف نوعاً" maxlength="30" aria-label="نوع أرضية جديد"><button class="btn sm line" type="button" id="finAdd">إضافة</button></div>
+      </div>
+    </div>
+
+    <div class="dxfbox">
+      <h4>استورد الفراغات من ملف DXF</h4>
+      <p>إذا كانت فراغات المخطط مرسومة مضلعات مغلقة وفي داخلها أسماؤها، تُقرأ مساحة كل فراغ ومحيطه من الملف نفسه. اختر ما تريد استيراده، ثم أكمل الارتفاعات والفتحات والتشطيب.</p>
+      <div class="row" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <label class="btn sm line" style="cursor:pointer">اختر ملف DXF<input type="file" id="dxfIn" accept=".dxf" hidden></label>
+        <span class="msg" id="dxfMsg" role="status"></span>
+      </div>
+      <div id="dxfPick" hidden>
+        <div class="dxflist" id="dxfList"></div>
+        <div class="row" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <div class="fld" style="width:200px"><label for="dxfFloor">إلى الدور</label><select id="dxfFloor"></select></div>
+          <button class="btn sm" type="button" id="dxfDo" style="align-self:flex-end">استورد المحدد</button>
+          <button class="linkbtn" type="button" id="dxfCancel" style="align-self:flex-end">إلغاء</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="floors"></div>
+    <div class="room-actions"><button class="btn line sm" type="button" id="addFloor">إضافة دور</button></div>
+  </section>
+
+  <!-- ٢. الكميات -->
+  <section class="panel" id="p-qty" role="tabpanel" aria-labelledby="tab-qty" hidden>
+    <div class="kpis" id="qK"></div>
+    <div id="qWarn"></div>
+    <div class="cmp-wrap"><table class="qt" id="qt"></table></div>
+    <p class="rule">الهدر الافتراضي ٨٪ للبلاط والتكسيات، وهو مثال الكتاب: «من دفعة إنتاج واحدة +٨٪ فائض». عدّله لكل مادة حسب مقاسها ونمط تركيبها.</p>
+    <div class="note-box">
+      <b>حدود هذه الكميات</b>
+      <p>الكميات هنا هندسية صافية محسوبة من أبعادك أنت، وتُراجع مع المقاول قبل الشراء. ولا تحسب الأداة كميات العظم (الخرسانة والحديد والبلوك)، فهذه تؤخذ من المخططات الإنشائية وجداولها. وفي التكسيات يُفترض أن النوافذ فوق ارتفاع التكسية.</p>
+    </div>
+    <h3 style="margin-top:30px;font-size:17px">تفصيل كل فراغ</h3>
+    <div class="cmp-wrap"><table class="qt" id="rt"></table></div>
+  </section>
+
+  <!-- ٣. الميزانية -->
+  <section class="panel" id="p-bud" role="tabpanel" aria-labelledby="tab-bud" hidden>
+    <div class="settings">
+      <div class="fld"><label for="bTotal">الميزانية الإجمالية <span class="o">ريال</span></label><input id="bTotal" class="num" inputmode="decimal" placeholder="مثال: 1,500,000"></div>
+      <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushFin">انقل تكلفة التشطيب من جدول الكميات</button></div>
+      <div class="fld" style="justify-content:flex-end"><button class="btn sm line" type="button" id="pushRes">احسب الاحتياطي ١٠٪ من الميزانية</button></div>
+    </div>
+    <div class="kpis" id="bK"></div>
+    <div id="bWarn"></div>
+    <div class="cmp-wrap"><table class="qt bd" id="bt"></table></div>
+    <div class="note-box"><b>تنويه</b><p>الأسعار والتقديرات مسؤوليتك وتختلف حسب السوق والمواصفات؛ الأداة أداة تنظيم لا عرض أسعار.</p></div>
+  </section>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الجداول أو احفظها PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل جدول الكميات (Excel)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060010"></script>
+<script src="../../assets/js/config.js?v=202610060010"></script>
+<script src="../../assets/js/session.js?v=202610060010"></script>
+<script src="../../assets/js/toolkit.js?v=202610060010"></script>
+<script src="../../assets/vendor/dxf-parser-1.1.2.js?v=202610060010"></script>
+<script src="../../assets/js/dxf.js?v=202610060010"></script>
+<script>
+(function(){
+var ar=function(n){return String(n)},el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var TYPES=[['majlis','مجلس'],['living','صالة / معيشة'],['dining','طعام'],['bed','غرفة نوم'],['kitchen','مطبخ'],['bath','حمام / دورة مياه'],['laundry','غسيل'],['store','مستودع / غرفة ملابس'],['circ','ممر / مدخل / درج'],['other','أخرى']];
+var WET=['bath','laundry'];
+var CEIL=[['paint','دهان'],['gypsum','جبس ودهان'],['none','بلا تشطيب']];
+var BUD=['رسوم التصميم (المعماري والتخصصات)','إدارة التنفيذ / الإشراف','تقرير التربة والرفع المساحي','رخصة البناء والتأمين والرسوم','تجهيز الموقع والحفر والردم','العظم: مواد (حديد، أسمنت، بلوك)','العظم: أجور المقاول','الكهرباء: تأسيس وتمديدات','الكهرباء: تشطيب (أفياش ولوحات)','السباكة: تغذية وصرف وتأسيس','التكييف: تأسيس ومسارات','التكييف: أجهزة وتركيب','العزل المائي والحراري','اللياسة','الأرضيات والبلاط (مواد وتركيب)','الجبس والأسقف المستعارة','النجارة والأبواب الداخلية','الألمنيوم والزجاج','الدهان (مواد وأجور)','الأطقم الصحية والخلاطات','المطبخ','الأبواب الخارجية والسور والبوابات','تنسيق الحوش والخارج','الإنارة الديكورية والإكسسوارات','احتياطي الطوارئ (ننصح بـ ١٠٪)'];
+var B_FLOOR=14,B_GYPS=15,B_PAINT=18,B_WP=12,B_RES=24;
+
+var uid=function(){return Math.random().toString(36).slice(2,9)};
+function fresh(){var f=uid();return {v:1,H:'',fins:['بورسلان','رخام','باركيه'],floors:[{id:f,name:'الدور الأرضي'}],rooms:[],q:{},bud:{total:'',it:{}},tab:'rooms'}}
+var ST=TK.store('bb_tool_qty_v1',fresh,1),S=ST.get();
+function save(){ST.save()}
+
+/* ===== الحساب ===== */
+function H(r){var h=num(r.h);return h>0?h:num(S.H)}
+function geo(r){
+  var o={err:[]},A,P;
+  if(r.mode==='free'){A=num(r.A);P=num(r.P);if(!(A>0))o.err.push('المساحة');if(!(P>0))o.err.push('المحيط')}
+  else{var L=num(r.L),W=num(r.W);if(!(L>0))o.err.push('الطول');if(!(W>0))o.err.push('العرض');A=L*W;P=2*(L+W)}
+  var h=H(r),dn=num(r.dn),dw=num(r.dw),dh=num(r.dh),wn=num(r.wn),ww=num(r.ww),wh=num(r.wh),tH=num(r.tH);
+  if(dn>0&&!(dw>0))o.err.push('عرض الباب');if(dn>0&&!(dh>0))o.err.push('ارتفاع الباب');
+  if(wn>0&&(!(ww>0)||!(wh>0)))o.err.push('مقاس النافذة');
+  o.A=A;o.P=P;o.h=h;o.noH=!(h>0);
+  o.doorW=dn*dw;o.doorA=dn*dw*dh;o.winA=wn*ww*wh;o.dn=dn;o.wn=wn;
+  if(o.err.length)return o;
+  o.floor=A;o.ceil=A;
+  if(!o.noH){
+    var tz=Math.min(tH,h);
+    o.tile=tH>0?Math.max(0,P*tz-dn*dw*Math.min(dh,tz)):0;
+    o.gross=P*h;
+    o.paint=Math.max(0,P*h-o.doorA-o.winA-o.tile);
+    if(tH>h)o.warn='ارتفاع التكسية أعلى من السقف';
+  }
+  o.skirt=tH>0?0:Math.max(0,P-o.doorW);
+  o.wp=WET.indexOf(r.type)>=0?A:0;
+  return o;
+}
+function calc(){
+  var agg={floor:{},skirt:0,tile:0,paintW:0,paintC:0,gyps:0,wp:0,doors:{},win:0,winN:0,area:0,bad:0,noH:false};
+  S.rooms.forEach(function(r){var g=geo(r);r._g=g;if(g.err.length){agg.bad++;return}
+    var fin=S.fins[r.ff]||S.fins[0]||'أرضيات';agg.floor[fin]=(agg.floor[fin]||0)+g.floor;agg.area+=g.A;
+    agg.skirt+=g.skirt;agg.wp+=g.wp;
+    if(g.noH)agg.noH=true;else{agg.tile+=g.tile;agg.paintW+=g.paint}
+    if(r.ceil==='gypsum'){agg.gyps+=g.ceil;agg.paintC+=g.ceil}else if(r.ceil!=='none')agg.paintC+=g.ceil;
+    if(g.dn>0){var k=fmt(num(r.dw),2)+' × '+fmt(num(r.dh),2);agg.doors[k]=(agg.doors[k]||0)+g.dn}
+    agg.win+=g.winA;agg.winN+=g.wn;
+  });
+  return agg;
+}
+function qrows(a){
+  var R=[];
+  Object.keys(a.floor).forEach(function(f){R.push({k:'floor:'+f,g:'الأرضيات',n:'أرضيات: '+f,u:'م²',q:a.floor[f],w:8})});
+  R.push({k:'skirt',g:'الأرضيات',n:'الوزرة',u:'م.ط',q:a.skirt,w:0});
+  R.push({k:'tile',g:'الجدران',n:'تكسية الجدران (الحمامات والمطابخ وغيرها)',u:'م²',q:a.noH?null:a.tile,w:8});
+  R.push({k:'paintW',g:'الجدران',n:'دهان الجدران',u:'م²',q:a.noH?null:a.paintW,w:0});
+  R.push({k:'gyps',g:'الأسقف',n:'أسقف الجبس',u:'م²',q:a.gyps,w:0});
+  R.push({k:'paintC',g:'الأسقف',n:'دهان الأسقف',u:'م²',q:a.paintC,w:0});
+  R.push({k:'wp',g:'العزل',n:'عزل مائي لأرضيات الحمامات والغسيل',u:'م²',q:a.wp,w:0,note:'ويُضاف ارتداد العزل على الجدران حسب المواصفة'});
+  Object.keys(a.doors).forEach(function(d){R.push({k:'door:'+d,g:'الفتحات',n:'أبواب داخلية '+d+' م',u:'عدد',q:a.doors[d],w:0,int:true})});
+  if(a.winN)R.push({k:'win',g:'الفتحات',n:'نوافذ ('+ar(a.winN)+' نافذة)',u:'م²',q:a.win,w:0});
+  return R;
+}
+function PH(k){if(k.indexOf('floor:')===0)return 'مثال: بورسلان ٦٠×٦٠ درجة أولى من دفعة واحدة';if(k==='skirt')return 'مثال: من نفس بلاط الأرضية';if(k==='tile')return 'مثال: سيراميك جدران لامع';if(k.indexOf('paint')===0)return 'مثال: دهان مائي مطفي على طبقتين';if(k==='gyps')return 'مثال: جبس بورد مقاوم للرطوبة في المناطق الرطبة';if(k==='wp')return 'مثال: عزل أسمنتي مرن';if(k.indexOf('door:')===0)return 'مثال: خشب مع الحلق والإكسسوارات';if(k==='win')return 'مثال: ألمنيوم بزجاج مزدوج';return 'اكتب المواصفة'}
+function qmeta(k,w){var m=S.q[k];if(!m){m=S.q[k]={sp:'',w:String(w),pr:''}}return m}
+function rowCost(r){var m=qmeta(r.k,r.w);if(r.q==null)return null;var buy=r.int?r.q:r.q*(1+num(m.w)/100);var p=num(m.pr);return {buy:buy,tot:p>0?buy*p:null}}
+
+/* ===== الفراغات ===== */
+function drawFins(){
+  var box=$('finChips');box.innerHTML='';
+  S.fins.forEach(function(f,i){var c=el('span','chip',f);var x=el('button',null,'×');x.type='button';x.setAttribute('aria-label','حذف '+f);
+    x.addEventListener('click',function(){if(S.fins.length<=1)return ST.flash('يلزم نوع واحد على الأقل');S.fins.splice(i,1);S.rooms.forEach(function(r){if(r.ff>=i)r.ff=Math.max(0,r.ff-(r.ff===i?0:1))});save();drawFins();drawRooms()});
+    c.appendChild(x);box.appendChild(c)});
+}
+$('finAdd').addEventListener('click',function(){var v=$('finNew').value.trim();if(!v)return;if(S.fins.indexOf(v)<0)S.fins.push(v);$('finNew').value='';save();drawFins();drawRooms()});
+$('finNew').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();$('finAdd').click()}});
+$('gH').value=S.H;$('gH').addEventListener('input',function(){S.H=this.value;save();refreshOuts()});
+
+function newRoom(floor,o){var r={id:uid(),floor:floor,name:'',type:'other',mode:'rect',L:'',W:'',A:'',P:'',h:'',dn:'',dw:'',dh:'',wn:'',ww:'',wh:'',ff:0,tH:'',ceil:'paint'};if(o)for(var k in o)r[k]=o[k];return r}
+function field(r,key,label,opt){
+  var f=el('div','fld'),id='f_'+r.id+'_'+key,l=el('label',null,label);l.htmlFor=id;f.appendChild(l);
+  var i=el('input','num');i.id=id;i.inputMode=opt&&opt.int?'numeric':'decimal';i.value=r[key]||'';if(opt&&opt.ph)i.placeholder=opt.ph;
+  i.addEventListener('input',function(){r[key]=i.value;save();refreshOut(r)});f.appendChild(i);return f;
+}
+var outs={};
+function drawRooms(){
+  var host=$('floors');host.innerHTML='';outs={};
+  S.floors.forEach(function(fl,fi){
+    var head=el('div','floorh');var h=el('h3',null,fl.name);var meta=el('span','meta');meta.id='fm_'+fl.id;meta.dir='rtl';
+    var tools=el('div','row');tools.style.cssText='display:flex;gap:10px;align-items:center';
+    var rn=el('button','linkbtn','تسمية');rn.type='button';rn.addEventListener('click',function(){TK.rename(fl.name,function(v){fl.name=v;save();drawRooms()})});
+    tools.appendChild(meta);tools.appendChild(rn);
+    if(S.floors.length>1){var dl=el('button','linkbtn','حذف الدور');dl.type='button';dl.addEventListener('click',function(){if(S.rooms.some(function(r){return r.floor===fl.id})&&!dl.dataset.arm){dl.dataset.arm=1;dl.textContent='اضغط مرة ثانية: ستُحذف فراغاته';setTimeout(function(){delete dl.dataset.arm;dl.textContent='حذف الدور'},4000);return}
+      S.rooms=S.rooms.filter(function(r){return r.floor!==fl.id});S.floors.splice(fi,1);save();drawRooms()});tools.appendChild(dl)}
+    head.appendChild(h);head.appendChild(tools);host.appendChild(head);
+    S.rooms.filter(function(r){return r.floor===fl.id}).forEach(function(r){host.appendChild(roomCard(r))});
+    var add=el('button','btn sm line','+ إضافة فراغ إلى '+fl.name);add.type='button';add.style.marginTop='12px';
+    add.addEventListener('click',function(){var r=newRoom(fl.id);S.rooms.push(r);save();drawRooms();var n=document.querySelector('[data-room="'+r.id+'"] input.nm');if(n)n.focus()});
+    host.appendChild(add);
+  });
+  var dsel=$('dxfFloor');dsel.innerHTML='';S.floors.forEach(function(f){var o=el('option',null,f.name);o.value=f.id;dsel.appendChild(o)});
+  refreshOuts();
+}
+function roomCard(r){
+  var c=el('div','room');c.dataset.room=r.id;
+  var hd=el('div','room-h');
+  var nm=el('input','nm');nm.value=r.name;nm.placeholder='اسم الفراغ: مجلس الرجال';nm.setAttribute('aria-label','اسم الفراغ');nm.maxLength=60;
+  nm.addEventListener('input',function(){r.name=nm.value;save()});hd.appendChild(nm);
+  var ty=el('select');ty.setAttribute('aria-label','نوع الفراغ');TYPES.forEach(function(t){var o=el('option',null,t[1]);o.value=t[0];ty.appendChild(o)});ty.value=r.type;
+  ty.addEventListener('change',function(){r.type=ty.value;save();refreshOut(r)});hd.appendChild(ty);
+  var md=el('div','mode');md.setAttribute('role','group');md.setAttribute('aria-label','شكل الفراغ');
+  [['rect','مستطيل'],['free','غير منتظم']].forEach(function(m){var b=el('button',null,m[1]);b.type='button';b.setAttribute('aria-pressed',String(r.mode===m[0]));b.addEventListener('click',function(){r.mode=m[0];save();var n=roomCard(r);c.replaceWith(n);refreshOut(r)});md.appendChild(b)});
+  hd.appendChild(md);
+  var cp=el('button','x','نسخ');cp.type='button';cp.addEventListener('click',function(){var n=JSON.parse(JSON.stringify(r));delete n._g;n.id=uid();n.name=(r.name||'فراغ')+' (نسخة)';S.rooms.splice(S.rooms.indexOf(r)+1,0,n);save();drawRooms()});hd.appendChild(cp);
+  var x=el('button','x','حذف');x.type='button';x.style.marginInlineStart='0';x.addEventListener('click',function(){S.rooms.splice(S.rooms.indexOf(r),1);save();drawRooms()});hd.appendChild(x);
+  c.appendChild(hd);
+  var g=el('div','room-g');
+  if(r.mode==='free'){g.appendChild(field(r,'A','المساحة م²'));g.appendChild(field(r,'P','المحيط م'))}
+  else{g.appendChild(field(r,'L','الطول م'));g.appendChild(field(r,'W','العرض م'))}
+  g.appendChild(field(r,'h','الارتفاع م',{ph:'الارتفاع العام'}));
+  var ff=el('div','fld'),fl=el('label',null,'الأرضية');var fs=el('select');fs.id='ff_'+r.id;fl.htmlFor=fs.id;S.fins.forEach(function(f,i){var o=el('option',null,f);o.value=i;fs.appendChild(o)});fs.value=Math.min(r.ff,S.fins.length-1);
+  fs.addEventListener('change',function(){r.ff=+fs.value;save();refreshOut(r)});ff.appendChild(fl);ff.appendChild(fs);g.appendChild(ff);
+  var cf=el('div','fld'),cl=el('label',null,'السقف');var cs=el('select');cs.id='cs_'+r.id;cl.htmlFor=cs.id;CEIL.forEach(function(t){var o=el('option',null,t[1]);o.value=t[0];cs.appendChild(o)});cs.value=r.ceil;
+  cs.addEventListener('change',function(){r.ceil=cs.value;save();refreshOut(r)});cf.appendChild(cl);cf.appendChild(cs);g.appendChild(cf);
+  g.appendChild(field(r,'tH','ارتفاع التكسية م',{ph:'بلا تكسية'}));
+  g.appendChild(el('div','sep'));
+  g.appendChild(field(r,'dn','عدد الأبواب',{int:true}));g.appendChild(field(r,'dw','عرض الباب م'));g.appendChild(field(r,'dh','ارتفاع الباب م'));
+  g.appendChild(field(r,'wn','عدد النوافذ',{int:true}));g.appendChild(field(r,'ww','عرض النافذة م'));g.appendChild(field(r,'wh','ارتفاع النافذة م'));
+  c.appendChild(g);
+  var out=el('div','room-out'),err=el('div','room-err');c.appendChild(out);c.appendChild(err);outs[r.id]={c:c,out:out,err:err};
+  return c;
+}
+function refreshOut(r){
+  var o=outs[r.id];if(!o)return;var g=geo(r);o.out.innerHTML='';o.err.textContent='';o.c.classList.remove('bad');
+  if(g.err.length){o.err.textContent='أكمل: '+g.err.join('، ');o.c.classList.add('bad')}
+  else{
+    function put(l,v){var s=el('span',null,l+': ');s.appendChild(el('b',null,v));o.out.appendChild(s)}
+    put('الأرضية',fmt(g.A)+' م²');put('المحيط',fmt(g.P)+' م');
+    if(g.noH)put('الجدران','أدخل ارتفاع السقف');else{put('دهان الجدران',fmt(g.paint)+' م²');if(g.tile)put('تكسية',fmt(g.tile)+' م²')}
+    if(g.skirt)put('وزرة',fmt(g.skirt)+' م.ط');if(g.wp)put('عزل مائي',fmt(g.wp)+' م²');
+    if(g.warn)o.err.textContent=g.warn;
+  }
+  floorMeta();
+}
+function refreshOuts(){S.rooms.forEach(refreshOut);floorMeta()}
+function floorMeta(){S.floors.forEach(function(f){var m=$('fm_'+f.id);if(!m)return;var rs=S.rooms.filter(function(r){return r.floor===f.id}),a=0;rs.forEach(function(r){var g=geo(r);if(!g.err.length)a+=g.A});m.textContent='الفراغات: '+ar(rs.length)+' · المساحة: '+fmt(a)+' م²'})}
+$('addFloor').addEventListener('click',function(){var names=['الدور الأرضي','الدور الأول','الملحق العلوي','القبو'];var n=names[S.floors.length]||('دور '+ar(S.floors.length+1));S.floors.push({id:uid(),name:n});save();drawRooms()});
+
+/* ===== استيراد DXF ===== */
+var dxfRooms=[];
+function guessType(n){n=n||'';var T=[['bath',/حمام|دورة مياه|دوره مياه|wc|toilet|bath/i],['kitchen',/مطبخ|kitchen/i],['laundry',/غسيل|laundry/i],['bed',/نوم|bed/i],['majlis',/مجلس/i],['dining',/طعام|dining/i],['living',/صالة|معيشة|جلسة|living/i],['store',/مستودع|ملابس|تخزين|store/i],['circ',/ممر|مدخل|درج|بهو|corridor|stair|lobby/i]];for(var i=0;i<T.length;i++)if(T[i][1].test(n))return T[i][0];return 'other'}
+$('dxfIn').addEventListener('change',function(){
+  var f=this.files[0];this.value='';if(!f)return;var m=$('dxfMsg');m.className='msg';m.textContent='قراءة الملف..';
+  setTimeout(function(){window.BBDXF.process(f).then(function(o){
+    var x=o.extract;dxfRooms=x.rooms.filter(function(r){return r.area>=0.8&&r.area<=2000});
+    if(!dxfRooms.length){m.className='msg bad';m.textContent='لم أجد في الملف فراغات مرسومة مضلعات مغلقة. أدخل الفراغات يدوياً.';return}
+    m.className='msg good';m.textContent='الوحدة: '+x.units.name+(x.units.guessed?' (مستنتجة، تحقق منها)':'')+' · وجدت '+ar(dxfRooms.length)+' مضلعاً مغلقاً. المحددة مسبقاً هي التي داخلها اسم.';
+    var L=$('dxfList');L.innerHTML='';
+    dxfRooms.forEach(function(r,i){var lab=el('label');var cb=el('input');cb.type='checkbox';cb.checked=r.names.length>0&&r.area<1000;cb.dataset.i=i;
+      lab.appendChild(cb);lab.appendChild(el('span',null,(r.names.join(' / ')||'بلا اسم')+(r.sheet?' · لوحة '+ar(r.sheet):'')));
+      lab.appendChild(el('span','m',fmt(r.area)+' م² · محيط '+fmt(r.per)+' م'));L.appendChild(lab)});
+    $('dxfPick').hidden=false;
+  }).catch(function(e){m.className='msg bad';m.textContent=String(e&&e.message).indexOf('binary')>=0?'الملف DXF ثنائي. احفظه من برنامج الرسم بصيغة DXF نصية (ASCII).':'تعذرت قراءة الملف. تأكد أنه DXF.'})},30);
+});
+$('dxfCancel').addEventListener('click',function(){$('dxfPick').hidden=true;$('dxfMsg').textContent=''});
+$('dxfDo').addEventListener('click',function(){
+  var fl=$('dxfFloor').value,n=0;
+  $('dxfList').querySelectorAll('input:checked').forEach(function(cb){var r=dxfRooms[+cb.dataset.i],name=r.names[0]||'';
+    var rec=r.rect?{mode:'rect',L:String(r.w),W:String(r.h)}:{mode:'free',A:String(r.area),P:String(r.per)};
+    rec.name=name;rec.type=guessType(name);if(WET.indexOf(rec.type)>=0)rec.ceil='gypsum';
+    S.rooms.push(newRoom(fl,rec));n++});
+  save();$('dxfPick').hidden=true;$('dxfMsg').className='msg good';$('dxfMsg').textContent='استُورد '+ar(n)+' فراغ. أكمل الأبواب والنوافذ والتكسيات لكل فراغ.';drawRooms();
+});
+
+/* ===== جدول الكميات ===== */
+function drawQty(){
+  var a=calc(),R=qrows(a),T=$('qt');T.innerHTML='';
+  var k=$('qK');k.innerHTML='';var gtot=0,priced=0;
+  R.forEach(function(r){var c=rowCost(r);if(c&&c.tot!=null){gtot+=c.tot;priced++}});
+  [['مساحة الأرضيات',fmt(a.area)+' م²'],['الفراغات المحسوبة',ar(S.rooms.length-a.bad)+' من '+ar(S.rooms.length)],['بنود مسعّرة',ar(priced)+' من '+ar(R.filter(function(r){return r.q}).length)],['تكلفة التشطيب المقدرة',gtot?fmt(gtot,0)+' ريال':'لم تُسعّر بعد']].forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',null,x[1]));k.appendChild(d)});
+  var w=$('qWarn');w.innerHTML='';
+  if(!S.rooms.length)w.appendChild(el('div','warn','لا فراغات بعد. ابدأ من «فراغات البيت».'));
+  else{if(a.bad)w.appendChild(el('div','warn',ar(a.bad)+' فراغ ناقص البيانات ولم يدخل في الحساب. راجع «فراغات البيت».'));if(a.noH)w.appendChild(el('div','warn','ارتفاع السقف غير مدخل، فلم تُحسب كميات الجدران. أدخله في «فراغات البيت».'))}
+  var th=el('thead'),hr=el('tr');['البند','المواصفة المتفق عليها نصاً','الوحدة','الكمية الصافية','الهدر ٪','كمية الشراء','سعر الوحدة (ريال)','الإجمالي (ريال)'].forEach(function(h){hr.appendChild(el('th',null,h))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody'),grp='';
+  R.forEach(function(r){
+    if(r.g!==grp){grp=r.g;var gr=el('tr','grp'),gt=el('td',null,grp);gt.colSpan=8;gr.appendChild(gt);tb.appendChild(gr)}
+    var m=qmeta(r.k,r.w),tr=el('tr'),c=rowCost(r);
+    var n=el('td');n.appendChild(document.createTextNode(r.n));if(r.note)n.appendChild(el('div','muted',r.note));tr.appendChild(n);
+    var sp=el('td'),si=el('input','sp');si.value=m.sp;si.placeholder=PH(r.k);si.setAttribute('aria-label','مواصفة '+r.n);si.addEventListener('input',function(){m.sp=si.value;save()});sp.appendChild(si);tr.appendChild(sp);
+    tr.appendChild(el('td',null,r.u));
+    if(r.q==null){var na=el('td','na','أدخل ارتفاع السقف');na.colSpan=5;tr.appendChild(na);tb.appendChild(tr);return}
+    tr.appendChild(el('td','n',r.int?ar(r.q):fmt(r.q)));
+    var wt=el('td');if(r.int)wt.appendChild(el('span','muted','لا ينطبق'));else{var wi=el('input','w');wi.inputMode='decimal';wi.value=m.w;wi.setAttribute('aria-label','هدر '+r.n);wi.addEventListener('input',function(){m.w=wi.value;save();upd()});wt.appendChild(wi)}tr.appendChild(wt);
+    var bt=el('td','n');tr.appendChild(bt);
+    var pt=el('td'),pi=el('input','pr');pi.inputMode='decimal';pi.value=m.pr;pi.setAttribute('aria-label','سعر وحدة '+r.n);pi.addEventListener('input',function(){m.pr=pi.value;save();upd();kpiOnly()});pt.appendChild(pi);tr.appendChild(pt);
+    var tt=el('td','n');tr.appendChild(tt);
+    function upd(){var c=rowCost(r);bt.textContent=r.int?ar(r.q):fmt(c.buy);tt.textContent=c.tot!=null?fmt(c.tot,0):'';totCell()}
+    upd();tb.appendChild(tr);
+  });
+  var tot=el('tr','tot');var tl=el('td',null,'إجمالي تكلفة التشطيب المقدرة');tl.colSpan=7;tot.appendChild(tl);var tv=el('td','n');tv.id='qTot';tot.appendChild(tv);tb.appendChild(tot);T.appendChild(tb);
+  function totCell(){var s=0;R.forEach(function(r){var c=rowCost(r);if(c&&c.tot!=null)s+=c.tot});var e=$('qTot');if(e)e.textContent=s?fmt(s,0):''}
+  totCell();
+  function kpiOnly(){var s=0,p=0;R.forEach(function(r){var c=rowCost(r);if(c&&c.tot!=null){s+=c.tot;p++}});var b=k.querySelectorAll('b');b[2].textContent=ar(p)+' من '+ar(R.filter(function(r){return r.q}).length);b[3].textContent=s?fmt(s,0)+' ريال':'لم تُسعّر بعد'}
+  drawRoomTable();
+}
+function drawRoomTable(){
+  var T=$('rt');T.innerHTML='';var th=el('thead'),hr=el('tr');['الدور','الفراغ','الأرضية م²','المحيط م','الارتفاع م','فتحات م²','تكسية م²','دهان جدران م²','وزرة م.ط'].forEach(function(h){hr.appendChild(el('th',null,h))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  S.floors.forEach(function(f){S.rooms.filter(function(r){return r.floor===f.id}).forEach(function(r){var g=geo(r),tr=el('tr');
+    tr.appendChild(el('td',null,f.name));tr.appendChild(el('td',null,r.name||'بلا اسم'));
+    if(g.err.length){var e=el('td','na','ناقص: '+g.err.join('، '));e.colSpan=7;tr.appendChild(e)}
+    else{function z(v){return v?fmt(v):'·'}[z(g.A),z(g.P),g.noH?'':z(g.h),z(g.doorA+g.winA),g.noH?'':z(g.tile),g.noH?'':z(g.paint),z(g.skirt)].forEach(function(v){tr.appendChild(el('td','n',v))})}
+    tb.appendChild(tr)})});
+  T.appendChild(tb);
+}
+
+/* ===== الميزانية ===== */
+$('bTotal').value=S.bud.total;$('bTotal').addEventListener('input',function(){S.bud.total=this.value;save();drawBud(true)});
+function bit(i){return S.bud.it[i]||(S.bud.it[i]={n:'',e:'',a:''})}
+function drawBud(soft){
+  var T=$('bt'),total=num(S.bud.total),E=0,A=0;
+  BUD.forEach(function(x,i){var it=S.bud.it[i];if(it){E+=num(it.e);A+=num(it.a)}});
+  var k=$('bK');k.innerHTML='';
+  [['الميزانية',total?fmt(total,0)+' ريال':'لم تُدخل'],['مجموع التقديرات',fmt(E,0)+' ريال'],['المصروف الفعلي',fmt(A,0)+' ريال'],['المتبقي بعد التقديرات',total?fmt(total-E,0)+' ريال':'']].forEach(function(x,j){var d=el('div');d.appendChild(el('span',null,x[0]));var b=el('b',j===3&&total&&total-E<0?'neg':null,x[1]);d.appendChild(b);k.appendChild(d)});
+  var w=$('bWarn');w.innerHTML='';if(total&&E>total)w.appendChild(el('div','warn','تقديراتك تتجاوز الميزانية بـ '+fmt(E-total,0)+' ريال. راجع البنود قبل أن تبدأ.'));
+  if(soft&&T.rows.length){var trs=T.tBodies[0].rows;BUD.forEach(function(x,i){var c=trs[i].cells[5];var it=S.bud.it[i];c.textContent=it&&num(it.e)&&total?fmt(num(it.e)/total*100,1)+'٪':''});totRow();return}
+  T.innerHTML='';var th=el('thead'),hr=el('tr');['البند','ملاحظات النطاق والاتفاق','التقدير (ريال)','المصروف الفعلي (ريال)','الفرق (ريال)','نسبة التقدير من الميزانية'].forEach(function(h){hr.appendChild(el('th',null,h))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  BUD.forEach(function(name,i){var it=bit(i),tr=el('tr');tr.appendChild(el('td',null,name));
+    var nt=el('td'),ni=el('input','note');ni.value=it.n;ni.setAttribute('aria-label','ملاحظات '+name);ni.addEventListener('input',function(){it.n=ni.value;save()});nt.appendChild(ni);tr.appendChild(nt);
+    var dt=el('td','n'),pc=el('td','n');
+    ['e','a'].forEach(function(key){var td=el('td'),inp=el('input');inp.inputMode='decimal';inp.value=it[key];inp.setAttribute('aria-label',(key==='e'?'تقدير ':'مصروف ')+name);
+      inp.addEventListener('input',function(){it[key]=inp.value;save();diff();drawBud(true)});td.appendChild(inp);tr.appendChild(td)});
+    function diff(){var e=num(it.e),a=num(it.a);dt.className='n';if(!it.e&&!it.a){dt.textContent='';return}var d=it.a?e-a:e;dt.textContent=fmt(d,0);if(it.a)dt.classList.add(d<0?'neg':'pos')}
+    diff();tr.appendChild(dt);pc.textContent=num(it.e)&&total?fmt(num(it.e)/total*100,1)+'٪':'';tr.appendChild(pc);tb.appendChild(tr)});
+  var t1=el('tr','tot');t1.id='bTot';tb.appendChild(t1);T.appendChild(tb);totRow();
+}
+function totRow(){var t=$('bTot');if(!t)return;t.innerHTML='';var E=0,A=0;BUD.forEach(function(x,i){var it=S.bud.it[i];if(it){E+=num(it.e);A+=num(it.a)}});var total=num(S.bud.total);
+  var l=el('td',null,'الإجمالي');l.colSpan=2;t.appendChild(l);t.appendChild(el('td','n',fmt(E,0)));t.appendChild(el('td','n',fmt(A,0)));t.appendChild(el('td','n',A?fmt(E-A,0):''));t.appendChild(el('td','n',total&&E?fmt(E/total*100,1)+'٪':''))}
+$('pushFin').addEventListener('click',function(){
+  var R=qrows(calc()),sum={floor:0,paint:0,gyps:0,wp:0},any=false;
+  R.forEach(function(r){var c=rowCost(r);if(!c||c.tot==null)return;any=true;
+    if(r.k.indexOf('floor:')===0||r.k==='skirt'||r.k==='tile')sum.floor+=c.tot;else if(r.k==='paintW'||r.k==='paintC')sum.paint+=c.tot;else if(r.k==='gyps')sum.gyps+=c.tot;else if(r.k==='wp')sum.wp+=c.tot});
+  if(!any){ST.flash('لا أسعار في جدول الكميات بعد');return}
+  [[B_FLOOR,sum.floor],[B_PAINT,sum.paint],[B_GYPS,sum.gyps],[B_WP,sum.wp]].forEach(function(p){if(p[1]){var it=bit(p[0]);it.e=String(Math.round(p[1]));if(!it.n)it.n='من جدول الكميات'}});
+  save();drawBud();ST.flash('نُقلت تكلفة التشطيب إلى الميزانية');
+});
+$('pushRes').addEventListener('click',function(){var t=num(S.bud.total);if(!t){ST.flash('أدخل الميزانية الإجمالية أولاً');return}var it=bit(B_RES);it.e=String(Math.round(t*0.1));save();drawBud();ST.flash('حُسب الاحتياطي')});
+
+/* ===== التبويب والتصدير ===== */
+var TABS=[['rooms','tab-rooms','p-rooms'],['qty','tab-qty','p-qty'],['bud','tab-bud','p-bud']];
+function show(t){S.tab=t;save();TABS.forEach(function(x){$(x[1]).setAttribute('aria-selected',String(x[0]===t));$(x[2]).hidden=x[0]!==t});if(t==='qty')drawQty();if(t==='bud')drawBud()}
+TABS.forEach(function(x){$(x[1]).addEventListener('click',function(){show(x[0])})});
+document.querySelector('.qtabs').addEventListener('keydown',function(e){if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;var i=TABS.findIndex(function(x){return x[0]===S.tab});i=(i+(e.key==='ArrowLeft'?1:-1)+3)%3;show(TABS[i][0]);$(TABS[i][1]).focus()});
+window.addEventListener('beforeprint',function(){drawQty();drawBud()});
+$('btnPrint').addEventListener('click',function(){drawQty();drawBud();window.print()});
+$('btnCsv').addEventListener('click',function(){
+  var R=qrows(calc()),rows=[['البند','المواصفة','الوحدة','الكمية الصافية','الهدر %','كمية الشراء','سعر الوحدة','الإجمالي']];
+  R.forEach(function(r){var m=qmeta(r.k,r.w),c=rowCost(r);rows.push([r.n,m.sp,r.u,r.q==null?'':(+r.q.toFixed(2)),r.int?'':m.w,c?(+c.buy.toFixed(2)):'',m.pr,c&&c.tot!=null?Math.round(c.tot):''])});
+  rows.push([]);rows.push(['الدور','الفراغ','الأرضية م2','المحيط م','الارتفاع م','فتحات م2','تكسية م2','دهان جدران م2','وزرة م.ط']);
+  S.floors.forEach(function(f){S.rooms.filter(function(r){return r.floor===f.id}).forEach(function(r){var g=geo(r);if(g.err.length)return;rows.push([f.name,r.name,+g.A.toFixed(2),+g.P.toFixed(2),g.noH?'':g.h,+(g.doorA+g.winA).toFixed(2),g.noH?'':+g.tile.toFixed(2),g.noH?'':+g.paint.toFixed(2),+g.skirt.toFixed(2)])})});
+  TK.csv(rows,'جداول الكميات - البيت بيتك.csv');
+});
+TK.resetButton($('btnReset'),function(){S=ST.clear();$('gH').value='';$('bTotal').value='';drawFins();drawRooms();show('rooms');ST.flash('بدأت من جديد')});
+
+drawFins();drawRooms();show(S.tab||'rooms');
+})();
+</script>
+</body>
+</html>

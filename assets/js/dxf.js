@@ -201,7 +201,8 @@ function extract(P,dxf,meta,bb,cls){
     var key=Math.round(a*10)+'_'+Math.round(x0)+'_'+Math.round(y0);if(seen[key])return;seen[key]=1;
     var names=lab.filter(function(t){return owner.get(t)===c}).map(function(t){return t.s.replace(/\n/g,' ')});
     var rect=c.p.length===5&&Math.abs(a-(x1-x0)*(y1-y0)*f*f)<0.01*a;
-    rooms.push({names:names.slice(0,3),area:r2(a),w:r2((x1-x0)*f),h:r2((y1-y0)*f),rect:rect,layer:c.l,cx:r2((x0+x1)/2*f),cy:r2((y0+y1)/2*f),_box:[x0,x1,y0,y1]});
+    var per=0;for(var pi=0;pi<c.p.length-1;pi++)per+=Math.hypot(c.p[pi+1][0]-c.p[pi][0],c.p[pi+1][1]-c.p[pi][1]);
+    rooms.push({names:names.slice(0,3),area:r2(a),per:r2(per*f),w:r2((x1-x0)*f),h:r2((y1-y0)*f),rect:rect,layer:c.l,cx:r2((x0+x1)/2*f),cy:r2((y0+y1)/2*f),_box:[x0,x1,y0,y1]});
   });
   rooms.sort(function(a,b){return b.area-a.area});rooms=rooms.slice(0,400);
   function which(x,y){for(var i=0;i<cls.length;i++){var b=cls[i].box;if(x>=b.x0&&x<=b.x1&&y>=b.y0&&y<=b.y1)return i+1}return 0}

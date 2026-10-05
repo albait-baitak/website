@@ -8,7 +8,7 @@ var TOOLS=[
   {id:'fahs',   name:'الفحص الفني',                desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',      href:'fahs/app.html',         roles:['office','admin'],      live:true},
   {id:'t01',    name:'أسئلة الجلسة الأولى مع مصممك', desc:'عشرون سؤالاً تكشف من أمامك.. قبل أن توقع',            href:'tools/first-session/',  roles:['owner','admin'],       live:true},
   {id:'t02',    name:'دليل اختيار الأرض',           desc:'ما تفحصه قبل أن تشتري أرض بيت العمر',                 href:'tools/land/',           roles:['owner','admin'],       live:true},
-  {id:'t08',    name:'حاسبة البنود والتكاليف',      desc:'ميزانيتك بنداً بنداً.. من أول تقدير وطوال التنفيذ',    href:'',                      roles:ALL,                     live:false},
+  {id:'t08',    name:'جداول الكميات والتكاليف',     desc:'من فراغات بيتك إلى كميات التشطيب وتكلفتها.. وميزانيتك بنداً بنداً', href:'tools/quantities/', roles:ALL, live:true},
   {id:'t03',    name:'خمسون سؤالاً قبل أن تصمم بيتك', desc:'حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط',     href:'tools/fifty/',          roles:['owner','admin'],       live:true},
   {id:'t04',    name:'اختبار القرار الذكي',          desc:'ستة أسئلة ونتيجة واحدة.. قبل أي جهاز «ذكي»',          href:'',                      roles:['owner','admin'],       live:false},
   {id:'t05',    name:'خارطة بنود تنفيذ بيتك',        desc:'عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق', href:'',                     roles:['owner','contractor','admin'], live:false},

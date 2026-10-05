@@ -4,7 +4,7 @@ var AR='٠١٢٣٤٥٦٧٨٩';
 function ar(n){return String(n).replace(/\d/g,function(d){return AR[d]})}
 function toEn(s){return String(s==null?'':s).replace(/[٠-٩]/g,function(d){return AR.indexOf(d)}).replace(/[,٬\s]/g,'').replace(/٫/g,'.').replace(/[^\d.\-]/g,'')}
 function num(s){var v=parseFloat(toEn(s));return isFinite(v)?v:0}
-function fmt(n,dec){if(n==null||!isFinite(n))return '';var d=dec==null?2:dec;var s=(Math.round(n*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:0});return ar(s).replace(/,/g,'٬').replace(/\./g,'٫')}
+function fmt(n,dec){if(n==null||!isFinite(n))return '';var d=dec==null?2:dec;var s=(Math.round(n*Math.pow(10,d))/Math.pow(10,d)).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:0});return s}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function $(id){return document.getElementById(id)}
 function store(key,fresh,version){
