@@ -21,7 +21,7 @@ function buildPrompt(meta: string): string {
   ).join("\n");
   return "أنت فاحص معماري لمخططات المسكن السعودي، تُجري الفحص الفني للمخطط قبل رفعه للأمانة وفق بروتوكول ثابت: استخراج الفراغات وقياساتها، ثم فحص المطابقة (الطبقة النظامية: الاشتراطات والكود، ثم طبقة الموجهات: موجهات العمارة السعودية لطراز الموقع)، ثم فحص جودة التصميم (الطبقة العملية: صلاحية الفراغات للعيش، ثم الطبقة الثقافية: قواعد البيت السعودي).\n\n" +
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
-    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- الدرجة في فحص المطابقة: stop للمخالفة النظامية الصريحة وللموجهات الملزمة الصريحة، major لما يُعالج قبل الرفع، minor للتحسين.\n- الدرجة في فحص جودة التصميم: major أو minor فقط، ولا stop أبداً.\n- حكم المطابقة يُبنى من فحص المطابقة وحده: ready إن لم توجد فيه stop ولا major، وfix إن كانت علاجاته موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُذكر نمط الطراز فافحص على المعاصر واذكر ذلك في الافتراضات.\n- اكتب بالعربية الفصحى، جملاً قصيرة، والعلاج محدد قابل للتنفيذ. استخدم «..» لا «…».\n\n" +
+    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه (المساحات المحسوبة من المضلعات المغلقة، وقيم الأبعاد، والمناسيب، والنصوص) مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه، وإن وُسمت «مستنتجة» فاذكر ذلك. والمضلع المغلق قد يكون حد الأرض أو فراغاً أو عنصراً آخر، فاعتمد على اسمه وموقعه ومساحته.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- الدرجة في فحص المطابقة: stop للمخالفة النظامية الصريحة وللموجهات الملزمة الصريحة، major لما يُعالج قبل الرفع، minor للتحسين.\n- الدرجة في فحص جودة التصميم: major أو minor فقط، ولا stop أبداً.\n- حكم المطابقة يُبنى من فحص المطابقة وحده: ready إن لم توجد فيه stop ولا major، وfix إن كانت علاجاته موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُذكر نمط الطراز فافحص على المعاصر واذكر ذلك في الافتراضات.\n- اكتب بالعربية الفصحى، جملاً قصيرة، والعلاج محدد قابل للتنفيذ. استخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | القسم · الطبقة | الاسم | المطلوب):\n" + rules + "\n\n" +
     'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":["خلاصة فحص المطابقة في سطر","خلاصة فحص جودة التصميم في سطر"],"assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"ما وُجد في المخطط بالأرقام","fix":"العلاج إن خالف","note":"ملاحظة اختيارية"}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}\n' +
     "ضع في results كل الرموز المذكورة دون استثناء.";
@@ -72,23 +72,41 @@ Deno.serve(async (req) => {
     p.pattern && `نمط الموجهات: ${p.pattern}`, p.prev && `ملاحظات سابقة من الأمانة: ${p.prev}`,
   ].filter(Boolean).join(" · ") || "لم تُدخل بيانات";
 
-  // تجهيز المرفقات
+  // تجهيز المرفقات: PDF، صور، واستخراج DXF وصور معاينته (تُولَّد في متصفح المكتب عند الرفع)
+  type F = { path: string; name: string; type?: string; size?: number; role?: string; of?: string };
   const blocks: unknown[] = [];
   const skipped: string[] = [];
-  for (const f of (rq.files ?? []) as { path: string; name: string; type?: string; size?: number }[]) {
-    const name = (f.name || f.path).toLowerCase();
-    const isPdf = name.endsWith(".pdf");
-    const imgType = name.endsWith(".png") ? "image/png" : (name.endsWith(".jpg") || name.endsWith(".jpeg")) ? "image/jpeg" : name.endsWith(".webp") ? "image/webp" : null;
+  const dxfTexts: string[] = [];
+  let budget = 24 * 1024 * 1024; // حد آمن لحجم الطلب
+  const all = (rq.files ?? []) as F[];
+  // ملفات الاستخراج أولاً ثم بقية المرفقات
+  const ordered = [...all.filter((f) => f.role === "dxf_extract"), ...all.filter((f) => f.role !== "dxf_extract")];
+  for (const f of ordered) {
+    const lower = (f.path || f.name).toLowerCase();
+    if (f.role === "dxf_extract") {
+      const { data: blob } = await db.storage.from("plans").download(f.path);
+      if (!blob) { skipped.push(f.name); continue; }
+      try { const ex = JSON.parse(await blob.text()); if (ex?.text) dxfTexts.push(ex.text); } catch { skipped.push(f.name); }
+      continue;
+    }
+    if (lower.endsWith(".dxf")) continue; // يُقرأ عبر ملف الاستخراج وصور المعاينة
+    const isPdf = lower.endsWith(".pdf");
+    const imgType = lower.endsWith(".png") ? "image/png" : (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) ? "image/jpeg" : lower.endsWith(".webp") ? "image/webp" : null;
     if (!isPdf && !imgType) { skipped.push(f.name); continue; }
     if (imgType && (f.size ?? 0) > 5 * 1024 * 1024) { skipped.push(f.name + " (أكبر من 5MB)"); continue; }
+    if ((f.size ?? 0) * 1.37 > budget) { skipped.push(f.name + " (تجاوز حجم الطلب)"); continue; }
     const { data: blob, error } = await db.storage.from("plans").download(f.path);
     if (error || !blob) { skipped.push(f.name); continue; }
-    const data = b64(await blob.arrayBuffer());
+    const buf = await blob.arrayBuffer();
+    budget -= buf.byteLength * 1.37;
+    const data = b64(buf);
+    if (f.role === "dxf_view") blocks.push({ type: "text", text: "صورة معاينة مرسومة من ملف DXF: " + f.name });
     blocks.push(isPdf
       ? { type: "document", source: { type: "base64", media_type: "application/pdf", data } }
       : { type: "image", source: { type: "base64", media_type: imgType, data } });
   }
-  if (!blocks.length) return json({ error: "no_readable_files", skipped }, 400);
+  if (!blocks.length && !dxfTexts.length) return json({ error: "no_readable_files", skipped }, 400);
+  if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات DXF المرفوعة (أرقام مقروءة من ملف الرسم نفسه):\n\n" + dxfTexts.join("\n\n---\n\n") });
   blocks.push({ type: "text", text: buildPrompt(meta) });
 
   const resp = await fetch("https://api.anthropic.com/v1/messages", {
@@ -116,7 +134,7 @@ Deno.serve(async (req) => {
     verdict: parsed.verdict ?? "fix",
     summary: parsed.summary ?? [], assumptions: parsed.assumptions ?? [],
     results: parsed.results ?? {}, extraction: parsed.extraction ?? [], questions: parsed.questions ?? [],
-    files: (rq.files ?? []).map((f: { name: string }) => f.name).join(" · "),
+    files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
     skipped,
     foot: "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
   };
