@@ -24,18 +24,56 @@
 
     <!-- الدخول -->
     <section class="card login" id="vLogin" hidden>
-      <div class="card-h"><h2>الدخول</h2></div>
+      <div class="card-h"><h2>الدخول</h2><button class="linkbtn" type="button" data-go="vSignup">حساب جديد</button></div>
       <div class="card-b">
-        <p>أدخل بريدك، ونرسل لك رابط دخول. لا كلمة مرور. وإن كانت أول مرة فسنكمل تسجيلك بعد الدخول.</p>
-        <form id="fLogin" class="row" novalidate>
-          <div class="f" style="flex:1;min-width:220px"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr" required></div>
-          <button class="btn" type="submit" style="align-self:flex-end">أرسل رابط الدخول</button>
+        <form id="fLogin" novalidate style="display:flex;flex-direction:column;gap:14px">
+          <div class="f"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr"></div>
+          <div class="f"><label for="lPass">كلمة المرور</label><input id="lPass" type="password" autocomplete="current-password" dir="ltr"></div>
+          <div class="row" style="justify-content:space-between"><button class="btn" type="submit" id="lBtn">دخول</button><button class="linkbtn" type="button" id="btnForgot">نسيت كلمة المرور</button></div>
+          <p class="msg" id="lMsg" role="status"></p>
         </form>
-        <p class="msg" id="lMsg" role="status"></p>
       </div>
     </section>
 
-    <!-- إكمال التسجيل -->
+    <!-- حساب جديد -->
+    <section class="card" id="vSignup" hidden style="max-width:720px;margin-inline:auto;width:100%">
+      <div class="card-h"><h2>حساب جديد</h2><button class="linkbtn" type="button" data-go="vLogin">عندي حساب</button></div>
+      <div class="card-b">
+        <form id="fSignup" class="grid2" novalidate>
+          <fieldset class="full" style="border:0;padding:0;margin:0">
+            <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
+            <div class="choice">
+              <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
+              <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
+              <label><input type="radio" name="rr" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
+            </div>
+          </fieldset>
+          <div class="f"><label for="sName">الاسم</label><input id="sName" autocomplete="name"></div>
+          <div class="f" id="sOrgF"><label for="sOrg" id="sOrgL">اسم الجهة</label><input id="sOrg" autocomplete="organization"></div>
+          <div class="f"><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
+          <div class="f"><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
+          <div class="f full"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
+          <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><input id="sPass" type="password" autocomplete="new-password" dir="ltr"></div>
+          <div class="f"><label for="sPass2">تأكيد كلمة المرور</label><input id="sPass2" type="password" autocomplete="new-password" dir="ltr"></div>
+          <div class="row full"><button class="btn" type="submit" id="sBtn">إنشاء الحساب</button><span class="msg" id="sMsg" role="status"></span></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- كلمة مرور جديدة -->
+    <section class="card login" id="vReset" hidden>
+      <div class="card-h"><h2>كلمة مرور جديدة</h2></div>
+      <div class="card-b">
+        <form id="fReset" novalidate style="display:flex;flex-direction:column;gap:14px">
+          <div class="f"><label for="nPass">كلمة المرور الجديدة <span class="o">8 أحرف على الأقل</span></label><input id="nPass" type="password" autocomplete="new-password" dir="ltr"></div>
+          <div class="f"><label for="nPass2">تأكيدها</label><input id="nPass2" type="password" autocomplete="new-password" dir="ltr"></div>
+          <div class="row"><button class="btn" type="submit">حفظ</button></div>
+          <p class="msg" id="nMsg" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- إكمال بيانات حساب قديم -->
     <section class="card" id="vReg" hidden style="max-width:720px;margin-inline:auto;width:100%">
       <div class="card-h"><h2>إكمال التسجيل</h2><span class="muted" id="regEmail" dir="ltr"></span></div>
       <div class="card-b">
@@ -43,9 +81,9 @@
           <fieldset class="full" style="border:0;padding:0;margin:0">
             <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
             <div class="choice">
-              <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
-              <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
-              <label><input type="radio" name="rr" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
+              <label><input type="radio" name="rr2" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
+              <label><input type="radio" name="rr2" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
+              <label><input type="radio" name="rr2" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
             </div>
           </fieldset>
           <div class="f"><label for="rName">الاسم</label><input id="rName" autocomplete="name"></div>
@@ -59,10 +97,10 @@
 
     <!-- حالة الحساب -->
     <section class="card state" id="vState" hidden>
-      <div class="card-b"><h2 id="stT"></h2><p id="stP"></p></div>
+      <div class="card-b"><h2 id="stT"></h2><p id="stP"></p><button class="linkbtn" type="button" id="stBack" hidden data-go="vLogin">العودة للدخول</button></div>
     </section>
 
-    <!-- مساحتي -->
+    <!-- أدواتك -->
     <div id="vHome" hidden style="display:none">
       <div class="who-bar"><span>مرحباً <b id="hName"></b> · <span id="hRole"></span></span></div>
       <section class="card">
@@ -82,67 +120,111 @@
 (function(){
 var $=function(id){return document.getElementById(id)};
 setTimeout(function(){var l=$('loading');if(!l.hidden){l.textContent='تأخر الاتصال. أعد تحميل الصفحة.';l.className='msg bad'}},12000);
-var user=null,profile=null;
+var user=null,profile=null,recovering=false;
+var HERE=location.origin+location.pathname;
+var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
-function only(id){['vLogin','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
+function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function okEmail(s){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)}
+function state(t,p,back){$('stT').textContent=t;$('stP').textContent=p;$('stBack').hidden=!back;only('vState')}
+document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){only(b.dataset.go)})});
+$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
+function errText(e){
+  var c=(e&&(e.code||''))+' '+(e&&e.message||'');
+  if(/invalid_credentials|Invalid login/i.test(c))return 'البريد أو كلمة المرور غير صحيحة.';
+  if(/email_not_confirmed|not confirmed/i.test(c))return 'أكّد بريدك أولاً من الرسالة التي وصلتك، ثم ادخل.';
+  if(/user_already_exists|already registered/i.test(c))return 'هذا البريد مسجل من قبل. ادخل به، أو استعد كلمة المرور.';
+  if(/weak_password|at least/i.test(c))return 'كلمة المرور ضعيفة. اجعلها 8 أحرف على الأقل.';
+  if(/rate|429/i.test(c))return 'محاولات كثيرة. انتظر قليلاً ثم أعد المحاولة.';
+  return 'تعذر الإتمام. أعد المحاولة.';
+}
+function bindRole(name,orgF,orgL){document.querySelectorAll('input[name='+name+']').forEach(function(r){r.addEventListener('change',function(){$(orgF).hidden=this.value==='owner';$(orgL).textContent=ORG[this.value]||'اسم الجهة'})})}
+bindRole('rr','sOrgF','sOrgL');bindRole('rr2','rOrgF','rOrgL');
+function readDetails(name,p){
+  var rr=(document.querySelector('input[name='+name+']:checked')||{}).value;
+  var d={requested_role:rr,full_name:$(p+'Name').value.trim(),office_name:rr==='owner'?'':$(p+'Org').value.trim(),phone:$(p+'Phone').value.trim(),city:$(p+'City').value.trim()};
+  var miss=[];if(!rr)miss.push('نوع الحساب');if(!d.full_name)miss.push('الاسم');if(rr&&rr!=='owner'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+  return {d:d,miss:miss};
+}
 
+/* الدخول */
 $('fLogin').addEventListener('submit',function(e){
-  e.preventDefault();var em=$('lEmail').value.trim();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg('lMsg','أدخل بريداً صحيحاً.','bad');return}
+  e.preventDefault();var em=$('lEmail').value.trim(),pw=$('lPass').value;
+  if(!okEmail(em)||!pw){msg('lMsg','أدخل البريد وكلمة المرور.','bad');return}
+  $('lBtn').disabled=true;msg('lMsg','جارٍ الدخول..');
+  BB.auth.signInWithPassword({email:em,password:pw}).then(function(r){$('lBtn').disabled=false;if(r.error)msg('lMsg',errText(r.error),'bad');else msg('lMsg','')});
+});
+$('btnForgot').addEventListener('click',function(){
+  var em=$('lEmail').value.trim();if(!okEmail(em)){msg('lMsg','اكتب بريدك في الخانة أولاً، ثم اضغط «نسيت كلمة المرور».','bad');$('lEmail').focus();return}
   msg('lMsg','جارٍ الإرسال..');
-  BB.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){
-    if(r.error){msg('lMsg',r.error.status===429?'طلبت روابط كثيرة. انتظر قليلاً ثم أعد المحاولة.':'تعذر الإرسال. تأكد من البريد وأعد المحاولة.','bad');return}
-    msg('lMsg','أرسلنا رابط الدخول إلى '+em+'. افتحه من الجهاز نفسه.','good');
+  BB.auth.resetPasswordForEmail(em,{redirectTo:HERE}).then(function(r){msg('lMsg',r.error?errText(r.error):'أرسلنا رابط تعيين كلمة المرور إلى '+em+'.',r.error?'bad':'good')});
+});
+
+/* حساب جديد */
+$('fSignup').addEventListener('submit',function(e){
+  e.preventDefault();var x=readDetails('rr','s'),em=$('sEmail').value.trim(),pw=$('sPass').value;
+  if(!okEmail(em))x.miss.push('البريد');
+  if(x.miss.length){msg('sMsg','أكمل: '+x.miss.join('، ')+'.','bad');return}
+  if(pw.length<8){msg('sMsg','كلمة المرور 8 أحرف على الأقل.','bad');return}
+  if(pw!==$('sPass2').value){msg('sMsg','كلمتا المرور غير متطابقتين.','bad');return}
+  $('sBtn').disabled=true;msg('sMsg','جارٍ الإنشاء..');
+  BB.auth.signUp({email:em,password:pw,options:{data:x.d,emailRedirectTo:HERE}}).then(function(r){
+    $('sBtn').disabled=false;
+    if(r.error){msg('sMsg',errText(r.error),'bad');return}
+    if(r.data&&r.data.user&&r.data.user.identities&&!r.data.user.identities.length){msg('sMsg',errText({code:'user_already_exists'}),'bad');return}
+    msg('sMsg','');
+    if(!r.data.session)state('أكّد بريدك','أرسلنا رسالة تأكيد إلى '+em+'. افتحها وأكّد بريدك، ثم ادخل بالبريد وكلمة المرور. وبعدها يُراجع طلبك ويُفعَّل حسابك.',true);
   });
 });
-$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
 
-var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة'};
-document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',function(){
-  $('rOrgF').hidden=this.value==='owner';$('rOrgL').textContent=ORG[this.value]||'اسم الجهة';
-})});
+/* كلمة مرور جديدة */
+$('fReset').addEventListener('submit',function(e){
+  e.preventDefault();var pw=$('nPass').value;
+  if(pw.length<8){msg('nMsg','كلمة المرور 8 أحرف على الأقل.','bad');return}
+  if(pw!==$('nPass2').value){msg('nMsg','كلمتا المرور غير متطابقتين.','bad');return}
+  BB.auth.updateUser({password:pw}).then(function(r){if(r.error){msg('nMsg',errText(r.error),'bad');return}recovering=false;msg('nMsg','');refresh({user:user})});
+});
 
+/* إكمال بيانات حساب أُنشئ قبل التسجيل بكلمة المرور */
 $('fReg').addEventListener('submit',function(e){
-  e.preventDefault();
-  var rr=(document.querySelector('input[name=rr]:checked')||{}).value;
-  if(!rr){msg('rMsg','اختر نوع الحساب.','bad');return}
-  var d={requested_role:rr,full_name:$('rName').value.trim(),office_name:rr==='owner'?null:$('rOrg').value.trim(),phone:$('rPhone').value.trim(),city:$('rCity').value.trim()};
-  var miss=[];if(!d.full_name)miss.push('الاسم');if(rr!=='owner'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
-  if(miss.length){msg('rMsg','أكمل: '+miss.join('، ')+'.','bad');return}
-  if(rr==='office')d.engineer=d.full_name;
-  d.registered_at=new Date().toISOString();
-  $('rSubmit').disabled=true;msg('rMsg','جارٍ الإرسال..');
+  e.preventDefault();var x=readDetails('rr2','r');
+  if(x.miss.length){msg('rMsg','أكمل: '+x.miss.join('، ')+'.','bad');return}
+  var d=x.d;if(d.requested_role==='office')d.engineer=d.full_name;if(!d.office_name)d.office_name=null;d.registered_at=new Date().toISOString();
+  $('rSubmit').disabled=true;
   BB.from('profiles').update(d).eq('id',user.id).then(function(r){
-    if(r.error){$('rSubmit').disabled=false;msg('rMsg','تعذر الإرسال. أعد المحاولة.','bad');return}
-    Object.assign(profile,d);BB.functions.invoke('notify-admin').catch(function(){});route();
+    $('rSubmit').disabled=false;if(r.error){msg('rMsg','تعذر الإرسال. أعد المحاولة.','bad');return}
+    Object.assign(profile,d);route();
   });
 });
 
 function route(){
-  if(!user){$('btnOut').hidden=true;only('vLogin');return}
+  if(recovering){only('vReset');return}
+  if(!user){$('btnOut').hidden=true;if($('vSignup').hidden&&$('vState').hidden)only('vLogin');else $('loading').hidden=true;return}
   $('btnOut').hidden=false;var p=profile||{};
   if(p.status==='approved'&&p.role){
-    var tools=BBA.toolsFor(p.role),live=tools.filter(function(t){return t.live});
-    if(p.role!=='admin'&&live.length===1&&tools.length===1){location.replace('../'+live[0].href);return}
+    var tools=BBA.toolsFor(p.role);
     $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
     var box=$('hTools');box.innerHTML='';
     tools.forEach(function(t){var a=el(t.live?'a':'div','tool'+(t.live?'':' soon'));if(t.live)a.href='../'+t.href;
       a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,t.live?'افتح':'قريباً'));box.appendChild(a)});
     only('vHome');return;
   }
-  if(p.status==='rejected'){$('stT').textContent='لم يُعتمد الحساب';$('stP').textContent='لم يُعتمد طلب تسجيلك. للاستفسار تواصل مع صيّاح السميران.';only('vState');return}
-  if(p.status==='suspended'){$('stT').textContent='الحساب موقوف';$('stP').textContent='أُوقف هذا الحساب مؤقتاً. للاستفسار تواصل مع صيّاح السميران.';only('vState');return}
+  if(p.status==='rejected'){state('لم يُعتمد الحساب','لم يُعتمد طلب تسجيلك. للاستفسار تواصل مع صيّاح السميران.');return}
+  if(p.status==='suspended'){state('الحساب موقوف','أُوقف هذا الحساب مؤقتاً. للاستفسار تواصل مع صيّاح السميران.');return}
   if(!p.registered_at){$('regEmail').textContent=user.email;only('vReg');return}
-  $('stT').textContent='وصل طلب تسجيلك';$('stP').textContent='يُراجع الطلب ويُفعَّل الحساب بالأدوات المناسبة لك. ادخل بالبريد نفسه بعد التفعيل.';only('vState');
+  if(!p.notified_at)BB.functions.invoke('notify-admin').catch(function(){});
+  state('طلبك قيد المراجعة','يُراجع طلب تسجيلك ويُفعَّل حسابك بالأدوات المناسبة لك. ادخل بالبريد وكلمة المرور بعد التفعيل.');
 }
-
 function refresh(session){
   user=session&&session.user||null;
   if(!user){profile=null;route();return}
   BB.from('profiles').select('*').eq('id',user.id).maybeSingle().then(function(r){profile=r.data||{};route()});
 }
-BB.auth.onAuthStateChange(function(ev,s){if(ev==='INITIAL_SESSION'||ev==='SIGNED_IN'||ev==='SIGNED_OUT')setTimeout(function(){refresh(s)},0)});
+BB.auth.onAuthStateChange(function(ev,s){
+  if(ev==='PASSWORD_RECOVERY'){recovering=true;user=s&&s.user;setTimeout(route,0);return}
+  if(ev==='INITIAL_SESSION'||ev==='SIGNED_IN'||ev==='SIGNED_OUT')setTimeout(function(){refresh(s)},0);
+});
 })();
 </script>
 </body>
