@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>خمسون سؤالاً قبل أن تصمم بيتك · البيت بيتك</title>
+<meta name="description" content="حدد احتياجك الحقيقي قبل أول لقاء وقبل أول خط: خمسون سؤالاً تجيب عنها مع عائلتك، وتخرج منها ببرنامجك المعماري المصغر لتسلمه لمصممك.">
+<meta property="og:title" content="خمسون سؤالاً قبل أن تصمم بيتك">
+<meta property="og:description" content="حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610052300">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610052300">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التصميم</a><span>›</span><span>خمسون سؤالاً قبل أن تصمم بيتك</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">03</span>
+    <span class="stage-tag">مرحلة التصميم</span>
+    <h1>خمسون سؤالاً قبل أن تصمم بيتك</h1>
+    <p class="sub">حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>قبل أول جلسة تصميم. معظم الندم بعد البناء لا يأتي من خطأ في التنفيذ، بل من سؤال لم يُطرح في البداية.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أجب مع عائلتك بصدق.. اجعلها جلسة بيت لا عبئاً.</li>
+      <li>اكتب ما يخصكم أنتم لا ما يقوله الناس.</li>
+      <li>اختم بصفحة الخلاصة.. وخذها معك لمصممك: هذه مادة ورشة البريف.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="cands">
+  <div class="wrap cands-in" style="flex-direction:column;align-items:stretch;gap:6px">
+    <div class="cands-in"><span class="cands-lbl">أجبت عن <b id="doneN">٠</b> من ٥٠</span><span class="hint" id="saved" aria-live="polite"></span></div>
+    <div class="progress" aria-hidden="true"><i id="bar" style="width:0"></i></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <nav class="toc" id="toc" aria-label="الأقسام"></nav>
+  <section class="tsec" aria-labelledby="h-q">
+    <h2 id="h-q"><span class="k">١</span>الأسئلة الخمسون</h2>
+    <p class="lead2">اكتب إجابتكم تحت كل سؤال. وإذا خرجت من إجابة بشيء مهم فاضغط «أضفه للخلاصة».</p>
+    <div id="qs"></div>
+  </section>
+
+  <section class="tsec" id="sum" aria-labelledby="h-s">
+    <h2 id="h-s"><span class="k">٢</span>صفحة الخلاصة.. أهم عشرة أشياء خرجت بها</h2>
+    <p class="lead2">من إجاباتك الخمسين، استخرج العشرة الأهم ورتبها. هذه الورقة الواحدة هي «برنامجك المعماري المصغر».. وأثمن ما ستسلمه لمصممك في أول جلسة.</p>
+    <div class="sum10" id="sumRows"></div>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>كلما اكتملت إجاباتك اقتربت من بيت يناسبك دون ندم. وتذكر: هذه الإجابات مدخلات.. والمصمم الجيد سيحاورك فيها لا أن يأخذها حرفياً.</p>
+  </div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع برنامجك المصغر أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610052300"></script>
+<script src="../../assets/js/config.js?v=202610052300"></script>
+<script src="../../assets/js/session.js?v=202610052300"></script>
+<script src="../../assets/js/toolkit.js?v=202610052300"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$;
+var G=[
+ {t:'نمط حياتك وعائلتك',q:['كم عدد أفراد الأسرة الآن، وكم تتوقع بعد ٥–١٠ سنوات؟','ما الأوقات التي تقضونها معاً، وأين؟','هل تستقبلون ضيوفاً كثيراً، وكم مرة أسبوعياً تقريباً؟','هل يعمل أحد من المنزل ويحتاج مكتباً أو غرفة هادئة؟','هل لديكم أطفال صغار يحتاجون مساحة لعب آمنة قريبة؟','هل يسكن معكم أحد كبار السن ويحتاج غرفة بالدور الأرضي؟','ما العادة اليومية التي يزعجك أن بيتك الحالي لا يخدمها؟','صف يوماً مثالياً في بيتك الجديد.. أين تبدؤه وأين تنهيه؟']},
+ {t:'الأرض والموقع والتوجيه',q:['ما مساحة الأرض وأبعادها، وكم شارعاً يحيط بها؟','ما اتجاه الواجهة، ومن أين تأتي الشمس صباحاً ومساءً؟','من أين تهب الرياح المريحة، ومن أين الإزعاج؟','هل هناك إطلالة تريد استغلالها أو منظر تريد حجبه؟','ما أنظمة البناء في منطقتك (أدوار، ارتدادات، نسبة بناء)؟','هل التربة أو الموقع يحتاجان دراسة أو معالجة خاصة؟']},
+ {t:'توزيع الفراغات والغرف',q:['كم غرفة نوم تحتاج فعلاً، وكم منها بحمام خاص؟','غرفة النوم الرئيسية بالدور الأرضي أم العلوي؟','كم مجلساً/صالة، وهل تفصل مجلس الرجال عن العائلة؟','صالة طعام منفصلة أم مدمجة مع المعيشة؟','ما الغرف التي يجب أن تتجاور (مطبخ–طعام، نوم–حمام)؟','ما الغرف التي يجب أن تتباعد (نوم–مجلس ضيوف)؟','هل تحتاج غرفة متعددة الاستخدام تتغير وظيفتها مع الوقت؟','كم دورة مياه للضيوف، وأين موقعها الأنسب؟']},
+ {t:'الخصوصية والضيافة',q:['هل يهمك ألا يرى الضيف داخل البيت العائلي عند دخوله؟','هل تحتاج مدخلاً منفصلاً للرجال عن مدخل العائلة؟','أين يجلس الضيوف دون الاطلاع على خصوصية الأسرة؟','هل تريد فناءً داخلياً أو حوشاً يوفر خصوصية وإضاءة؟','كيف تتحرك العمالة المنزلية دون اختراق الخصوصية؟']},
+ {t:'المطبخ والخدمات',q:['مطبخ مفتوح على المعيشة أم مغلق؟','هل تحتاج مطبخاً تحضيرياً منفصلاً عن الرئيسي؟','أين غرفة الغسيل، وهل هي قريبة من غرف النوم؟','كم مدخل خدمة تحتاج (تموين، نفايات)؟','هل تحتاج مستودعاً أو غرفة مؤن؟']},
+ {t:'الإضاءة والتهوية الطبيعية',q:['أي الغرف يجب أن تدخلها شمس الصباح؟','أي الغرف تريد حمايتها من شمس الظهيرة؟','هل يمكن تهوية كل غرفة طبيعياً دون الاعتماد على المكيف؟','أين يمكن إدخال إضاءة علوية لإنارة منتصف البيت؟']},
+ {t:'التخزين والمساحات المساندة',q:['هل خزائن الغرف كافية، وهل تريد غرفة ملابس؟','أين تخزن الأغراض الموسمية والكبيرة؟','كم سيارة تحتاج مظلة أو كراجاً.. الآن وبعد سنوات؟']},
+ {t:'المستقبل والمرونة',q:['هل تخطط لإضافة دور أو ملحق لاحقاً؟ وهل التصميم يسمح؟','هل تريد شقة أو ملحقاً قابلاً للإيجار أو لسكن الأبناء؟','كيف سيخدمك البيت حين يكبر الأطفال ويغادرون؟','هل تفكر في البيع مستقبلاً؟ (يؤثر على قرارات التصميم)']},
+ {t:'الميزانية والأولويات',q:['ما الميزانية الإجمالية التي لا تريد تجاوزها (بناء + تشطيب)؟','ما الأشياء الثلاثة التي تستحق صرفاً إضافياً في نظرك؟','ما الذي تتنازل عنه أولاً إذا ضاقت الميزانية؟','هل خصصت احتياطياً (١٠–١٥٪) لمفاجآت البناء؟']},
+ {t:'التشغيل والاستدامة',q:['هل تهمك كفاءة الطاقة وخفض الفاتورة على المدى الطويل؟','هل تريد عزلاً جيداً وحلولاً تقلل الحرارة الداخلة؟','ما مستوى الصيانة الذي تقبله (خامات سهلة مقابل فاخرة)؟']}
+];
+var DEG=['لا يقبل التنازل','مهم','تحسين'];
+function fresh(){var s=[];for(var i=0;i<10;i++)s.push({t:'',d:null});return {v:1,a:{},sum:s}}
+var ST=TK.store('bb_tool_fifty_v1',fresh,1),S=ST.get();
+
+var items=[],qn=0;
+function drawQs(){
+  var host=$('qs'),toc=$('toc');host.innerHTML='';toc.innerHTML='';items=[];qn=0;
+  G.forEach(function(g,gi){
+    var gid='g'+(gi+1),sec=el('div','qgroup');sec.id=gid;sec.style.scrollMarginTop='140px';
+    var h=el('h3',null,ar(gi+1)+'. '+g.t);var cnt=el('span');h.appendChild(cnt);sec.appendChild(h);
+    var a=el('a',null,ar(gi+1)+'. '+g.t);a.href='#'+gid;toc.appendChild(a);
+    var ids=[];
+    g.q.forEach(function(q){
+      qn++;var id=qn;ids.push(id);
+      var row=el('div','q50');row.appendChild(el('span','n',ar(id)));
+      var lab=el('label','t',q);lab.htmlFor='a'+id;row.appendChild(lab);
+      var wrap=el('div','a'),ta=el('textarea');ta.id='a'+id;ta.rows=1;ta.placeholder='إجابتكم..';ta.value=S.a[id]||'';
+      ta.addEventListener('input',function(){if(ta.value.trim())S.a[id]=ta.value;else delete S.a[id];ST.save();TK.grow(ta);upd()});
+      wrap.appendChild(ta);row.appendChild(wrap);
+      var tl=el('div','tools'),add=el('button','add','أضفه للخلاصة');add.type='button';
+      add.addEventListener('click',function(){var v=(S.a[id]||'').trim();if(!v)return;var k=S.sum.findIndex(function(x){return !x.t.trim()});
+        if(k<0){ST.flash('الخلاصة ممتلئة: عشرة أشياء.. احذف واحداً أولاً');return}
+        S.sum[k].t=v;ST.save();drawSum();ST.flash('أُضيف إلى الخلاصة رقم '+ar(k+1))});
+      tl.appendChild(add);row.appendChild(tl);
+      sec.appendChild(row);items.push({id:id,ta:ta,add:add});
+    });
+    host.appendChild(sec);g._cnt=cnt;g._ids=ids;g._a=a;
+  });
+  setTimeout(function(){items.forEach(function(o){TK.grow(o.ta)})},0);
+}
+function upd(){
+  var n=Object.keys(S.a).length;$('doneN').textContent=ar(n);$('bar').style.width=(n/50*100)+'%';
+  G.forEach(function(g){var d=g._ids.filter(function(i){return S.a[i]}).length;g._cnt.textContent=ar(d)+' من '+ar(g._ids.length);g._a.classList.toggle('done',d===g._ids.length)});
+  items.forEach(function(o){o.add.disabled=!(S.a[o.id]||'').trim()});
+}
+function drawSum(){
+  var host=$('sumRows');host.innerHTML='';
+  S.sum.forEach(function(r,i){
+    var row=el('div','sumrow');row.appendChild(el('span','n',ar(i+1)));
+    var ta=el('textarea');ta.rows=1;ta.value=r.t;ta.placeholder='ما خرجت به';ta.setAttribute('aria-label','الخلاصة '+ar(i+1));
+    ta.addEventListener('input',function(){r.t=ta.value;ST.save();TK.grow(ta)});row.appendChild(ta);
+    var dg=el('div','deg');dg.setAttribute('role','group');dg.setAttribute('aria-label','درجته');
+    DEG.forEach(function(d,k){var b=el('button','d'+k,d);b.type='button';b.setAttribute('aria-pressed',String(r.d===k));
+      b.addEventListener('click',function(){r.d=r.d===k?null:k;ST.save();drawSum()});dg.appendChild(b)});
+    row.appendChild(dg);host.appendChild(row);setTimeout(function(){TK.grow(ta)},0);
+  });
+}
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawQs();drawSum();upd();ST.flash('بدأت من جديد')});
+drawQs();drawSum();upd();
+})();
+</script>
+</body>
+</html>

@@ -135,3 +135,61 @@ dialog.rn .row{display:flex;gap:8px;justify-content:flex-start}
 .tsec{scroll-margin-top:140px}
 @media (max-width:760px){.cands{position:static}.cands-in{gap:8px}}
 @media print{.flags{display:block}.flags>div{margin-bottom:10px;break-inside:auto}.tsec>h2,.tsec>.lead2{break-after:avoid}.cmp tr{break-inside:avoid}}
+
+/* حالات البنود الثلاث (دليل الأرض) */
+.lchk{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.lchk>*{min-width:0}
+.lchk .t{font-size:16px;line-height:1.75}
+.tri{display:inline-flex;border:1px solid var(--line-2);border-radius:3px;overflow:hidden;align-self:start}
+.tri button{font:inherit;font-size:13px;background:var(--sheet);border:0;padding:6px 10px;color:var(--ink-2);cursor:pointer;display:inline-flex;gap:5px;align-items:center;white-space:nowrap}
+.tri button+button{border-right:1px solid var(--line-2)}
+.tri button .s{font-family:var(--mono);font-size:13px}
+.tri button[aria-pressed="true"].ok{background:var(--ok);color:#fff}
+.tri button[aria-pressed="true"].chk2{background:var(--major);color:#fff}
+.tri button[aria-pressed="true"].bad{background:var(--stop);color:#fff}
+.lchk .note{grid-column:1/-1}
+.lchk .note textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line-2);padding:4px 2px;min-height:32px;resize:vertical}
+.lchk .note textarea:focus{outline:none;border-bottom:1px solid var(--terra);background:var(--sheet)}
+.lchk .note textarea:not(:placeholder-shown){background:var(--sheet);border:1px solid var(--line);padding:6px 8px}
+.prog-line{display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);margin-top:8px}
+.prog-line b{font-family:var(--mono);color:var(--ink)}
+.cost input{width:120px;font:inherit;font-size:14px;text-align:center;border:1px solid var(--line-2);background:var(--paper);padding:6px;border-radius:2px;direction:ltr}
+.cmp td.num{font-family:var(--mono);text-align:center}
+.tally-line{font-size:12.5px;margin-top:4px}
+.tally-line .r{color:var(--stop)} .tally-line .y{color:var(--major)} .tally-line .g{color:var(--ok)}
+@media (max-width:760px){.lchk{grid-template-columns:1fr}.tri{justify-self:start}}
+
+/* الخمسون سؤالاً */
+.q50{padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:34px 1fr;gap:4px 12px}
+.q50>*{min-width:0}
+.q50 .n{font-family:var(--mono);font-size:13px;color:var(--terra);padding-top:3px}
+.q50 .t{font-size:16px;font-weight:700;line-height:1.7}
+.q50 .a{grid-column:2}
+.q50 .a textarea{width:100%;font:inherit;font-size:14.5px;color:var(--ink);background:transparent;border:0;border-bottom:1px dashed var(--line-2);padding:6px 2px;min-height:38px;resize:vertical;line-height:1.7}
+.q50 .a textarea:focus{outline:none;border-bottom:1px solid var(--terra);background:var(--sheet)}
+.q50 .a textarea:not(:placeholder-shown){background:var(--sheet);border:1px solid var(--line);padding:8px 10px}
+.q50 .tools{grid-column:2;display:flex;gap:8px;margin-top:4px}
+.q50 .add{font:inherit;font-size:12.5px;background:none;border:1px solid var(--line-2);color:var(--ink-2);padding:3px 10px;border-radius:3px;cursor:pointer}
+.q50 .add:hover{border-color:var(--terra);color:var(--terra)}
+.q50 .add:disabled{opacity:.4;cursor:default}
+.progress{height:6px;background:var(--line);margin-top:10px;position:relative;overflow:hidden}
+.progress i{position:absolute;inset-block:0;right:0;background:var(--terra);transition:width .3s var(--ease)}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.toc a{font-size:13px;text-decoration:none;color:var(--ink-2);border:1px solid var(--line-2);padding:3px 10px;border-radius:999px;background:var(--sheet)}
+.toc a.done{border-color:var(--ok);color:var(--ok)}
+.sum10{counter-reset:s}
+.sumrow{display:grid;grid-template-columns:34px 1fr auto;gap:8px 12px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.sumrow>*{min-width:0}
+.sumrow .n{font-family:var(--mono);color:var(--terra);font-size:14px;padding-top:6px}
+.sumrow textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--sheet);border:1px solid var(--line);padding:7px 10px;min-height:40px;resize:vertical;line-height:1.7}
+.deg{display:inline-flex;border:1px solid var(--line-2);border-radius:3px;overflow:hidden;align-self:start}
+.deg button{font:inherit;font-size:12.5px;background:var(--sheet);border:0;padding:7px 10px;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.deg button+button{border-right:1px solid var(--line-2)}
+.deg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.deg button[aria-pressed="true"].d0{background:var(--stop);color:#fff}
+@media (max-width:760px){.sumrow{grid-template-columns:28px 1fr}.sumrow .deg{grid-column:2;justify-self:start}}
+@media print{.toc,.q50 .tools,.progress{display:none!important}.q50{break-inside:avoid}.q50 .a textarea,.sumrow textarea{border:0;padding:0;background:none}.deg button{display:none}.deg button[aria-pressed="true"]{display:inline-block;background:none!important;color:#000!important;font-weight:700}.tri button{display:none}.tri button[aria-pressed="true"]{display:inline-flex;background:none!important;color:#000!important;font-weight:700}}
+@media (max-width:760px){.tri{display:flex;width:100%;justify-self:stretch}.tri button{flex:1 1 0;min-width:0;justify-content:center;white-space:normal;padding:7px 4px;font-size:12.5px;text-align:center}}
+@media (max-width:760px){.lchk{grid-template-columns:minmax(0,1fr)}.q,.q50{grid-template-columns:28px minmax(0,1fr)}}
+.tool-main section.tsec{padding-block:0;border-top:0;margin-top:52px}
+.cmp td.num{font-family:var(--font);font-weight:700;font-size:15px}

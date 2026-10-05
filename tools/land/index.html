@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>دليل اختيار الأرض · البيت بيتك</title>
+<meta name="description" content="ما تفحصه قبل أن تشتري أرض بيت العمر: قوائم الفحص الخمس، والتكلفة الحقيقية، وجدول الحسم بين ثلاث أراضٍ.">
+<meta property="og:title" content="دليل اختيار الأرض">
+<meta property="og:description" content="ما تفحصه قبل أن تشتري أرض بيت العمر.">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610052300">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610052300">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><img alt="SAYAH" src="../../assets/img/sayah.png"><b>البيت بيتك</b></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>دليل اختيار الأرض</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">02</span>
+    <span class="stage-tag">مرحلة القرار</span>
+    <h1>دليل اختيار الأرض</h1>
+    <p class="sub">ما تفحصه قبل أن تشتري أرض بيت العمر</p>
+  </div>
+  <div class="howto">
+    <div><h2>متى تستخدمه؟</h2><p>قبل الشراء وقبل دفع العربون. الأرض هي القرار الذي يحكم كل ما بعده؛ فأفضل مخطط في العالم لا يصلح أرضاً اختيرت غلط.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>افحص كل أرض مرشحة بالقوائم الخمس، بزيارات في أوقات مختلفة.</li>
+      <li>علّم: <b style="color:var(--ok)">سليم</b>، <b style="color:var(--major)">△ يحتاج تحقق</b>، <b style="color:var(--stop)">✕ مشكلة محتملة</b>.</li>
+      <li>احسب التكلفة الحقيقية ثم احسم بجدول المقارنة.</li>
+    </ol></div>
+  </div>
+</div>
+
+<div class="cands">
+  <div class="wrap cands-in">
+    <span class="cands-lbl">الأرض الحالية:</span>
+    <div id="candList" class="cands-in" role="group" aria-label="الأراضي"></div>
+    <span class="hint" id="saved" aria-live="polite"></span>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="tsec" aria-labelledby="h-l">
+    <h2 id="h-l"><span class="k">١</span>القوائم الخمس</h2>
+    <p class="lead2">افحص <b class="who-now"></b> بنداً بنداً. ويمكنك أن تكتب تحت أي بند ما وجدته.</p>
+    <div class="prog-line" id="progLine"></div>
+    <div id="lists"></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-c">
+    <h2 id="h-c"><span class="k">٢</span>التكلفة الحقيقية.. لا سعر اللوحة</h2>
+    <p class="lead2">التكلفة الكاملة = السعر + الردم أو المعالجة + التوصيلات + الرسوم. اكتب المبالغ بالريال، ويُحسب الإجمالي وحده.</p>
+    <div class="cmp-wrap"><table class="cmp cost" id="cost"></table></div>
+  </section>
+
+  <section class="tsec" aria-labelledby="h-d">
+    <h2 id="h-d"><span class="k">٣</span>جدول الحسم</h2>
+    <p class="lead2">قيّم كل أرض من ١ إلى ٥ في كل معيار.</p>
+    <div class="cmp-wrap"><table class="cmp" id="dec"></table></div>
+  </section>
+
+  <div class="note-box">
+    <b>تنويه</b>
+    <p>بعض القيود لا تراها إلا عين مختصة: نسبة بناء تقلص حلمك، أو منسوب يبتلع ميزانيتك ردماً، أو شكل أرض يهدر ربع مساحتها. رأي معماري واحد قبل الشراء.. أرخص تأمين في المشروع كله.</p>
+  </div>
+
+  <section class="tsec print-only" id="printSum" aria-hidden="true"></section>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الملخص أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+  </div>
+</div>
+</main>
+
+<dialog class="rn" id="dlg">
+  <form method="dialog">
+    <h3>اسم الأرض</h3>
+    <input id="dlgIn" maxlength="40" autocomplete="off" aria-label="اسم الأرض" placeholder="مثال: أرض حي الروضة">
+    <div class="row"><button class="btn sm" value="ok">حفظ</button><button class="btn sm line" value="cancel" formnovalidate>إلغاء</button></div>
+  </form>
+</dialog>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610052300"></script>
+<script src="../../assets/js/config.js?v=202610052300"></script>
+<script src="../../assets/js/session.js?v=202610052300"></script>
+<script src="../../assets/js/toolkit.js?v=202610052300"></script>
+<script>
+(function(){
+var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var LISTS=[
+ {t:'الأنظمة وحقوق البناء.. الأهم',i:['ما نسبة البناء المسموحة؟ وهل تكفيك؟','ما مقدار الارتدادات النظامية من كل جهة؟','كم عدد الأدوار المسموح بها؟ وهل يسمح بملحق؟','هل تكفي المساحة الصافية بعد الارتدادات لاحتياج عائلتك؟','هل المخطط معتمد والاستخدام سكني بلا اشتراطات خاصة؟']},
+ {t:'الموقع والمحيط',i:['قرب الخدمات: مساجد، مدارس، أسواق، طرق رئيسية.','الهدوء والازدحام.. زر الأرض في أوقات مختلفة من اليوم.','مصادر إزعاج محتملة: شارع تجاري، محطة، ورش، مصنع.','نضج الحي والبنية التحتية ومستقبل التطوير حوله.']},
+ {t:'التوجيه والمناخ',i:['اتجاه الواجهة: من أين تدخل شمس الصباح؟ وأين تضرب شمس العصر؟','اتجاه الرياح المريحة.. ومصدر الغبار.','عدد الشوارع المحيطة وأثرها على الخصوصية والتصميم والسعر.','إطلالة تستحق الاستفادة.. أو منظر يجب حجبه.']},
+ {t:'الأرض فنياً',i:['منسوب الأرض مقارنة بالشارع.. هل تحتاج ردماً أو حفراً مكلفاً؟','نوع التربة وهل تحتاج دراسة أو معالجة خاصة؟','أبعاد الأرض وانتظام شكلها.. الأشكال الصعبة تهدر مساحة وتكلف تصميماً.','توفر الخدمات على الحد: كهرباء، ماء، صرف، اتصالات.']},
+ {t:'الأوراق والتكلفة الحقيقية',i:['مطابقة الصك للواقع: المساحة والحدود ونوع الملكية.','خلو الأرض من النزاعات وحقوق الارتفاق.','التكلفة الكاملة = السعر + الردم/المعالجة + التوصيلات + الرسوم.','مقارنة السعر بمتوسط المنطقة لأراضٍ مشابهة.']}
+];
+var COST=['سعر الأرض','ردم / حفر / معالجة تربة','توصيل الخدمات','رسوم وسعي وأوراق'];
+var CRIT=['الأنظمة تكفي احتياجنا','الموقع والمحيط والهدوء','التوجيه والمناخ','سلامة الأرض فنياً','التكلفة الحقيقية مقابل القيمة','إحساس العائلة بالمكان'];
+var STATES=[['ok','سليم','☐'],['chk2','يحتاج تحقق','△'],['bad','مشكلة محتملة','✕']];
+var TOTAL=0;LISTS.forEach(function(l){TOTAL+=l.i.length});
+
+function fresh(){var o={v:1,lands:[{id:'a',name:'الأرض أ'},{id:'b',name:'الأرض ب'},{id:'c',name:'الأرض ج'}],active:'a',st:{},notes:{},cost:{},dec:{}};['a','b','c'].forEach(function(k){o.st[k]={};o.notes[k]={};o.cost[k]={};o.dec[k]={}});return o}
+var ST=TK.store('bb_tool_land_v1',fresh,1),S=ST.get();
+function land(id){for(var i=0;i<S.lands.length;i++)if(S.lands[i].id===id)return S.lands[i]}
+
+function drawLands(){
+  var box=$('candList');box.innerHTML='';
+  S.lands.forEach(function(c){
+    var w=el('div','cand'+(c.id===S.active?' on':''));
+    var p=el('button','pick',c.name);p.type='button';p.setAttribute('aria-pressed',String(c.id===S.active));
+    p.addEventListener('click',function(){S.active=c.id;ST.save();drawAll()});
+    var r=el('button','ren');r.type='button';r.setAttribute('aria-label','تسمية '+c.name);
+    r.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M11.5 2.5l2 2L6 12l-3 1 1-3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+    r.addEventListener('click',function(){TK.rename(c.name,function(v){c.name=v;ST.save();drawAll()})});
+    w.appendChild(p);w.appendChild(r);box.appendChild(w);
+  });
+  document.querySelectorAll('.who-now').forEach(function(e){e.textContent=land(S.active).name});
+}
+
+var rows=[];
+function drawLists(){
+  var host=$('lists');host.innerHTML='';rows=[];var n=0;
+  LISTS.forEach(function(L,li){
+    var g=el('div','qgroup');var h=el('h3',null,ar(li+1)+'. '+L.t);h.appendChild(el('span',null,ar(L.i.length)+' بنود'));g.appendChild(h);
+    L.i.forEach(function(t){
+      n++;var id=n;var row=el('div','lchk');row.appendChild(el('div','t',t));
+      var tri=el('div','tri');tri.setAttribute('role','group');tri.setAttribute('aria-label','حالة البند');
+      STATES.forEach(function(s){var b=el('button',s[0]);b.type='button';b.appendChild(el('span','s',s[2]));b.appendChild(document.createTextNode(s[1]));
+        b.addEventListener('click',function(){var cur=S.st[S.active][id];if(cur===s[0])delete S.st[S.active][id];else S.st[S.active][id]=s[0];ST.save();paint();drawDec()});tri.appendChild(b)});
+      row.appendChild(tri);
+      var nt=el('div','note'),ta=el('textarea');ta.rows=1;ta.placeholder='ما وجدته..';ta.setAttribute('aria-label','ملاحظة: '+t);
+      ta.addEventListener('input',function(){if(ta.value)S.notes[S.active][id]=ta.value;else delete S.notes[S.active][id];ST.save();TK.grow(ta)});
+      nt.appendChild(ta);row.appendChild(nt);g.appendChild(row);rows.push({id:id,tri:tri,ta:ta});
+    });
+    host.appendChild(g);
+  });
+}
+function counts(k){var c={ok:0,chk2:0,bad:0};Object.keys(S.st[k]).forEach(function(i){c[S.st[k][i]]++});return c}
+function paint(){
+  rows.forEach(function(r){var v=S.st[S.active][r.id];r.tri.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.classList.contains(v)))});r.ta.value=S.notes[S.active][r.id]||'';TK.grow(r.ta)});
+  var c=counts(S.active),done=c.ok+c.chk2+c.bad,pl=$('progLine');pl.innerHTML='';
+  [['فُحص',ar(done)+' من '+ar(TOTAL)],['سليم',ar(c.ok)],['يحتاج تحقق',ar(c.chk2)],['مشكلة محتملة',ar(c.bad)]].forEach(function(x){var s=el('span',null,x[0]+': ');s.appendChild(el('b',null,x[1]));pl.appendChild(s)});
+}
+
+function drawCost(){
+  var T=$('cost');T.innerHTML='';var th=el('thead'),hr=el('tr');hr.appendChild(el('th',null,'البند'));S.lands.forEach(function(c){hr.appendChild(el('th','c',c.name))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  COST.forEach(function(name,ri){var tr=el('tr');tr.appendChild(el('td',null,name));
+    S.lands.forEach(function(c){var td=el('td','c'),i=el('input');i.inputMode='decimal';i.placeholder='ريال';i.value=S.cost[c.id][ri]||'';i.setAttribute('aria-label',name+' · '+c.name);
+      i.addEventListener('input',function(){S.cost[c.id][ri]=i.value;if(!i.value)delete S.cost[c.id][ri];ST.save();sumCost()});td.appendChild(i);tr.appendChild(td)});
+    tb.appendChild(tr)});
+  var tot=el('tr','total');tot.id='costTot';tot.appendChild(el('td',null,'الإجمالي الحقيقي'));S.lands.forEach(function(){tot.appendChild(el('td','c num'))});tb.appendChild(tot);T.appendChild(tb);sumCost();
+}
+function costOf(k){var s=0,any=false;Object.keys(S.cost[k]).forEach(function(i){var v=num(S.cost[k][i]);if(v){any=true;s+=v}});return any?s:null}
+function sumCost(){var tds=$('costTot').querySelectorAll('td.c');S.lands.forEach(function(c,i){var v=costOf(c.id);tds[i].textContent=v==null?'':fmt(v,0)+' ريال'})}
+
+function drawDec(){
+  var T=$('dec');T.innerHTML='';var th=el('thead'),hr=el('tr');hr.appendChild(el('th',null,'المعيار'));S.lands.forEach(function(c){hr.appendChild(el('th','c',c.name))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');
+  CRIT.forEach(function(cr,ri){var tr=el('tr');tr.appendChild(el('td',null,cr));
+    S.lands.forEach(function(c){var td=el('td','c'),g=el('div','score');g.setAttribute('role','group');g.setAttribute('aria-label',cr+' · '+c.name);
+      for(var v=1;v<=5;v++)(function(v){var b=el('button',null,ar(v));b.type='button';b.setAttribute('aria-pressed',String(S.dec[c.id][ri]===v));b.setAttribute('aria-label',ar(v)+' من ٥');
+        b.addEventListener('click',function(){if(S.dec[c.id][ri]===v)delete S.dec[c.id][ri];else S.dec[c.id][ri]=v;ST.save();drawDec()});g.appendChild(b)})(v);
+      td.appendChild(g);tr.appendChild(td)});
+    tb.appendChild(tr)});
+  var tot=el('tr','total');tot.appendChild(el('td',null,'المجموع من ٣٠'));
+  S.lands.forEach(function(c){var sc=S.dec[c.id],k=Object.keys(sc).length,sum=0;Object.keys(sc).forEach(function(x){sum+=sc[x]});
+    var td=el('td','c');if(!k)td.appendChild(el('div','lock','لم تُقيَّم بعد'));else{td.appendChild(el('b',null,ar(sum)));if(k<CRIT.length)td.appendChild(el('div','lock','قيّمت '+ar(k)+' من '+ar(CRIT.length)))}
+    var ct=counts(c.id);if(ct.bad||ct.chk2){var tl=el('div','tally-line');if(ct.bad)tl.appendChild(el('span','r','✕ '+ar(ct.bad)+'  '));if(ct.chk2)tl.appendChild(el('span','y','△ '+ar(ct.chk2)));td.appendChild(tl)}
+    tot.appendChild(td)});
+  tb.appendChild(tot);T.appendChild(tb);
+}
+
+function buildPrint(){
+  var P=$('printSum');P.innerHTML='';var h=el('h2');h.appendChild(el('span','k','٤'));h.appendChild(document.createTextNode('ملخص الأراضي'));P.appendChild(h);
+  var all=[];LISTS.forEach(function(L){L.i.forEach(function(t){all.push(t)})});
+  S.lands.forEach(function(c){
+    var box=el('div','ps');box.appendChild(el('h3',null,c.name));var any=false;
+    all.forEach(function(t,i){var s=S.st[c.id][i+1],n=S.notes[c.id][i+1];if(s==='bad'||s==='chk2'||n){any=true;box.appendChild(el('p','pf',(s==='bad'?'✕ ':s==='chk2'?'△ ':'☐ ')+t+(n?' · '+n:'')))}});
+    var v=costOf(c.id);if(v!=null){any=true;box.appendChild(el('p','pf','الإجمالي الحقيقي: '+fmt(v,0)+' ريال'))}
+    if(!any)box.appendChild(el('p','pf','لا ملاحظات مسجلة.'));P.appendChild(box);
+  });
+}
+window.addEventListener('beforeprint',buildPrint);
+$('btnPrint').addEventListener('click',function(){buildPrint();window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
+
+function drawAll(){drawLands();paint();drawCost();drawDec()}
+drawLists();drawAll();
+})();
+</script>
+</body>
+</html>
