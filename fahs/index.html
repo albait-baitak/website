@@ -5,7 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الفحص الفني · البيت بيتك</title>
 <meta name="description" content="الفحص الفني لمخططات المسكن السعودي قبل رفعها للأمانة: فحص المطابقة للاشتراطات والكود وموجهات العمارة السعودية، وفحص جودة التصميم.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F6F5F1">
+<meta property="og:title" content="الفحص الفني · البيت بيتك">
+<meta property="og:description" content="افحص مخطط المسكن قبل رفعه للأمانة: فحص المطابقة وفحص جودة التصميم في تقرير واحد.">
+<meta property="og:locale" content="ar_SA">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F6F5F1">
+<meta property="og:title" content="الفحص الفني · البيت بيتك">
+<meta property="og:description" content="افحص مخطط المسكن قبل رفعه للأمانة: فحص المطابقة وفحص جودة التصميم في تقرير واحد.">
+<meta property="og:locale" content="ar_SA">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../assets/css/fahs.css">
 </head>
@@ -18,7 +28,7 @@
     <nav aria-label="أقسام الصفحة">
       <a href="#try">العينة</a><a href="#layers">ما يُفحص</a><a href="#how">آلية العمل</a><a href="#needs">المطلوب منك</a><a href="#terms">السرية والمسؤولية</a>
     </nav>
-    <a class="btn sm" href="../account/">الدخول</a>
+    <div class="auth" data-auth><a class="btn sm" href="../account/">الدخول</a></div>
   </div>
 </header>
 
@@ -227,6 +237,9 @@
 
 <script src="../assets/js/rules.js"></script>
 <script src="../assets/js/report.js"></script>
+<script src="../assets/vendor/supabase-2.117.2.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/session.js"></script>
 <script src="../assets/js/motion.js"></script>
 <script>window.FQ_LOGO='../assets/img/sayah.png';FQ.render(SAMPLE,document.getElementById('report'));</script>
 </body>

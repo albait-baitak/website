@@ -3,27 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>البيت بيتك</title>
-<meta name="description" content="البيت بيتك: منظومة صيّاح السميران لرحلة بيت العمر، من القرار إلى التصميم إلى التنفيذ إلى السكن. المتاح الآن: الفحص الفني لمخططات المساكن قبل رفعها للأمانة.">
+<title>البيت بيتك · أدوات رحلة بيت العمر</title>
+<meta name="description" content="البيت بيتك: أدوات تشتغل معك على بيتك في كل محطة من رحلة بيت العمر، من القرار إلى التصميم إلى التنفيذ إلى السكن.">
+<meta property="og:title" content="البيت بيتك">
+<meta property="og:description" content="أدوات تشتغل معك على بيتك في كل محطة من رحلة بيت العمر.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="assets/css/fahs.css">
 <style>
-.home{min-height:calc(100vh - 61px - 90px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(56px,9vw,112px)}
-.home-hero{max-width:40em}
-.home-hero h1{font-size:clamp(36px,5.4vw,60px)}
-.home-hero .lead{font-size:19px;color:var(--ink-2);margin-top:18px;max-width:65ch}
-.stations{display:flex;flex-wrap:wrap;gap:0;margin-top:28px;border-top:1px solid var(--line)}
-.stations span{font-size:14px;color:var(--ink-2);padding:10px 0;margin-left:22px}
-.stations span b{font-family:var(--mono);font-weight:500;color:var(--terra);font-size:12px;margin-left:6px}
-.gate{margin-top:clamp(36px,5vw,56px);display:grid;grid-template-columns:1fr auto;gap:20px 32px;align-items:end;background:var(--sheet);border:1px solid var(--line-2);border-top:2px solid var(--ink);padding:26px 28px}
-.gate>*{min-width:0}
-.gate .k{font-size:13px;font-weight:700;color:var(--terra)}
-.gate h2{font-size:clamp(24px,3vw,32px);margin-top:4px}
-.gate p{color:var(--ink-2);margin-top:8px;max-width:65ch}
-.gate .row{display:flex;gap:10px;flex-wrap:wrap}
-.quiet{margin-top:18px;font-size:14px;color:var(--ink-2)}
-@media (max-width:720px){.gate{grid-template-columns:1fr;padding:22px 18px}}
+.home-hero{padding-block:clamp(56px,9vw,104px) clamp(36px,5vw,56px);max-width:44em}
+.home-hero h1{font-size:clamp(38px,5.6vw,62px)}
+.home-hero .lead{font-size:19px;color:var(--ink-2);margin-top:18px;max-width:58ch}
+.journey{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-bottom:clamp(48px,7vw,80px)}
+.journey::before{content:"";position:absolute;top:0;inset-inline:0;height:2px;background:var(--ink)}
+.stage{position:relative;padding:30px 20px 8px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.stage+.stage{border-right:1px solid var(--line)}
+.stage::before{content:"";position:absolute;top:-6px;right:20px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.stage.live::before{background:var(--terra);border-color:var(--terra)}
+.stage .k{font-family:var(--mono);font-size:12px;color:var(--terra)}
+.stage h2{font-size:26px;line-height:1.3}
+.stage>p{font-size:14.5px;color:var(--ink-2);line-height:1.75;min-height:3.5em}
+.svc{border:1px solid var(--line);background:var(--sheet);padding:14px 16px 14px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;transition:transform .12s var(--ease),box-shadow .12s var(--ease),border-color .12s}
+.svc b{font-size:16px}
+.svc span{font-size:13.5px;color:var(--ink-2);line-height:1.7}
+.svc .who-for{font-size:12px;color:var(--ink-2)}
+.svc em{font-style:normal;font-size:12px;font-weight:700;align-self:flex-start;padding:1px 9px;border:1px solid var(--line-2);color:var(--ink-2);margin-top:2px}
+.svc.soon{background:transparent;border-style:dashed}
+a.svc{border-color:var(--terra);border-width:1px 1px 1px 1px;box-shadow:inset -3px 0 0 var(--terra)}
+a.svc em{border-color:var(--terra);background:var(--terra);color:var(--on-terra)}
+a.svc:hover{transform:translateY(-2px);box-shadow:inset -3px 0 0 var(--terra),0 8px 18px -12px rgba(31,26,23,.45)}
+.offices{display:grid;grid-template-columns:1fr auto;gap:18px 32px;align-items:center;background:#1F1A17;color:#F6F5F1;border:1px solid var(--line);padding:26px 30px;margin-bottom:clamp(56px,8vw,96px)}
+.offices>*{min-width:0}
+.offices .k{font-size:13px;font-weight:700;color:#E2B9A2}
+.offices h2{font-size:clamp(22px,2.6vw,28px);margin-top:2px;color:inherit}
+.offices p{opacity:.82;margin-top:6px;max-width:62ch;font-size:15px}
+.offices .row{display:flex;gap:10px;flex-wrap:wrap}
+.offices .btn.line.on-ink{color:#F6F5F1}
+@media (max-width:980px){.journey{grid-template-columns:1fr 1fr}.stage:nth-child(3){border-right:0}.stage:nth-child(n+3){border-top:1px solid var(--line);margin-top:8px}.stage:nth-child(n+3)::before{display:none}}
+@media (max-width:620px){.journey{grid-template-columns:1fr}.stage+.stage{border-right:0;border-top:1px solid var(--line)}.stage::before{display:none}.stage{padding-inline:0}.stage>p{min-height:0}.offices{grid-template-columns:1fr;padding:22px 18px}}
 </style>
 </head>
 <body>
@@ -31,38 +52,63 @@
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./"><img alt="SAYAH" src="assets/img/sayah.png"><b>البيت بيتك</b></a>
-    <nav aria-label="روابط"><a href="fahs/">الفحص الفني</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
-    <a class="btn sm" href="account/">الدخول</a>
+    <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="fahs/">الفحص الفني</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="account/">الدخول</a></div>
   </div>
 </header>
 
 <main>
-<div class="wrap home">
+<div class="wrap">
   <div class="home-hero" data-rv>
     <p class="kicker">بيت العمر.. من القرار إلى السكن</p>
     <h1>البيت بيتك</h1>
-    <p class="lead">منظومة صيّاح السميران لرحلة بيت العمر. تُبنى قطعة قطعة، ولا يُفتح منها إلا ما اكتمل.</p>
-    <div class="stations" aria-label="محطات الرحلة"><span><b>01</b>القرار</span><span><b>02</b>التصميم</span><span><b>03</b>التنفيذ</span><span><b>04</b>السكن</span></div>
+    <p class="lead">أربع محطات يمر بها كل من يبني بيته: القرار، ثم التصميم، ثم التنفيذ، ثم السكن. ولكل محطة أدوات تشتغل معك على بيتك أنت، فتُدخل بياناتك وتخرج بما تحتاجه لخطوتك التالية.</p>
   </div>
 
-  <div class="gate" data-rv>
-    <div>
-      <span class="k">المتاح الآن · للمكاتب الهندسية</span>
-      <h2>الفحص الفني</h2>
-      <p>فحص المخطط قبل رفعه للأمانة: فحص المطابقة للاشتراطات والكود وموجهات العمارة السعودية، وفحص جودة التصميم، في تقرير واحد يحدد كل ملاحظة بمرجعها ودرجتها وعلاجها.</p>
+  <div class="journey" id="journey" aria-label="مراحل رحلة بيت العمر">
+    <div class="stage" data-rv>
+      <span class="k">01</span><h2>القرار</h2>
+      <p>قبل أن تتصل بمصمم: ماذا تحتاج فعلاً من بيتك؟</p>
+      <div class="svc soon"><b>مولد البرنامج المعماري</b><span>تجيب عن أسئلة أسرتك وأيامك، فيخرج لك برنامج الفراغات ومساحاتها.</span><em>قريباً</em></div>
     </div>
-    <div class="row"><a class="btn" href="fahs/">تعرّف على الفحص الفني</a><a class="btn line" href="account/">الدخول</a></div>
+    <div class="stage live" data-rv>
+      <span class="k">02</span><h2>التصميم</h2>
+      <p>المخطط قبل أن يُرفع للأمانة وقبل أن يُبنى.</p>
+      <a class="svc" href="fahs/"><b>الفحص الفني</b><span class="who-for">للمكاتب الهندسية</span><span>فحص المطابقة للاشتراطات والكود والموجهات، وفحص جودة التصميم، في تقرير واحد.</span><em>متاح الآن</em></a>
+    </div>
+    <div class="stage" data-rv>
+      <span class="k">03</span><h2>التنفيذ</h2>
+      <p>من المخطط إلى الموقع، بأرقام واضحة ومتابعة منتظمة.</p>
+      <div class="svc soon"><b>جداول الكميات</b><span>كميات البناء والتشطيب من بيانات بيتك.</span><em>قريباً</em></div>
+      <div class="svc soon"><b>إدارة التنفيذ</b><span>مراحل البناء ونقاط الاستلام في كل مرحلة.</span><em>قريباً</em></div>
+    </div>
+    <div class="stage" data-rv>
+      <span class="k">04</span><h2>السكن</h2>
+      <p>البيت بعد الاستلام: يُشغَّل ويُصان ليبقى.</p>
+      <div class="svc soon"><b>الصيانة والتشغيل</b><span>جدول صيانة لبيتك بأنظمته ومواده.</span><em>قريباً</em></div>
+    </div>
   </div>
-  <p class="quiet" data-rv>أدوات المحطات الأخرى تُبنى تباعاً.</p>
+
+  <div class="offices" data-rv>
+    <div>
+      <span class="k">للمكاتب الهندسية</span>
+      <h2>افحص المخطط قبل أن تفحصه الأمانة</h2>
+      <p>تقرير يحدد كل ملاحظة بمرجعها ودرجتها وعلاجها، قبل الرفع على بلدي.</p>
+    </div>
+    <div class="row"><a class="btn" href="fahs/">تعرّف على الفحص الفني</a><a class="btn line on-ink" href="account/?new">سجّل حساب المكتب</a></div>
+  </div>
 </div>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>البيت بيتك جزء من منظومة بيت العمر · SAYAH · الأحساء</span>
-    <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">مدونة صيّاح</a> · مقال كل أسبوع عن قرارات بيت العمر</span>
+    <span>البيت بيتك · منظومة بيت العمر · SAYAH · الأحساء</span>
+    <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span>
   </div>
 </footer>
+<script src="assets/vendor/supabase-2.117.2.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/session.js"></script>
 <script src="assets/js/motion.js"></script>
 </body>
 </html>

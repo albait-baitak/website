@@ -4,7 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الدخول · البيت بيتك</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="../assets/css/fahs.css">
 <link rel="stylesheet" href="../assets/css/app.css">
@@ -13,8 +17,8 @@
 <header class="top">
   <div class="wrap">
     <a class="brand" href="../"><img alt="SAYAH" src="../assets/img/sayah.png"><b>البيت بيتك</b></a>
-    <nav aria-label="روابط"><a href="../">الرئيسية</a></nav>
-    <button class="linkbtn" id="btnOut" type="button" hidden>تسجيل الخروج</button>
+    <nav aria-label="روابط"><a href="../">الرئيسية</a><a href="../fahs/">الفحص الفني</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../account/">الدخول</a></div>
   </div>
 </header>
 
@@ -116,6 +120,7 @@
 <script src="../assets/vendor/supabase-2.117.2.js"></script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/access.js"></script>
+<script src="../assets/js/session.js"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -129,7 +134,6 @@ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null
 function okEmail(s){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)}
 function state(t,p,back){$('stT').textContent=t;$('stP').textContent=p;$('stBack').hidden=!back;only('vState')}
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){only(b.dataset.go)})});
-$('btnOut').addEventListener('click',function(){BB.auth.signOut()});
 function errText(e){
   var c=(e&&(e.code||''))+' '+(e&&e.message||'');
   if(/invalid_credentials|Invalid login/i.test(c))return 'البريد أو كلمة المرور غير صحيحة.';
@@ -200,8 +204,8 @@ $('fReg').addEventListener('submit',function(e){
 
 function route(){
   if(recovering){only('vReset');return}
-  if(!user){$('btnOut').hidden=true;if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
-  $('btnOut').hidden=false;var p=profile||{};
+  if(!user){if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
+  var p=profile||{};
   if(p.status==='approved'&&p.role){
     var tools=BBA.toolsFor(p.role).filter(function(t){return t.live||p.role==='admin'});
     $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];

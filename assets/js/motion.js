@@ -4,7 +4,7 @@
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(reduce||!('IntersectionObserver' in window))return;
 var root=document.documentElement;root.classList.add('mo');
-function once(els,fn,th){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);fn(e.target)}})},{threshold:th||0.15,rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){io.observe(el)})}
+function once(els,fn,th){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);fn(e.target)}})},{threshold:th||0,rootMargin:'0px 0px -10% 0px'});els.forEach(function(el){io.observe(el)})}
 
 /* ١. ظهور الأقسام: كل قسم يدخل مرة واحدة، وعناصره تتتابع بفارق 70ms */
 var groups=[];
