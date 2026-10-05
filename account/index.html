@@ -200,7 +200,7 @@ $('fReg').addEventListener('submit',function(e){
 
 function route(){
   if(recovering){only('vReset');return}
-  if(!user){$('btnOut').hidden=true;if($('vSignup').hidden&&$('vState').hidden)only('vLogin');else $('loading').hidden=true;return}
+  if(!user){$('btnOut').hidden=true;if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
   $('btnOut').hidden=false;var p=profile||{};
   if(p.status==='approved'&&p.role){
     var tools=BBA.toolsFor(p.role);
