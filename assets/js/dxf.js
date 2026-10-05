@@ -247,7 +247,7 @@ function process(file){
     var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);
     if(!dxf)throw new Error('parse_failed');
     var P=collect(dxf),bb=bboxOf(P);if(!bb)throw new Error('empty');
-    var cls=clusters(P,bb);
+    var cls=clusters(P,bb);if(!cls.length)cls=[{box:bb,n:0}];
     var x=extract(P,dxf,{name:file.name,version:d.version,encoding:d.encoding},bb,cls);
     x.text=summary(x);
     var jobs=[];
