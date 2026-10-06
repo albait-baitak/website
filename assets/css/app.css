@@ -247,3 +247,10 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 #vStats,#vStats>*,#stBody>*{min-width:0}
 #vStats .card-h>.row{flex:1 1 auto;justify-content:flex-end}
 @media (max-width:560px){#vStats .card-h>.row{justify-content:flex-start}}
+/* إشعارات الجوال */
+.push-state b{display:block;font-size:15px}
+.push-state b.ok{color:var(--ok)}
+.push-state small{display:block;font-size:13px;color:var(--ink-2);margin-top:4px}
+.push-steps{margin:8px 0 0;padding-inline-start:20px;font-size:14px;color:var(--ink-2);display:grid;gap:4px}
+.push-h{font-size:14px;margin:8px 0 0}
+.push-types{display:grid;gap:10px}
