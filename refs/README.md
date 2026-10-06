@@ -5,3 +5,8 @@
 - audit.json: مراجعة مستقلة لكل بند على النص الأصلي.
 
 نصوص المراجع الكاملة محفوظة في جدول ref_docs في Supabase (للمشرف فقط).
+
+## مكتبة بنود الفيلا (refs/boq/)
+- boq_library.json: 72 بنداً (وصف، مواصفة، معايير، طريقة قياس، سعر بمصدره وطريقته). يُعاد بناؤها بـ `python3 refs/boq/compile.py`.
+- المصادر الخام: material_prices.json (رسمي، يوليو 2026)، rates_civil.json، rates_mep.json، specs.json.
+- boq_library.html: صفحة المراجعة المنشورة. لم تُربط بالموقع بعد.
