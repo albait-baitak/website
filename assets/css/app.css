@@ -266,3 +266,20 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .wsteps li.next{opacity:.7}
 .wnote{margin:14px 0 0;font-size:14px;color:var(--ink-2);line-height:1.8}
 @media (max-width:560px){.wsteps{grid-template-columns:1fr}}
+/* رأي المكتب في لوحة الإدارة */
+.fb-cell{white-space:nowrap}
+.fb-rate{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:var(--r-ctl);background:var(--paper);border:1px solid var(--line-2);margin-inline-end:6px}
+.fb-obj-pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:var(--r-ctl);color:var(--stop);border:1px solid var(--stop)}
+.fb-box{border:1px solid var(--line-2);border-radius:var(--r-card);padding:12px 14px;background:var(--paper)}
+.fb-box>b{display:block;font-size:14px;margin-bottom:8px}
+.fb-k{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fb-note{margin:8px 0 0;font-size:13.5px;color:var(--ink-2)}
+.fb-list{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.fb-list li{font-size:13.5px;border-top:1px solid var(--line);padding-top:8px}
+.fb-list li span{display:block;color:var(--ink-2);margin-top:2px}
+.fb-list .linkbtn{font-weight:700;color:var(--stop)}
+.ed-row.fb-o{background:color-mix(in srgb,var(--stop) 7%,transparent)}
+.ed-row .fb-tag{display:block;font-size:12px;margin-top:4px;line-height:1.6}
+.ed-row .fb-tag.o{color:var(--stop);font-weight:700}
+.ed-row .fb-tag.a{color:var(--ok)}
+.ed-row.fb-flash{outline:2px solid var(--stop);outline-offset:2px;transition:outline-color .3s}
