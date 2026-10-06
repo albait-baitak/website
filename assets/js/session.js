@@ -1,7 +1,7 @@
 /* رأس الموقع الموحد: حالة الدخول أعلى الصفحة في كل الصفحات، وقائمة الحساب، وقائمة الجوال */
 (function(){
 var BASE=(document.currentScript&&document.currentScript.src||'').replace(/assets\/js\/session\.js.*$/,'');
-var ROLE={admin:'مدير النظام',office:'مكتب هندسي',contractor:'مقاول',owner:'صاحب بيت'};
+var ROLE={admin:'مدير النظام',office:'مكتب هندسي',designer:'مصمم',contractor:'مقاول',owner:'فرد'};
 /* طريقة الاستخدام: مفتوحة على الشاشات الواسعة، مطوية على الجوال حتى تظهر الأداة من أول نظرة */
 try{if(window.matchMedia&&matchMedia('(min-width:900px)').matches)document.querySelectorAll('details.howto').forEach(function(d){d.open=true})}catch(e){}
 var KEY='sb-mafsmebubzvbyahmwyym-auth-token';

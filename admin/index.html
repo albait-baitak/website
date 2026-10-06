@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610060529">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610060529">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061221">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061221">
 </head>
 <body>
 <header class="top">
@@ -33,15 +33,15 @@
       </div>
 
       <section class="card" id="vAcc">
-        <div class="card-h"><h2>الحسابات</h2>
-          <div class="tabs" role="tablist" id="accFilt">
-            <button type="button" role="tab" data-f="pending" aria-selected="true">بانتظار الاعتماد</button>
-            <button type="button" role="tab" data-f="approved" aria-selected="false">المعتمدة</button>
-            <button type="button" role="tab" data-f="closed" aria-selected="false">المرفوضة والموقوفة</button>
-          </div>
+        <div class="card-h"><h2>المسجلون</h2><button class="btn sm line" type="button" id="accCsv">نزّل القائمة (CSV)</button></div>
+        <div class="acc-k" id="accK" role="tablist" aria-label="أنواع المسجلين"></div>
+        <div class="acc-tools">
+          <select id="accStatus" aria-label="الحالة"><option value="all">كل الحالات</option><option value="pending">بانتظار الاعتماد</option><option value="approved">معتمد</option><option value="closed">مرفوض أو موقوف</option></select>
+          <input id="accQ" type="search" placeholder="ابحث بالاسم أو البريد أو الجوال أو المدينة" aria-label="بحث">
+          <span class="muted" id="accN"></span>
         </div>
-        <div class="tbl-wrap"><table class="tbl" style="min-width:820px"><thead><tr><th>الاسم</th><th>الجهة</th><th>طلب أن يكون</th><th>الجوال · المدينة</th><th>البريد</th><th>التسجيل</th><th>النوع والإجراء</th></tr></thead><tbody id="accBody"></tbody></table></div>
-        <div class="empty" id="accEmpty" hidden>لا حسابات هنا.</div>
+        <div class="tbl-wrap"><table class="tbl"><thead id="accHead"></thead><tbody id="accBody"></tbody></table></div>
+        <div class="empty" id="accEmpty" hidden>لا أحد هنا.</div>
         <p class="msg" id="accMsg" role="status" style="padding:0 20px 14px"></p>
       </section>
 
@@ -140,13 +140,13 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610060529"></script>
-<script src="../assets/js/config.js?v=202610060529"></script>
-<script src="../assets/js/access.js?v=202610060529"></script>
-<script src="../assets/js/session.js?v=202610060529"></script>
-<script src="../assets/js/rules.js?v=202610060529"></script>
-<script src="../assets/js/report.js?v=202610060529"></script>
-<script src="../assets/js/boq.js?v=202610060529"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061221"></script>
+<script src="../assets/js/config.js?v=202610061221"></script>
+<script src="../assets/js/access.js?v=202610061221"></script>
+<script src="../assets/js/session.js?v=202610061221"></script>
+<script src="../assets/js/rules.js?v=202610061221"></script>
+<script src="../assets/js/report.js?v=202610061221"></script>
+<script src="../assets/js/boq.js?v=202610061221"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -165,36 +165,69 @@ $('mainTabs').addEventListener('click',function(e){var b=e.target.closest('butto
   this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
   var m=b.dataset.m;$('vAcc').hidden=m!=='acc';vis('vReqs',m==='req');vis('vBoqs',m==='boq');if(m==='acc')loadAcc();else if(m==='req')loadReqs();else loadBoqs()});
 
-/* الحسابات */
-var accs=[],accF='pending';
-var REQ={office:'مكتب هندسي',contractor:'مقاول',owner:'صاحب بيت'};
-$('accFilt').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;accF=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});drawAcc()});
-function loadAcc(){return BB.from('profiles').select('*').order('registered_at',{ascending:false,nullsFirst:false}).then(function(r){accs=r.data||[];drawAcc()})}
+/* المسجلون: مقسمون بالنوع، ولكل نوع بياناته */
+var accs=[],act={},prj={},accT='all';
+var TYPES=[['all','الكل'],['owner','الأفراد'],['designer','المصممون'],['contractor','المقاولون'],['office','المكاتب الهندسية']];
+var TYPE1={owner:'فرد',designer:'مصمم',contractor:'مقاول',office:'مكتب هندسي',admin:'مدير النظام'};
+var STAGE={decision:'القرار',design:'التصميم',build:'التنفيذ',living:'السكن'};
+var TOOL={bb_tool_first_session_v1:'أسئلة الجلسة الأولى',bb_tool_land_v1:'اختيار الأرض',bb_tool_budget_v1:'الميزانية',bb_tool_fifty_v1:'خمسون سؤالاً',bb_tool_smart_v1:'القرار الذكي',bb_tool_qty_v1:'الكميات',bb_tool_roadmap_v1:'خارطة التنفيذ',bb_tool_agree_v1:'الاتفاق',bb_tool_offers_v1:'مقارنة العروض',bb_tool_handover_v1:'ملف بيتك',bb_tool_firstyear_v1:'السنة الأولى',bb_tool_points_v1:'نقاط الكهرباء والسباكة',bb_tool_roomsizes_v1:'أبعاد الغرف',bb_tool_roughin_v1:'فحص التأسيس',bb_tool_finishes_v1:'مواد التشطيب',bb_tool_maint_v1:'الصيانة'};
+function typ(p){return p.role||p.requested_role||''}
+function stateOf(p){return p.status==='approved'?'معتمد':p.status==='pending'?'بانتظار الاعتماد':p.status==='rejected'?'مرفوض':'موقوف'}
+function ago(s){if(!s)return '·';var d=Math.floor((Date.now()-new Date(s))/864e5);return d<=0?'اليوم':d===1?'أمس':d<30?'قبل '+d+' يوماً':fmtDate(s)}
+function loadAcc(){return Promise.all([
+    BB.from('profiles').select('*').order('registered_at',{ascending:false,nullsFirst:false}),
+    BB.from('tool_data').select('user_id,key,updated_at'),
+    BB.from('projects').select('user_id')
+  ]).then(function(r){accs=(r[0].data||[]).filter(function(p){return (p.registered_at||p.role)&&p.role!=='admin'});act={};prj={};
+    (r[1].data||[]).forEach(function(t){var a=act[t.user_id]||(act[t.user_id]={last:null,keys:[]});a.keys.push(t.key);if(!a.last||t.updated_at>a.last)a.last=t.updated_at});
+    (r[2].data||[]).forEach(function(x){prj[x.user_id]=(prj[x.user_id]||0)+1});drawAcc()})}
+$('accStatus').addEventListener('change',drawAcc);$('accQ').addEventListener('input',drawAcc);
+function rows(){var st=$('accStatus').value,q=$('accQ').value.trim().toLowerCase();
+  return accs.filter(function(p){if(accT!=='all'&&typ(p)!==accT)return false;
+    if(st==='pending'&&p.status!=='pending')return false;if(st==='approved'&&p.status!=='approved')return false;if(st==='closed'&&!(p.status==='rejected'||p.status==='suspended'))return false;
+    if(q&&[p.full_name,p.office_name,p.email,p.phone,p.city,p.specialty].join(' ').toLowerCase().indexOf(q)<0)return false;return true})
+  .sort(function(a,b){return (a.status==='pending'?0:1)-(b.status==='pending'?0:1)||String(b.registered_at||'').localeCompare(String(a.registered_at||''))})}
+/* أعمدة كل نوع */
+function nameCell(p){var td=el('td');td.appendChild(el('b',p.full_name||p.office_name?null:'mono',p.full_name||p.office_name||p.email));if(p.office_name&&p.full_name){td.appendChild(el('small','sub',p.office_name))}return td}
+function contactCell(p){var td=el('td');if(p.phone){var ph=el('bdi',null,p.phone);ph.dir='ltr';td.appendChild(ph)}td.appendChild(el('small','sub',[p.city,p.email].filter(Boolean).join(' · ')));return td}
+function actCell(p){var a=act[p.id],td=el('td');td.appendChild(document.createTextNode(a?ago(a.last):'لم يبدأ'));if(a){var t=el('small','sub',a.keys.map(function(k){return TOOL[k]||k}).join('، '));t.title=t.textContent;td.appendChild(t)}return td}
+var COLS={
+  all:[['الاسم',nameCell],['النوع',function(p){var td=el('td',null,TYPE1[typ(p)]||'·');if(p.specialty)td.appendChild(el('small','sub',p.specialty));if(p.stage)td.appendChild(el('small','sub','مرحلة '+STAGE[p.stage]));return td}],['التواصل',contactCell],['التسجيل',function(p){return el('td',null,p.registered_at?fmtDate(p.registered_at):'·')}],['آخر نشاط',actCell]],
+  owner:[['البريد',function(p){var td=el('td');td.appendChild(el('b','mono',p.email));if(p.full_name)td.appendChild(el('small','sub',p.full_name));return td}],['المرحلة',function(p){return el('td',null,p.stage?STAGE[p.stage]:'لم يحدد')}],['التسجيل',function(p){return el('td',null,p.registered_at?fmtDate(p.registered_at):'·')}],['آخر نشاط والأدوات',actCell]],
+  designer:[['الاسم',nameCell],['التخصص',function(p){return el('td',null,p.specialty||'·')}],['التواصل',contactCell],['التسجيل',function(p){return el('td',null,p.registered_at?fmtDate(p.registered_at):'·')}],['آخر نشاط',actCell]],
+  contractor:[['الاسم والمؤسسة',nameCell],['التخصص',function(p){return el('td',null,p.specialty||'·')}],['التواصل',contactCell],['التسجيل',function(p){return el('td',null,p.registered_at?fmtDate(p.registered_at):'·')}],['آخر نشاط',actCell]],
+  office:[['المكتب والمهندس',function(p){var td=el('td');td.appendChild(el('b',null,p.office_name||'·'));if(p.full_name||p.engineer)td.appendChild(el('small','sub',p.engineer||p.full_name));return td}],['التواصل',contactCell],['التسجيل',function(p){return el('td',null,p.registered_at?fmtDate(p.registered_at):'·')}],['المشاريع',function(p){return el('td','num',String(prj[p.id]||0))}]]
+};
+function drawK(){var k=$('accK');k.innerHTML='';
+  TYPES.forEach(function(t){var list=accs.filter(function(p){return t[0]==='all'||typ(p)===t[0]}),pend=list.filter(function(p){return p.status==='pending'}).length;
+    var b=el('button','acc-kc');b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected',String(accT===t[0]));
+    b.appendChild(el('span',null,t[1]));b.appendChild(el('b',null,String(list.length)));if(pend)b.appendChild(el('small','pend',pend+' بانتظار الاعتماد'));
+    b.addEventListener('click',function(){accT=t[0];drawAcc()});k.appendChild(b)})}
 function drawAcc(){
-  var pend=accs.filter(function(p){return p.status==='pending'&&p.registered_at});
-  $('pendBadge').hidden=!pend.length;$('pendBadge').textContent=pend.length;
-  var rows=accF==='pending'?pend:accs.filter(function(p){return accF==='approved'?p.status==='approved':(p.status==='rejected'||p.status==='suspended')});
-  var tb=$('accBody');tb.innerHTML='';$('accEmpty').hidden=!!rows.length;
-  rows.forEach(function(p){var tr=el('tr');
-    tr.appendChild(el('td',null,p.full_name||'·'));tr.appendChild(el('td',null,p.office_name||'·'));
-    tr.appendChild(el('td',null,REQ[p.requested_role]||'·'));
-    var pc=el('td');var ph=el('bdi',null,p.phone||'');ph.dir='ltr';pc.appendChild(ph);pc.appendChild(document.createTextNode(p.city?' · '+p.city:''));tr.appendChild(pc);
-    tr.appendChild(el('td','mono',p.email));tr.appendChild(el('td',null,p.registered_at?fmtDate(p.registered_at):'·'));
-    var td=el('td'),box=el('div','acts');
-    var sel=el('select');[['office','مكتب هندسي'],['contractor','مقاول'],['owner','صاحب بيت'],['admin','مدير النظام']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];sel.appendChild(op)});
-    sel.value=p.role||p.requested_role||'owner';sel.setAttribute('aria-label','نوع الحساب');box.appendChild(sel);
-    function act(label,cls,st){var b=el('button',cls,label);b.type='button';b.addEventListener('click',function(){review(p,st,sel.value)});box.appendChild(b)}
-    if(p.status==='approved'){act('حفظ النوع','btn sm line','approved');act('إيقاف','linkbtn','suspended')}
-    else if(p.status==='pending'){act('اعتماد','btn sm','approved');act('رفض','linkbtn','rejected')}
-    else act('اعتماد','btn sm line','approved');
+  var pend=accs.filter(function(p){return p.status==='pending'});$('pendBadge').hidden=!pend.length;$('pendBadge').textContent=pend.length;
+  drawK();var R=rows(),cols=COLS[accT];$('accN').textContent=R.length+' من '+(accT==='all'?accs.length:accs.filter(function(p){return typ(p)===accT}).length);
+  var hd=$('accHead');hd.innerHTML='';var hr=el('tr');cols.forEach(function(c){hr.appendChild(el('th',null,c[0]))});hr.appendChild(el('th',null,'الحالة والإجراء'));hd.appendChild(hr);
+  var tb=$('accBody');tb.innerHTML='';$('accEmpty').hidden=!!R.length;
+  R.forEach(function(p){var tr=el('tr');if(p.status==='pending')tr.className='pend';cols.forEach(function(c){tr.appendChild(c[1](p))});
+    var td=el('td'),box=el('div','acts');box.appendChild(el('span','status-pill '+(p.status==='approved'?'ok':p.status==='pending'?'wait':'off'),stateOf(p)));
+    var sel=el('select');[['owner','فرد'],['designer','مصمم'],['contractor','مقاول'],['office','مكتب هندسي'],['admin','مدير النظام']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];sel.appendChild(op)});
+    sel.value=typ(p)||'owner';sel.setAttribute('aria-label','نوع الحساب');box.appendChild(sel);
+    function a(label,cls,st){var b=el('button',cls,label);b.type='button';b.addEventListener('click',function(){review(p,st,sel.value)});box.appendChild(b)}
+    if(p.status==='approved'){a('حفظ النوع','btn sm line','approved');a('إيقاف','linkbtn','suspended')}
+    else if(p.status==='pending'){a('اعتماد','btn sm','approved');a('رفض','linkbtn','rejected')}
+    else a('إعادة التفعيل','btn sm line','approved');
     td.appendChild(box);tr.appendChild(td);tb.appendChild(tr)});
   stack(tb);
 }
+$('accCsv').addEventListener('click',function(){var R=rows();var out=[['النوع','الحالة','الاسم','الجهة','التخصص','المرحلة','الجوال','المدينة','البريد','التسجيل','آخر نشاط','الأدوات المستخدمة','المشاريع']];
+  R.forEach(function(p){var a=act[p.id];out.push([TYPE1[typ(p)]||'',stateOf(p),p.full_name||'',p.office_name||'',p.specialty||'',p.stage?STAGE[p.stage]:'',p.phone||'',p.city||'',p.email,p.registered_at?p.registered_at.slice(0,10):'',a&&a.last?a.last.slice(0,10):'',a?a.keys.map(function(k){return TOOL[k]||k}).join(' | '):'',prj[p.id]||0])});
+  var csv='﻿'+out.map(function(r){return r.map(function(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}).join(',')}).join('\n');
+  var b=new Blob([csv],{type:'text/csv;charset=utf-8'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='المسجلون-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(l.href);l.remove()},500)});
 function review(p,st,role){
   msg('accMsg','جارٍ الحفظ..');
   BB.rpc('admin_review_user',{p_id:p.id,p_status:st,p_role:st==='approved'?role:null}).then(function(r){
     if(r.error){msg('accMsg',/root_admin/.test(r.error.message)?'حساب المشرف الأساسي لا يُعدَّل من هنا.':'تعذر الحفظ.','bad');return}
-    msg('accMsg',(p.full_name||p.email)+': '+(st==='approved'?'اعتُمد '+BBA.ROLE[role]:st==='rejected'?'رُفض':'أوقف')+'.','good');loadAcc();
+    msg('accMsg',(p.full_name||p.office_name||p.email)+': '+(st==='approved'?'اعتُمد '+BBA.ROLE[role]:st==='rejected'?'رُفض':'أوقف')+'.','good');loadAcc();
   });
 }
 

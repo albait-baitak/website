@@ -92,9 +92,9 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .acts select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink)}
 @media (max-width:560px){.choice{grid-template-columns:1fr}}
-.choice.stages{grid-template-columns:repeat(4,1fr)}
+.choice.stages,.choice.four{grid-template-columns:repeat(4,1fr)}
 .choice.stages label{align-items:center;padding:10px 8px}
-@media (max-width:560px){.choice.stages{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.choice.stages,.choice.four{grid-template-columns:1fr 1fr}}
 .pw{position:relative}.pw input{width:100%;padding-left:64px}.pw .linkbtn{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px}
 .privacy{font-size:13px;line-height:1.8;margin:0}
 .f>.btn,.row>.btn{flex:none}
@@ -152,3 +152,19 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
   .tbl.stack tbody td:last-child:has(.btn,select,button){flex-basis:100%}
   .tbl.stack td.mono{text-align:right}
 }
+/* المسجلون في لوحة الإدارة */
+.acc-k{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;padding:16px 20px 0}
+.acc-kc{font:inherit;text-align:right;background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-card);padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:2px;color:var(--ink)}
+.acc-kc span{font-size:13px;color:var(--ink-2)}
+.acc-kc b{font-size:22px;font-family:var(--mono)}
+.acc-kc small.pend{font-size:12px;color:var(--major);font-weight:700}
+.acc-kc[aria-selected="true"]{border-color:var(--terra);box-shadow:inset 0 0 0 1px var(--terra);background:var(--sheet)}
+.acc-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 20px}
+.acc-tools select,.acc-tools input{font:inherit;font-size:14px;border:1px solid var(--line-2);background:var(--paper);padding:7px 9px;border-radius:var(--r-ctl);color:var(--ink)}
+.acc-tools input{flex:1 1 240px}
+#vAcc .tbl td small.sub{display:block;color:var(--ink-2);font-size:12.5px;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#vAcc .tbl tr.pend td{background:color-mix(in srgb,var(--major) 7%,transparent)}
+.status-pill.ok{color:var(--ok)} .status-pill.wait{color:var(--major)} .status-pill.off{color:var(--ink-2)}
+@media (max-width:900px){.acc-k{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.acc-k{grid-template-columns:1fr 1fr;padding:12px 14px 0}.acc-tools{padding:12px 14px}}
+.acc-tools select{width:auto!important;flex:0 0 auto}

@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610060529">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610060529">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061221">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061221">
 </head>
 <body>
 <header class="top">
@@ -46,9 +46,10 @@
         <form id="fSignup" class="grid2" novalidate>
           <fieldset class="full" style="border:0;padding:0;margin:0">
             <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
-            <div class="choice">
-              <label><input type="radio" name="rr" value="owner" checked><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
-              <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
+            <div class="choice four">
+              <label><input type="radio" name="rr" value="owner" checked><b>فرد</b><span>تبني بيتك أو تخطط له</span></label>
+              <label><input type="radio" name="rr" value="designer"><b>مصمم</b><span>معماري أو داخلي</span></label>
+              <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>بناء أو تشطيب</span></label>
               <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
             </div>
           </fieldset>
@@ -61,10 +62,11 @@
               <label><input type="radio" name="st" value="living"><b>السكن</b></label>
             </div>
           </fieldset>
-          <div class="f" data-office hidden><label for="sName">اسم المهندس المسؤول</label><input id="sName" autocomplete="name"></div>
-          <div class="f" data-office hidden><label for="sOrg">اسم المكتب</label><input id="sOrg" autocomplete="organization"></div>
-          <div class="f" data-office hidden><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
-          <div class="f" data-office hidden><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
+          <div class="f" data-for="office designer contractor" hidden><label for="sName" id="sNameL">الاسم</label><input id="sName" autocomplete="name"></div>
+          <div class="f" data-for="office contractor" hidden><label for="sOrg" id="sOrgL">اسم المكتب</label><input id="sOrg" autocomplete="organization"></div>
+          <div class="f" data-for="designer contractor" hidden><label for="sSpec">التخصص</label><select id="sSpec"></select></div>
+          <div class="f" data-for="office designer contractor" hidden><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
+          <div class="f" data-for="office designer contractor" hidden><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
           <div class="f"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
           <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><div class="pw"><input id="sPass" type="password" autocomplete="new-password" dir="ltr"><button class="linkbtn" type="button" id="sShow">إظهار</button></div></div>
           <p class="full muted privacy" id="sNote">نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.</p>
@@ -96,7 +98,8 @@
             <div class="choice">
               <label><input type="radio" name="rr2" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
               <label><input type="radio" name="rr2" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
-              <label><input type="radio" name="rr2" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
+              <label><input type="radio" name="rr2" value="owner"><b>فرد</b><span>تبني بيتك أو تخطط له</span></label>
+              <label><input type="radio" name="rr2" value="designer"><b>مصمم</b><span>معماري أو داخلي</span></label>
             </div>
           </fieldset>
           <div class="f"><label for="rName">الاسم</label><input id="rName" autocomplete="name"></div>
@@ -126,17 +129,17 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610060529"></script>
-<script src="../assets/js/config.js?v=202610060529"></script>
-<script src="../assets/js/access.js?v=202610060529"></script>
-<script src="../assets/js/session.js?v=202610060529"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061221"></script>
+<script src="../assets/js/config.js?v=202610061221"></script>
+<script src="../assets/js/access.js?v=202610061221"></script>
+<script src="../assets/js/session.js?v=202610061221"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
 setTimeout(function(){var l=$('loading');if(!l.hidden){l.textContent='تأخر الاتصال. أعد تحميل الصفحة.';l.className='msg bad'}},12000);
 var user=null,profile=null,recovering=false;
 var HERE=location.origin+location.pathname;
-var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة'};
+var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة',designer:'اسم المكتب أو الاستوديو'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
@@ -159,7 +162,7 @@ bindRole('rr2','rOrgF','rOrgL');
 function readDetails(name,p){
   var rr=(document.querySelector('input[name='+name+']:checked')||{}).value;
   var d={requested_role:rr,full_name:$(p+'Name').value.trim(),office_name:rr==='owner'?'':$(p+'Org').value.trim(),phone:$(p+'Phone').value.trim(),city:$(p+'City').value.trim()};
-  var miss=[];if(!rr)miss.push('نوع الحساب');if(rr==='office'){if(!d.full_name)miss.push('الاسم');if(!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة')}
+  var miss=[];if(!rr)miss.push('نوع الحساب');if(rr&&rr!=='owner'){if(!d.full_name)miss.push('الاسم');if(rr==='office'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة')}
   return {d:d,miss:miss};
 }
 
@@ -178,10 +181,18 @@ $('btnForgot').addEventListener('click',function(){
 
 /* حساب جديد: الأفراد بالبريد وكلمة المرور (والمرحلة اختيارية)، والمكاتب ببياناتها كاملة للمراجعة */
 function sRole(){return (document.querySelector('input[name=rr]:checked')||{}).value||'owner'}
+var SPEC={designer:['تصميم معماري','تصميم داخلي','معماري وداخلي'],contractor:['مقاول عظم','مقاول تشطيب','عظم وتشطيب','بنود متخصصة (كهرباء، سباكة، تكييف..)']};
+var NOTE={owner:'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.',
+  designer:'يُفعَّل حسابك فوراً، ونحفظ ما تكتبه في الأدوات في حسابك، ولا نشاركه مع أي جهة.',
+  contractor:'يُفعَّل حسابك فوراً، ونحفظ ما تكتبه في الأدوات في حسابك، ولا نشاركه مع أي جهة.',
+  office:'يُراجع طلب المكتب ويُفعَّل حسابه للفحص الفني بعد التحقق من بياناته.'};
 function sLayout(){var r=sRole();
-  document.querySelectorAll('#fSignup [data-office]').forEach(function(f){f.hidden=r!=='office'});
+  document.querySelectorAll('#fSignup [data-for]').forEach(function(f){f.hidden=f.dataset.for.split(' ').indexOf(r)<0});
   $('sStageF').hidden=r!=='owner';
-  $('sNote').textContent=r==='office'?'يُراجع طلب المكتب ويُفعَّل حسابه للفحص الفني بعد التحقق من بياناته.':'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.';
+  $('sNameL').textContent=r==='office'?'اسم المهندس المسؤول':'الاسم';
+  $('sOrgL').innerHTML='';$('sOrgL').appendChild(document.createTextNode(r==='office'?'اسم المكتب':'اسم المؤسسة '));if(r==='contractor'){var o=document.createElement('span');o.className='o';o.textContent='اختياري';$('sOrgL').appendChild(o)}
+  var sp=$('sSpec');if(SPEC[r]){var cur=sp.value;sp.innerHTML='';var o0=document.createElement('option');o0.value='';o0.textContent='اختر';sp.appendChild(o0);SPEC[r].forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sp.appendChild(o)});if(SPEC[r].indexOf(cur)>=0)sp.value=cur}
+  $('sNote').textContent=NOTE[r];
 }
 document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',sLayout)});sLayout();
 /* المرحلة اختيارية: الضغط على المختارة يلغيها */
@@ -191,10 +202,12 @@ document.querySelectorAll('input[name=st]').forEach(function(r){var was=false;
 $('sShow').addEventListener('click',function(){var i=$('sPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'إظهار':'إخفاء'});
 $('fSignup').addEventListener('submit',function(e){
   e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
-  if(r==='office'){
-    d.full_name=$('sName').value.trim();d.office_name=$('sOrg').value.trim();d.phone=$('sPhone').value.trim();d.city=$('sCity').value.trim();
-    if(!d.full_name)miss.push('اسم المهندس');if(!d.office_name)miss.push('اسم المكتب');if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
-  }else if(r==='owner'){var st=document.querySelector('input[name=st]:checked');if(st)d.stage=st.value}
+  if(r!=='owner'){
+    d.full_name=$('sName').value.trim();d.phone=$('sPhone').value.trim();d.city=$('sCity').value.trim();
+    if(r!=='designer')d.office_name=$('sOrg').value.trim();if(SPEC[r])d.specialty=$('sSpec').value;
+    if(!d.full_name)miss.push(r==='office'?'اسم المهندس':'الاسم');if(r==='office'&&!d.office_name)miss.push('اسم المكتب');if(SPEC[r]&&!d.specialty)miss.push('التخصص');
+    if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+  }else{var st=document.querySelector('input[name=st]:checked');if(st)d.stage=st.value}
   if(!okEmail(em))miss.push('البريد');
   if(miss.length){msg('sMsg','أكمل: '+miss.join('، ')+'.','bad');return}
   if(pw.length<8){msg('sMsg','كلمة المرور 8 أحرف على الأقل.','bad');return}
