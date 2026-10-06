@@ -11,7 +11,7 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
-type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string };
+type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string; verify?: string; sbc?: string };
 // القواعد مصدرها واحد: refs/rules_v2.json في المستودع المنشور
 const RULES_URL = Deno.env.get("RULES_URL") ?? "https://albait-baitak.github.io/website/refs/rules_v2.json";
 let RULES: Rule[] = [];
@@ -22,10 +22,11 @@ async function loadRules() {
   RULES = ((await r.json()).RULES ?? []) as Rule[];
   if (!RULES.length) throw new Error("rules_empty");
 }
-const SRCN: Record<string, string> = { RES: "اشتراطات إنشاء المباني السكنية 1446هـ", "AHSA-VILLA": "الدليل التطبيقي للفلل (عمارة واحات الأحساء)", "AHSA-GUIDE": "موجهات عمارة واحات الأحساء الكاملة", PARK: "دليل تصميم مواقف السيارات", PRO: "ستاندرد مهني", HOUSE: "قواعد البيت السعودي" };
+const SRCN: Record<string, string> = { RES: "اشتراطات إنشاء المباني السكنية 1446هـ", "AHSA-VILLA": "الدليل التطبيقي للفلل (عمارة واحات الأحساء)", "AHSA-GUIDE": "موجهات عمارة واحات الأحساء الكاملة", PARK: "دليل تصميم مواقف السيارات", PRO: "ستاندرد مهني", HOUSE: "قواعد البيت السعودي", SBC: "الكود السعودي للمباني السكنية SBC 1101 (2024)" };
 function mandText(R: Rule): string {
   if (R.l === 2 || R.l === 4) return "";
   if (!R.mand) return "توصية";
+  if (R.verify) return "ملزم بنص SBC 1101، والقيم المأخوذة من IRC 2021 بانتظار التحقق";
   if (R.mand_styles && R.mand_styles.length && R.mand_styles.length < 3) return "ملزم في " + R.mand_styles.join(" و") + "، وتوصية في غيره";
   return "ملزم";
 }
@@ -45,7 +46,7 @@ function buildPrompt(meta: string, g: GroupId): string {
     const m = mandText(R); if (m) parts.push(`الإلزام: ${m}`);
     if (R.styles && R.styles.length) parts.push(`الأنماط: ${R.styles.join("، ")}`);
     if (R.when) parts.push(`ينطبق عند: ${R.when}`);
-    parts.push(`المرجع: ${SRCN[R.src] ?? R.src}${R.clause ? " · " + R.clause : ""}`);
+    parts.push(`المرجع: ${SRCN[R.src] ?? R.src}${R.clause ? " · " + R.clause : ""}${R.sbc && R.src !== "SBC" ? " · SBC 1101: " + R.sbc : ""}`);
     if (R.q && (R.l === 1 || R.l === 3)) parts.push(`نص البند: ${R.q}`);
     return parts.join(" | ");
   }).join("\n");
@@ -53,7 +54,7 @@ function buildPrompt(meta: string, g: GroupId): string {
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
     "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- إن تعارض بندان رسميان في المسألة نفسها (مذكور في نص القاعدة) فالحكم conflict، واذكر البندين في f، ولا تحكم بمخالفة.\n- نص البند الحرفي مرجع الحكم، لكن لا تنقل في f أو fix كلمة «دورة» بأي صيغة؛ اكتب «حمام» أو «مرحاض».\n" +
     (g === "comp"
-      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف») فافحص كل قاعدة على أشد الأنماط فيها إلزاماً، واذكر في الافتراضات أن النمط يحتاج تأكيداً من رخصة البناء.\n"
+      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً. ومخالفة قاعدة قيمها «بانتظار التحقق» لا تتجاوز major إلا إن خالفت جزءاً منصوصاً برقمه في SBC، واذكر في f أن القيمة من IRC 2021.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف») فافحص كل قاعدة على أشد الأنماط فيها إلزاماً، واذكر في الافتراضات أن النمط يحتاج تأكيداً من رخصة البناء.\n"
       : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
     "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";

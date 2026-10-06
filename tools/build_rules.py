@@ -3,7 +3,7 @@ import json,re,os
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 d=json.load(open(os.path.join(ROOT,'refs/rules_v2.json'),encoding='utf-8'))
 RD=json.load(open(os.path.join(ROOT,'refs/rules_display.json'),encoding='utf-8'))
-SRC={'RES':'اشتراطات إنشاء المباني السكنية 1446هـ','AHSA-VILLA':'عمارة واحات الأحساء · الدليل التطبيقي للفلل','AHSA-GUIDE':'عمارة واحات الأحساء · الموجهات الكاملة','PARK':'دليل تصميم مواقف السيارات','PRO':'ستاندرد مهني','HOUSE':'قواعد البيت السعودي'}
+SRC={'RES':'اشتراطات إنشاء المباني السكنية 1446هـ','AHSA-VILLA':'عمارة واحات الأحساء · الدليل التطبيقي للفلل','AHSA-GUIDE':'عمارة واحات الأحساء · الموجهات الكاملة','PARK':'دليل تصميم مواقف السيارات','PRO':'ستاندرد مهني','HOUSE':'قواعد البيت السعودي','SBC':'الكود السعودي للمباني السكنية SBC 1101 (2024)'}
 def label(r):
     s=SRC.get(r['src'],r['src'])
     c=(r.get('clause') or '').strip()
@@ -15,6 +15,8 @@ for r in d['RULES']:
     if r.get('mand_styles'):o['ms']=r['mand_styles']
     if r.get('styles'):o['st']=r['styles']
     if r.get('when'):o['w']=r['when']
+    if r.get('verify'):o['v']=1
+    if r.get('sbc') and r['src']!='SBC':o['s']+=' · SBC 1101: '+r['sbc']
     out.append(o)
 p=os.path.join(ROOT,'assets/js/rules.js');t=open(p,encoding='utf-8').read()
 a=t.index('var RULES=[');b=t.index('];',a)+2
