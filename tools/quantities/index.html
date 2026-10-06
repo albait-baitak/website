@@ -110,7 +110,7 @@
     <button class="btn" type="button" id="btnPrint">اطبع الجداول أو احفظها PDF</button>
     <button class="btn line" type="button" id="btnCsv">نزّل جدول الكميات (Excel)</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ بياناتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -124,7 +124,7 @@
 <script src="../../assets/vendor/dxf-parser-1.1.2.js?v=VERSION"></script>
 <script src="../../assets/js/dxf.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=function(n){return String(n)},el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var TYPES=[['majlis','مجلس'],['living','صالة / معيشة'],['dining','طعام'],['bed','غرفة نوم'],['kitchen','مطبخ'],['bath','حمام'],['laundry','غسيل'],['store','مستودع / غرفة ملابس'],['circ','ممر / مدخل / درج'],['other','أخرى']];
 var WET=['bath','laundry'];
@@ -394,7 +394,7 @@ $('btnCsv').addEventListener('click',function(){
 TK.resetButton($('btnReset'),function(){S=ST.clear();$('gH').value='';drawFins();drawRooms();show('rooms');ST.flash('بدأت من جديد')});
 
 drawFins();drawRooms();show(S.tab||'rooms');
-})();
+});
 </script>
 </body>
 </html>

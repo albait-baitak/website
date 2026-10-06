@@ -57,7 +57,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع الميزانية أو احفظها PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved" id="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved" id="saved">تُحفظ بياناتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -69,7 +69,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var BUD=['رسوم التصميم (المعماري والتخصصات)','إدارة التنفيذ / الإشراف','تقرير التربة والرفع المساحي','رخصة البناء والتأمين والرسوم','تجهيز الموقع والحفر والردم','العظم: مواد (حديد، أسمنت، بلوك)','العظم: أجور المقاول','الكهرباء: تأسيس وتمديدات','الكهرباء: تشطيب (أفياش ولوحات)','السباكة: تغذية وصرف وتأسيس','التكييف: تأسيس ومسارات','التكييف: أجهزة وتركيب','العزل المائي والحراري','اللياسة','الأرضيات والبلاط (مواد وتركيب)','الجبس والأسقف المستعارة','النجارة والأبواب الداخلية','الألمنيوم والزجاج','الدهان (مواد وأجور)','الأطقم الصحية والخلاطات','المطبخ','الأبواب الخارجية والسور والبوابات','تنسيق الحوش والخارج','الإنارة الديكورية والإكسسوارات','احتياطي الطوارئ (ننصح بـ 10٪)'];
 var RES=24;
@@ -110,7 +110,7 @@ $('pushRes').addEventListener('click',function(){var t=num(S.total);if(!t){ST.fl
 $('btnPrint').addEventListener('click',function(){window.print()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();S.it={};S.total='';S.area='';$('bTotal').value='';$('bArea').value='';save();draw();ST.flash('بدأت من جديد')});
 draw();
-})();
+});
 </script>
 </body>
 </html>

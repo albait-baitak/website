@@ -82,7 +82,7 @@
     <button class="btn" type="button" id="btnPrint">اطبع الدفتر أو احفظه PDF</button>
     <button class="btn line" type="button" id="btnCsv">نزّل الدفتر (CSV)</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">يُحفظ دفترك في هذا الجهاز فقط، ولا يُرسل لأحد. الصور تبقى في جوالك؛ اكتب في الملاحظة ما يدلك عليها.</span>
+    <span class="saved">يُحفظ دفترك في حسابك، وتجده في أي جهاز تدخل منه. الصور تبقى في جوالك؛ اكتب في الملاحظة ما يدلك عليها.</span>
   </div>
 </div>
 </main>
@@ -94,7 +94,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$;
 var CATS=[['now','الآن'],['season','الموسم'],['live','تعايش']];
 var CATN={now:'الآن',season:'الموسم',live:'تعايش'};
@@ -162,7 +162,7 @@ function drawImp(){
   var have={};S.war.forEach(function(w){have[(w.item||'')+'|'+(w.end||'')]=1});
   cand=cand.filter(function(c){return !have[c.item+'|'+c.end]});
   if(!cand.length){L.textContent='اكتب كل ضمان وتاريخ انتهائه؛ تتلون الأسطر حين يقترب الموعد (60 يوماً) أو يفوت.';return}
-  L.appendChild(document.createTextNode('في «ملف بيتك» على هذا الجهاز '+ar(cand.length)+' من الضمانات لم تُنقل هنا بعد. '));
+  L.appendChild(document.createTextNode('في «ملف بيتك» '+ar(cand.length)+' من الضمانات لم تُنقل هنا بعد. '));
   var b=el('button','btn sm line','انقلها');b.type='button';b.addEventListener('click',function(){S.war=S.war.filter(function(w){return Object.keys(w).length});cand.forEach(function(c){S.war.push(c)});ST.save();drawWar();drawImp();drawAlerts();ST.flash('نُقلت الضمانات')});L.appendChild(b);
 }
 
@@ -185,7 +185,7 @@ $('btnPrint').addEventListener('click',function(){var f=S.flt;S.flt='all';drawLo
 TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
 function drawAll(){drawCat();drawFlt();drawLog();drawWar();drawImp();drawAlerts()}
 drawAll();
-})();
+});
 </script>
 </body>
 </html>

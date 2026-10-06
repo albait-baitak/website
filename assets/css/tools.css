@@ -458,3 +458,12 @@ section.qpanel{padding-block:22px 0;border-top:0}
   .cmp thead th:first-child{background:var(--paper)}
   .cmp tr.total td:first-child,.cmp tr.price td:first-child{background:var(--paper)}
 }
+
+/* بوابة الدخول داخل الأداة: الشرح ظاهر، ومكان العمل بعد الدخول */
+.gated>.howto~:not(.tk-gate){display:none!important}
+.tk-gate{margin:22px 0 8px;padding:24px 22px;background:var(--sheet);border:1px solid var(--line-2);border-radius:var(--r-card);display:flex;flex-direction:column;gap:10px;max-width:46em}
+.tk-gate h2{font-size:21px}
+.tk-gate p{color:var(--ink-2);line-height:1.85;margin:0}
+.tk-gate .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.tk-gate .tk-gate-load{color:var(--ink-3,var(--ink-2));text-align:center}
+@media (max-width:560px){.tk-gate{padding:20px 16px}.tk-gate .row .btn{flex:1;text-align:center}}

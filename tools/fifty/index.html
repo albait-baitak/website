@@ -72,7 +72,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع برنامجك المصغر أو احفظه PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ إجاباتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -84,7 +84,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$;
 var G=[
  {t:'نمط حياتك وعائلتك',q:['كم عدد أفراد الأسرة الآن، وكم تتوقع بعد 5–10 سنوات؟','ما الأوقات التي تقضونها معاً، وأين؟','هل تستقبلون ضيوفاً كثيراً، وكم مرة أسبوعياً تقريباً؟','هل يعمل أحد من المنزل ويحتاج مكتباً أو غرفة هادئة؟','هل لديكم أطفال صغار يحتاجون مساحة لعب آمنة قريبة؟','هل يسكن معكم أحد كبار السن ويحتاج غرفة بالدور الأرضي؟','ما العادة اليومية التي يزعجك أن بيتك الحالي لا يخدمها؟','صف يوماً مثالياً في بيتك الجديد.. أين تبدؤه وأين تنهيه؟']},
@@ -148,7 +148,7 @@ function drawSum(){
 $('btnPrint').addEventListener('click',function(){window.print()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();drawQs();drawSum();upd();ST.flash('بدأت من جديد')});
 drawQs();drawSum();upd();
-})();
+});
 </script>
 </body>
 </html>

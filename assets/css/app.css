@@ -92,6 +92,11 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .acts select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink)}
 @media (max-width:560px){.choice{grid-template-columns:1fr}}
+.choice.stages{grid-template-columns:repeat(4,1fr)}
+.choice.stages label{align-items:center;padding:10px 8px}
+@media (max-width:560px){.choice.stages{grid-template-columns:1fr 1fr}}
+.pw{position:relative}.pw input{width:100%;padding-left:64px}.pw .linkbtn{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px}
+.privacy{font-size:13px;line-height:1.8;margin:0}
 .f>.btn,.row>.btn{flex:none}
 .f>.btn{align-self:flex-start}
 /* المشاريع والإصدارات وجداول الكميات */

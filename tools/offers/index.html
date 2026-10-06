@@ -79,7 +79,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع المقارنة أو احفظها PDF</button>
     <button class="btn line" type="button" id="btnDel">احذف هذا البند</button>
-    <span class="saved">تُحفظ مقارناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ مقارناتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -99,7 +99,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var OFF=[['a','عرض أ'],['b','عرض ب'],['c','عرض ج']];
 var ROWS=[
@@ -195,7 +195,7 @@ $('btnPrint').addEventListener('click',function(){window.print()});
 TK.resetButton($('btnDel'),function(){var id=S.active;S.sh=S.sh.filter(function(g){return g.id!==id});if(!S.sh.length)S.sh=[newSh(1)];S.active=S.sh[0].id;ST.save();drawAll();ST.flash('حُذف البند')},'اضغط مرة ثانية لحذف هذا البند');
 function drawAll(){drawSh();drawTbl()}
 drawAll();
-})();
+});
 </script>
 </body>
 </html>

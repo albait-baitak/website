@@ -81,7 +81,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع الملخص أو احفظه PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ إجاباتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -101,7 +101,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var LISTS=[
  {t:'الأنظمة وحقوق البناء.. الأهم',i:['ما نسبة البناء المسموحة؟ وهل تكفيك؟','ما مقدار الارتدادات النظامية من كل جهة؟','كم عدد الأدوار المسموح بها؟ وهل يسمح بملحق؟','هل تكفي المساحة الصافية بعد الارتدادات لاحتياج عائلتك؟','هل المخطط معتمد والاستخدام سكني بلا اشتراطات خاصة؟']},
@@ -203,7 +203,7 @@ TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأ�
 
 function drawAll(){drawLands();paint();drawCost();drawDec()}
 drawLists();drawAll();
-})();
+});
 </script>
 </body>
 </html>

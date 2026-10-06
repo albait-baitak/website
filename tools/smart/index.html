@@ -77,7 +77,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع النتيجة أو احفظها PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ إجاباتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -97,7 +97,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
 var Q=[
  {t:'ما المشكلة الحقيقية التي يحلها؟ اكتبها في جملة واحدة.. إن لم تستطع فأنت لا تحتاجه.',g:'كتبتها في جملة واحدة واضحة.',ph:'المشكلة التي يحلها، في جملة واحدة..'},
@@ -190,7 +190,7 @@ $('btnPrint').addEventListener('click',function(){window.print()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
 function drawAll(){drawDevs();paint();drawVerdict();drawCmp()}
 drawQs();drawAll();
-})();
+});
 </script>
 </body>
 </html>

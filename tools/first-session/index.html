@@ -88,7 +88,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع الملخص أو احفظه PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ إجاباتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ إجاباتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -106,8 +106,9 @@
 <script src="../../assets/vendor/supabase-2.117.2.js?v=VERSION"></script>
 <script src="../../assets/js/config.js?v=VERSION"></script>
 <script src="../../assets/js/session.js?v=VERSION"></script>
+<script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 /* نص الأداة كما هو */
 var GROUPS=[
  {t:'عن الرحلة وطريقة العمل',q:[
@@ -145,7 +146,7 @@ function fresh(){return {v:1,cands:[{id:'a',name:'المرشح أ'},{id:'b',name
 var S;try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
 if(!S||S.v!==1)S=fresh();
 var tSave=null;
-function save(){clearTimeout(tSave);tSave=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S));flash('حُفظ في هذا الجهاز')}catch(e){flash('تعذر الحفظ في هذا المتصفح')}},250)}
+function save(){clearTimeout(tSave);tSave=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S));TK.push(KEY);flash('حُفظ في حسابك')}catch(e){flash('تعذر الحفظ. أعد المحاولة.')}},250)}
 var tFl=null;function flash(t){var s=$('saved');s.textContent=t;clearTimeout(tFl);tFl=setTimeout(function(){s.textContent=''},1800)}
 var $=function(id){return document.getElementById(id)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
@@ -284,12 +285,12 @@ var armed=false,tArm=null;
 $('btnReset').addEventListener('click',function(){
   var b=this;
   if(!armed){armed=true;b.textContent='اضغط مرة ثانية لمسح كل شيء';clearTimeout(tArm);tArm=setTimeout(function(){armed=false;b.textContent='ابدأ من جديد'},4000);return}
-  armed=false;b.textContent='ابدأ من جديد';S=fresh();try{localStorage.removeItem(KEY)}catch(e){}
+  armed=false;b.textContent='ابدأ من جديد';S=fresh();try{localStorage.removeItem(KEY)}catch(e){}TK.push(KEY);
   drawQs();drawAll();applyFilter();flash('بدأت من جديد');
 });
 
 drawQs();drawAll();applyFilter();
-})();
+});
 </script>
 </body>
 </html>

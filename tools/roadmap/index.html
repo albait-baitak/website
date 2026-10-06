@@ -67,7 +67,7 @@
   <div class="tool-actions">
     <button class="btn" type="button" id="btnPrint">اطبع الخارطة أو احفظها PDF</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">تُحفظ بياناتك في هذا الجهاز فقط، ولا تُرسل لأحد.</span>
+    <span class="saved">تُحفظ بياناتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
   </div>
 </div>
 </main>
@@ -79,7 +79,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$;
 var A6='<a href="../agreement/">نموذج اتفاق البند الواحد</a>',A7='<a href="../handover/">ملف بيتك: الاستلام والسجلات</a>';
 var STN=[
@@ -221,7 +221,7 @@ function drawAll(){STN.forEach(function(_,k){upd(k)});drawBoard()}
 drawStations();drawAll();
 // افتح أول محطة لم تُستلم
 for(var k=0;k<10;k++){if(!S.s[k].recv){refs[k].D.open=true;break}}
-})();
+});
 </script>
 </body>
 </html>

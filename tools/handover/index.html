@@ -78,7 +78,7 @@
     <button class="btn" type="button" id="btnPrint">اطبع الملف أو احفظه PDF</button>
     <button class="btn line" type="button" id="btnCsv">نزّل السجلات (CSV)</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
-    <span class="saved">يُحفظ ملفك في هذا الجهاز فقط، ولا يُرسل لأحد. احفظ نسخة مطبوعة أو PDF في ملفك السحابي.</span>
+    <span class="saved">يُحفظ ملفك في حسابك، وتجده في أي جهاز تدخل منه. واحفظ نسخة مطبوعة أو PDF في ملفك السحابي.</span>
   </div>
 </div>
 </main>
@@ -90,7 +90,7 @@
 <script src="../../assets/js/session.js?v=VERSION"></script>
 <script src="../../assets/js/toolkit.js?v=VERSION"></script>
 <script>
-(function(){
+TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$;
 var LISTS=[
  {t:'المطابقة',i:['مطابقة الغرف والمساحات والارتفاعات للمخطط المعتمد.','تنفيذ كل البنود المتفق عليها بلا نواقص.','مطابقة المواد للمواصفات والاتفاقات.']},
@@ -204,7 +204,7 @@ $('btnPrint').addEventListener('click',function(){window.print()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
 function drawAll(){paint();drawCard();drawRecs();drawSeason()}
 drawLists();drawAll();
-})();
+});
 </script>
 </body>
 </html>

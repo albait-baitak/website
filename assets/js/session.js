@@ -47,7 +47,10 @@ function chip(email,p){
   if(approved&&(p.role==='office'||p.role==='admin'))item('بوابة الفحص الفني','fahs/app.html');
   if(approved&&p.role==='admin')item('لوحة الإدارة','admin/');
   var out=el('button','acct-it acct-out','تسجيل الخروج');out.type='button';out.setAttribute('role','menuitem');
-  out.addEventListener('click',function(){window.BB.auth.signOut().then(function(){location.href=BASE})});
+  out.addEventListener('click',function(){window.BB.auth.signOut().then(function(){
+    /* بيانات الأدوات تبقى في الحساب، وتُمسح نسختها من هذا الجهاز عند الخروج */
+    try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(/^bb_tool_|^bb_meta$|^bb_handoff_/.test(k))localStorage.removeItem(k)}}catch(e){}
+    location.href=BASE})});
   menu.appendChild(out);
   btn.addEventListener('click',function(e){e.stopPropagation();open=!open;menu.hidden=!open;btn.setAttribute('aria-expanded',String(open))});
   slot.appendChild(btn);slot.appendChild(menu);

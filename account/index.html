@@ -47,18 +47,27 @@
           <fieldset class="full" style="border:0;padding:0;margin:0">
             <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
             <div class="choice">
-              <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
+              <label><input type="radio" name="rr" value="owner" checked><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
               <label><input type="radio" name="rr" value="contractor"><b>مقاول</b><span>مقاول بناء أو تشطيب</span></label>
-              <label><input type="radio" name="rr" value="owner"><b>صاحب بيت</b><span>تبني بيتك أو تخطط له</span></label>
+              <label><input type="radio" name="rr" value="office"><b>مكتب هندسي</b><span>مكتب تصميم أو إشراف</span></label>
             </div>
           </fieldset>
-          <div class="f"><label for="sName">الاسم</label><input id="sName" autocomplete="name"></div>
-          <div class="f" id="sOrgF"><label for="sOrg" id="sOrgL">اسم الجهة</label><input id="sOrg" autocomplete="organization"></div>
-          <div class="f"><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
-          <div class="f"><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
-          <div class="f full"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
-          <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><input id="sPass" type="password" autocomplete="new-password" dir="ltr"></div>
-          <div class="f"><label for="sPass2">تأكيد كلمة المرور</label><input id="sPass2" type="password" autocomplete="new-password" dir="ltr"></div>
+          <fieldset class="full" id="sStageF" style="border:0;padding:0;margin:0">
+            <legend class="f" style="padding:0;margin-bottom:8px"><label>في أي مرحلة أنت؟ <span class="o">اختياري</span></label></legend>
+            <div class="choice stages">
+              <label><input type="radio" name="st" value="decision"><b>القرار</b></label>
+              <label><input type="radio" name="st" value="design"><b>التصميم</b></label>
+              <label><input type="radio" name="st" value="build"><b>التنفيذ</b></label>
+              <label><input type="radio" name="st" value="living"><b>السكن</b></label>
+            </div>
+          </fieldset>
+          <div class="f" data-office hidden><label for="sName">اسم المهندس المسؤول</label><input id="sName" autocomplete="name"></div>
+          <div class="f" data-office hidden><label for="sOrg">اسم المكتب</label><input id="sOrg" autocomplete="organization"></div>
+          <div class="f" data-office hidden><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
+          <div class="f" data-office hidden><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
+          <div class="f"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
+          <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><div class="pw"><input id="sPass" type="password" autocomplete="new-password" dir="ltr"><button class="linkbtn" type="button" id="sShow">إظهار</button></div></div>
+          <p class="full muted privacy" id="sNote">نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.</p>
           <div class="row full"><button class="btn" type="submit" id="sBtn">إنشاء الحساب</button><span class="msg" id="sMsg" role="status"></span></div>
         </form>
       </div>
@@ -132,6 +141,8 @@ function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' 
 function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function okEmail(s){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)}
+function nextUrl(){var m=/[?&]next=([^&]+)/.exec(location.search);if(!m)return null;var u;try{u=decodeURIComponent(m[1])}catch(e){return null}
+  return /^\/[^\/\\]/.test(u)&&u.indexOf('/tools/')>=0?u:null}
 function state(t,p,back){$('stT').textContent=t;$('stP').textContent=p;$('stBack').hidden=!back;only('vState')}
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){only(b.dataset.go)})});
 function errText(e){
@@ -144,11 +155,11 @@ function errText(e){
   return 'تعذر الإتمام. أعد المحاولة.';
 }
 function bindRole(name,orgF,orgL){document.querySelectorAll('input[name='+name+']').forEach(function(r){r.addEventListener('change',function(){$(orgF).hidden=this.value==='owner';$(orgL).textContent=ORG[this.value]||'اسم الجهة'})})}
-bindRole('rr','sOrgF','sOrgL');bindRole('rr2','rOrgF','rOrgL');
+bindRole('rr2','rOrgF','rOrgL');
 function readDetails(name,p){
   var rr=(document.querySelector('input[name='+name+']:checked')||{}).value;
   var d={requested_role:rr,full_name:$(p+'Name').value.trim(),office_name:rr==='owner'?'':$(p+'Org').value.trim(),phone:$(p+'Phone').value.trim(),city:$(p+'City').value.trim()};
-  var miss=[];if(!rr)miss.push('نوع الحساب');if(!d.full_name)miss.push('الاسم');if(rr&&rr!=='owner'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+  var miss=[];if(!rr)miss.push('نوع الحساب');if(rr==='office'){if(!d.full_name)miss.push('الاسم');if(!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة')}
   return {d:d,miss:miss};
 }
 
@@ -165,20 +176,35 @@ $('btnForgot').addEventListener('click',function(){
   BB.auth.resetPasswordForEmail(em,{redirectTo:HERE}).then(function(r){msg('lMsg',r.error?errText(r.error):'أرسلنا رابط تعيين كلمة المرور إلى '+em+'.',r.error?'bad':'good')});
 });
 
-/* حساب جديد */
+/* حساب جديد: الأفراد بالبريد وكلمة المرور (والمرحلة اختيارية)، والمكاتب ببياناتها كاملة للمراجعة */
+function sRole(){return (document.querySelector('input[name=rr]:checked')||{}).value||'owner'}
+function sLayout(){var r=sRole();
+  document.querySelectorAll('#fSignup [data-office]').forEach(function(f){f.hidden=r!=='office'});
+  $('sStageF').hidden=r!=='owner';
+  $('sNote').textContent=r==='office'?'يُراجع طلب المكتب ويُفعَّل حسابه للفحص الفني بعد التحقق من بياناته.':'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.';
+}
+document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',sLayout)});sLayout();
+/* المرحلة اختيارية: الضغط على المختارة يلغيها */
+document.querySelectorAll('input[name=st]').forEach(function(r){var was=false;
+  r.parentNode.addEventListener('pointerdown',function(){was=r.checked});
+  r.addEventListener('click',function(){if(was){r.checked=false;was=false}})});
+$('sShow').addEventListener('click',function(){var i=$('sPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'إظهار':'إخفاء'});
 $('fSignup').addEventListener('submit',function(e){
-  e.preventDefault();var x=readDetails('rr','s'),em=$('sEmail').value.trim(),pw=$('sPass').value;
-  if(!okEmail(em))x.miss.push('البريد');
-  if(x.miss.length){msg('sMsg','أكمل: '+x.miss.join('، ')+'.','bad');return}
+  e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
+  if(r==='office'){
+    d.full_name=$('sName').value.trim();d.office_name=$('sOrg').value.trim();d.phone=$('sPhone').value.trim();d.city=$('sCity').value.trim();
+    if(!d.full_name)miss.push('اسم المهندس');if(!d.office_name)miss.push('اسم المكتب');if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+  }else if(r==='owner'){var st=document.querySelector('input[name=st]:checked');if(st)d.stage=st.value}
+  if(!okEmail(em))miss.push('البريد');
+  if(miss.length){msg('sMsg','أكمل: '+miss.join('، ')+'.','bad');return}
   if(pw.length<8){msg('sMsg','كلمة المرور 8 أحرف على الأقل.','bad');return}
-  if(pw!==$('sPass2').value){msg('sMsg','كلمتا المرور غير متطابقتين.','bad');return}
   $('sBtn').disabled=true;msg('sMsg','جارٍ الإنشاء..');
-  BB.auth.signUp({email:em,password:pw,options:{data:x.d,emailRedirectTo:HERE}}).then(function(r){
+  BB.auth.signUp({email:em,password:pw,options:{data:d,emailRedirectTo:location.href}}).then(function(res){
     $('sBtn').disabled=false;
-    if(r.error){msg('sMsg',errText(r.error),'bad');return}
-    if(r.data&&r.data.user&&r.data.user.identities&&!r.data.user.identities.length){msg('sMsg',errText({code:'user_already_exists'}),'bad');return}
+    if(res.error){msg('sMsg',errText(res.error),'bad');return}
+    if(res.data&&res.data.user&&res.data.user.identities&&!res.data.user.identities.length){msg('sMsg',errText({code:'user_already_exists'}),'bad');return}
     msg('sMsg','');
-    if(!r.data.session)state('أكّد بريدك','أرسلنا رسالة تأكيد إلى '+em+'. افتحها وأكّد بريدك، ثم ادخل بالبريد وكلمة المرور. وبعدها يُراجع طلبك ويُفعَّل حسابك.',true);
+    if(!res.data.session)state('أكّد بريدك','أرسلنا رسالة تأكيد إلى '+em+'. افتحها وأكّد بريدك، ثم ادخل بالبريد وكلمة المرور.',true);
   });
 });
 
@@ -207,6 +233,7 @@ function route(){
   if(!user){if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
   var p=profile||{};
   if(p.status==='approved'&&p.role){
+    var nx=nextUrl();if(nx){location.replace(nx);return}
     var tools=BBA.toolsFor(p.role).filter(function(t){return t.live||p.role==='admin'});
     $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
     var box=$('hTools');box.innerHTML='';
