@@ -90,9 +90,9 @@ function gate(kind){
     if(how)how.open=true;
   }
   if(how)how.after(g);else wrap.appendChild(g);
-  wrap.classList.add('gated');
+  wrap.classList.add('gated');var mn=wrap.closest('.tool-main');if(mn)mn.classList.add('gated');
 }
-function ungate(){var wrap=document.querySelector('.tool-main .wrap');if(!wrap)return;var g=wrap.querySelector('.tk-gate');if(g)g.remove();wrap.classList.remove('gated')}
+function ungate(){var wrap=document.querySelector('.tool-main .wrap');if(!wrap)return;var g=wrap.querySelector('.tk-gate');if(g)g.remove();wrap.classList.remove('gated');var mn=wrap.closest('.tool-main');if(mn)mn.classList.remove('gated')}
 /* تشغيل الأداة: بعد الدخول والمزامنة فقط */
 function ready(fn){
   gate('load');

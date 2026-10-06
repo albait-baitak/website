@@ -12,8 +12,9 @@
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
-<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060529">
+<link rel="stylesheet" href="../../assets/vendor/leaflet/leaflet.css?v=1">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060529">
 </head>
 <body>
 <header class="top">
@@ -36,7 +37,8 @@
   <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
     <div><h2>متى تستخدمه؟</h2><p>قبل الشراء وقبل دفع العربون. الأرض هي القرار الذي يحكم كل ما بعده؛ فأفضل مخطط في العالم لا يصلح أرضاً اختيرت غلط.</p></div>
     <div><h2>كيف تستخدمه؟</h2><ol>
-      <li>افحص كل أرض مرشحة بالقوائم الخمس، بزيارات في أوقات مختلفة.</li>
+      <li>حدد موقع كل أرض مرشحة على الخريطة وارسم حدودها، لتعرف اتجاه واجهاتها وشمسها والخدمات حولها.</li>
+      <li>افحص كل أرض بالقوائم الخمس، بزيارات في أوقات مختلفة.</li>
       <li>علّم: <b style="color:var(--ok)">سليم</b>، <b style="color:var(--major)">△ يحتاج تحقق</b>، <b style="color:var(--stop)">✕ مشكلة محتملة</b>.</li>
       <li>احسب التكلفة الحقيقية ثم احسم بجدول المقارنة.</li>
     </ol></div>
@@ -52,21 +54,40 @@
 </div>
 
 <div class="wrap">
+  <section class="tsec" aria-labelledby="h-m" id="mapSec">
+    <h2 id="h-m"><span class="k">1</span>موقع الأرض على الخريطة</h2>
+    <p class="lead2">حدد موقع <b class="who-now"></b> وارسم حدودها، فنحسب لك مساحتها وأضلاعها، واتجاه كل واجهة، وساعات الشمس عليها صيفاً وشتاءً، واتجاه القبلة، والخدمات القريبة.</p>
+    <div class="lm-find">
+      <input id="lmLoc" dir="ltr" placeholder="الصق رابط الموقع من خرائط قوقل أو الإحداثيات" aria-label="رابط الموقع أو الإحداثيات">
+      <button class="btn sm" type="button" id="lmGo">اذهب</button>
+      <button class="btn sm line" type="button" id="lmMe">موقعي الآن</button>
+    </div>
+    <p class="msg" id="lmMsg" role="status"></p>
+    <div class="lm-bar">
+      <button class="btn sm" type="button" id="lmDraw" aria-pressed="false">ارسم حدود الأرض</button>
+      <button class="btn sm line" type="button" id="lmUndo">تراجع عن آخر نقطة</button>
+      <button class="btn sm line" type="button" id="lmClear">امسح الحدود</button>
+      <span class="lm-hint" id="lmHint"></span>
+    </div>
+    <div id="lmap" class="lmap" aria-label="خريطة الأرض"></div>
+    <div id="lmRes"></div>
+  </section>
+
   <section class="tsec" aria-labelledby="h-l">
-    <h2 id="h-l"><span class="k">1</span>القوائم الخمس</h2>
+    <h2 id="h-l"><span class="k">2</span>القوائم الخمس</h2>
     <p class="lead2">افحص <b class="who-now"></b> بنداً بنداً. ويمكنك أن تكتب تحت أي بند ما وجدته.</p>
     <div class="prog-line" id="progLine"></div>
     <div id="lists"></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-c">
-    <h2 id="h-c"><span class="k">2</span>التكلفة الحقيقية.. لا سعر اللوحة</h2>
+    <h2 id="h-c"><span class="k">3</span>التكلفة الحقيقية.. لا سعر اللوحة</h2>
     <p class="lead2">التكلفة الكاملة = السعر + الردم أو المعالجة + التوصيلات + الرسوم. اكتب المبالغ بالريال، ويُحسب الإجمالي وحده.</p>
     <div class="cmp-wrap"><table class="cmp cost" id="cost"></table></div>
   </section>
 
   <section class="tsec" aria-labelledby="h-d">
-    <h2 id="h-d"><span class="k">3</span>جدول الحسم</h2>
+    <h2 id="h-d"><span class="k">4</span>جدول الحسم</h2>
     <p class="lead2">قيّم كل أرض من 1 إلى 5 في كل معيار.</p>
     <div class="cmp-wrap"><table class="cmp" id="dec"></table></div>
   </section>
@@ -96,10 +117,12 @@
 
 <footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
-<script src="../../assets/js/config.js?v=202610060507"></script>
-<script src="../../assets/js/session.js?v=202610060507"></script>
-<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060529"></script>
+<script src="../../assets/js/config.js?v=202610060529"></script>
+<script src="../../assets/js/session.js?v=202610060529"></script>
+<script src="../../assets/vendor/leaflet/leaflet.js?v=1"></script>
+<script src="../../assets/js/toolkit.js?v=202610060529"></script>
+<script src="../../assets/js/landmap.js?v=202610060529"></script>
 <script>
 TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
@@ -201,7 +224,78 @@ window.addEventListener('beforeprint',buildPrint);
 $('btnPrint').addEventListener('click',function(){buildPrint();window.print()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();drawAll();ST.flash('بدأت من جديد')});
 
-function drawAll(){drawLands();paint();drawCost();drawDec()}
+
+/* ===== الخريطة ===== */
+var MAP=null,G=null,drawing=false;
+function MS(){S.map=S.map||{};return S.map[S.active]||(S.map[S.active]={pts:[],street:{}})}
+function lmMsg(t,c){var m=$('lmMsg');m.textContent=t||'';m.className='msg'+(c?' '+c:'')}
+function mapInit(){
+  if(MAP)return true;
+  if(!window.L){lmMsg('تعذر تحميل الخريطة. تأكد من الاتصال ثم أعد تحميل الصفحة.','bad');return false}
+  MAP=L.map('lmap',{zoomControl:true,attributionControl:true}).setView([25.38,49.59],12);
+  var osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© مساهمو OpenStreetMap'});
+  var key=window.BB_CONFIG&&window.BB_CONFIG.arcgisKey;
+  if(key){var sat=L.tileLayer('https://ibasemaps-api.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}?token='+encodeURIComponent(key),{maxZoom:19,attribution:'Esri, Maxar وغيرهما'});
+    sat.addTo(MAP);L.control.layers({'صورة فضائية':sat,'خريطة':osm},null,{position:'topleft'}).addTo(MAP)}
+  else osm.addTo(MAP);
+  G=L.layerGroup().addTo(MAP);
+  MAP.on('click',function(e){if(!drawing)return;MS().pts.push([+e.latlng.lat.toFixed(7),+e.latlng.lng.toFixed(7)]);ST.save();mapDraw(false);mapRes()});
+  return true;
+}
+function setDrawing(v){drawing=v;var b=$('lmDraw');b.setAttribute('aria-pressed',String(v));b.textContent=v?'انتهيت من الرسم':'ارسم حدود الأرض';
+  $('lmap').classList.toggle('drawing',v);$('lmHint').textContent=v?'اضغط على أركان الأرض بالترتيب حول محيطها، ركناً بعد ركن.':''}
+function mapDraw(fit){
+  if(!MAP)return;G.clearLayers();var m=MS(),p=m.pts;
+  if(p.length>=3)L.polygon(p,{color:'#B26042',weight:2,fillOpacity:.15}).addTo(G);else if(p.length===2)L.polyline(p,{color:'#B26042',weight:2}).addTo(G);
+  p.forEach(function(q){L.circleMarker(q,{radius:5,color:'#5A3420',fillColor:'#fff',fillOpacity:1,weight:2}).addTo(G)});
+  var g=LM.geom(p);if(g)g.edges.forEach(function(e){L.marker(e.mid,{icon:L.divIcon({className:'lm-lbl',html:String(e.i+1),iconSize:[22,22]})}).addTo(G)});
+  if(fit&&p.length)MAP.fitBounds(L.latLngBounds(p).pad(p.length>2?1.2:0),{maxZoom:19});
+}
+function fmtH(h){return h<0.05?'لا شمس':(Math.round(h*10)/10)+' ساعة'}
+function mapRes(){
+  var R=$('lmRes');R.innerHTML='';var m=MS(),g=LM.geom(m.pts);
+  if(!g){if(m.pts.length)R.appendChild(el('p','muted','أضف '+(3-m.pts.length)+' ركناً على الأقل لتكتمل الحدود.'));return}
+  var k=el('div','kpis');[['المساحة التقريبية',fmt(g.area,0)+' م²'],['المحيط',fmt(g.per,1)+' م'],['عدد الأضلاع',String(g.edges.length)],['اتجاه القبلة',Math.round(LM.bearing(g.c,LM.KAABA))+'° نحو '+LM.dirName(LM.bearing(g.c,LM.KAABA))]].forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',null,x[1]));k.appendChild(d)});R.appendChild(k);
+  var w=el('div','cmp-wrap'),T=el('table','cmp lm-t'),th=el('thead'),hr=el('tr');['الضلع','الاتجاه والطول','شمس 21 يونيو','شمس 21 ديسمبر'].forEach(function(t){hr.appendChild(el('th',null,t))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody'),y=new Date().getFullYear(),q=LM.bearing(g.c,LM.KAABA),qe=null,qd=999;
+  g.edges.forEach(function(e){var su=LM.sunHours(g.c,e.az,y,6,21),wi=LM.sunHours(g.c,e.az,y,12,21);var dq=Math.abs(((e.az-q+540)%360)-180);if(dq<qd){qd=dq;qe=e}
+    var tr=el('tr');var t1=el('td','k');t1.appendChild(el('b',null,String(e.i+1)));var lb=el('label','lm-st'),cb=el('input');cb.type='checkbox';cb.checked=!!m.street[e.i];
+    cb.addEventListener('change',function(){if(cb.checked)m.street[e.i]=1;else delete m.street[e.i];ST.save();mapRes()});lb.appendChild(cb);lb.appendChild(document.createTextNode('على شارع'));t1.appendChild(lb);tr.appendChild(t1);
+    var t2=el('td');t2.appendChild(el('div',null,LM.dirName(e.az)+' ('+Math.round(e.az)+'°)'));t2.appendChild(el('small',null,fmt(e.len,1)+' م'));tr.appendChild(t2);
+    var t3=el('td'+'');t3.appendChild(el('div',null,fmtH(su.t)));t3.appendChild(el('small',su.pm>=4?'hot':null,'بعد الظهر: '+fmtH(su.pm)));tr.appendChild(t3);
+    tr.appendChild(el('td',null,fmtH(wi.t)));tb.appendChild(tr)});
+  T.appendChild(tb);w.appendChild(T);R.appendChild(w);
+  /* قراءة الأرقام */
+  var ul=el('ul','lm-read');
+  var st=g.edges.filter(function(e){return m.street[e.i]});
+  if(st.length){st.forEach(function(e){var su=LM.sunHours(g.c,e.az,y,6,21);ul.appendChild(el('li',null,'واجهتك على الشارع (الضلع '+(e.i+1)+') تواجه '+LM.dirName(e.az)+'، وتصلها شمس الصيف المباشرة نحو '+fmtH(su.t)+' في اليوم، منها '+fmtH(su.pm)+' بعد الظهر.'))})}
+  else ul.appendChild(el('li',null,'علّم الأضلاع التي على الشارع، لنقرأ لك واجهة المدخل.'));
+  var hot=g.edges.slice().sort(function(a,b){return LM.sunHours(g.c,b.az,y,6,21).pm-LM.sunHours(g.c,a.az,y,6,21).pm})[0];
+  ul.appendChild(el('li',null,'أكثر الأضلاع تعرضاً لشمس ما بعد الظهر في الصيف: الضلع '+(hot.i+1)+' ('+LM.dirName(hot.az)+'). ما يقابله من الغرف يحتاج حماية من الشمس أكثر من غيره.'));
+  if(qe)ul.appendChild(el('li',null,'أقرب الأضلاع إلى اتجاه القبلة: الضلع '+(qe.i+1)+' (الفرق نحو '+Math.round(qd)+'°).'));
+  R.appendChild(ul);
+  R.appendChild(el('p','lm-note','ساعات الشمس محسوبة فلكياً لموقع الأرض في أطول يوم وأقصر يوم، على واجهة مكشوفة بلا ظل جيران أو أشجار. والمساحة من رسمك على الخريطة، فهي تقريبية والمرجع الصك والكروكي. ومنسوب الأرض مقارنة بالشارع والجيران لا تظهره الخرائط بدقة، فقسه في الزيارة.'));
+  /* الخدمات القريبة */
+  var sv=el('div','lm-svc');sv.appendChild(el('h3',null,'الخدمات القريبة'));var host=el('div');sv.appendChild(host);
+  function showSvc(){host.innerHTML='';var d=m.svc;if(!d)return;var t=el('table','cmp'),h=el('thead'),r=el('tr');['الخدمة','الأقرب','داخل 1 كم'].forEach(function(x){r.appendChild(el('th',null,x))});h.appendChild(r);t.appendChild(h);var b=el('tbody');
+    LM.CATS.forEach(function(c){var o=d.data[c.k]||{};var tr=el('tr');tr.appendChild(el('td','k',c.t));tr.appendChild(el('td',null,o.near?((o.near.name?o.near.name+' · ':'')+fmt(o.near.d,0)+' م'):'لم نجد في نطاق 2 كم'));tr.appendChild(el('td','num',String(o.n1||0)));b.appendChild(tr)});
+    t.appendChild(b);var ww=el('div','cmp-wrap');ww.appendChild(t);host.appendChild(ww);
+    host.appendChild(el('p','lm-note','المسافات خط مستقيم لا طريق، والبيانات من خريطة OpenStreetMap المفتوحة (بتاريخ '+d.at+')، وهي في الأحساء ناقصة في بعض الأحياء. فإن قيل «لم نجد» فلا يعني أنه غير موجود؛ تحقق في زيارتك.'))}
+  var sb=el('button','btn sm line',m.svc?'حدّث البحث':'ابحث عن الخدمات القريبة');sb.type='button';
+  sb.addEventListener('click',function(){var today=new Date().toISOString().slice(0,10);if(m.svc&&m.svc.at===today){lmMsg('بحثت عن خدمات هذه الأرض اليوم. أعد البحث غداً.','');return}
+    sb.disabled=true;sb.textContent='جارٍ البحث..';LM.services(g.c).then(function(data){m.svc={at:today,data:data};ST.save();sb.disabled=false;sb.textContent='حدّث البحث';showSvc()},function(){sb.disabled=false;sb.textContent='ابحث عن الخدمات القريبة';lmMsg('تعذر البحث الآن، فالخادم المفتوح مزدحم أحياناً. أعد المحاولة بعد دقيقة.','bad')})});
+  sv.appendChild(sb);showSvc();R.appendChild(sv);
+}
+function mapShow(){if(!mapInit())return;setDrawing(false);mapDraw(true);mapRes();lmMsg('');if(!MS().pts.length)MAP.setView([25.38,49.59],12)}
+$('lmDraw').addEventListener('click',function(){if(!mapInit())return;setDrawing(!drawing);if(!drawing)mapRes()});
+$('lmUndo').addEventListener('click',function(){MS().pts.pop();ST.save();mapDraw(false);mapRes()});
+$('lmClear').addEventListener('click',function(){var m=MS();m.pts=[];m.street={};delete m.svc;ST.save();mapDraw(false);mapRes()});
+$('lmGo').addEventListener('click',function(){var p=LM.parseLoc($('lmLoc').value);if(!mapInit())return;
+  if(!p){lmMsg(/goo\.gl|maps\.app/.test($('lmLoc').value)?'الرابط المختصر لا يحمل الإحداثيات. افتحه في المتصفح ثم انسخ الرابط الكامل من شريط العنوان، أو اضغط مطولاً على الموقع في خرائط قوقل وانسخ الإحداثيات.':'لم نفهم الموقع. الصق رابطاً كاملاً من خرائط قوقل أو إحداثيات مثل 25.3801, 49.5872','bad');return}
+  lmMsg('');MAP.setView(p,18);setDrawing(true)});
+$('lmMe').addEventListener('click',function(){if(!navigator.geolocation||!mapInit()){lmMsg('جهازك لا يدعم تحديد الموقع.','bad');return}lmMsg('جارٍ تحديد موقعك..');
+  navigator.geolocation.getCurrentPosition(function(pos){lmMsg('');MAP.setView([pos.coords.latitude,pos.coords.longitude],18);setDrawing(true)},function(){lmMsg('لم نتمكن من تحديد موقعك. اسمح للمتصفح بالوصول إلى الموقع، أو الصق الرابط.','bad')},{enableHighAccuracy:true,timeout:15000})});
+function drawAll(){drawLands();paint();drawCost();drawDec();mapShow()}
 drawLists();drawAll();
 });
 </script>

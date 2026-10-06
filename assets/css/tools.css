@@ -461,6 +461,7 @@ section.qpanel{padding-block:22px 0;border-top:0}
 
 /* بوابة الدخول داخل الأداة: الشرح ظاهر، ومكان العمل بعد الدخول */
 .gated>.howto~:not(.tk-gate){display:none!important}
+.tool-main.gated>:not(:first-child){display:none!important}
 .tk-gate{margin:22px 0 8px;padding:24px 22px;background:var(--sheet);border:1px solid var(--line-2);border-radius:var(--r-card);display:flex;flex-direction:column;gap:10px;max-width:46em}
 .tk-gate h2{font-size:21px}
 .tk-gate p{color:var(--ink-2);line-height:1.85;margin:0}
@@ -564,3 +565,33 @@ section.qpanel{padding-block:22px 0;border-top:0}
 .tool-main .msg{font-size:14px;color:var(--ink-2)}
 .tool-main .msg.bad{color:var(--stop)} .tool-main .msg.good{color:var(--ok)}
 .tool-main .linkbtn{font:inherit;font-size:13px;background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;padding:0}
+/* تقويم بيتك */
+.calbox{margin-top:28px;padding:20px 22px;background:var(--sheet);border:1px solid var(--line-2);border-radius:var(--r-card)}
+.calbox h2{font-size:19px;margin:0 0 4px}
+.calbox .lead2{color:var(--ink-2);margin:0 0 12px;line-height:1.8}
+.calbox .row{display:flex;gap:10px;flex-wrap:wrap}
+.calnotes{margin:12px 0 8px;padding-inline-start:18px;font-size:13.5px;color:var(--ink-2);line-height:1.8}
+@media (max-width:560px){.calbox{padding:18px 16px}.calbox .row .btn{flex:1 1 100%;text-align:center}}
+@media print{.calbox{display:none}}
+/* خريطة الأرض */
+.lm-find{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.lm-find input{flex:1 1 260px;font:inherit;font-size:14px;border:1px solid var(--line-2);background:var(--paper);padding:7px 9px;border-radius:var(--r-ctl);color:var(--ink)}
+.lm-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.lm-bar .btn[aria-pressed="true"]{background:var(--terra);border-color:var(--terra);color:#fff}
+.lm-hint{font-size:13px;color:var(--terra)}
+.lmap{height:420px;margin-top:10px;border:1px solid var(--line-2);border-radius:var(--r-card);overflow:hidden;z-index:0}
+.lmap.drawing{cursor:crosshair}
+.lmap .leaflet-container,.lmap.leaflet-container{font:inherit}
+.lm-lbl{background:var(--ink);color:#fff;border-radius:50%;font:700 12px/22px var(--mono);text-align:center}
+.lm-t td.hot{color:var(--stop);font-weight:700}
+.lm-read{margin:12px 0 0;padding-inline-start:20px;line-height:1.85}
+.lm-note{font-size:13px;color:var(--ink-2);line-height:1.8;margin-top:8px}
+.lm-svc{margin-top:18px}
+.lm-svc h3{font-size:16px;margin-bottom:6px}
+@media (max-width:560px){.lmap{height:320px}}
+@media print{.lm-find,.lm-bar,.lm-svc .btn{display:none}}
+.lm-t{min-width:0}
+.lm-t td small{display:block;color:var(--ink-2);font-size:12.5px}
+.lm-t td small.hot{color:var(--stop);font-weight:700}
+.lm-st{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--ink-2);font-weight:400;margin-top:4px;white-space:nowrap}
+@media (max-width:640px){.cmp.lm-t th:first-child,.cmp.lm-t td:first-child{position:static;min-width:0;width:auto}.lm-t th,.lm-t td{padding:8px 6px}.lm-t td div,.lm-t td small{white-space:nowrap}}

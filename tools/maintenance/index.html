@@ -12,8 +12,8 @@
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
-<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060529">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060529">
 </head>
 <body>
 <header class="top">
@@ -37,7 +37,7 @@
     <div><h2>كيف تستخدمه؟</h2><ol>
       <li>أخفِ ما لا يوجد في بيتك، كمضخة أو سخان أو حديقة.</li>
       <li>سجّل تاريخ آخر مرة لكل عمل، أو اضغط «نُفذ اليوم» بعد تنفيذه.</li>
-      <li>راجع «المستحق الآن» أول كل شهر، وأضف المواعيد إلى تقويم جوالك. وسجّل الأعطال وملاحظاتها في دفتر السنة الأولى.</li>
+      <li>راجع «المستحق الآن» أول كل شهر، واشترك في تقويم بيتك ليصلك التنبيه على جوالك. وسجّل الأعطال وملاحظاتها في دفتر السنة الأولى.</li>
     </ol></div>
   </div></details>
 
@@ -47,11 +47,11 @@
   </div>
   <details class="gd-gen" id="gen"><summary>عن الصيانة في الأحساء</summary><div id="genIn"></div></details>
   <div id="list"></div>
+  <section class="calbox" id="calBox"></section>
   <div id="src"></div>
 
   <div class="tool-actions">
-    <button class="btn" type="button" id="btnIcs">أضف المواعيد إلى تقويم جوالك</button>
-    <button class="btn line" type="button" id="btnPrint">اطبع التقويم</button>
+    <button class="btn" type="button" id="btnPrint">اطبع التقويم</button>
     <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
     <span class="saved" id="saved">يُحفظ تقويمك في حسابك، وتجده في أي جهاز تدخل منه.</span>
   </div>
@@ -60,11 +60,12 @@
 
 <footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
-<script src="../../assets/js/config.js?v=202610060507"></script>
-<script src="../../assets/js/session.js?v=202610060507"></script>
-<script src="../../assets/js/toolkit.js?v=202610060507"></script>
-<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060529"></script>
+<script src="../../assets/js/config.js?v=202610060529"></script>
+<script src="../../assets/js/session.js?v=202610060529"></script>
+<script src="../../assets/js/toolkit.js?v=202610060529"></script>
+<script src="../../assets/js/guide.js?v=202610060529"></script>
+<script src="../../assets/js/calendar.js?v=202610060529"></script>
 <script>
 TK.ready(function(){
 var el=TK.el,$=TK.$;
@@ -72,6 +73,7 @@ var SYS={ac:'التكييف',water:'المياه والخزانات',plumbing:'�
 var MON=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 function fresh(){return {v:1,last:{},off:{},view:'due'}}
 var ST=TK.store('bb_tool_maint_v1',fresh,1),S=ST.get(),D=null;
+BBCal.mount($('calBox'),'مواعيد صيانة بيتك');
 GD.load('maintenance').then(function(d){D=d;init()},function(){GD.fail($('list'))});
 function today(){var d=new Date();return iso(d)}
 function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
@@ -117,14 +119,6 @@ function draw(){
   else if(c.new){G.className='gate';G.appendChild(el('b',null,'لم تسجّل بعد تاريخ '+GD.n(c.new,['عمل واحد','عملين','أعمال','عملاً'])));G.appendChild(el('p',null,'سجّل تاريخ آخر مرة لكل عمل، أو اضغط «نُفذ اليوم» بعد تنفيذه، ليحسب لك الموعد القادم.'))}
   else{G.className='gate yes';G.appendChild(el('b',null,'كل الأعمال في موعدها'));G.appendChild(el('p',null,'عد إلى التقويم أول كل شهر.'))}
 }
-/* ملف تقويم بالمواعيد القادمة يُفتح في تقويم الجوال */
-$('btnIcs').addEventListener('click',function(){if(!D)return;
-  var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//albait-baitak//maintenance//AR','CALSCALE:GREGORIAN'],n=0,stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
-  D.tasks.forEach(function(t){if(S.off[t.id])return;var d=next(t);if(!d)return;if(d<today())d=today();var x=d.replace(/-/g,'');var e=new Date(d+'T00:00:00');e.setDate(e.getDate()+1);
-    L.push('BEGIN:VEVENT','UID:'+t.id+'-'+x+'@albait-baitak','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+x,'DTEND;VALUE=DATE:'+iso(e).replace(/-/g,''),'SUMMARY:صيانة: '+t.task_ar.replace(/[,;]/g,' '),'DESCRIPTION:'+t.how_ar.replace(/[,;\n]/g,' '),'BEGIN:VALARM','TRIGGER:-PT9H','ACTION:DISPLAY','DESCRIPTION:صيانة','END:VALARM','END:VEVENT');n++});
-  L.push('END:VCALENDAR');
-  if(!n){ST.flash('سجّل تاريخ آخر مرة لبعض الأعمال أولاً');return}
-  var b=new Blob([L.join('\r\n')],{type:'text/calendar;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='صيانة-بيتي.ics';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);ST.flash('نُزّل '+GD.n(n,['موعد واحد','موعدان','مواعيد','موعداً']))});
 $('btnPrint').addEventListener('click',function(){var v=S.view;S.view='all';draw();window.print();S.view=v;draw()});
 TK.resetButton($('btnReset'),function(){S=ST.clear();draw();ST.flash('بدأت من جديد')});
 });
