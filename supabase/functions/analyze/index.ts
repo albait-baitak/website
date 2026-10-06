@@ -1,7 +1,6 @@
 // دالة الفحص الآلي: تقرأ ملفات الطلب، وترسلها لـClaude مع قواعد الفحص الفني، وتحفظ مسودة التقرير.
 // لا يشغّلها إلا المشرف. والمسودة لا تصل للمكتب قبل مراجعة المعماري واعتماده.
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import rulesData from "./rules.json" with { type: "json" };
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -11,8 +10,24 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
-type Rule = { c: string; l: number; n: string; r: string; s: string };
-const RULES = (rulesData as { RULES: Rule[] }).RULES;
+type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string };
+// القواعد مصدرها واحد: refs/rules_v2.json في المستودع المنشور
+const RULES_URL = Deno.env.get("RULES_URL") ?? "https://albait-baitak.github.io/website/refs/rules_v2.json";
+let RULES: Rule[] = [];
+async function loadRules() {
+  if (RULES.length) return;
+  const r = await fetch(RULES_URL);
+  if (!r.ok) throw new Error("rules_fetch:" + r.status);
+  RULES = ((await r.json()).RULES ?? []) as Rule[];
+  if (!RULES.length) throw new Error("rules_empty");
+}
+const SRCN: Record<string, string> = { RES: "اشتراطات إنشاء المباني السكنية 1446هـ", "AHSA-VILLA": "الدليل التطبيقي للفلل (عمارة واحات الأحساء)", "AHSA-GUIDE": "موجهات عمارة واحات الأحساء الكاملة", PARK: "دليل تصميم مواقف السيارات", PRO: "ستاندرد مهني", HOUSE: "قواعد البيت السعودي" };
+function mandText(R: Rule): string {
+  if (R.l === 2 || R.l === 4) return "";
+  if (!R.mand) return "توصية";
+  if (R.mand_styles && R.mand_styles.length && R.mand_styles.length < 3) return "ملزم في " + R.mand_styles.join(" و") + "، وتوصية في غيره";
+  return "ملزم";
+}
 const LNAME: Record<number, string> = { 1: "النظامية", 2: "العملية", 3: "الموجهات", 4: "الثقافية" };
 
 const GROUPS = {
@@ -24,18 +39,26 @@ type GroupId = keyof typeof GROUPS;
 function buildPrompt(meta: string, g: GroupId): string {
   const G = GROUPS[g];
   const list = RULES.filter((R) => (G.layers as readonly number[]).includes(R.l));
-  const rules = list.map((R) => `${R.c} | ${LNAME[R.l]} | ${R.n} | المطلوب: ${R.r}`).join("\n");
+  const rules = list.map((R) => {
+    const parts = [`${R.c} | ${LNAME[R.l]} | ${R.n}`, `المطلوب: ${R.r}`];
+    const m = mandText(R); if (m) parts.push(`الإلزام: ${m}`);
+    if (R.styles && R.styles.length) parts.push(`الأنماط: ${R.styles.join("، ")}`);
+    if (R.when) parts.push(`ينطبق عند: ${R.when}`);
+    parts.push(`المرجع: ${SRCN[R.src] ?? R.src}${R.clause ? " · " + R.clause : ""}`);
+    if (R.q && (R.l === 1 || R.l === 3)) parts.push(`نص البند: ${R.q}`);
+    return parts.join(" | ");
+  }).join("\n");
   const common = "أنت فاحص معماري لمخططات المسكن السعودي، تُجري الفحص الفني للمخطط قبل رفعه للأمانة. مهمتك الآن: " + G.name + " (" + G.desc + ").\n\n" +
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
-    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n" +
+    "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف DXF». تحقق من الوحدة المذكورة فيه.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- إن تعارض بندان رسميان في المسألة نفسها (مذكور في نص القاعدة) فالحكم conflict، واذكر البندين في f، ولا تحكم بمخالفة.\n- نص البند الحرفي مرجع الحكم، لكن لا تنقل في f أو fix كلمة «دورة» بأي صيغة؛ اكتب «حمام» أو «مرحاض».\n" +
     (g === "comp"
-      ? "- الدرجة: stop للمخالفة النظامية الصريحة وللموجهات الملزمة الصريحة، major لما يُعالج قبل الرفع، minor للتحسين.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُذكر نمط الطراز فافحص على المعاصر واذكر ذلك في الافتراضات.\n"
+      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف») فافحص كل قاعدة على أشد الأنماط فيها إلزاماً، واذكر في الافتراضات أن النمط يحتاج تأكيداً من رخصة البناء.\n"
       : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
     "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";
   const shape = g === "comp"
-    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}'
-    : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
+    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}'
+    : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk|conflict","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
   return common + "أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n" + shape + "\nضع في results كل الرموز المذكورة أعلاه دون استثناء، ولا رمزاً غيرها.";
 }
 
@@ -129,12 +152,13 @@ Deno.serve(async (req) => {
       await db.from("analysis_runs").update({ status: "error", error: msg, finished_at: new Date().toISOString(), ...extra }).eq("id", run.id);
     };
     try {
+      await loadRules();
       const p = rq.project ?? {};
       const meta = [
         p.type && `نوع المسكن: ${p.type}`, p.floors && `الأدوار: ${p.floors}`,
         (p.city || p.district) && `الموقع: ${[p.city, p.district].filter(Boolean).join(" · ")}`,
         p.area && `مساحة الأرض: ${p.area} م²`, p.streets && `الشوارع: ${p.streets}`,
-        p.pattern && `نمط الموجهات: ${p.pattern}`, p.prev && `ملاحظات سابقة من الأمانة: ${p.prev}`,
+        `نمط الطراز: ${p.pattern || "لا أعرف"}`, p.prev && `ملاحظات سابقة من الأمانة: ${p.prev}`,
       ].filter(Boolean).join(" · ") || "لم تُدخل بيانات";
 
       type F = { path: string; name: string; type?: string; size?: number; role?: string; of?: string };

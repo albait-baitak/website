@@ -59,7 +59,7 @@
             <div class="f"><label for="nDistrict">الحي</label><input id="nDistrict"></div>
             <div class="f"><label for="nArea">مساحة الأرض <span class="o">م²</span></label><input id="nArea" inputmode="decimal" dir="ltr"></div>
             <div class="f"><label for="nStreets">الشوارع وعروضها <span class="o">م</span></label><input id="nStreets" placeholder="جنوب 15 · شرق 10"></div>
-            <div class="f"><label for="nPattern">نمط الموجهات <span class="o">إن عُرف</span></label><select id="nPattern"><option value="">لا أعرف</option><option>معاصر</option><option>انتقالي</option><option>تقليدي</option></select></div>
+            <div class="f"><label for="nPattern">نمط الطراز <span class="o">من رخصة البناء أو خريطة الأنماط</span></label><select id="nPattern"><option value="">اختر</option><option>تقليدي</option><option>انتقالي</option><option>معاصر</option><option value="لا أعرف">لا أعرف (يُفحص على الأشد)</option></select></div>
             <div class="f"><label for="nPrev">ملاحظات سابقة من الأمانة <span class="o">إن وُجدت</span></label><input id="nPrev"></div>
             <div class="full">
               <label class="drop2" id="nDrop" for="nFiles">
@@ -295,7 +295,7 @@ $('fNew').addEventListener('submit',function(e){
   e.preventDefault();if(busy)return;
   if(!profileOk('nMsg'))return;
   if(!$('nName').value.trim()){msg('nMsg','اكتب اسم المشروع.','bad');$('nName').focus();return}
-  var need=[['nType','نوع المسكن'],['nFloors','الأدوار'],['nCity','المدينة'],['nDistrict','الحي'],['nArea','مساحة الأرض'],['nStreets','الشوارع وعروضها']];
+  var need=[['nType','نوع المسكن'],['nFloors','الأدوار'],['nCity','المدينة'],['nDistrict','الحي'],['nArea','مساحة الأرض'],['nStreets','الشوارع وعروضها'],['nPattern','نمط الطراز']];
   var miss=need.filter(function(p){return !$(p[0]).value.trim()});
   if(miss.length){msg('nMsg','أكمل: '+miss.map(function(p){return p[1]}).join('، ')+'.','bad');$(miss[0][0]).focus();return}
   if(!NP.check('nMsg'))return;
@@ -356,7 +356,7 @@ function boqWarn(){
   var rep=reps[id],latest=revs[0]&&revs[0].id===id,t=[];
   if(!latest)t.push('هذا ليس آخر إصدار في المشروع.');
   if(!rep)t.push('تقرير فحص هذا الإصدار لم يصدر بعد.');
-  else{var s=stopsOf(rep);if(s)t.push('في تقرير هذا الإصدار '+s+(s===1?' مخالفة مانعة':' مخالفات مانعة')+'، فقد تتغير الكميات بعد معالجتها.')}
+  else{var s=stopsOf(rep);if(s)t.push('في تقرير هذا الإصدار '+s+(s===1?' مخالفة تمنع الرفع':' مخالفات تمنع الرفع')+'، فقد تتغير الكميات بعد معالجتها.')}
   if(t.length){w.textContent=t.join(' ')+' يمكنك الطلب، والقرار لك.';w.hidden=false}
 }
 
@@ -384,7 +384,7 @@ function compare(prev,curr){
     if(af&&bf)still.push({c:k,r:b});else if(af&&b&&(b.v==='ok'||b.v==='na'))fixed.push({c:k,r:a});else if(af)unclear.push({c:k,r:a});else if(bf)added.push({c:k,r:b})});
   return {fixed:fixed,still:still,added:added,unclear:unclear};
 }
-var SEVN={stop:'مانعة',major:'جوهرية',minor:'تحسينية'};
+var SEVN={stop:'تمنع الرفع',major:'تُعالج قبل الرفع',minor:'تحسين مقترح'};
 function drawCmp(q,prevQ,c,rep){
   $('cmpTitle').textContent='الإصدار '+q.rev+' مقارنة بالإصدار '+prevQ.rev;
   $('cmpSub').textContent='عولجت '+c.fixed.length+' · بقيت '+c.still.length+' · جديدة '+c.added.length;

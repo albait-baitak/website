@@ -240,8 +240,8 @@ function fillEditor(){
     RULES.filter(function(R){return G.layers.indexOf(R.l)>=0}).forEach(function(R){
       var r=(rep.results||{})[R.c]||{},row=el('div','ed-row');row.dataset.c=R.c;
       var c1=el('div');c1.appendChild(document.createTextNode(R.n));c1.appendChild(el('span','code',R.c));c1.title=R.r;row.appendChild(c1);
-      var v=el('select');[['','·'],['ok','يوافق'],['fail','يخالف'],['na','لا ينطبق'],['unk','لا يُحكم']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
-      var s=el('select');[['',''],['stop','مانعة'],['major','جوهرية'],['minor','تحسينية']].forEach(function(o){if(o[0]==='stop'&&G.id==='qual')return;var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=r.sev||'';s.dataset.k='sev';s.setAttribute('aria-label','الدرجة '+R.c);row.appendChild(s);
+      var v=el('select');[['','·'],['ok','مطابق'],['fail','مخالف'],['na','لا يخص هذا المشروع'],['unk','غير موضّح في المخطط'],['conflict','تعارض في المرجع']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
+      var s=el('select');[['',''],['stop','تمنع الرفع'],['major','تُعالج قبل الرفع'],['minor','تحسين مقترح']].forEach(function(o){if(o[0]==='stop'&&G.id==='qual')return;var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=r.sev||'';s.dataset.k='sev';s.setAttribute('aria-label','الدرجة '+R.c);row.appendChild(s);
       var f=el('textarea');f.value=r.f||'';f.dataset.k='f';f.setAttribute('aria-label','في المخطط '+R.c);row.appendChild(f);
       var x=el('textarea');x.value=r.fix||'';x.dataset.k='fix';x.setAttribute('aria-label','العلاج '+R.c);row.appendChild(x);
       box.appendChild(row);

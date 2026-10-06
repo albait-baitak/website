@@ -2,18 +2,18 @@ var FQ_ASSETS=(document.currentScript&&document.currentScript.src||'').replace(/
 /* عرض تقرير الفحص الفني وتصديره PDF */
 (function(){
 function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
-var SEVN={stop:'مانعة',major:'جوهرية',minor:'تحسينية'};
-var VD=[['ready','جاهز للرفع','لا مانعة ولا جوهرية'],['fix','يُرفع بعد العلاج','علاجها موضعي لا يغير التكوين'],['redesign','يعاد للتصميم','علاجها يغير التكوين']];
-function stLabel(r){if(!r)return['unk','لم يُفحص'];if(r.v==='ok')return['ok','يوافق'];if(r.v==='na')return['na','لا ينطبق'];if(r.v==='unk')return['unk','لا يُحكم'];return['fail-'+(r.sev||'major'),'يخالف · '+(SEVN[r.sev]||'')]}
+var SEVN={stop:'تمنع الرفع',major:'تُعالج قبل الرفع',minor:'تحسين مقترح'};
+var VD=[['ready','جاهز للرفع','لا مخالفة تمنع الرفع ولا تُعالج قبله'],['fix','يُرفع بعد العلاج','علاجها موضعي لا يغير التكوين'],['redesign','يعاد للتصميم','علاجها يغير التكوين']];
+function stLabel(r){if(!r)return['unk','لم يُفحص'];if(r.v==='ok')return['ok','مطابق'];if(r.v==='na')return['na','لا يخص هذا المشروع'];if(r.v==='unk')return['unk','غير موضّح في المخطط'];if(r.v==='conflict')return['unk','تعارض في المرجع'];return['fail-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
 
 function allChecks(rep){
-  var list=RULES.map(function(R){return {R:R,r:rep.results[R.c]||null}});
+  var list=RULES.filter(function(R){return !rep.listed||rep.results[R.c]}).map(function(R){return {R:R,r:rep.results[R.c]||null}});
   (rep.extra||[]).forEach(function(x){list.push({R:{c:x.c,l:x.l,n:x.n,r:x.r,s:x.s},r:x})});
   return list;
 }
 function tally(rep){
   var t={};LAYERS.forEach(function(L){t[L.id]={stop:0,major:0,minor:0,unk:0,ok:0}});
-  allChecks(rep).forEach(function(k){var r=k.r;if(!r)return;var T=t[k.R.l];if(r.v==='fail')T[r.sev||'major']++;else if(r.v==='unk')T.unk++;else if(r.v==='ok')T.ok++});
+  allChecks(rep).forEach(function(k){var r=k.r;if(!r)return;var T=t[k.R.l];if(r.v==='fail')T[r.sev||'major']++;else if(r.v==='unk'||r.v==='conflict')T.unk++;else if(r.v==='ok')T.ok++});
   return t;
 }
 function lname(id){for(var i=0;i<LAYERS.length;i++)if(LAYERS[i].id===id)return LAYERS[i].n;return ''}
@@ -45,7 +45,7 @@ function render(rep,host){
   if(rep.assumptions&&rep.assumptions.length){var a=el('p','assume');a.appendChild(el('b',null,'افتراضات الفحص: '));a.appendChild(document.createTextNode(rep.assumptions.join(' · ')));sm.appendChild(a)}
   body.appendChild(sm);
   var tb=el('table','tl'),th=el('thead'),tr=el('tr');
-  ['','مانعة','جوهرية','تحسينية','لا يُحكم'].forEach(function(x,i){tr.appendChild(el('th',['','c-stop','c-major','c-minor',''][i],x))});th.appendChild(tr);tb.appendChild(th);
+  ['','تمنع الرفع','تُعالج قبل الرفع','تحسين مقترح','غير محسوم'].forEach(function(x,i){tr.appendChild(el('th',['','c-stop','c-major','c-minor',''][i],x))});th.appendChild(tr);tb.appendChild(th);
   var tbd=el('tbody');
   GROUPS.forEach(function(G){
     var gr=el('tr','grp');var gc=el('th',null,G.n);gc.colSpan=5;gr.appendChild(gc);tbd.appendChild(gr);
@@ -61,7 +61,7 @@ function render(rep,host){
     var fb=el('div','blk');var fh=el('h4',null,G.id==='comp'?'المخالفات وعلاجاتها':'الملاحظات وعلاجاتها');fh.appendChild(el('span',null,fails.length+(G.id==='comp'?' مخالفة مرتبة بالدرجة':' ملاحظة مرتبة بالدرجة')));fb.appendChild(fh);
     if(!fails.length)fb.appendChild(el('p','muted','لا شيء.'));
     fails.forEach(function(k){
-      var f=el('div','find');f.appendChild(el('span','sevtag '+(k.r.sev||'major'),SEVN[k.r.sev]||'جوهرية'));
+      var f=el('div','find');f.appendChild(el('span','sevtag '+(k.r.sev||'major'),SEVN[k.r.sev]||'تُعالج قبل الرفع'));
       var d=el('div');var tt=el('div','t',k.R.n);tt.appendChild(el('code',null,k.R.c));d.appendChild(tt);
       var dl=el('dl');[['المطلوب',k.R.r,''],['في المخطط',k.r.f,''],['العلاج',k.r.fix||'','fix']].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',p[2]||null,p[1]))});
       d.appendChild(dl);if(k.r.note)d.appendChild(el('p','note','ملاحظة: '+k.r.note));d.appendChild(el('p','note',k.R.s||''));
@@ -89,7 +89,7 @@ function render(rep,host){
     var wx=el('div','chk-wrap'),tx=el('table','ext-t'),hx=el('thead'),rx=el('tr');['الدور','الفراغ','الأبعاد (م)','المساحة (م²)','الحد النظامي','الحالة'].forEach(function(x){rx.appendChild(el('th',null,x))});hx.appendChild(rx);tx.appendChild(hx);
     var bx=el('tbody');rep.extraction.forEach(function(row){var r=el('tr');row.forEach(function(v,i){r.appendChild(el('td',(i>=2&&i<=4)?'n':null,v))});bx.appendChild(r)});tx.appendChild(bx);wx.appendChild(tx);dx.appendChild(wx);xb.appendChild(dx);box.appendChild(xb);
   }
-  if(rep.questions&&rep.questions.length){var qb=el('div','blk');var qh=el('h4',null,'أسئلة لم يجب عنها المخطط');qh.appendChild(el('span',null,'لا يُحكم عليها حتى تُستوفى'));qb.appendChild(qh);var ol=el('ol','qs-l');rep.questions.forEach(function(q){ol.appendChild(el('li',null,q))});qb.appendChild(ol);box.appendChild(qb)}
+  if(rep.questions&&rep.questions.length){var qb=el('div','blk');var qh=el('h4',null,'أسئلة لم يجب عنها المخطط');qh.appendChild(el('span',null,'تبقى غير موضّحة حتى تُستوفى'));qb.appendChild(qh);var ol=el('ol','qs-l');rep.questions.forEach(function(q){ol.appendChild(el('li',null,q))});qb.appendChild(ol);box.appendChild(qb)}
   if(rep.extra&&rep.extra.length){var nb=el('div','blk');nb.appendChild(el('h4',null,'قاعدة مقترحة من هذا الفحص'));rep.extra.forEach(function(x){nb.appendChild(el('p','newrule',x.c+' · '+x.n+': '+x.r))});box.appendChild(nb)}
   var ft=el('div','rep-f');ft.appendChild(el('span',null,rep.foot||'التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة.'));ft.appendChild(el('span',null,'الملفات: '+(rep.files||'')));box.appendChild(ft);
   host.appendChild(box);
@@ -128,10 +128,10 @@ window.FQ={render:render,exportPdf:exportPdf,el:el};
 /* مولد صفحات A4 لتقرير الفحص الفني · يستخدمه التصدير في الصفحة وملف PDF العينة */
 window.FQ_pages=function(rep,host,logoSrc){
   function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
-  var SEVN={stop:'مانعة',major:'جوهرية',minor:'تحسينية'};
-  var VD=[['ready','جاهز للرفع','لا مانعة ولا جوهرية'],['fix','يُرفع بعد العلاج','علاجها موضعي لا يغير التكوين'],['redesign','يعاد للتصميم','علاجها يغير التكوين']];
+  var SEVN={stop:'تمنع الرفع',major:'تُعالج قبل الرفع',minor:'تحسين مقترح'};
+  var VD=[['ready','جاهز للرفع','لا مخالفة تمنع الرفع ولا تُعالج قبله'],['fix','يُرفع بعد العلاج','علاجها موضعي لا يغير التكوين'],['redesign','يعاد للتصميم','علاجها يغير التكوين']];
   var date=rep.date||new Date().toISOString().slice(0,10);
-  var checks=RULES.map(function(R){return {R:R,r:rep.results[R.c]||null}});
+  var checks=RULES.filter(function(R){return !rep.listed||rep.results[R.c]}).map(function(R){return {R:R,r:rep.results[R.c]||null}});
   (rep.extra||[]).forEach(function(x){checks.push({R:{c:x.c,l:x.l,n:x.n,r:x.r,s:x.s},r:x})});
   var pages=[],cur=null;
   function newPage(){
@@ -161,16 +161,16 @@ window.FQ_pages=function(rep,host,logoSrc){
   GROUPS.forEach(function(G,i){if(rep.summary&&rep.summary[i]){var p=el('p');p.appendChild(el('b',null,G.n+': '));p.appendChild(document.createTextNode(rep.summary[i]));l.appendChild(p)}});
   if(rep.assumptions&&rep.assumptions.length)l.appendChild(el('p','as','افتراضات الفحص: '+rep.assumptions.join(' · ')));sm.appendChild(l);
   var T={};LAYERS.forEach(function(L){T[L.id]={stop:0,major:0,minor:0,unk:0}});
-  checks.forEach(function(k){if(!k.r)return;if(k.r.v==='fail')T[k.R.l][k.r.sev||'major']++;else if(k.r.v==='unk')T[k.R.l].unk++});
+  checks.forEach(function(k){if(!k.r)return;if(k.r.v==='fail')T[k.R.l][k.r.sev||'major']++;else if(k.r.v==='unk'||k.r.v==='conflict')T[k.R.l].unk++});
   function ln(id){for(var q=0;q<LAYERS.length;q++)if(LAYERS[q].id===id)return LAYERS[q].n;return ''}
-  var tb=el('table','pp-tl'),th=el('thead'),tr=el('tr');['','مانعة','جوهرية','تحسينية','لا يُحكم'].forEach(function(x,i){tr.appendChild(el('th',['','k-stop','k-major','k-minor',''][i],x))});th.appendChild(tr);tb.appendChild(th);
+  var tb=el('table','pp-tl'),th=el('thead'),tr=el('tr');['','تمنع الرفع','تُعالج قبل الرفع','تحسين مقترح','غير محسوم'].forEach(function(x,i){tr.appendChild(el('th',['','k-stop','k-major','k-minor',''][i],x))});th.appendChild(tr);tb.appendChild(th);
   var bd=el('tbody');
   GROUPS.forEach(function(G){var gr=el('tr','g');var gc=el('td',null,G.n);gc.colSpan=5;gr.appendChild(gc);bd.appendChild(gr);
     G.layers.forEach(function(id){var r=el('tr');r.appendChild(el('td',null,ln(id)));['stop','major','minor','unk'].forEach(function(k){var n=T[id][k];var na=(k==='stop'&&G.id==='qual');r.appendChild(el('td',na?'k-z':(n?(k==='unk'?'':'k-'+k):'k-z'),na?'·':String(n)))});bd.appendChild(r)})});
   tb.appendChild(bd);sm.appendChild(tb);b.appendChild(sm);add(b);
 
   function hdr(cols,cls){var t=el('table','pp-row');var cg=el('colgroup');cls.forEach(function(c){var x=el('col',c);cg.appendChild(x)});t.appendChild(cg);var r=el('tr');cols.forEach(function(c){r.appendChild(el('th',null,c))});t.appendChild(r);return t}
-  function st(r){if(!r)return['','·'];if(r.v==='ok')return['k-ok','يوافق'];if(r.v==='na')return['','لا ينطبق'];if(r.v==='unk')return['','لا يُحكم'];return['k-'+(r.sev||'major'),'يخالف · '+(SEVN[r.sev]||'')]}
+  function st(r){if(!r)return['','·'];if(r.v==='ok')return['k-ok','مطابق'];if(r.v==='na')return['','لا يخص هذا المشروع'];if(r.v==='unk')return['','غير موضّح في المخطط'];if(r.v==='conflict')return['','تعارض في المرجع'];return['k-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
   var ord={stop:0,major:1,minor:2};
   GROUPS.forEach(function(G){
     var gh=blk();gh.appendChild(el('div','pp-grp',''));gh.lastChild.appendChild(el('b',null,G.n));gh.lastChild.appendChild(el('span',null,G.sub));
@@ -181,7 +181,7 @@ window.FQ_pages=function(rep,host,logoSrc){
     function head(bb){if(first){bb.appendChild(gh.firstChild);first=false}}
     fails.forEach(function(k,i){
       var bb=blk();head(bb);if(i===0)bb.appendChild(sec(G.id==='comp'?'المخالفات وعلاجاتها':'الملاحظات وعلاجاتها',fails.length+(G.id==='comp'?' مخالفة مرتبة بالدرجة':' ملاحظة مرتبة بالدرجة')));
-      var f=el('div','pp-find');f.appendChild(el('span','sv '+(k.r.sev||'major'),SEVN[k.r.sev]||'جوهرية'));
+      var f=el('div','pp-find');f.appendChild(el('span','sv '+(k.r.sev||'major'),SEVN[k.r.sev]||'تُعالج قبل الرفع'));
       var d=el('div');var t=el('div','t',k.R.n);t.appendChild(el('code',null,k.R.c));d.appendChild(t);
       var dl=el('dl');[['المطلوب',k.R.r],['في المخطط',k.r.f],['العلاج',k.r.fix]].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',null,p[1]))});d.appendChild(dl);
       if(k.r.note)d.appendChild(el('p','nt','ملاحظة: '+k.r.note));d.appendChild(el('p','nt',k.R.s||''));
@@ -208,7 +208,7 @@ window.FQ_pages=function(rep,host,logoSrc){
   });
 
   // الأسئلة
-  (rep.questions||[]).forEach(function(q,i){var bb=blk();if(i===0)bb.appendChild(sec('أسئلة لم يجب عنها المخطط','لا يُحكم عليها حتى تُستوفى'));var d=el('div','pp-q');d.appendChild(el('span',null,String(i+1)));d.appendChild(el('div',null,q));bb.appendChild(d);add(bb)});
+  (rep.questions||[]).forEach(function(q,i){var bb=blk();if(i===0)bb.appendChild(sec('أسئلة لم يجب عنها المخطط','تبقى غير موضّحة حتى تُستوفى'));var d=el('div','pp-q');d.appendChild(el('span',null,String(i+1)));d.appendChild(el('div',null,q));bb.appendChild(d);add(bb)});
   if(rep.extra&&rep.extra.length){var bb=blk();bb.appendChild(sec('قاعدة مقترحة من هذا الفحص'));rep.extra.forEach(function(x){bb.appendChild(el('div','pp-nr',x.c+' · '+x.n+': '+x.r))});add(bb)}
   var lb=blk();lb.appendChild(sec('حدود التقرير'));var lm=el('div','pp-lim');
   ['التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة وحدها.','المسؤولية المهنية عن التصميم تبقى على المكتب المصمم وختمه.','دقة القياس محكومة بما في المخطط المرفوع، وما لا يُقرأ بثقة يُنقل إلى الأسئلة.','كل قاعدة بمصدرها، والموسوم «للتحقق» لم يُثبَّت رقمه من النص الأصلي بعد.'].concat(rep.foot?[rep.foot]:[]).forEach(function(x){lm.appendChild(el('div',null,x))});
