@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061221">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610061221">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061227">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061227">
 </head>
 <body>
 <header class="top">
@@ -63,7 +63,7 @@
             </div>
           </fieldset>
           <div class="f" data-for="office designer contractor" hidden><label for="sName" id="sNameL">الاسم</label><input id="sName" autocomplete="name"></div>
-          <div class="f" data-for="office contractor" hidden><label for="sOrg" id="sOrgL">اسم المكتب</label><input id="sOrg" autocomplete="organization"></div>
+          <div class="f" data-for="office designer contractor" hidden><label for="sOrg" id="sOrgL">اسم المكتب</label><input id="sOrg" autocomplete="organization"></div>
           <div class="f" data-for="designer contractor" hidden><label for="sSpec">التخصص</label><select id="sSpec"></select></div>
           <div class="f" data-for="office designer contractor" hidden><label for="sPhone">الجوال</label><input id="sPhone" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="05xxxxxxxx"></div>
           <div class="f" data-for="office designer contractor" hidden><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
@@ -129,10 +129,10 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610061221"></script>
-<script src="../assets/js/config.js?v=202610061221"></script>
-<script src="../assets/js/access.js?v=202610061221"></script>
-<script src="../assets/js/session.js?v=202610061221"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061227"></script>
+<script src="../assets/js/config.js?v=202610061227"></script>
+<script src="../assets/js/access.js?v=202610061227"></script>
+<script src="../assets/js/session.js?v=202610061227"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -183,14 +183,14 @@ $('btnForgot').addEventListener('click',function(){
 function sRole(){return (document.querySelector('input[name=rr]:checked')||{}).value||'owner'}
 var SPEC={designer:['تصميم معماري','تصميم داخلي','معماري وداخلي'],contractor:['مقاول عظم','مقاول تشطيب','عظم وتشطيب','بنود متخصصة (كهرباء، سباكة، تكييف..)']};
 var NOTE={owner:'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.',
-  designer:'يُفعَّل حسابك فوراً، ونحفظ ما تكتبه في الأدوات في حسابك، ولا نشاركه مع أي جهة.',
+  designer:'يُراجع طلبك ويُفعَّل حسابك بعد التحقق من بياناتك، فتصلك أدوات الفحص الفني وجداول الكميات كالمكاتب الهندسية.',
   contractor:'يُفعَّل حسابك فوراً، ونحفظ ما تكتبه في الأدوات في حسابك، ولا نشاركه مع أي جهة.',
   office:'يُراجع طلب المكتب ويُفعَّل حسابه للفحص الفني بعد التحقق من بياناته.'};
 function sLayout(){var r=sRole();
   document.querySelectorAll('#fSignup [data-for]').forEach(function(f){f.hidden=f.dataset.for.split(' ').indexOf(r)<0});
   $('sStageF').hidden=r!=='owner';
   $('sNameL').textContent=r==='office'?'اسم المهندس المسؤول':'الاسم';
-  $('sOrgL').innerHTML='';$('sOrgL').appendChild(document.createTextNode(r==='office'?'اسم المكتب':'اسم المؤسسة '));if(r==='contractor'){var o=document.createElement('span');o.className='o';o.textContent='اختياري';$('sOrgL').appendChild(o)}
+  $('sOrgL').innerHTML='';$('sOrgL').appendChild(document.createTextNode(r==='office'?'اسم المكتب':r==='designer'?'اسم المكتب أو الاستوديو ':'اسم المؤسسة '));if(r!=='office'){var o=document.createElement('span');o.className='o';o.textContent='اختياري';$('sOrgL').appendChild(o)}
   var sp=$('sSpec');if(SPEC[r]){var cur=sp.value;sp.innerHTML='';var o0=document.createElement('option');o0.value='';o0.textContent='اختر';sp.appendChild(o0);SPEC[r].forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sp.appendChild(o)});if(SPEC[r].indexOf(cur)>=0)sp.value=cur}
   $('sNote').textContent=NOTE[r];
 }
@@ -204,7 +204,7 @@ $('fSignup').addEventListener('submit',function(e){
   e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
   if(r!=='owner'){
     d.full_name=$('sName').value.trim();d.phone=$('sPhone').value.trim();d.city=$('sCity').value.trim();
-    if(r!=='designer')d.office_name=$('sOrg').value.trim();if(SPEC[r])d.specialty=$('sSpec').value;
+    d.office_name=$('sOrg').value.trim();if(SPEC[r])d.specialty=$('sSpec').value;
     if(!d.full_name)miss.push(r==='office'?'اسم المهندس':'الاسم');if(r==='office'&&!d.office_name)miss.push('اسم المكتب');if(SPEC[r]&&!d.specialty)miss.push('التخصص');
     if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
   }else{var st=document.querySelector('input[name=st]:checked');if(st)d.stage=st.value}
@@ -233,7 +233,7 @@ $('fReset').addEventListener('submit',function(e){
 $('fReg').addEventListener('submit',function(e){
   e.preventDefault();var x=readDetails('rr2','r');
   if(x.miss.length){msg('rMsg','أكمل: '+x.miss.join('، ')+'.','bad');return}
-  var d=x.d;if(d.requested_role==='office')d.engineer=d.full_name;if(!d.office_name)d.office_name=null;d.registered_at=new Date().toISOString();
+  var d=x.d;if(d.requested_role==='office'||d.requested_role==='designer')d.engineer=d.full_name;if(!d.office_name)d.office_name=null;d.registered_at=new Date().toISOString();
   $('rSubmit').disabled=true;
   BB.from('profiles').update(d).eq('id',user.id).then(function(r){
     $('rSubmit').disabled=false;if(r.error){msg('rMsg','تعذر الإرسال. أعد المحاولة.','bad');return}

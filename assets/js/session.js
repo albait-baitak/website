@@ -44,7 +44,7 @@ function chip(email,p){
   menu.appendChild(hd);
   function item(label,href){var a=el('a','acct-it',label);a.href=BASE+href;a.setAttribute('role','menuitem');menu.appendChild(a)}
   item(approved?'أدواتك':'حالة الحساب','account/');
-  if(approved&&(p.role==='office'||p.role==='admin'))item('بوابة الفحص الفني','fahs/app.html');
+  if(approved&&(p.role==='office'||p.role==='designer'||p.role==='admin'))item('بوابة الفحص الفني','fahs/app.html');
   if(approved&&p.role==='admin')item('لوحة الإدارة','admin/');
   var out=el('button','acct-it acct-out','تسجيل الخروج');out.type='button';out.setAttribute('role','menuitem');
   out.addEventListener('click',function(){window.BB.auth.signOut().then(function(){

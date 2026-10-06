@@ -5,7 +5,7 @@ var ROLE={admin:'مدير النظام',office:'مكتب هندسي',designer:'�
 var ALL=['owner','designer','contractor','office','admin'];
 var TOOLS=[
   {id:'admin',  name:'لوحة الإدارة',               desc:'الحسابات وطلبات الفحص والتقارير.',                      href:'admin/',                roles:['admin'],               live:true},
-  {id:'fahs',   name:'الفحص الفني',                desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',      href:'fahs/app.html',         roles:['office','admin'],      live:true},
+  {id:'fahs',   name:'الفحص الفني',                desc:'ارفع المخطط قبل الأمانة، وتابع طلباتك وتقاريرك.',      href:'fahs/app.html',         roles:['office','designer','admin'],      live:true},
   {id:'t01',    name:'أسئلة الجلسة الأولى مع مصممك', desc:'عشرون سؤالاً تكشف من أمامك.. قبل أن توقع',            href:'tools/first-session/',  roles:['owner','admin'],       live:true},
   {id:'t02',    name:'دليل اختيار الأرض',           desc:'ما تفحصه قبل أن تشتري أرض بيت العمر',                 href:'tools/land/',           roles:['owner','admin'],       live:true},
   {id:'qty',    name:'جداول الكميات والتكاليف',     desc:'من فراغات بيتك إلى كميات التشطيب وتكلفتها.. قبل أن تتفق مع مقاول التشطيب', href:'tools/quantities/', roles:ALL, live:true},
