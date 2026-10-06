@@ -34,6 +34,7 @@ function db(){return window.BB}
 /* يُستدعى بعد كل حفظ أو مسح محلي: يعلّم المفتاح ويرفعه بعد لحظة */
 function push(key){
   if(!uid||!KRX.test(key))return;
+  if(window.BBStat)BBStat.tool(key);
   var m=meta();m.t[key]=Date.now();m.d[key]=1;setMeta(m);
   clearTimeout(timers[key]);
   if(document.visibilityState==='hidden')send(key);else timers[key]=setTimeout(function(){send(key)},700);

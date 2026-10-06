@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061306">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610061306">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061357">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061357">
 </head>
 <body>
 <header class="top">
@@ -69,7 +69,7 @@
           <div class="f" data-for="office designer contractor" hidden><label for="sCity">المدينة</label><input id="sCity" autocomplete="address-level2"></div>
           <div class="f"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
           <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><div class="pw"><input id="sPass" type="password" autocomplete="new-password" dir="ltr"><button class="linkbtn" type="button" id="sShow">إظهار</button></div></div>
-          <p class="full muted privacy" id="sNote">نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.</p>
+          <p class="full muted privacy" id="sNote">نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة. ونسجّل إحصاءات استخدام داخلية لتحسين الموقع، بلا كوكيز إعلانية ولا طرف خارجي.</p>
           <div class="row full"><button class="btn" type="submit" id="sBtn">إنشاء الحساب</button><span class="msg" id="sMsg" role="status"></span></div>
         </form>
       </div>
@@ -129,10 +129,11 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610061306"></script>
-<script src="../assets/js/config.js?v=202610061306"></script>
-<script src="../assets/js/access.js?v=202610061306"></script>
-<script src="../assets/js/session.js?v=202610061306"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061357"></script>
+<script src="../assets/js/config.js?v=202610061357"></script>
+<script src="../assets/js/stats.js?v=202610061357"></script>
+<script src="../assets/js/access.js?v=202610061357"></script>
+<script src="../assets/js/session.js?v=202610061357"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -171,7 +172,7 @@ $('fLogin').addEventListener('submit',function(e){
   e.preventDefault();var em=$('lEmail').value.trim(),pw=$('lPass').value;
   if(!okEmail(em)||!pw){msg('lMsg','أدخل البريد وكلمة المرور.','bad');return}
   $('lBtn').disabled=true;msg('lMsg','جارٍ الدخول..');
-  BB.auth.signInWithPassword({email:em,password:pw}).then(function(r){$('lBtn').disabled=false;if(r.error)msg('lMsg',errText(r.error),'bad');else msg('lMsg','')});
+  BB.auth.signInWithPassword({email:em,password:pw}).then(function(r){$('lBtn').disabled=false;if(r.error)msg('lMsg',errText(r.error),'bad');else{msg('lMsg','');if(window.BBStat)BBStat.login()}});
 });
 $('btnForgot').addEventListener('click',function(){
   var em=$('lEmail').value.trim();if(!okEmail(em)){msg('lMsg','اكتب بريدك في الخانة أولاً، ثم اضغط «نسيت كلمة المرور».','bad');$('lEmail').focus();return}
@@ -182,7 +183,7 @@ $('btnForgot').addEventListener('click',function(){
 /* حساب جديد: الأفراد بالبريد وكلمة المرور (والمرحلة اختيارية)، والمكاتب ببياناتها كاملة للمراجعة */
 function sRole(){return (document.querySelector('input[name=rr]:checked')||{}).value||'owner'}
 var SPEC={designer:['تصميم معماري','تصميم داخلي','معماري وداخلي'],contractor:['مقاول عظم','مقاول تشطيب','عظم وتشطيب','بنود متخصصة (كهرباء، سباكة، تكييف..)']};
-var NOTE={owner:'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة.',
+var NOTE={owner:'نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة. ونسجّل إحصاءات استخدام داخلية لتحسين الموقع، بلا كوكيز إعلانية ولا طرف خارجي.',
   designer:'يُراجع طلبك ويُفعَّل حسابك بعد التحقق من بياناتك، فتصلك أدوات الفحص الفني وجداول الكميات كالمكاتب الهندسية.',
   contractor:'يُفعَّل حسابك فوراً، ونحفظ ما تكتبه في الأدوات في حسابك، ولا نشاركه مع أي جهة.',
   office:'يُراجع طلب المكتب ويُفعَّل حسابه للفحص الفني بعد التحقق من بياناته.'};
@@ -217,6 +218,7 @@ $('fSignup').addEventListener('submit',function(e){
     if(res.error){msg('sMsg',errText(res.error),'bad');return}
     if(res.data&&res.data.user&&res.data.user.identities&&!res.data.user.identities.length){msg('sMsg',errText({code:'user_already_exists'}),'bad');return}
     msg('sMsg','');
+    if(window.BBStat)BBStat.signup(r);
     if(!res.data.session)state('أكّد بريدك','أرسلنا رسالة تأكيد إلى '+em+'. افتحها وأكّد بريدك، ثم ادخل بالبريد وكلمة المرور.',true);
   });
 });
