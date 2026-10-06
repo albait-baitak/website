@@ -1,6 +1,8 @@
-// دالة جداول الكميات: تقرأ ملفات إصدار المشروع، وتطلب من Claude كميات بنود مكتبة الفيلا،
-// ثم تُسعّرها من المكتبة نفسها وتحفظ مسودة لا تصل المكتب قبل مراجعة المعماري واعتماده.
+// دالة جداول الكميات: تقرأ ملفات إصدار المشروع، ويستخرج Claude منها البيانات الخام فقط (فراغات وجدران وفتحات وعناصر إنشائية)،
+// ثم يحسب calc.ts كل بند بمعادلة ثابتة على طريقة قياس مكتبة البنود، ويُسعّره منها، ويفحص معقوليته.
+// تُحفظ مسودة لا تصل المكتب قبل مراجعة المعماري واعتماده.
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { compute, assemble, checks, type Takeoff, type LibItem } from "./calc.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -10,40 +12,44 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
-type Item = { c: string; d: string; n: string; u: string; desc: string; spec: string; m: string; p: { low: number | null; typ: number | null; high: number | null; method: string; basis: string } };
-// المكتبة مصدرها واحد: refs/boq/boq_library.json في المستودع المنشور
-const LIB_URL = Deno.env.get("BOQ_LIB_URL") ?? "https://albait-baitak.github.io/website/refs/boq/boq_library.json";
-let LIB: { built: string; price_date: string; items: Item[] } = { built: "", price_date: "", items: [] };
+// المكتبة ودليل النقاط مصدرهما واحد: الموقع المنشور
+const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.github.io/website/";
+const LIB_URL = Deno.env.get("BOQ_LIB_URL") ?? SITE + "refs/boq/boq_library.json";
+let LIB: { built: string; price_date: string } = { built: "", price_date: "" };
+let LIBRAW: LibItem[] = [];
 async function loadLib() {
-  if (LIB.items.length) return;
+  if (LIBRAW.length) return;
   const r = await fetch(LIB_URL);
   if (!r.ok) throw new Error("lib_fetch:" + r.status);
   const L = await r.json();
-  LIB = { built: L.built, price_date: "يوليو 2026", items: (L.items as any[]).filter((i) => !String(i.code).startsWith("13-")).map((i) => ({
-    c: i.code, d: i.div_ar, n: i.name_ar, u: i.unit_ar, desc: i.desc_ar, spec: i.spec_ar, m: i.measure_ar,
-    p: { low: i.price.low, typ: i.price.typ, high: i.price.high, method: i.price.method, basis: i.price.basis } })) };
+  LIB = { built: L.built, price_date: "يوليو 2026" };
+  LIBRAW = (L.items as any[]).map((i) => ({ c: i.code, d: i.div_ar, n: i.name_ar, u: i.unit_ar, desc: i.desc_ar, spec: i.spec_ar, m: i.measure_ar,
+    p: { low: i.price.low, typ: i.price.typ, high: i.price.high, basis: i.price.basis } }));
 }
 const DISC: Record<string, string> = { arch: "معماري", struct: "إنشائي", elec: "كهربائي", plumb: "صحي", hvac: "تكييف" };
-// الأقسام وما يُشترط لقياسها من المخطط
-const DIV_NEEDS: Record<string, string> = { "02": "struct", "03": "struct", "09": "plumb", "10": "elec", "11": "hvac" };
 
 function buildPrompt(meta: string, disc: string[], note: string): string {
-  const list = LIB.items.map((i) => `${i.c} | ${i.d} | ${i.n} | ${i.u} | القياس: ${i.m}`).join("\n");
   const have = disc.map((k) => DISC[k] ?? k).join("، ");
   const missing = Object.keys(DISC).filter((k) => !disc.includes(k)).map((k) => DISC[k]).join("، ") || "لا شيء";
-  return "أنت مهندس كميات سعودي تُعد جدول كميات لفيلا سكنية من مخططاتها. المرفقات لوحات المشروع، وقد يُرفق استخراج من ملفات DXF بأرقام مقروءة من ملف الرسم نفسه فقدّمها على القياس من الصور.\n" +
-    "بيانات المشروع: " + meta + "\n" +
-    "التخصصات المرفوعة: " + have + ". التخصصات غير المرفوعة: " + missing + ".\n" +
-    (note ? "ملاحظات المكتب: " + note + "\n" : "") + "\n" +
+  return "أنت مهندس كميات سعودي. مهمتك الآن القراءة فقط: تستخرج من لوحات الفيلا المرفقة البيانات الخام التي تُحسب منها الكميات، ولا تحسب أي كمية إجمالية بنفسك؛ الحساب يتم بعدك بمعادلات ثابتة.\n" +
+    "بيانات المشروع: " + meta + "\nالتخصصات المرفوعة: " + have + ". غير المرفوعة: " + missing + ".\n" + (note ? "ملاحظات المكتب: " + note + "\n" : "") + "\n" +
     "قواعد صارمة:\n" +
-    "- احسب كمية كل بند من البنود التالية بطريقة القياس المكتوبة معه، وبوحدته.\n" +
-    "- ما يُقاس من المخططات المرفوعة: est=false، واكتب في calc الحساب مختصراً بأرقامه (مثال: «2×(12.4+8.6)×3.2 − فتحات 14.5»).\n" +
-    "- ما لا تُرفع مخططاته (مثل الإنشائي إن لم يُرفع) قدّره بنسب هندسية معروفة لفيلا سكنية سعودية من مسطحات المعماري: est=true، واكتب في calc الأساس (مثال: «تقدير: 0.20 م³ خرسانة لكل م² من مسطح البلاطات»).\n" +
-    "- لا تخترع رقماً لا أساس له. ما لا يمكن قياسه ولا تقديره بأساس معقول: اتركه بلا كمية واذكره في questions.\n" +
-    "- البند غير الموجود في المشروع لا تذكره، واذكر ما استبعدته في excluded.\n" +
-    "- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
-    "البنود (الرمز | القسم | البند | الوحدة | طريقة القياس):\n" + list + "\n\n" +
-    'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"اسم المشروع إن ظهر","areas":{"built_m2":0,"ground_m2":0,"first_m2":0,"annex_m2":0},"items":[{"c":"04-01","qty":312.5,"est":false,"calc":".."}],"assumptions":[".."],"excluded":[".."],"questions":[".."]}';
+    "- لا تخترع رقماً. ما لا يُقرأ بثقة اكتبه null واذكره في questions.\n" +
+    "- إن وُجد استخراج من ملفات DXF فأرقامه من ملف الرسم نفسه، فقدّمها على القراءة من الصور، واكتب src=\"dxf\". وما قرأته من بُعد مكتوب src=\"dim\"، وما قسته بالمقياس src=\"scale\".\n" +
+    "- الفراغات: لكل فراغ في كل دور اسمه واستخدامه وأبعاده الصافية L وW إن كان مستطيلاً، وإلا area_m2 وperimeter_m. ارتفاع السقف الصافي h_m إن ظهر في القطاعات. مادة الأرضية والسقف إن ظهرتا في جدول التشطيبات أو المخطط، وإلا porcelain وpaint. ارتفاع تكسية الجدران wall_tile_h_m للحمامات والمطبخ والغسيل إن ظهر.\n" +
+    "- use واحدة من: majlis, living, dining, master, bed, maid, kitchen, bath, wc, laundry, corridor, stair, store, outdoor_covered, other. (bath حمام كامل، wc مرحاض ومغسلة ضيوف).\n" +
+    "- floor_finish واحدة من: porcelain, ceramic, marble, parquet, vinyl, stone, other, none. وceiling واحدة من: gypsum, paint, none.\n" +
+    "- الجدران: لكل دور أطوال الجدران على المحور مجمّعة بنوعها: ext20 خارجي 20 سم، int15 داخلي 15 سم، int10 داخلي 10 سم، below20 تحت منسوب الأرض. اذكر الطول من الأبعاد المكتوبة لا من التقدير.\n" +
+    "- الفتحات: من جدول الأبواب والنوافذ إن وُجد، وإلا من المساقط؛ kind: door_main, door_ext, door_int, window, sliding؛ ومعها w وh بالمتر وcount، وin=ext للفتحات في الجدران الخارجية وint للداخلية.\n" +
+    "- الأدوار: لكل دور المسطح الإجمالي gross_m2 من جدول المساحات إن وُجد، وارتفاعه من البلاطة إلى البلاطة height_m، وسمك البلاطة slab_thk_m.\n" +
+    "- السطح والموقع: مسقط السطح، وطول الدروة وارتفاعها، ومساحة الأرض ومحيطها، وطول السور، وعدد بوابات السيارات، ومساحة المسطحات الخضراء والأرضيات الخارجية إن ظهرت في الموقع العام.\n" +
+    "- الواجهات: stone_m2 مساحة تكسية الحجر إن ظهرت مادتها وأبعادها في الواجهات، وإلا null.\n" +
+    "- الدرج: عدد الدرجات وعرضها لكل درج. والدرابزين: طوله الإجمالي.\n" +
+    "- الكهرباء والسباكة والتكييف (mep): أعداد فقط ومن مخططاتها فقط إن رُفعت: light, socket, ac_points, lowcurrent, water_points, drain_points, wc, basin, sink, heaters, manholes, split_units, ducted_units, exhaust_fans, panels. وإن لم تُرفع فاترك mep فارغاً {}.\n" +
+    "- الإنشائي (structure): فقط إن رُفعت المخططات الإنشائية، من جداول القواعد والأعمدة والكمرات والبلاطات: footings [{count,L,W,D}]، necks [{count,w,d,h}]، ties [{length_m,w,d}]، slab_on_grade {area_m2,thk_m}، columns [{floor,count,w,d,h}]، slabs [{floor,area_m2,thk_m,type:\"solid|hordi\"}]، beams [{floor,length_m,w,d}] بطول إجمالي لكل مقطع، وstairs_m3 وexcavation_m3 وbackfill_m3 وrebar_t إن كُتبت صراحة. وإن لم تُرفع فاجعله null.\n" +
+    "- floor في كل عنصر هو id الدور كما عرّفته في floors (مثل G وF وA).\n" +
+    "- اكتب بالعربية الفصحى في الأسماء والأسئلة، واستخدم «..» لا «…».\n\n" +
+    'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"","plot":{"area_m2":null,"perimeter_m":null,"fence_m":null,"gates_car":null,"yard_soft_m2":null,"yard_hard_m2":null},"floors":[{"id":"G","name":"الدور الأرضي","gross_m2":null,"height_m":null,"slab_thk_m":null}],"roof":{"area_m2":null,"parapet_m":null,"parapet_h_m":null},"rooms":[{"floor":"G","name":"المجلس","use":"majlis","L":null,"W":null,"area_m2":null,"perimeter_m":null,"h_m":null,"floor_finish":"porcelain","ceiling":"paint","wall_tile_h_m":null,"src":"dim"}],"walls":[{"floor":"G","kind":"ext20","length_m":0,"height_m":null}],"openings":[{"floor":"G","kind":"window","w":1.5,"h":1.6,"count":1,"in":"ext"}],"facade":{"stone_m2":null},"stairs":[{"steps":null,"width_m":null}],"railings_m":null,"mep":{},"structure":null,"assumptions":[],"questions":[],"excluded":[]}';
 }
 
 function b64(buf: ArrayBuffer): string {
@@ -168,31 +174,20 @@ Deno.serve(async (req) => {
       let A: Record<string, any>;
       try { A = extractJson(r.text) as Record<string, any>; } catch { return await fail("bad_json", { usage, result: { stop: r.stop, text: r.text.slice(0, 20000) } }); }
 
-      // التسعير من المكتبة: السعر النموذجي، والمبلغ = الكمية × السعر. ما لا سعر له يبقى «بعرض».
-      const byCode: Record<string, Item> = {};
-      LIB.items.forEach((i) => { byCode[i.c] = i; });
-      const secs: Record<string, { div: string; name: string; items: unknown[] }> = {};
-      for (const x of (A.items ?? []) as { c: string; qty: number | null; est?: boolean; calc?: string }[]) {
-        const it = byCode[x.c];
-        if (!it) continue;
-        const dv = x.c.slice(0, 2);
-        const need = DIV_NEEDS[dv];
-        const est = !!x.est || (need ? !disc.includes(need) : false);
-        const qty = typeof x.qty === "number" && isFinite(x.qty) ? Math.round(x.qty * 100) / 100 : null;
-        const rate = it.p.typ;
-        (secs[dv] ??= { div: dv, name: it.d, items: [] }).items.push({
-          code: it.c, name: it.n, unit: it.u, qty, est, rate,
-          amount: qty != null && rate != null ? Math.round(qty * rate) : null,
-          spec: it.desc + " " + it.spec,
-          note: [x.calc, rate == null ? "السعر بعرض لغياب مصدر منشور كافٍ." : (it.p.basis === "توريد فقط" ? "السعر للتوريد فقط." : "")].filter(Boolean).join(" "),
-        });
-      }
+      // الحساب: معادلات ثابتة على ما قُرئ، ثم التسعير من المكتبة، ثم فحوص المعقولية
+      const T = A as Takeoff;
+      let points: unknown = null;
+      try { const pr2 = await fetch(SITE + "refs/guide/points.json"); if (pr2.ok) points = await pr2.json(); } catch { /* التقدير من دليل النقاط اختياري */ }
+      const C = compute(T, points);
+      const P = assemble(C, LIBRAW);
+      const K = checks(C, T, { skeleton: P.skeleton, finish: P.finish, total: P.total }, { byCode: P.byCode });
       const doc = {
-        title: A.title || pj.name, project: { name: pj.name, ref: pj.ref, rev: rq.rev }, date: new Date().toISOString().slice(0, 10),
-        price_date: LIB.price_date, areas: A.areas ?? {},
-        basis: "الكميات من مخططات الإصدار " + rq.rev + " (" + disc.map((k) => DISC[k] ?? k).join("، ") + ")، والبنود الموسومة «كمية تقديرية» محسوبة بنسب هندسية لعدم رفع مخططات تخصصها. أسعار الوحدات هي الأسعار النموذجية في مكتبة البنود.",
-        sections: Object.keys(secs).sort().map((k) => secs[k]),
-        assumptions: A.assumptions ?? [], excluded: A.excluded ?? [], questions: A.questions ?? [], skipped,
+        v: 2, title: A.title || pj.name, project: { name: pj.name, ref: pj.ref, rev: rq.rev }, date: new Date().toISOString().slice(0, 10),
+        price_date: LIB.price_date, areas: { built_m2: Math.round(C.built * 100) / 100 },
+        basis: "الكميات محسوبة بمعادلات ثابتة على ما قُرئ من مخططات الإصدار " + rq.rev + " (" + disc.map((k) => DISC[k] ?? k).join("، ") + ")، على طريقة القياس المكتوبة لكل بند في مكتبة البنود، ولكل بند سطر حساب. البنود الموسومة «تقدير» محسوبة بقاعدة مكتوبة لعدم رفع مخططات تخصصها. أسعار الوحدات هي الأسعار النموذجية في المكتبة.",
+        sections: P.sections, total: P.total, checks: K,
+        assumptions: [...C.assumptions, ...(A.assumptions ?? [])], excluded: A.excluded ?? [], questions: C.questions, skipped,
+        takeoff: T,
       };
       await db.from("boq_runs").update({ status: "done", result: doc, usage, finished_at: new Date().toISOString() }).eq("id", run.id);
       const { data: ex } = await db.from("boq_docs").select("id,published").eq("boq_id", boq_id).maybeSingle();

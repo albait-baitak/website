@@ -185,3 +185,24 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .q-top code,#vQ td code{font-size:11.5px;color:var(--ink-2);margin-inline-start:6px}
 #vQ .tbl td small.sub{display:block;color:var(--ink-2);font-size:12.5px}
 #vQ .tbl tr.pend td{background:color-mix(in srgb,var(--stop) 6%,transparent)}
+/* جداول الكميات: فحوص المعقولية وسطر الحساب */
+.boq-checks{margin-top:16px;padding:12px 14px;border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--sheet)}
+.boq-checks h4{font-size:14px;margin:0 0 6px}
+.boq-checks ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.boq-checks li{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink-2)}
+.boq-checks li b{color:var(--ink);font-weight:600}
+.boq-checks .ic{flex:none;width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font-size:12px;font-weight:700;color:#fff}
+.boq-checks li.ok .ic{background:var(--ok)}
+.boq-checks li.warn .ic{background:var(--major)}
+.boq-checks li.warn b{color:var(--major)}
+.boq-d small.calc{font-family:inherit;color:var(--ink-2);margin-top:2px}
+.boq-d em.inf{font-style:normal;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-inline-start:6px}
+.boq-d em.est{margin-inline-start:6px}
+.boq-t td small.rng{display:block;font-size:11px;color:var(--ink-2);font-family:var(--mono)}
+.boq-t tr.info td{color:var(--ink-2)}
+.boq-t tr.info .boq-d b{font-weight:400}
+.boq-kpis{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line)}
+.boq-kpis>div{background:var(--sheet)}
+.boq-kpis>div+div{border-right:0}
+@media (max-width:640px){.boq-kpis{grid-template-columns:1fr 1fr}.boq-kpis>div:nth-child(n+3){border-top:0}}
+@media (max-width:640px){.boq-kpis>div:first-child{grid-column:1/-1}}

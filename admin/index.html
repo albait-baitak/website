@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061246">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610061246">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061306">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061306">
 </head>
 <body>
 <header class="top">
@@ -150,7 +150,7 @@
             </div>
           </section>
           <section class="card">
-            <div class="card-h"><h2>المعاينة</h2><div class="row"><button class="btn sm line" type="button" id="btnBoqCsv">نزّل (Excel)</button></div></div>
+            <div class="card-h"><h2>المعاينة</h2><div class="row"><button class="btn sm" type="button" id="btnBoqXlsx">نزّل ملف إكسل</button><button class="btn sm line" type="button" id="btnBoqCsv">نزّل CSV</button></div></div>
             <div class="card-b" id="bqPv"><p class="muted">لا مسودة بعد. شغّل الاستخراج الآلي.</p></div>
             <div class="row" style="padding:12px 20px;border-top:1px solid var(--line)">
               <button class="btn" type="button" id="btnBoqPub">اعتماد ونشر للمكتب</button>
@@ -165,13 +165,13 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610061246"></script>
-<script src="../assets/js/config.js?v=202610061246"></script>
-<script src="../assets/js/access.js?v=202610061246"></script>
-<script src="../assets/js/session.js?v=202610061246"></script>
-<script src="../assets/js/rules.js?v=202610061246"></script>
-<script src="../assets/js/report.js?v=202610061246"></script>
-<script src="../assets/js/boq.js?v=202610061246"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061306"></script>
+<script src="../assets/js/config.js?v=202610061306"></script>
+<script src="../assets/js/access.js?v=202610061306"></script>
+<script src="../assets/js/session.js?v=202610061306"></script>
+<script src="../assets/js/rules.js?v=202610061306"></script>
+<script src="../assets/js/report.js?v=202610061306"></script>
+<script src="../assets/js/boq.js?v=202610061306"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -470,6 +470,7 @@ $('btnBoqRun').addEventListener('click',function(){
   }).catch(function(j){b.disabled=false;msg('bqMsg',errText(j&&j.error),'bad')});
 });
 $('btnBoqCsv').addEventListener('click',function(){if(bdoc)BOQ.csv(bdoc,bcur.ref+'.csv')});
+$('btnBoqXlsx').addEventListener('click',function(){if(!bdoc)return;var b=this;b.disabled=true;BOQ.xlsx(bdoc,bcur.ref+'.xlsx').catch(function(e){var m=$('bqPMsg');m.className='msg bad';m.textContent='تعذر إنشاء ملف الإكسل: '+e.message}).then(function(){b.disabled=false})});
 $('btnBoqPub').addEventListener('click',function(){
   if(!bdocRow)return;msg('bqPMsg','جارٍ النشر..');
   BB.from('boq_docs').update({published:true,published_at:new Date().toISOString()}).eq('id',bdocRow.id).then(function(r){if(r.error)throw r.error;return BB.from('boq_requests').update({status:'published'}).eq('id',bcur.id)})
