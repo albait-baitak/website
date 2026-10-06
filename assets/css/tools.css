@@ -451,3 +451,10 @@ section.qpanel{padding-block:22px 0;border-top:0}
 }
 @media print{.bset .btn,.brow .bar{display:none}.brow{grid-template-columns:30px 1fr 170px 52px}.brow input{border:0;background:none;padding:0}}
 .tool-hero.nonum{grid-template-columns:1fr}
+
+/* الجوال: عمود البنود ثابت أثناء التمرير الأفقي في جداول المقارنة */
+@media (max-width:640px){
+  .cmp tbody td:first-child,.cmp thead th:first-child{position:sticky;right:0;z-index:1;background:var(--sheet);min-width:118px;box-shadow:-1px 0 0 var(--line)}
+  .cmp thead th:first-child{background:var(--paper)}
+  .cmp tr.total td:first-child,.cmp tr.price td:first-child{background:var(--paper)}
+}

@@ -180,6 +180,7 @@ var DISC={arch:'معماري',struct:'إنشائي',elec:'كهربائي',plumb:
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function size(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'}
 function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
+function stack(tb){var t=tb.closest('table');t.classList.add('stack');var hs=[].map.call(t.querySelectorAll('thead th'),function(h){return h.textContent.trim()});[].forEach.call(tb.rows,function(r){[].forEach.call(r.cells,function(c,i){if(hs[i])c.dataset.l=hs[i]})})}
 function show(id,on){var v=$(id);v.hidden=!on;if(v.style.display==='none'||v.style.display==='contents')v.style.display=on?'contents':'none'}
 
 /* لا يدخل هذه الصفحة إلا مكتب معتمد أو المشرف */
@@ -283,6 +284,7 @@ function loadProjects(){
       var st=el('td');if(l)st.appendChild(el('span','status-pill st-'+l.status,STATUS[l.status]||l.status));tr.appendChild(st);
       var act=el('td'),b=el('button','btn sm line','افتح');b.type='button';act.appendChild(b);tr.appendChild(act);
       tr.addEventListener('click',function(){openProject(p.id)});tb.appendChild(tr)});
+    stack(tb);
   });
 }
 $('btnRefresh').addEventListener('click',loadProjects);
@@ -345,6 +347,7 @@ function drawRevs(){
     var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]||q.status));tr.appendChild(st);
     var act=el('td');if(reps[q.id]){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
     tr.appendChild(act);tb.appendChild(tr)});
+  stack(tb);
   var sel=$('bRev');sel.innerHTML='';
   revs.forEach(function(q){var o=el('option',null,'الإصدار '+q.rev+(reps[q.id]?'':' (لم يصدر تقريره بعد)'));o.value=q.id;sel.appendChild(o)});
   boqWarn();
@@ -425,6 +428,7 @@ function drawBoqs(){
     var st=el('td');st.appendChild(el('span','status-pill st-'+b.status,BSTATUS[b.status]||b.status));tr.appendChild(st);
     var act=el('td');if(b.status==='published'){var v=el('button','btn sm','اعرض الجدول');v.type='button';v.addEventListener('click',function(){openBoqDoc(b,q)});act.appendChild(v)}
     tr.appendChild(act);tb.appendChild(tr)});
+  stack(tb);
 }
 $('fBoq').addEventListener('submit',function(e){
   e.preventDefault();if(busy||!cur)return;

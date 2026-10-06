@@ -155,6 +155,7 @@ var el=FQ.el,all=[],filter='open',cur=null,rep=null,reportRow=null;
 var STATUS={submitted:'مستلم',in_review:'قيد الفحص',published:'منشور',cancelled:'ملغى'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
+function stack(tb){var t=tb.closest('table');t.classList.add('stack');var hs=[].map.call(t.querySelectorAll('thead th'),function(h){return h.textContent.trim()});[].forEach.call(tb.rows,function(r){[].forEach.call(r.cells,function(c,i){if(hs[i])c.dataset.l=hs[i]})})}
 function vis(id,on){var e=$(id);e.hidden=!on;if(e.style.display==='contents'||e.style.display==='none'||e.dataset.c){e.dataset.c=1;e.style.display=on?'contents':'none'}}
 
 BBA.guard(['admin'],'../account/').then(function(){vis('vApp',true);vis('vBoqs',false);loadAcc().then(loadReqs).then(loadBoqs)});
@@ -187,6 +188,7 @@ function drawAcc(){
     else if(p.status==='pending'){act('اعتماد','btn sm','approved');act('رفض','linkbtn','rejected')}
     else act('اعتماد','btn sm line','approved');
     td.appendChild(box);tr.appendChild(td);tb.appendChild(tr)});
+  stack(tb);
 }
 function review(p,st,role){
   msg('accMsg','جارٍ الحفظ..');
@@ -210,6 +212,7 @@ function drawReqs(){
     tr.appendChild(el('td',null,q.projects?q.projects.name:[p.type,p.city,p.district].filter(Boolean).join(' · ')));tr.appendChild(el('td',null,'الإصدار '+(q.rev||1)));tr.appendChild(el('td',null,fmtDate(q.created_at)));
     var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]));tr.appendChild(st);
     tr.addEventListener('click',function(){openReq(q)});tr.addEventListener('keydown',function(e){if(e.key==='Enter')openReq(q)});tb.appendChild(tr)});
+  stack(tb);
 }
 
 /* فتح طلب */
@@ -330,6 +333,7 @@ function drawBoqs(){
     tr.appendChild(el('td',null,(b.disciplines||[]).map(function(k){return DISC[k]||k}).join('، ')));tr.appendChild(el('td',null,fmtDate(b.created_at)));
     var st=el('td');st.appendChild(el('span','status-pill st-'+b.status,BST[b.status]));tr.appendChild(st);
     tr.addEventListener('click',function(){openBoq(b)});tr.addEventListener('keydown',function(e){if(e.key==='Enter')openBoq(b)});tb.appendChild(tr)});
+  stack(tb);
 }
 function openBoq(b){
   bcur=b;drawBoqs();vis('vBoq',true);$('bqRef').textContent=b.ref;$('bqStatus').innerHTML='';$('bqStatus').appendChild(el('span','status-pill st-'+b.status,BST[b.status]));

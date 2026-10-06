@@ -135,3 +135,15 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 @media (max-width:640px){.boq-kpis{grid-template-columns:1fr 1fr}.boq-kpis>div:nth-child(3){border-right:0}.boq-kpis>div:nth-child(n+3){border-top:1px solid var(--line)}}
 .boq-d small{unicode-bidi:plaintext}
 .boq-t thead th:nth-child(n+4){text-align:left}
+/* الجوال: جداول البوابة ولوحة الإدارة بطاقات متتابعة بدل التمرير الأفقي */
+@media (max-width:640px){
+  .tbl.stack{min-width:0!important}
+  .tbl.stack thead{display:none}
+  .tbl.stack tbody tr{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .tbl.stack tbody td{border:0;padding:0;font-size:14px}
+  .tbl.stack tbody td:first-child{flex-basis:100%;font-weight:700}
+  .tbl.stack tbody td:empty{display:none}
+  .tbl.stack tbody td[data-l]:not(:first-child)::before{content:attr(data-l) ": ";color:var(--ink-2);font-size:12.5px}
+  .tbl.stack tbody td:last-child:has(.btn,select,button){flex-basis:100%}
+  .tbl.stack td.mono{text-align:right}
+}
