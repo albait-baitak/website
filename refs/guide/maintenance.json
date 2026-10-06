@@ -1,0 +1,875 @@
+{
+ "version": "1",
+ "built": "2026-10-06",
+ "tasks": [
+  {
+   "id": "ac-filter",
+   "system": "ac",
+   "task_ar": "تنظيف فلاتر المكيفات الجدارية (سبليت)",
+   "how_ar": "افصل الكهرباء، وافتح الغطاء الأمامي، واسحب الفلتر، ثم انفض الغبار بالمكنسة أو اغسله بماء فاتر، وجففه في الظل قبل إعادته.",
+   "interval_months": 0.5,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الفلتر المسدود يضعف التبريد ويرفع استهلاك الكهرباء. يوصي دليل الشركة المصنعة بتنظيفه كل أسبوعين، وفي أيام الغبار نظفه بعد كل عاصفة.",
+   "source_ids": [
+    "s1"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "ac-ducted-filter",
+   "system": "ac",
+   "task_ar": "فحص فلاتر المكيفات المركزية ذات القنوات وفتحات الهواء الراجع",
+   "how_ar": "افتح شبك الهواء الراجع، وانظر في الفلتر، فإن كان متسخاً فنظفه أو استبدله بمقاسه نفسه، وامسح الشبك من الغبار.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "فلتر الراجع المسدود يحبس الهواء ويجهد المروحة ويوسخ ملف التبريد داخل الوحدة.",
+   "source_ids": [
+    "s2"
+   ],
+   "basis": "authority",
+   "confidence": "high"
+  },
+  {
+   "id": "ac-service",
+   "system": "ac",
+   "task_ar": "الصيانة الشاملة للمكيفات قبل الصيف",
+   "how_ar": "يتولاها فني معتمد: غسل ملف الوحدة الخارجية والداخلية، وفحص كمية غاز التبريد، وشد التوصيلات الكهربائية، وتنظيف المروحة.",
+   "interval_months": 12,
+   "season_ar": "قبل الصيف (مارس وأبريل)",
+   "season_months": [
+    3,
+    4
+   ],
+   "who": "tech",
+   "why_ar": "الوحدة الخارجية تتراكم عليها أتربة الربيع، والصيف في الأحساء يبدأ منتصف مايو تقريباً، فالأنسب إنجاز الصيانة قبله.",
+   "source_ids": [
+    "s1",
+    "s2",
+    "s22"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "ac-drain",
+   "system": "ac",
+   "task_ar": "فحص مجرى تصريف ماء التكييف",
+   "how_ar": "تأكد أن الماء يخرج من أنبوب التصريف عند تشغيل المكيف، وأن الأنبوب غير مكسور ولا مسدود، وراقب أي تنقيط داخل الغرفة.",
+   "interval_months": 12,
+   "season_ar": "مطلع الصيف",
+   "season_months": [
+    4,
+    5
+   ],
+   "who": "owner",
+   "why_ar": "انسداد التصريف يسبب تسرب الماء على الجدران والأسقف، وفي أيام الرطوبة المرتفعة أواخر الصيف تزيد كمية الماء المتكثف.",
+   "source_ids": [
+    "s2",
+    "s22"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "water-ground-tank",
+   "system": "water",
+   "task_ar": "تنظيف الخزان الأرضي وتعقيمه",
+   "how_ar": "اطلب شركة متخصصة مرخصة: تفريغ الخزان، وإزالة الرواسب، وغسل الجدران، والتعقيم بمادة معتمدة، ثم الشطف والتأكد من إحكام الغطاء.",
+   "interval_months": 6,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "الرواسب والطحالب في الخزان تفسد جودة الماء. والتكرار المعتمد هنا مرة كل ستة أشهر على الأقل، كما تلزم به أبوظبي ودبي، إذ لا يوجد تكرار سعودي منشور للمساكن.",
+   "source_ids": [
+    "s3",
+    "s4"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "water-roof-tank",
+   "system": "water",
+   "task_ar": "تنظيف الخزان العلوي وتعقيمه",
+   "how_ar": "يُفرَّغ الخزان العلوي بعد تنظيف الأرضي مباشرة، ثم يُغسل ويُعقَّم ويُشطف، ويُفحص الغطاء والعوامة وفتحة التهوية.",
+   "interval_months": 6,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "الخزان العلوي يسخن صيفاً فيساعد على نمو البكتيريا، وتنظيفه وحده دون الأرضي لا يكفي.",
+   "source_ids": [
+    "s3",
+    "s4"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "water-booster",
+   "system": "water",
+   "task_ar": "فحص مضخة رفع الضغط وضغط خزانها",
+   "how_ar": "يقيس الفني ضغط الهواء المسبق في خزان المضخة ويضبطه، ويتأكد من خلو المضخة من الصوت المرتفع والتسرب.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "نقص الضغط المسبق يجعل المضخة تعمل وتتوقف مرات كثيرة فيقصر عمرها ويتذبذب ضغط الماء.",
+   "source_ids": [
+    "s5"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "water-filter",
+   "system": "water",
+   "task_ar": "تغيير خراطيش فلتر الماء",
+   "how_ar": "أغلق محبس الدخول، وافتح وعاء الفلتر، واستبدل الخرطوشة بالطراز الذي يحدده المصنع، ثم افتح الماء وتأكد من عدم التسرب.",
+   "interval_months": 6,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الخرطوشة المشبعة تفقد قدرتها على الترشيح وقد تصبح هي نفسها مصدراً للتلوث، ويقل ضغط الماء.",
+   "source_ids": [
+    "s6"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "water-heater-valve",
+   "system": "water",
+   "task_ar": "تشغيل صمام الأمان في السخان",
+   "how_ar": "تأكد أولاً أن أنبوب تصريف الصمام موجه إلى صفاية أو مصرف بعيداً عن جسمك، فالماء الخارج ساخن جداً. شغّل ذراع صمام الأمان لثوانٍ حتى يخرج قليل من الماء، ثم أعده إلى وضعه. إن استمر التنقيط بعدها أو لم يخرج ماء أصلاً فاستدع سباكاً، ولا تسد مخرج الصمام أبداً.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الماء العسر يكوّن الكلس على الصمام فيعطله، وصمام الأمان هو ما يمنع ارتفاع الضغط داخل السخان.",
+   "source_ids": [
+    "s7"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "water-heater-valve-replace",
+   "system": "water",
+   "task_ar": "استبدال مجموعة صمام الأمان في السخان",
+   "how_ar": "يستبدل السباك مجموعة صمام الأمان كاملة بقطعة مطابقة لضغط السخان المكتوب على لوحة بياناته، ثم يتأكد من سلامة أنبوب التصريف وأنه غير مسدود.",
+   "interval_months": 60,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "يوصي المصنّع باستبدالها كل خمس سنوات على الأقل، لأن الكلس يعطل الصمام دون أن يظهر.",
+   "source_ids": [
+    "s7"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "water-heater-service",
+   "system": "water",
+   "task_ar": "تفريغ السخان وفحص الأنود والثرموستات",
+   "how_ar": "يفرغ الفني السخان من الرواسب، ويفحص قضيب الأنود ويستبدله إذا تآكل، ويتأكد من ضبط الثرموستات وسلامة السلك الكهربائي.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "الماء العسر في الأحساء يرسب الكلس في قاع السخان، والأنود المتآكل يعني أن الخزان نفسه سيبدأ بالصدأ.",
+   "source_ids": [
+    "s7",
+    "s8"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "plumb-drains",
+   "system": "plumbing",
+   "task_ar": "فحص المصارف الأرضية والسيفونات",
+   "how_ar": "انظر في مصارف الحمامات والمغاسل وأزل الشعر والرواسب، واسكب ماءً في المصارف الأرضية التي لا تُستعمل حتى لا يجف الحاجز المائي فتخرج الروائح.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "المصرف المسدود يسبب طفح الماء، والسيفون الجاف يفتح طريقاً لروائح الصرف والحشرات.",
+   "source_ids": [
+    "s9"
+   ],
+   "basis": "practice",
+   "confidence": "medium"
+  },
+  {
+   "id": "plumb-manholes",
+   "system": "plumbing",
+   "task_ar": "فحص غرف التفتيش (المناهل)",
+   "how_ar": "ارفع أغطية غرف التفتيش في الفناء، وتأكد أن الماء يجري دون ركود، وأن الغطاء سليم ومحكم، واطلب تسليكاً إن رأيت تجمعاً.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الانسداد في غرف التفتيش يظهر أولاً طفحاً في أخفض مصرف في البيت.",
+   "source_ids": [
+    "s10"
+   ],
+   "basis": "practice",
+   "confidence": "low"
+  },
+  {
+   "id": "plumb-septic",
+   "system": "plumbing",
+   "task_ar": "مراقبة منسوب البيارة ونزحها",
+   "how_ar": "إن كان البيت غير متصل بشبكة الصرف العامة: افتح غطاء غرفة التفتيش الأخيرة قبل البيارة أو فتحة البيارة نفسها وانظر إلى المنسوب. اطلب النزح بصهريج مرخص قبل أن يصل المنسوب إلى ثلثي العمق أو إلى مستوى ماسورة الدخول، ولا تنزل إلى البيارة أبداً لخطر غازاتها.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "امتلاء البيارة يرجع الصرف إلى أخفض مصرف في البيت ويلوث التربة. ومدة الامتلاء تختلف كثيراً بحسب حجم البيارة وعدد الساكنين ونوعها (محكمة أو نافذة)، فسجّل تاريخ كل نزح لتعرف المدة الفعلية لبيتك.",
+   "source_ids": [],
+   "basis": "practice",
+   "confidence": "medium"
+  },
+  {
+   "id": "plumb-meter-leak",
+   "system": "plumbing",
+   "task_ar": "كشف التسرب الخفي بعداد الماء",
+   "how_ar": "اختر وقتاً يكون فيه الخزان الأرضي ممتلئاً والعوامة مغلقة، وأغلق كل الحنفيات وسجل قراءة العداد، ثم أعد القراءة بعد ساعتين دون استعمال: أي تغير يعني تسرباً بين العداد والخزان أو من العوامة. ولكشف التسرب داخل البيت علّم منسوب الماء في الخزان العلوي وأوقف المضخة، ثم راقب المنسوب بعد ساعتين دون استعمال.",
+   "interval_months": 12,
+   "season_ar": "الشتاء",
+   "season_months": [
+    1,
+    2
+   ],
+   "who": "owner",
+   "why_ar": "التسرب تحت البلاط أو من العوامة يرفع الفاتورة ويضر الأساسات قبل أن يظهر للعين.",
+   "source_ids": [
+    "s12"
+   ],
+   "basis": "authority",
+   "confidence": "low"
+  },
+  {
+   "id": "elec-rcd",
+   "system": "electrical",
+   "task_ar": "اختبار قاطع التسرب الأرضي (RCD)",
+   "how_ar": "اضغط زر الاختبار (T) في كل قاطع تسرب في اللوحة، فيجب أن يفصل فوراً، ثم أعده. إن لم يفصل فاستدع كهربائياً. وإن لم يرجع القاطع إلى وضع التشغيل بعد الاختبار فلا تضغطه بالقوة واستدع الكهربائي.",
+   "interval_months": 3,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "قاطع التسرب يحمي من الصعق، وقد يتعطل دون أن يظهر أي عطل في البيت. بعض المصنعين يوصي بالاختبار شهرياً.",
+   "source_ids": [
+    "s13",
+    "s14"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "elec-panel",
+   "system": "electrical",
+   "task_ar": "فحص اللوحة الكهربائية وشد توصيلاتها",
+   "how_ar": "يتولاه كهربائي مرخص: فحص بصري، وتنظيف الغبار، وشد المسامير والتوصيلات، والبحث عن آثار سخونة أو تغير لون.",
+   "interval_months": 36,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "الحرارة والغبار يرخيان التوصيلات، والتوصيل المرتخي من أسباب الحرائق الكهربائية.",
+   "source_ids": [
+    "s15"
+   ],
+   "basis": "code",
+   "confidence": "medium"
+  },
+  {
+   "id": "safe-smoke-test",
+   "system": "safety",
+   "task_ar": "اختبار كواشف الدخان",
+   "how_ar": "اضغط زر الاختبار في كل كاشف حتى يصدر الإنذار، وامسح عنه الغبار.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الكاشف المعطل لا يُكتشف إلا بالاختبار، وهو أول إنذار في حريق الليل.",
+   "source_ids": [
+    "s17"
+   ],
+   "basis": "authority",
+   "confidence": "high"
+  },
+  {
+   "id": "safe-smoke-battery",
+   "system": "safety",
+   "task_ar": "تغيير بطاريات كواشف الدخان",
+   "how_ar": "استبدل البطارية في الكواشف التي تعمل بالبطارية، والبطارية الاحتياطية في الكواشف الموصولة بالكهرباء، ثم اختبرها.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "البطارية الضعيفة توقف الكاشف أو تجعله يُطلق صفيراً دون حريق فيُنزع ويُنسى.",
+   "source_ids": [
+    "s17"
+   ],
+   "basis": "authority",
+   "confidence": "high"
+  },
+  {
+   "id": "safe-smoke-replace",
+   "system": "safety",
+   "task_ar": "استبدال كواشف الدخان",
+   "how_ar": "انظر في تاريخ الصنع المكتوب خلف الكاشف، واستبدله كاملاً إذا بلغ عشر سنوات.",
+   "interval_months": 120,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "حساس الكاشف يضعف مع السنين حتى لو كان زر الاختبار يعمل.",
+   "source_ids": [
+    "s17"
+   ],
+   "basis": "authority",
+   "confidence": "high"
+  },
+  {
+   "id": "safe-ext-check",
+   "system": "safety",
+   "task_ar": "فحص طفاية الحريق",
+   "how_ar": "تأكد أن مؤشر الضغط في المنطقة الخضراء، وأن مسمار الأمان وختمه في مكانهما، وأن الخرطوم سليم والطفاية في مكان ظاهر سهل الوصول.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الطفاية التي فقدت ضغطها لا تنفع وقت الحاجة.",
+   "source_ids": [
+    "s18",
+    "s19"
+   ],
+   "basis": "code",
+   "confidence": "medium"
+  },
+  {
+   "id": "safe-ext-service",
+   "system": "safety",
+   "task_ar": "صيانة طفاية الحريق لدى فني",
+   "how_ar": "تُعرض الطفاية على مؤسسة صيانة معتمدة من الدفاع المدني، فتُفحص وتُعبأ عند الحاجة ويُثبت تاريخ الصيانة على البطاقة.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "الفحص البصري لا يكشف تكتل البودرة أو تلف الصمام من الداخل.",
+   "source_ids": [
+    "s18",
+    "s19"
+   ],
+   "basis": "code",
+   "confidence": "medium"
+  },
+  {
+   "id": "safe-gas-hose",
+   "system": "safety",
+   "task_ar": "استبدال خرطوم أسطوانة الغاز",
+   "how_ar": "استبدل الخرطوم بخرطوم مطابق للمواصفات، واربطه بمشابك محكمة، ثم افحص الوصلات بماء وصابون، فظهور فقاعات يعني تسرباً. وافحص المنظم والخرطوم من التشقق أو التصلب، وأبقِ الأسطوانة قائمة خارج المطبخ في مكان مهوّى بعيداً عن الشمس المباشرة.",
+   "interval_months": 60,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الخرطوم المطاطي يتشقق مع الحرارة والزمن، وتسرب الغاز من أخطر مسببات الحرائق في المطابخ.",
+   "source_ids": [
+    "s20"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "roof-inspect",
+   "system": "roof",
+   "task_ar": "فحص السطح والعزل والدروة",
+   "how_ar": "امشِ على السطح وابحث عن تشقق طبقة العزل أو انتفاخها، وتشقق الدروة وأغطيتها، والفواصل حول القواعد والأنابيب.",
+   "interval_months": 6,
+   "season_ar": "الربيع والخريف",
+   "season_months": [
+    4,
+    10
+   ],
+   "who": "owner",
+   "why_ar": "العيب الصغير في العزل يصير تسرباً في أول مطر، وإصلاحه قبل الشتاء أرخص بكثير.",
+   "source_ids": [
+    "s21",
+    "s22"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "roof-drains",
+   "system": "roof",
+   "task_ar": "تنظيف مصارف السطح ومزاريبه قبل الأمطار",
+   "how_ar": "أزل الأتربة والأوراق من فتحات التصريف والمزاريب، واسكب ماءً للتأكد من جريانه دون تجمع.",
+   "interval_months": 12,
+   "season_ar": "أواخر الخريف (أكتوبر ونوفمبر)",
+   "season_months": [
+    10,
+    11
+   ],
+   "who": "owner",
+   "why_ar": "أتربة الصيف تسد المصارف، فيتجمع ماء المطر على السطح ويتسرب من العزل. وأمطار الأحساء أكثرها بين نوفمبر وأبريل، فنظفها في أواخر الخريف.",
+   "source_ids": [
+    "s21",
+    "s30"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "ext-sealant",
+   "system": "exterior",
+   "task_ar": "فحص فواصل السيليكون حول النوافذ والأبواب",
+   "how_ar": "افحص السيليكون حول إطارات النوافذ والأبواب الخارجية وأشرطة الإحكام، وأزل المتشقق منه واستبدله.",
+   "interval_months": 6,
+   "season_ar": "بعد موسم الغبار وقبل الأمطار",
+   "season_months": [
+    5,
+    10
+   ],
+   "who": "owner",
+   "why_ar": "الفاصل المتشقق يدخل منه الغبار في العواصف وماء المطر في الشتاء، ويضيع منه التبريد صيفاً.",
+   "source_ids": [
+    "s9",
+    "s23"
+   ],
+   "basis": "practice",
+   "confidence": "low"
+  },
+  {
+   "id": "ext-paint",
+   "system": "exterior",
+   "task_ar": "فحص دهان الواجهات وترميمه",
+   "how_ar": "ابحث عن التقشر والتشققات الشعرية وبقع الرطوبة في الواجهات، ورمم المواضع المتضررة قبل اتساعها.",
+   "interval_months": 12,
+   "season_ar": "الخريف",
+   "season_months": [
+    10,
+    11
+   ],
+   "who": "owner",
+   "why_ar": "الشمس الحادة تفتت طبقة الدهان، والشقوق تدخل الرطوبة إلى اللياسة.",
+   "source_ids": [
+    "s9"
+   ],
+   "basis": "practice",
+   "confidence": "low"
+  },
+  {
+   "id": "ext-lubricate",
+   "system": "exterior",
+   "task_ar": "تشحيم البوابات والمفصلات والأقفال",
+   "how_ar": "نظف مفصلات البوابات والأبواب الخارجية ومجاري البوابات المنزلقة من الرمل، ثم ضع زيتاً أو شحماً مناسباً.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الرمل والحرارة يجففان المفصلات فتصدر صوتاً وتتآكل، ويثقل محرك البوابة الكهربائية.",
+   "source_ids": [
+    "s9"
+   ],
+   "basis": "practice",
+   "confidence": "low"
+  },
+  {
+   "id": "garden-irrigation",
+   "system": "garden",
+   "task_ar": "تشغيل الري يدوياً لفحص التسرب والنقاطات وضبط المؤقت",
+   "how_ar": "شغّل كل خط ري يدوياً، وابحث عن التسربات والنقاطات المسدودة أو المكسورة، ثم اضبط أيام الري ومدته في المؤقت بحسب الموسم.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "النقاطة المسدودة تميت النبتة بصمت، والمؤقت غير المضبوط يهدر الماء شتاءً ويعطّش الحديقة صيفاً.",
+   "source_ids": [
+    "s24"
+   ],
+   "basis": "practice",
+   "confidence": "medium"
+  },
+  {
+   "id": "garden-drip-filter",
+   "system": "garden",
+   "task_ar": "تنظيف فلتر الري وغسل خطوط التنقيط",
+   "how_ar": "افتح فلتر الري واغسل شبكته. ومرة في السنة افتح نهايات الخطوط وشغّل كل خط دقائق حتى يخرج الماء صافياً.",
+   "interval_months": 2,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الماء العسر يرسب الكلس في النقاطات، والفلتر المسدود يضعف الضغط في آخر الخط.",
+   "source_ids": [
+    "s25"
+   ],
+   "basis": "practice",
+   "confidence": "medium"
+  },
+  {
+   "id": "garden-palm",
+   "system": "garden",
+   "task_ar": "تقليم النخيل",
+   "how_ar": "يُزال السعف اليابس والذي توقف عن العمل، ويُنظَّف رأس النخلة، وتُفحص النخلة من آثار الآفات.",
+   "interval_months": 12,
+   "season_ar": "الشتاء قبل التلقيح",
+   "season_months": [
+    12,
+    1,
+    2
+   ],
+   "who": "tech",
+   "why_ar": "التقليم يقلل مأوى الحشرات ويسهل فحص النخلة. يُجرى مرة في السنة قبل التلقيح، والشتاء أنسب وقت.",
+   "source_ids": [
+    "s26"
+   ],
+   "basis": "authority",
+   "confidence": "medium"
+  },
+  {
+   "id": "pest-termite",
+   "system": "pest",
+   "task_ar": "فحص النمل الأبيض (الأرضة)",
+   "how_ar": "اطلب من شركة مكافحة مرخصة فحص البيت: الأخشاب والأبواب وأسفل الجدران وحول الفناء، والعلاج عند ظهور الإصابة.",
+   "interval_months": 12,
+   "season_ar": null,
+   "season_months": null,
+   "who": "tech",
+   "why_ar": "النمل الأبيض يأكل الأخشاب من الداخل ولا يظهر إلا بعد أن يتمكن.",
+   "source_ids": [
+    "s27"
+   ],
+   "basis": "practice",
+   "confidence": "medium"
+  },
+  {
+   "id": "app-hood",
+   "system": "appliances",
+   "task_ar": "غسل فلاتر شفاط المطبخ",
+   "how_ar": "انزع الفلاتر المعدنية واغسلها بماء ساخن وصابون أو في غسالة الصحون، وجففها قبل إعادتها.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الدهون المتراكمة تضعف السحب وقد تشتعل.",
+   "source_ids": [
+    "s28"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  },
+  {
+   "id": "app-washer",
+   "system": "appliances",
+   "task_ar": "تنظيف الغسالة (الحوض والفلتر والحشية المطاطية)",
+   "how_ar": "شغّل برنامج تنظيف الحوض، ونظف فلتر مضخة التصريف، وامسح الحشية المطاطية للباب ودرج المسحوق، ونظف فلاتر الدخول إن ضعف تدفق الماء.",
+   "interval_months": 1,
+   "season_ar": null,
+   "season_months": null,
+   "who": "owner",
+   "why_ar": "الرطوبة وبقايا المسحوق تسبب الروائح والعفن، والماء العسر يسد فلاتر الدخول.",
+   "source_ids": [
+    "s29"
+   ],
+   "basis": "manufacturer",
+   "confidence": "high"
+  }
+ ],
+ "general": [
+  {
+   "text_ar": "بعد كل عاصفة غبار نظف فلاتر المكيفات، وامسح مجاري النوافذ المنزلقة، وأزل الرمل من مصارف السطح. والعواصف في المملكة أكثر ما تكون في الربيع.",
+   "source_ids": [
+    "s1",
+    "s23"
+   ]
+  },
+  {
+   "text_ar": "الماء في الأحساء عسر، فالكلس يقصر عمر السخان والنقاطات وفلاتر الغسالة، ولذلك لا تؤخر مهامها عن موعدها.",
+   "source_ids": [
+    "s7",
+    "s25",
+    "s29"
+   ]
+  },
+  {
+   "text_ar": "توصي المديرية العامة للدفاع المدني باقتناء طفاية حريق في كل بيت وتعلم استعمالها، والبودرة الجافة أنسب الأنواع للبيوت. ضعها قرب مخرج المطبخ لا فوق الموقد. وإن اشتعل الزيت في قدر فأطفئ النار وغطِّ القدر بغطائه، ولا تصب الماء على زيت مشتعل أبداً.",
+   "source_ids": [
+    "s19",
+    "s31"
+   ]
+  },
+  {
+   "text_ar": "كل ما يتعلق بالكهرباء والغاز وغاز التبريد يتولاه فني مرخص، ومهمة المالك فيها الملاحظة والاختبار بالأزرار المخصصة فقط.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "إن خرج الماء من الحنفية بلون أو رائحة غير معتادة بعد تنظيف الخزان فلا تشربه، واستدع الشركة المنفذة.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "مكافحة الحشرات العامة تكون عند ظهورها وبسد منافذها، لا بالرش المجدول دون حاجة. ولا يوجد مرجع معتمد يحدد لها موعداً ثابتاً.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "سجل تاريخ كل مهمة فور إنجازها، فالتقويم يحسب الموعد التالي من آخر تاريخ تسجله.",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Operation Manual, Room Air Conditioner FTKF25T2VMA (also FTXF60W2VMA / FTXF71W2VMA)",
+   "publisher": "Daikin",
+   "edition": "manual as hosted on notice-facile.com (doc 1564750)",
+   "url": "https://www.notice-facile.com/en/manual/1564750/daikin+lite-ftkf25t2vma",
+   "clause": "Maintenance: 'Clean the air filters every 2 weeks'; deodorizing filter clean every 6 months, replace every 3 years; 'recommended to have a professional service your air conditioner once a year'"
+  },
+  {
+   "id": "s2",
+   "title": "Maintenance Checklist (Heating and Cooling)",
+   "publisher": "U.S. EPA / DOE ENERGY STAR",
+   "edition": "web page, accessed 2026-10-06",
+   "url": "https://www.energystar.gov/saveathome/heating-cooling/maintenance-checklist",
+   "clause": "Annual pre-season contractor check: clean evaporator and condenser coils, check refrigerant, tighten electrical connections, 'Check and inspect the condensate drain'; homeowner: inspect, clean or change air filters once a month"
+  },
+  {
+   "id": "s3",
+   "title": "Abu Dhabi law requires water tanks to be cleaned regularly; all you need to know",
+   "publisher": "Khaleej Times (reporting Abu Dhabi public health and general appearance law, Department of Municipalities and Transport)",
+   "edition": "news report",
+   "url": "https://www.khaleejtimes.com/uae/abu-dhabi-drinking-water-tanks-cleaning-all-you-need-to-know",
+   "clause": "Tanks cleaned and disinfected 'at least once every six months'; 'The law applies to villa owners as well'"
+  },
+  {
+   "id": "s4",
+   "title": "Dubai: How do I know that my home's water tank is clean?",
+   "publisher": "Gulf News (citing Dubai Municipality Food Code 2020)",
+   "edition": "2022-06-22",
+   "url": "https://gulfnews.com/living-in-uae/housing/dubai-how-do-i-know-that-my-homes-water-tank-is-clean-1.1655883123621",
+   "clause": "'water tanks should be cleaned and disinfected at least twice a year'"
+  },
+  {
+   "id": "s5",
+   "title": "Why is an annual check of the pre-charge pressure in the integrated tank important? (SCALA2)",
+   "publisher": "Grundfos",
+   "edition": "support FAQ",
+   "url": "https://www.grundfos.com/eg/support/faq/why-is-an-annual-check-of-the-pre-charge-pressure-in-the-integra",
+   "clause": "Annual check of pre-charge pressure; pre-charge 70% of setpoint"
+  },
+  {
+   "id": "s6",
+   "title": "3M Aqua-Pure AP200 Installation and Operation Manual (cartridge AP217)",
+   "publisher": "3M",
+   "edition": "manual as hosted on manualslib.mx (page 6)",
+   "url": "https://www.manualslib.mx/manual/248872/3M-Aqua-Pure-Ap200.html?page=6",
+   "clause": "'The disposable filter cartridge must be replaced every six months or at the specified service cycle'"
+  },
+  {
+   "id": "s7",
+   "title": "PROfessional TECH electric water heater instructions",
+   "publisher": "Ariston Thermo",
+   "edition": "manual as hosted on notice-facile.com (doc 385996)",
+   "url": "https://www.notice-facile.com/en/manual/385996/ariston+thermo+professional-tech",
+   "clause": "Empty the appliance annually and inspect anode; 'Activate the tap and the valve on the safety assembly every month so as to prevent limescale from building up'; replace safety assembly at least every 5 years"
+  },
+  {
+   "id": "s8",
+   "title": "OMNIS series water heater Instruction Manual / Warranty Card",
+   "publisher": "Racold (Ariston Group India)",
+   "edition": "manual dated 2026-04-24",
+   "url": "https://www.racold.com/content/dam/racold/product-manuals/omnis-r-manual-24-04-2026.pdf",
+   "clause": "'Annual check of anode is done mandatorily and its replacement done in case of consumption'"
+  },
+  {
+   "id": "s9",
+   "title": "A Home Maintenance Checklist for Every Season",
+   "publisher": "City of Shasta Lake, California (published document; original author not stated)",
+   "edition": "PDF, DocumentCenter 2734",
+   "url": "https://www.cityofshastalake.gov/DocumentCenter/View/2734/Home-Maintenance-Checklist-for-Every-Seasonpdf",
+   "clause": "Monthly: inspect tub and sink drains; Spring/Fall: repair caulking and weather stripping around windows and doors; Summer: oil door hinges; Fall: touch up exterior paint"
+  },
+  {
+   "id": "s10",
+   "title": "Home Maintenance",
+   "publisher": "InterNACHI (International Association of Certified Home Inspectors)",
+   "edition": "web page",
+   "url": "https://www.nachi.org/home-maintenance.htm",
+   "clause": "'Every home should be inspected every year'"
+  },
+  {
+   "id": "s12",
+   "title": "Fix a Leak Week",
+   "publisher": "U.S. EPA WaterSense",
+   "edition": "web page",
+   "url": "https://www.epa.gov/watersense/fix-leak-week",
+   "clause": "Check the water meter before and after a two-hour period when no water is being used; review winter-month water use (January or February) to spot leaks"
+  },
+  {
+   "id": "s13",
+   "title": "Spring into action by testing RCDs",
+   "publisher": "Building and Energy, Department of Local Government, Industry Regulation and Safety, Western Australia",
+   "edition": "published 2022-09-06, updated 2025-04-01",
+   "url": "https://www.wa.gov.au/government/announcements/spring-action-testing-rcds",
+   "clause": "'Building and Energy recommends that RCDs should be tested every three months'"
+  },
+  {
+   "id": "s14",
+   "title": "MAX9 RCCB MX9RCppp installation instructions",
+   "publisher": "Clipsal by Schneider Electric (Australia)",
+   "edition": "document JYT3787400-00",
+   "url": "https://www.sparkydirect.com.au/assets/files/MX9RCxxx.pdf",
+   "clause": "'Test the device at regular intervals by pressing the Test button (marked T), following the intervals defined in your local regulations or monthly'"
+  },
+  {
+   "id": "s15",
+   "title": "NFPA 70B, Standard for Electrical Equipment Maintenance, 2023 edition: maintenance interval chart",
+   "publisher": "Electrical Reliability Services (Vertiv), summarising NFPA 70B 2023",
+   "edition": "PDF chart",
+   "url": "https://www.electricalreliabilityservices.com/globalassets/documents/ers-website-documents/ers-nfpa-maintenance-chart-en-na-gr-00026-web.pdf",
+   "clause": "Panelboards and switchboards: visual, cleaning, mechanical inspection 60/36/12 months for equipment condition 1/2/3 (secondary summary; the NFPA 70B text itself was not seen)"
+  },
+  {
+   "id": "s17",
+   "title": "Smoke Alarms",
+   "publisher": "U.S. Fire Administration (FEMA)",
+   "edition": "web page",
+   "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
+   "clause": "'Test the alarm monthly'; 'Replace the batteries at least once every year'; 'Replace the entire smoke alarm every 10 years'"
+  },
+  {
+   "id": "s18",
+   "title": "29 CFR 1910.157 Portable fire extinguishers",
+   "publisher": "U.S. OSHA",
+   "edition": "regulation (workplaces)",
+   "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.157",
+   "clause": "1910.157(e)(2) visually inspected monthly; 1910.157(e)(3) annual maintenance check"
+  },
+  {
+   "id": "s19",
+   "title": "الدفاع المدني يدعو لاقتناء طفايات الحريق في المنازل وتعلم استخدامها",
+   "publisher": "صحيفة عكاظ (نقلاً عن المديرية العامة للدفاع المدني)",
+   "edition": "2025-08-26",
+   "url": "https://www.okaz.com.sa/news/local/2210557",
+   "clause": "توصية باقتناء الطفايات في المنازل وتعلم استعمالها، والبودرة الجافة أنسب للمنازل (لا يذكر تكرار الفحص)"
+  },
+  {
+   "id": "s20",
+   "title": "LPG cylinders and fittings",
+   "publisher": "Government of South Australia (sa.gov.au)",
+   "edition": "web page",
+   "url": "https://www.sa.gov.au/topics/energy-and-environment/safe-energy-use/using-gas-appliances-safely/lpg-cylinders-and-fittings",
+   "clause": "'Hoses should be replaced every five years'"
+  },
+  {
+   "id": "s21",
+   "title": "A new resource for consumers (Maciek Rupar)",
+   "publisher": "Professional Roofing (NRCA)",
+   "edition": "November 2020",
+   "url": "https://professionalroofing.net/articles/article/4787",
+   "clause": "'NRCA recommends performing scheduled roof system inspections at least twice per year, preferably in the spring and fall'; special inspections after severe weather"
+  },
+  {
+   "id": "s22",
+   "title": "Climate and Average Weather Year Round at Al Ahsa Airport",
+   "publisher": "WeatherSpark",
+   "edition": "web page",
+   "url": "https://weatherspark.com/y/148843/Average-Weather-at-Al-Ahsa-Airport-Saudi-Arabia-Year-Round",
+   "clause": "Hot season May 14 to September 24; muggier period July 13 to November 14; most rain in January, least in July"
+  },
+  {
+   "id": "s23",
+   "title": "Spatial and temporal variations in the incidence of dust storms in Saudi Arabia revealed from in situ observations",
+   "publisher": "Albugami, Palmer, Cinnamon, Meersmans; Geosciences",
+   "edition": "2019",
+   "url": "https://ore.exeter.ac.uk/repository/handle/10871/37887",
+   "clause": "Abstract: highest frequency of dust events during the spring"
+  },
+  {
+   "id": "s24",
+   "title": "Irrigation Maintenance",
+   "publisher": "OC Water Smart Gardens (ocwatersmartgardens.com)",
+   "edition": "web page",
+   "url": "https://www.ocwatersmartgardens.com/Garden-Resources/IrrigationMaintenance.php",
+   "clause": "'Once a month run your system in manual mode to check for leaks or breaks'; adjust watering days and times 'preferably monthly'"
+  },
+  {
+   "id": "s25",
+   "title": "Drip Irrigation: Installation and Maintenance (Steven Hightower)",
+   "publisher": "Sonoma County Master Gardeners, UC Division of Agriculture and Natural Resources (reproduced on growables.org)",
+   "edition": "web page",
+   "url": "https://growables.org/information/DripIrrigationInstallationMaintenanceCaliforniaUMG.htm",
+   "clause": "Filters 'cleaned every couple of months'; 'Annually, the system should be flushed'"
+  },
+  {
+   "id": "s26",
+   "title": "Palm Care in Saudi Arabia",
+   "publisher": "Saudipedia",
+   "edition": "web page",
+   "url": "https://saudipedia.com/en/palm-care-in-saudi-arabia",
+   "clause": "Pruning 'is done once a year, typically before the pollination process'; winter months recommended"
+  },
+  {
+   "id": "s27",
+   "title": "Subterranean Termites (Dan Suiter, Brian Forschler)",
+   "publisher": "University of Georgia Extension, Integrated Pest Management",
+   "edition": "2021, posted 2026-02-10",
+   "url": "https://ipm.uga.edu/2026/02/10/subterraneantermites",
+   "clause": "'A good preventative strategy is to have the home inspected annually for termites'"
+  },
+  {
+   "id": "s28",
+   "title": "Use and Care Manual, chimney hood DUH30/DUH36 series",
+   "publisher": "Bosch",
+   "edition": "document 9000403842 rev. D",
+   "url": "https://media3.bosch-home.com/Documents/9000403842_D.pdf",
+   "clause": "'It is recommended that the filters be washed at least once a month'; charcoal filters usually after 6 to 12 months"
+  },
+  {
+   "id": "s29",
+   "title": "LG Front Load Washer Maintenance",
+   "publisher": "LG Electronics USA",
+   "edition": "help library CT10000012",
+   "url": "https://www.lg.com/us/support/help-library/lg-front-load-washer-maintenance-CT10000012-1400786418920",
+   "clause": "Dispenser, drain filter and gasket cleaned at least once a month; inlet filters as needed in hard-water areas"
+  },
+  {
+   "id": "s30",
+   "title": "Hofuf: Climate data",
+   "publisher": "Wikipedia (data: WMO, 1991 to 2020)",
+   "edition": "accessed 2026-10-06",
+   "url": "https://en.wikipedia.org/wiki/Hofuf",
+   "clause": "Mean precipitation: Nov 13.6, Dec 18.7 (wettest), Jan 13.1, Feb 11.4, Mar 14.4, Apr 12.5 mm; Jun to Oct near zero; annual 88.8 mm"
+  },
+  {
+   "id": "s31",
+   "title": "Cambridge Fire Department offers safety tips related to kitchen grease fires",
+   "publisher": "City of Cambridge, MA, Fire Department",
+   "edition": "2023-05-23",
+   "url": "https://www.cambridgema.gov/cfd/News/2023/05/cookingfiresafety",
+   "clause": "'Never pour water on a cooking pan grease fire'; smother a small pan fire by sliding the lid over the pan"
+  }
+ ],
+ "research_log": [
+  "2026-10-06: بحث عن تكرار رسمي سعودي لتنظيف خزانات المياه المنزلية (وزارة البلديات والإسكان، المياه الوطنية، وزارة البيئة والمياه والزراعة، الصحة، الغذاء والدواء، كود البناء SBC 701) دون نتيجة. وجدنا فقط تأكيد الهيئة السعودية للمياه على 'التنظيف والصيانة الدورية' لخزانات محطات التعبئة دون رقم (عكاظ 2026-03-29). اعتُمد التكرار من أبوظبي ودبي (6 أشهر) بثقة متوسطة.",
+  "مقالات شركات التنظيف السعودية التي تذكر 6 أشهر لا تستند إلى جهة رسمية، فاستُبعدت.",
+  "فلتر السبليت: مدته في المصدر أسبوعان، فسُجلت interval_months = 0.5. على الواجهة التعامل مع الكسر (14 يوماً).",
+  "طفاية الحريق: الفحص الشهري والصيانة السنوية مأخوذان من OSHA 1910.157 التي تقنن متطلبات NFPA 10 للمنشآت؛ لم نطلع على نص NFPA 10 ولا SBC 801 مباشرة، ولم نجد تكراراً منشوراً من الدفاع المدني للمنازل.",
+  "كواشف الدخان: اعتُمد موقع USFA؛ لم نطلع على نص NFPA 72 فلم يُذكر رقم بند.",
+  "قاطع التسرب: 3 أشهر من هيئة غرب أستراليا، ودليل Clipsal يقول 'بحسب اللوائح المحلية أو شهرياً'. لا يوجد تكرار سعودي منشور للمستهلك.",
+  "اللوحة الكهربائية: NFPA 70B 2023 موجه للمنشآت، واخترنا 36 شهراً (الحالة 2) لظروف الحرارة والغبار؛ مصدره ملخص ERS لا نص المعيار. مدونة Schneider تذكر 10 سنوات للمنازل (لم تُعتمد).",
+  "فواصل النوافذ، دهان الواجهات، تشحيم البوابات: مصدرها قائمة مدينة Shasta Lake وأصلها غير مذكور، والثقة منخفضة.",
+  "غرف التفتيش: لا مصدر محدد؛ رُبطت بتوصية InterNACHI بفحص البيت سنوياً، والثقة منخفضة.",
+  "كشف التسرب بالعداد: الطريقة من EPA WaterSense، والتكرار السنوي في الشتاء مستنتج من اقتراحها مراجعة استهلاك يناير وفبراير، والثقة منخفضة.",
+  "حُذفت مهام: مكافحة الحشرات العامة المجدولة (لا مصدر لتكرار ثابت، وأضيفت ملاحظة عامة)، فحص الإنارة والمقابس الخارجية (لا مصدر)، تغيير فلتر الفحم في الشفاط (يُذكر في دليل Bosch بـ6 إلى 12 شهراً ولم يُفرد).",
+  "موسم الأمطار: WeatherSpark يذكر أن يناير أكثر الأشهر مطراً في الأحساء ويوليو أقلها؛ موسم الغبار: الربيع (Albugami 2019).",
+  "Review 2026-10-06: US EPA septic interval (s11, tank with drainfield) removed; Saudi بيارة is a holding or semi-sealed pit emptied by tanker, so the task is now a monthly level check (practice).",
+  "Review 2026-10-06: roof-drains rain season now from WMO 1991 to 2020 (December wettest); WeatherSpark s22 kept only for the late-summer humid period."
+ ]
+}

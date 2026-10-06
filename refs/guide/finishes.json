@@ -1,0 +1,1534 @@
+{
+ "version": "1",
+ "built": "2026-10-06",
+ "spaces": [
+  {
+   "id": "majlis",
+   "name_ar": "المجلس",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "dry",
+    "traffic"
+   ],
+   "note_ar": "أكثر غرف البيت استقبالاً للضيوف والرمل القادم من الخارج؛ اختر أرضية تتحمل الحك ولا تُظهر الخدوش بسرعة."
+  },
+  {
+   "id": "living",
+   "name_ar": "الصالة",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "dry",
+    "traffic"
+   ],
+   "note_ar": "قلب الاستخدام اليومي للعائلة والأطفال؛ الجدران تحتاج دهاناً يتحمل المسح المتكرر."
+  },
+  {
+   "id": "bedrooms",
+   "name_ar": "غرف النوم",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "dry"
+   ],
+   "note_ar": "حركة خفيفة وجو هادئ؛ يمكن فيها استعمال مواد أدفأ وألين مثل الخشب والفينيل وورق الجدران."
+  },
+  {
+   "id": "kitchen_floor",
+   "name_ar": "المطبخ: الأرضية",
+   "surfaces": [
+    "floor"
+   ],
+   "conditions": [
+    "kitchen",
+    "wet",
+    "slip"
+   ],
+   "note_ar": "دهون وماء متساقط وحركة مستمرة؛ الأرضية يجب ألا تمتص البقع وألا تصبح زلقة وهي مبللة."
+  },
+  {
+   "id": "kitchen_wall",
+   "name_ar": "المطبخ: الجدران",
+   "surfaces": [
+    "wall"
+   ],
+   "conditions": [
+    "kitchen",
+    "wet"
+   ],
+   "note_ar": "الجدار خلف الموقد والمغسلة يحتاج سطحاً يُغسل بسهولة ولا يتشرب الدهن؛ بقية الجدران يكفيها دهان قابل للغسيل."
+  },
+  {
+   "id": "kitchen_counter",
+   "name_ar": "المطبخ: أسطح العمل",
+   "surfaces": [
+    "counter"
+   ],
+   "conditions": [
+    "kitchen",
+    "wet"
+   ],
+   "note_ar": "السطح الأكثر تعرضاً للحرارة والأحماض والسكاكين؛ اختياره يحدد نظافة المطبخ لسنوات."
+  },
+  {
+   "id": "bath_floor",
+   "name_ar": "الحمام: الأرضية",
+   "surfaces": [
+    "floor"
+   ],
+   "conditions": [
+    "wet",
+    "slip"
+   ],
+   "note_ar": "المشي حافياً على سطح مبلل؛ مقاومة الانزلاق هنا أهم من اللمعة، فاسأل عن فئة المشي حافياً في الكتالوج (B لأرضية الدش)."
+  },
+  {
+   "id": "bath_wall",
+   "name_ar": "الحمام: الجدران",
+   "surfaces": [
+    "wall"
+   ],
+   "conditions": [
+    "wet"
+   ],
+   "note_ar": "رش ماء مباشر في منطقة الدش وبخار دائم؛ التكسية لا تكفي وحدها دون عزل مائي تحتها."
+  },
+  {
+   "id": "laundry",
+   "name_ar": "غرفة الغسيل",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "wet",
+    "slip",
+    "traffic"
+   ],
+   "note_ar": "ماء ومنظفات وأجهزة ثقيلة؛ أرضية لا تمتص الماء وجدار قابل للغسيل."
+  },
+  {
+   "id": "entrance",
+   "name_ar": "المدخل",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "traffic",
+    "slip"
+   ],
+   "note_ar": "أول ما يستقبل الرمل والأتربة من الخارج؛ اختر أرضية قاسية واجعل عند الباب ممسحة أو منطقة نظيفة."
+  },
+  {
+   "id": "stairs",
+   "name_ar": "الدرج",
+   "surfaces": [
+    "floor"
+   ],
+   "conditions": [
+    "stairs",
+    "traffic",
+    "slip"
+   ],
+   "note_ar": "أكثر مواقع السقوط في البيت؛ تجنب اللمعة العالية على النوائم وانتبه لحافة الدرجة."
+  },
+  {
+   "id": "corridors",
+   "name_ar": "الممرات",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "conditions": [
+    "dry",
+    "traffic"
+   ],
+   "note_ar": "حركة مركزة في خط واحد؛ الأرضية تبلى أسرع من الغرف، والجدران تتسخ من الأيدي."
+  },
+  {
+   "id": "courtyard",
+   "name_ar": "الحوش",
+   "surfaces": [
+    "floor"
+   ],
+   "conditions": [
+    "sun",
+    "traffic",
+    "slip",
+    "outdoor_shade"
+   ],
+   "note_ar": "شمس مباشرة وحرارة وسيارات أحياناً وغسيل بالماء؛ والاشتراطات تلزم بمواد مقاومة للانزلاق في المناطق المكشوفة وبميول تصريف بين 1٪ و2٪. الأرضية الداكنة تسخن كثيراً تحت الشمس."
+  },
+  {
+   "id": "roof",
+   "name_ar": "السطح",
+   "surfaces": [
+    "floor"
+   ],
+   "conditions": [
+    "sun",
+    "slip"
+   ],
+   "note_ar": "التشطيب فوق طبقات العزل المائي والحراري؛ لا تختر تشطيباً قبل التأكد من نظام العزل والميول."
+  },
+  {
+   "id": "facades",
+   "name_ar": "الواجهات",
+   "surfaces": [
+    "wall"
+   ],
+   "conditions": [
+    "sun"
+   ],
+   "note_ar": "شمس قوية وغبار؛ اختيار الواجهة يتبع أيضاً اشتراطات البلدية ودليل عمارة الأحساء."
+  },
+  {
+   "id": "ceilings",
+   "name_ar": "الأسقف",
+   "surfaces": [
+    "ceiling"
+   ],
+   "conditions": [
+    "dry",
+    "wet"
+   ],
+   "note_ar": "السقف الجاف في الغرف يختلف عن سقف الحمام والمطبخ؛ في الأماكن الرطبة استعمل ألواحاً مقاومة للرطوبة ودهاناً قابلاً للغسيل."
+  }
+ ],
+ "materials": [
+  {
+   "id": "porcelain",
+   "name_ar": "بورسلان",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "pros_ar": [
+    "امتصاصه للماء منخفض جداً فلا يتشرب البقع",
+    "قاسٍ ويتحمل الرمل والحركة الكثيفة",
+    "تشكيلة واسعة من المقاسات والألوان والتشطيبات"
+   ],
+   "cons_ar": [
+    "البورسلان اللامع زلق وهو مبلل",
+    "فواصل الترويب تتسخ إن لم تكن المونة مناسبة",
+    "القص والتركيب للمقاسات الكبيرة يحتاج فنياً متمكناً"
+   ],
+   "maintenance_ar": "مسح بالماء ومنظف معتدل؛ تُنظف فواصل الترويب دورياً، ويُفضل تجنب المنظفات الحمضية القوية على الفواصل الإسمنتية.",
+   "suits": [
+    "dry",
+    "wet",
+    "slip",
+    "kitchen",
+    "traffic",
+    "stairs",
+    "outdoor_shade",
+    "sun"
+   ],
+   "avoid": [],
+   "ask_ar": [
+    {
+     "text_ar": "مجموعة امتصاص الماء BIa أي 0.5٪ أو أقل حسب ISO 13006",
+     "source_ids": [
+      "s1"
+     ]
+    },
+    {
+     "text_ar": "مطابقة SASO-ISO13006 ووجود علامة الجودة السعودية على الشحنة",
+     "source_ids": [
+      "s2",
+      "s3"
+     ]
+    },
+    {
+     "text_ar": "للأرضيات المبللة والدرج والحوش: قيمة البندول PTV 36 أو أكثر في الاختبار الرطب (BS 7976)",
+     "source_ids": [
+      "s4"
+     ]
+    },
+    {
+     "text_ar": "فئة مقاومة الانزلاق مكتوبة في الكتالوج: لأرضية الدش حيث المشي حافياً فئة B حسب DIN 51097 (وهي اليوم ضمن DIN EN 16165)، وA على الأقل لباقي أرضية الحمام. وللمطبخ والحوش والدرج الخارجي فئة R حسب DIN 51130 مع قيمة البندول المذكورة. والفئات العالية جداً مثل R12 للمطابخ التجارية، وسطحها أخشن ويصعب تنظيفه في البيت.",
+     "source_ids": [
+      "s4",
+      "s5"
+     ]
+    },
+    {
+     "text_ar": "للبورسلان المزجج: فئة مقاومة البري PEI 3 أو أعلى للأرضيات السكنية (ISO 10545-7)",
+     "source_ids": [
+      "s1",
+      "s9"
+     ]
+    },
+    {
+     "text_ar": "لاصق ومونة ترويب مطابقان لـ SASO-ISO13007",
+     "source_ids": [
+      "s2"
+     ]
+    }
+   ],
+   "boq_code": "07-01",
+   "source_ids": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s9"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "ceramic",
+   "name_ar": "سيراميك",
+   "surfaces": [
+    "wall",
+    "floor"
+   ],
+   "pros_ar": [
+    "أرخص من البورسلان وأخف وزناً",
+    "سهل القص والتركيب على الجدران",
+    "مناسب جداً لجدران الحمام والمطبخ"
+   ],
+   "cons_ar": [
+    "بلاط الجدران امتصاصه للماء أعلى من 10٪ فلا يصلح للأرضيات",
+    "طبقة التزجيج تتشقق أو تُخدش مع الحك",
+    "أضعف من البورسلان أمام الرمل والحركة"
+   ],
+   "maintenance_ar": "مسح بمنظف معتدل؛ عند الكسر يصعب إيجاد بلاطة مطابقة لاحقاً، فاحتفظ بكمية احتياطية من الدفعة نفسها.",
+   "suits": [
+    "wet",
+    "kitchen",
+    "dry"
+   ],
+   "avoid": [
+    "traffic",
+    "sun",
+    "stairs"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "حدد الاستعمال: بلاط جدران (مجموعة BIII) أم أرضيات؛ لا تقبل بلاط جدران على الأرض",
+     "source_ids": [
+      "s1"
+     ]
+    },
+    {
+     "text_ar": "للأرضيات: فئة PEI 3 أو أعلى (ISO 10545-7)",
+     "source_ids": [
+      "s1",
+      "s9"
+     ]
+    },
+    {
+     "text_ar": "مطابقة SASO-ISO13006 وعلامة الجودة السعودية",
+     "source_ids": [
+      "s2",
+      "s3"
+     ]
+    },
+    {
+     "text_ar": "رقم الدفعة ودرجة اللون موحدة لكل الكمية",
+     "source_ids": [
+      "s1"
+     ]
+    }
+   ],
+   "boq_code": "07-02",
+   "source_ids": [
+    "s1",
+    "s2",
+    "s3",
+    "s9"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "marble",
+   "name_ar": "رخام طبيعي",
+   "surfaces": [
+    "floor",
+    "wall",
+    "counter"
+   ],
+   "pros_ar": [
+    "فخامة وعروق طبيعية لا تتكرر",
+    "يمكن إعادة جليه وتلميعه بعد سنوات",
+    "بارد الملمس في الصيف"
+   ],
+   "cons_ar": [
+    "يتأثر بالأحماض (ليمون، خل، منظفات إزالة الترسبات) فتظهر بقع باهتة",
+    "المصقول زلق جداً وهو مبلل",
+    "يحتاج عزلاً (سيلر) ضد البقع، والعزل لا يمنع تأثير الأحماض"
+   ],
+   "maintenance_ar": "منظف متعادل خاص بالحجر، ومسح الانسكابات فوراً؛ إعادة العزل دورياً وجلي عند الحاجة. لا تستعمل مزيلات الترسبات الحمضية لآثار الماء العسر عليه.",
+   "suits": [
+    "dry",
+    "traffic"
+   ],
+   "avoid": [
+    "kitchen",
+    "slip",
+    "wet",
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة SASO-ASTM C503 للرخام",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "في المطبخ والحمام: لا تعتمد على العزل لمنع آثار الأحماض؛ فهو يقلل البقع فقط",
+     "source_ids": [
+      "s15"
+     ]
+    },
+    {
+     "text_ar": "للأرضيات المعرضة للبلل: تشطيب غير لامع (Honed) مع قيمة PTV 36 أو أكثر رطباً",
+     "source_ids": [
+      "s4"
+     ]
+    },
+    {
+     "text_ar": "السماكة وبلد المنشأ ورقم الكتلة لضمان تجانس العروق",
+     "source_ids": [
+      "s2"
+     ]
+    }
+   ],
+   "boq_code": "07-03",
+   "source_ids": [
+    "s2",
+    "s4",
+    "s15"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "granite",
+   "name_ar": "جرانيت",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "pros_ar": [
+    "من أقسى الأحجار ويتحمل الحركة والرمل",
+    "لا يتأثر بالأحماض الخفيفة كالرخام",
+    "يتحمل الشمس والحرارة في الخارج"
+   ],
+   "cons_ar": [
+    "المصقول زلق وهو مبلل",
+    "بعض الأنواع تمتص البقع وتحتاج عزلاً",
+    "ثقيل وألوانه أقل تنوعاً من البورسلان"
+   ],
+   "maintenance_ar": "مسح بمنظف متعادل؛ عزل (سيلر) للأنواع المسامية حسب توصية المورد.",
+   "suits": [
+    "dry",
+    "traffic",
+    "stairs",
+    "sun",
+    "outdoor_shade"
+   ],
+   "avoid": [],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة SASO-ASTM C615 للجرانيت",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "للخارج والدرج: تشطيب محروق (فليمد) أو مخشن مع قيمة PTV 36 أو أكثر رطباً",
+     "source_ids": [
+      "s4"
+     ]
+    },
+    {
+     "text_ar": "هل يحتاج هذا النوع عزلاً ضد البقع وكم مرة",
+     "source_ids": [
+      "s15"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s2",
+    "s4",
+    "s15"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "local_stone",
+   "name_ar": "حجر طبيعي محلي (جيري)",
+   "surfaces": [
+    "wall",
+    "floor"
+   ],
+   "pros_ar": [
+    "ينسجم مع عمارة الأحساء وألوانها الترابية",
+    "لونه الفاتح يعكس جزءاً من حرارة الشمس",
+    "متوفر محلياً"
+   ],
+   "cons_ar": [
+    "الحجر الجيري يتأثر بالأحماض مثل الرخام",
+    "مسامي يمتص الماء والأوساخ إن لم يُعزل",
+    "يتفاوت لونه وصلابته بين الدفعات"
+   ],
+   "maintenance_ar": "عزل مائي شفاف للواجهات حسب توصية المورد، وغسيل خفيف دون منظفات حمضية.",
+   "suits": [
+    "sun",
+    "dry",
+    "outdoor_shade"
+   ],
+   "avoid": [
+    "kitchen",
+    "wet"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة SASO-ASTM C568 للحجر الجيري",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "نوع التثبيت للواجهات (لاصق أو تثبيت ميكانيكي) والسماكة",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "لا تستعمل منظفات حمضية عليه، والعزل لا يمنع تأثيرها",
+     "source_ids": [
+      "s15"
+     ]
+    }
+   ],
+   "boq_code": "06-07",
+   "source_ids": [
+    "s2",
+    "s15"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "wood_parquet",
+   "name_ar": "باركيه خشب طبيعي",
+   "surfaces": [
+    "floor"
+   ],
+   "pros_ar": [
+    "دافئ الملمس والمظهر",
+    "يمكن صنفرته وإعادة تشطيبه",
+    "يرفع قيمة الغرف الهادئة"
+   ],
+   "cons_ar": [
+    "الخشب يتمدد وينكمش مع تغير الرطوبة",
+    "يتأثر بالماء والخدش والرمل",
+    "أغلى من البدائل وتركيبه دقيق"
+   ],
+   "maintenance_ar": "كنس الرمل يومياً، ومسح بقطعة شبه جافة؛ إبقاء التكييف والرطوبة الداخلية مستقرة قدر الإمكان.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "slip",
+    "kitchen",
+    "sun",
+    "traffic",
+    "outdoor_shade"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "رطوبة الخشب عند التوريد ومدى الرطوبة النسبية الذي يضمنه المصنع؛ المرجع الشائع 35 إلى 55٪",
+     "source_ids": [
+      "s16",
+      "s13"
+     ]
+    },
+    {
+     "text_ar": "نوع الطبقة العليا وسماكتها وعدد مرات الصنفرة الممكنة",
+     "source_ids": [
+      "s16"
+     ]
+    },
+    {
+     "text_ar": "فاصل تمدد عند الجدران حسب تعليمات المصنع",
+     "source_ids": [
+      "s16"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s13",
+    "s16"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "spc_vinyl",
+   "name_ar": "أرضيات SPC / فينيل",
+   "surfaces": [
+    "floor"
+   ],
+   "pros_ar": [
+    "مقاوم لرش الماء أكثر من الخشب واللامينيت",
+    "دافئ وهادئ تحت القدم",
+    "سريع التركيب ويمكن تركيبه فوق بلاط قائم مستوٍ"
+   ],
+   "cons_ar": [
+    "الشمس المباشرة الطويلة تغير لونه",
+    "يُخدش بالرمل والأثاث الثقيل",
+    "لا يصلح للخارج ولا للحوش"
+   ],
+   "maintenance_ar": "كنس الرمل باستمرار، ومسح بمنظف معتدل، وستائر للنوافذ المشمسة، وقطع لباد تحت الأثاث.",
+   "suits": [
+    "dry",
+    "kitchen"
+   ],
+   "avoid": [
+    "sun",
+    "outdoor_shade",
+    "traffic"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة ASTM F3261 (أرضيات بقلب صلب)",
+     "source_ids": [
+      "s21"
+     ]
+    },
+    {
+     "text_ar": "سماكة طبقة الاهتراء مكتوبة، ومدى الحرارة المسموح بعد التركيب",
+     "source_ids": [
+      "s17"
+     ]
+    },
+    {
+     "text_ar": "فاصل تمدد عند الجدران حسب التعليمات (6 مم تقريباً في أحد الأدلة)",
+     "source_ids": [
+      "s17"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s17",
+    "s21"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "laminate",
+   "name_ar": "باركيه لامينيت",
+   "surfaces": [
+    "floor"
+   ],
+   "pros_ar": [
+    "سعره أقل من الخشب الطبيعي",
+    "سطح مقاوم للخدش أكثر من بعض البدائل",
+    "تركيب سريع"
+   ],
+   "cons_ar": [
+    "قلبه من ألياف الخشب فينتفخ مع الماء",
+    "لا يُصلح موضعياً بسهولة",
+    "صوت الخطوات أعلى دون عازل"
+   ],
+   "maintenance_ar": "مسح بقطعة شبه جافة فقط، وتجفيف أي ماء فوراً.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "slip",
+    "kitchen",
+    "sun",
+    "outdoor_shade"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "فئة الاستعمال حسب EN 13329: 23 للسكن الكثيف أو 32 فأعلى للحركة الأشد",
+     "source_ids": [
+      "s10"
+     ]
+    },
+    {
+     "text_ar": "فئة البري AC مكتوبة على العلبة",
+     "source_ids": [
+      "s10"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s10"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "terrazzo",
+   "name_ar": "موزاييك / تيرازو",
+   "surfaces": [
+    "floor",
+    "wall"
+   ],
+   "pros_ar": [
+    "صلب ويعيش طويلاً",
+    "يمكن جليه وتجديده",
+    "مظهر تراثي محبب"
+   ],
+   "cons_ar": [
+    "المصقول زلق وهو مبلل",
+    "الأنواع الإسمنتية تحتاج عزلاً ضد البقع",
+    "بلاط الإسمنت خارج نطاق اللائحة الفنية للبلاط فتقل ضمانات الجودة"
+   ],
+   "maintenance_ar": "منظف متعادل، وإعادة عزل وجلي عند ظهور البهتان.",
+   "suits": [
+    "dry",
+    "traffic"
+   ],
+   "avoid": [
+    "slip",
+    "kitchen"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة EN 13748-1 لبلاط التيرازو الداخلي",
+     "source_ids": [
+      "s22"
+     ]
+    },
+    {
+     "text_ar": "شهادة اختبار من المصنع، لأن بلاط الإسمنت مستثنى من اللائحة الفنية السعودية للبلاط",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "قيمة PTV 36 أو أكثر رطباً إن كان في مكان قد يبتل",
+     "source_ids": [
+      "s4"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s2",
+    "s4",
+    "s22"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "interlock",
+   "name_ar": "إنترلوك",
+   "surfaces": [
+    "floor"
+   ],
+   "pros_ar": [
+    "يتحمل السيارات والحركة",
+    "يُفك ويُعاد تركيبه عند إصلاح التمديدات",
+    "سطحه غير زلق نسبياً"
+   ],
+   "cons_ar": [
+    "يهبط إذا لم تُدمك الطبقة تحته جيداً",
+    "تنمو الأعشاب ويخرج الرمل من الفواصل",
+    "الألوان الداكنة تسخن تحت الشمس"
+   ],
+   "maintenance_ar": "إعادة رمل الفواصل عند الحاجة، وغسيل دوري، ومعالجة أي هبوط مبكراً.",
+   "suits": [
+    "sun",
+    "traffic",
+    "outdoor_shade"
+   ],
+   "avoid": [
+    "dry",
+    "wet",
+    "kitchen"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مقاومة ضغط بمتوسط 55 ميغاباسكال على الأقل حسب ASTM C936",
+     "source_ids": [
+      "s12"
+     ]
+    },
+    {
+     "text_ar": "امتصاص ماء بمتوسط 5٪ أو أقل حسب ASTM C936",
+     "source_ids": [
+      "s12"
+     ]
+    },
+    {
+     "text_ar": "السماكة المناسبة لمرور السيارات، وتصميم طبقة الأساس والدمك",
+     "source_ids": [
+      "s12"
+     ]
+    }
+   ],
+   "boq_code": "07-06",
+   "source_ids": [
+    "s12"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "paint_emulsion",
+   "name_ar": "دهان بلاستيك (غير لامع / نصف لامع)",
+   "surfaces": [
+    "wall",
+    "ceiling"
+   ],
+   "pros_ar": [
+    "أرخص تشطيب للجدران وأسرعه",
+    "تغيير اللون لاحقاً سهل",
+    "غير اللامع يخفي عيوب اللياسة"
+   ],
+   "cons_ar": [
+    "غير اللامع الرخيص لا يتحمل المسح",
+    "يتسخ عند المفاتيح والممرات",
+    "لا يصلح وحده للأماكن الرطبة"
+   ],
+   "maintenance_ar": "مسح خفيف للبقع، وإعادة دهان كل بضع سنوات حسب الاستعمال.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "kitchen",
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "فئة مقاومة الغسيل الرطب حسب EN 13300 (اختبار ISO 11998)؛ الفئة 2 أو أفضل للصالات والممرات",
+     "source_ids": [
+      "s6"
+     ]
+    },
+    {
+     "text_ar": "درجة اللمعة (غير لامع، نصف لامع) مكتوبة في نشرة المنتج",
+     "source_ids": [
+      "s6"
+     ]
+    }
+   ],
+   "boq_code": "06-05",
+   "source_ids": [
+    "s6"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "paint_washable",
+   "name_ar": "دهان قابل للغسيل",
+   "surfaces": [
+    "wall",
+    "ceiling"
+   ],
+   "pros_ar": [
+    "يتحمل المسح المتكرر بالماء والصابون",
+    "مناسب لغرف الأطفال والممرات والمطبخ",
+    "بعض الأنواع مقاومة للعفن"
+   ],
+   "cons_ar": [
+    "أغلى من الدهان العادي",
+    "اللمعة الأعلى تُظهر عيوب الجدار",
+    "لا يغني عن البلاط في منطقة الرش المباشر"
+   ],
+   "maintenance_ar": "مسح بإسفنجة ومنظف معتدل دون مواد كاشطة.",
+   "suits": [
+    "dry",
+    "kitchen",
+    "wet"
+   ],
+   "avoid": [
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "الفئة 1 حسب EN 13300: فقد أقل من 5 ميكرون بعد 200 مرة حك (ISO 11998)",
+     "source_ids": [
+      "s6"
+     ]
+    },
+    {
+     "text_ar": "للمطابخ والحمامات: نشرة تثبت مقاومة العفن",
+     "source_ids": [
+      "s6"
+     ]
+    }
+   ],
+   "boq_code": "06-05",
+   "source_ids": [
+    "s6"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "paint_exterior",
+   "name_ar": "دهان خارجي",
+   "surfaces": [
+    "wall"
+   ],
+   "pros_ar": [
+    "تكلفة أقل من الحجر والتكسيات",
+    "ألوان متعددة وإعادة دهان سهلة",
+    "يحمي اللياسة من الماء"
+   ],
+   "cons_ar": [
+    "يبهت مع الشمس القوية",
+    "يتسخ بالغبار خاصة الألوان الفاتحة",
+    "يحتاج تجديداً كل بضع سنوات"
+   ],
+   "maintenance_ar": "غسيل خفيف بالماء، وإعادة دهان عند ظهور البهتان أو التشقق.",
+   "suits": [
+    "sun"
+   ],
+   "avoid": [
+    "dry",
+    "wet",
+    "kitchen"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "نشرة فنية تثبت أنه للاستعمال الخارجي ومقاوم للأشعة فوق البنفسجية",
+     "source_ids": []
+    },
+    {
+     "text_ar": "نظام كامل: أساس ومعجون خارجي ودهان من الشركة نفسها",
+     "source_ids": []
+    }
+   ],
+   "boq_code": "06-06",
+   "source_ids": [],
+   "confidence": "medium"
+  },
+  {
+   "id": "wallpaper",
+   "name_ar": "ورق جدران",
+   "surfaces": [
+    "wall"
+   ],
+   "pros_ar": [
+    "نقوش وملمس لا يحققها الدهان",
+    "يخفي عيوب الجدار البسيطة",
+    "سريع التركيب"
+   ],
+   "cons_ar": [
+    "يتأثر بالرطوبة وقد ينفصل أو يتعفن",
+    "الأنواع غير القابلة للغسيل تتسخ بسرعة",
+    "إزالته لاحقاً متعبة"
+   ],
+   "maintenance_ar": "حسب رمز الغسيل: إسفنجة رطبة للنوع القابل للمسح، أو ماء وصابون للنوع القابل للغسيل.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "kitchen",
+    "sun",
+    "traffic"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "رمز قابلية التنظيف حسب EN 233 (قابل للمسح، قابل للغسيل)",
+     "source_ids": [
+      "s18"
+     ]
+    },
+    {
+     "text_ar": "ورق فينيل للمواقع القريبة من الأيدي",
+     "source_ids": [
+      "s18"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s18"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "wood_cladding",
+   "name_ar": "تكسيات خشبية / بديل الخشب",
+   "surfaces": [
+    "wall",
+    "ceiling"
+   ],
+   "pros_ar": [
+    "دفء ولمسة معمارية في المجالس والممرات",
+    "تخفي التمديدات وتحسن الصوت",
+    "البديل البلاستيكي (WPC) أقل تأثراً بالرطوبة"
+   ],
+   "cons_ar": [
+    "الخشب الطبيعي يتحرك مع الرطوبة",
+    "تتراكم الأتربة على الشرائح البارزة",
+    "بعض البدائل تبهت تحت الشمس"
+   ],
+   "maintenance_ar": "نفض الغبار ومسح خفيف؛ الخشب الطبيعي قد يحتاج إعادة ورنيش.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "kitchen",
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "هل المادة خشب طبيعي أم ألياف خشب أم WPC، ومقاومتها للرطوبة",
+     "source_ids": [
+      "s16"
+     ]
+    },
+    {
+     "text_ar": "تصنيف سلوكها في الحريق من المصنع، خاصة في الأسقف",
+     "source_ids": []
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s16"
+   ],
+   "confidence": "low"
+  },
+  {
+   "id": "gypsum_ceiling",
+   "name_ar": "جبس بورد للأسقف",
+   "surfaces": [
+    "ceiling"
+   ],
+   "pros_ar": [
+    "يخفي التمديدات والتكييف",
+    "يسمح بإنارة مخفية وتشكيلات",
+    "سريع التنفيذ"
+   ],
+   "cons_ar": [
+    "لا يتحمل الماء أو التسريب",
+    "تظهر الشقوق عند الفواصل إن ضعف التنفيذ",
+    "الفتحات للصيانة يجب أن تُخطط مسبقاً"
+   ],
+   "maintenance_ar": "إعادة دهان، ومعالجة أي تسريب فوراً، وترك فتحات صيانة عند الأجهزة.",
+   "suits": [
+    "dry"
+   ],
+   "avoid": [
+    "wet",
+    "kitchen"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة ASTM C1396 أو EN 520 للألواح",
+     "source_ids": [
+      "s7",
+      "s8"
+     ]
+    },
+    {
+     "text_ar": "الهيكل المعدني ومسافاته من النظام نفسه",
+     "source_ids": [
+      "s7"
+     ]
+    }
+   ],
+   "boq_code": "06-03",
+   "source_ids": [
+    "s7",
+    "s8"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "gypsum_mr_ceiling",
+   "name_ar": "أسقف جبس مقاوم للرطوبة",
+   "surfaces": [
+    "ceiling",
+    "wall"
+   ],
+   "pros_ar": [
+    "إضافات تقلل امتصاص الماء",
+    "مناسب لأسقف الحمامات والمطابخ",
+    "سهل التنفيذ كالجبس العادي"
+   ],
+   "cons_ar": [
+    "مقاوم للرطوبة وليس مقاوماً للماء",
+    "يتلف مع البلل المتكرر أو التسريب",
+    "أغلى من الجبس العادي"
+   ],
+   "maintenance_ar": "دهان قابل للغسيل مقاوم للعفن، وتهوية جيدة للحمام.",
+   "suits": [
+    "wet",
+    "kitchen",
+    "dry"
+   ],
+   "avoid": [],
+   "ask_ar": [
+    {
+     "text_ar": "ألواح النوع H1 حسب EN 520",
+     "source_ids": [
+      "s7"
+     ]
+    },
+    {
+     "text_ar": "أو ألواح مقاومة للماء حسب ASTM C1396، مع العلم أنها لا تصلح للرطوبة الدائمة",
+     "source_ids": [
+      "s8"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s7",
+    "s8"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "quartz_counter",
+   "name_ar": "أسطح كوارتز",
+   "surfaces": [
+    "counter"
+   ],
+   "pros_ar": [
+    "لا يحتاج عزلاً",
+    "لون متجانس وتشكيلة واسعة",
+    "مقاوم للبقع"
+   ],
+   "cons_ar": [
+    "الحرارة المباشرة قد تتلفه",
+    "يتضرر بالمنظفات القوية جداً",
+    "الأنواع العادية غير مخصصة للخارج"
+   ],
+   "maintenance_ar": "ماء وصابون معتدل؛ قاعدة حرارية تحت القدور والأجهزة الساخنة، وتجنب منظفات الأفران.",
+   "suits": [
+    "kitchen",
+    "wet"
+   ],
+   "avoid": [
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "تعليمات الشركة للحرارة والمنظفات، ومنها تجنب المنظفات التي يزيد رقمها الهيدروجيني على 11",
+     "source_ids": [
+      "s11"
+     ]
+    },
+    {
+     "text_ar": "السماكة وطريقة تشطيب الحافة وفتحة المغسلة",
+     "source_ids": [
+      "s11"
+     ]
+    },
+    {
+     "text_ar": "الضمان مكتوب من الشركة المصنعة لا من المورد فقط",
+     "source_ids": [
+      "s11"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s11"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "granite_counter",
+   "name_ar": "أسطح جرانيت",
+   "surfaces": [
+    "counter"
+   ],
+   "pros_ar": [
+    "يتحمل الحرارة",
+    "لا يتأثر بالأحماض الخفيفة",
+    "صلب ويعيش طويلاً"
+   ],
+   "cons_ar": [
+    "بعض الأنواع مسامية تحتاج عزلاً",
+    "ثقيل ويحتاج خزائن متينة",
+    "تفاوت العروق بين الألواح"
+   ],
+   "maintenance_ar": "منظف متعادل؛ اختبار العزل بقطرة ماء وإعادة العزل عند الحاجة.",
+   "suits": [
+    "kitchen",
+    "wet",
+    "sun"
+   ],
+   "avoid": [],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة SASO-ASTM C615",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "هل يحتاج هذا النوع عزلاً وكم مرة",
+     "source_ids": [
+      "s15"
+     ]
+    },
+    {
+     "text_ar": "اختيار اللوح نفسه بالعين قبل القص",
+     "source_ids": [
+      "s2"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s2",
+    "s15"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "solid_surface",
+   "name_ar": "أكريليك / سطح صلب",
+   "surfaces": [
+    "counter",
+    "wall"
+   ],
+   "pros_ar": [
+    "بلا فواصل ظاهرة ومغسلة مدمجة",
+    "يمكن صنفرة الخدوش وإصلاحه موضعياً",
+    "لا يمتص البقع"
+   ],
+   "cons_ar": [
+    "يتأثر بالحرارة المباشرة",
+    "يُخدش أسهل من الحجر",
+    "أقل فخامة في نظر البعض"
+   ],
+   "maintenance_ar": "ماء وصابون، وقاعدة حرارية تحت الأواني الساخنة، وصنفرة خفيفة للخدوش.",
+   "suits": [
+    "kitchen",
+    "wet"
+   ],
+   "avoid": [
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "مطابقة SASO 2270 للأسطح الصلبة",
+     "source_ids": [
+      "s2"
+     ]
+    },
+    {
+     "text_ar": "نسبة الأكريليك في الخليط وتعليمات الحرارة من المصنع",
+     "source_ids": [
+      "s2"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s2"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "microcement",
+   "name_ar": "ميكروسمنت",
+   "surfaces": [
+    "floor",
+    "wall",
+    "counter"
+   ],
+   "pros_ar": [
+    "سطح متصل بلا فواصل",
+    "يُنفذ فوق البلاط القائم أحياناً",
+    "مظهر معاصر هادئ"
+   ],
+   "cons_ar": [
+    "يتشقق مع حركة الطبقة التي تحته",
+    "يحتاج عازلاً سطحياً وإعادة عزل",
+    "جودته تعتمد كلياً على المنفذ"
+   ],
+   "maintenance_ar": "منظف متعادل فقط، دون مبيضات أو أحماض أو بخار؛ كنس الرمل؛ فحص سنوي وإعادة العزل في المواقع الكثيفة.",
+   "suits": [
+    "dry",
+    "wet"
+   ],
+   "avoid": [
+    "traffic",
+    "kitchen",
+    "sun"
+   ],
+   "ask_ar": [
+    {
+     "text_ar": "فحص الأرضية أو الجدار تحته ومعالجة الشقوق قبل البدء",
+     "source_ids": [
+      "s19"
+     ]
+    },
+    {
+     "text_ar": "عزل مائي تحته في الحمام والمواقع الرطبة",
+     "source_ids": [
+      "s19"
+     ]
+    },
+    {
+     "text_ar": "نوع العازل السطحي ومنظفاته المتوافقة وموعد إعادة العزل",
+     "source_ids": [
+      "s20"
+     ]
+    },
+    {
+     "text_ar": "قاعدة حرارية على أسطح المطبخ",
+     "source_ids": [
+      "s20"
+     ]
+    }
+   ],
+   "boq_code": null,
+   "source_ids": [
+    "s19",
+    "s20"
+   ],
+   "confidence": "medium"
+  }
+ ],
+ "climate_ar": [
+  {
+   "text_ar": "متوسط الحرارة العظمى في يوليو بالهفوف نحو 46 درجة، والقياسية تجاوزت 51 درجة؛ المواد الخارجية الداكنة تسخن كثيراً.",
+   "source_ids": [
+    "s13"
+   ]
+  },
+  {
+   "text_ar": "متوسط الرطوبة النسبية الشهري منخفض صيفاً (22 إلى 30٪) ويرتفع شتاءً (نحو 55٪)؛ المواد الخشبية تتحرك بين الموسمين.",
+   "source_ids": [
+    "s13",
+    "s16"
+   ]
+  },
+  {
+   "text_ar": "الأمطار قليلة (نحو 89 مم في السنة) لكنها تأتي دفعة واحدة؛ ميول الأسطح والحوش أهم من نوع التشطيب.",
+   "source_ids": [
+    "s13"
+   ]
+  },
+  {
+   "text_ar": "مياه الآبار في الأحساء عالية الأملاح في دراسات منشورة، فتظهر الترسبات على اللامع والفواصل؛ لا تزلها بالأحماض على الرخام والحجر الجيري.",
+   "source_ids": [
+    "s14",
+    "s15"
+   ]
+  },
+  {
+   "text_ar": "الرمل الناعم يعمل عمل ورق الصنفرة على الأرضيات؛ الكنس المستمر وممسحة عند المداخل يطيلان عمر أي أرضية.",
+   "source_ids": [
+    "s20"
+   ]
+  },
+  {
+   "text_ar": "الشمس المباشرة عبر النوافذ تغير لون أرضيات الفينيل؛ الستائر جزء من الصيانة.",
+   "source_ids": [
+    "s17"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "s1",
+   "title": "ISO 13006:2012 Ceramic tiles: Definitions, classification, characteristics and marking (preview)",
+   "publisher": "ISO / ANSI Webstore",
+   "edition": "2012",
+   "url": "https://webstore.ansi.org/preview-pages/ISO/preview_ISO+13006-2012.pdf",
+   "clause": "Table of contents: water absorption groups BIa (Eb ≤ 0.5%, Annex G) to BIII (Eb > 10%, Annex L); Annex N abrasion classes of glazed floor tiles"
+  },
+  {
+   "id": "s2",
+   "title": "Technical Regulation: Building Materials, Part 4: Bricks, Tiles, Ceramics, Sanitary Ware and Related Products",
+   "publisher": "SASO",
+   "edition": "M.A-161-17-07-03",
+   "url": "https://saso.gov.sa/en/Laws-And-Regulations/Technical_regulations/Documents/TR%20-%20Building%20Materials%20-%20Part%204%20Bricks%20Tiles%20Ceramics%20Sanitary%20Ware%20and%20Related%20Products.pdf",
+   "clause": "Article 2 (cement tiles excluded); Annex 1 Section A: SASO-ISO13006, SASO-ISO13007-1/-3, SASO-ISO10545-1; natural stone SASO-ASTM C615, C503, C568; SASO 2270 solid surface"
+  },
+  {
+   "id": "s3",
+   "title": "SASO Quality Mark (QM) for Ceramic/Porcelain Tiles",
+   "publisher": "Intertek",
+   "edition": "",
+   "url": "https://www.intertek.com/government/export-import/saudi-arabia-quality-mark-ceramics",
+   "clause": "QM mandatory from 13 September 2019"
+  },
+  {
+   "id": "s4",
+   "title": "Pendulum, ramp and Tortus slip resistance test methods: are you confused?",
+   "publisher": "NBS",
+   "edition": "",
+   "url": "https://www.thenbs.com/knowledge/pendulum-ramp-and-tortus-slip-resistance-test-methods-are-you-confused",
+   "clause": "Table 1 (UKSRG 2005): PTV 36+ low slip potential; Table 2: DIN 51130 R9 to R13; BS 7976"
+  },
+  {
+   "id": "s5",
+   "title": "Technical Information 01: Slip resistance",
+   "publisher": "Villeroy & Boch Fliesen",
+   "edition": "2026-01-01",
+   "url": "https://villeroy-boch-tiles.com/wp-content/uploads/2026/05/VuB_Technische-Informationen_01_Trittsicherheit-Rutschhemmung_2026-01-01_EN.pdf",
+   "clause": "p.1 no rules for private areas; p.6 choose by personal safety; p.7 barefoot classes A/B/C (DIN EN 16165)"
+  },
+  {
+   "id": "s6",
+   "title": "EN 13300 technical acronym",
+   "publisher": "Rawlins Paints",
+   "edition": "",
+   "url": "https://www.rawlinspaints.com/faqs/technical-acronyms/en-13300-technical-acronym.html",
+   "clause": "Wet scrub classes 1 to 5; Class 1 < 5 µm after 200 strokes"
+  },
+  {
+   "id": "s7",
+   "title": "Gyproc Moisture Resistant",
+   "publisher": "British Gypsum",
+   "edition": "",
+   "url": "https://www.british-gypsum.com/products/Gyproc-Moisture-Resistant",
+   "clause": "EN 520:2004+A1:2009 Type H1, additives to reduce water absorption; base for tiling in wet areas"
+  },
+  {
+   "id": "s8",
+   "title": "Code Bulletin B-001 R1: Water Resistant Gypsum Backing Board",
+   "publisher": "City of Philadelphia, Dept. of Licenses and Inspections",
+   "edition": "R1",
+   "url": "https://www.phila.gov/media/20190306152610/Code-Bulletin-No.-B-001-R1-Water-Resistant-Gypsum-Backing-Board.pdf",
+   "clause": "ASTM C1396; not waterproof; not for continuous high humidity"
+  },
+  {
+   "id": "s9",
+   "title": "What is a PEI rating",
+   "publisher": "The Tile Depot",
+   "edition": "",
+   "url": "https://tiledepot.co.nz/blog/general-tile-knowledge/what-is-a-pei-rating",
+   "clause": "PEI 0 to 5; PEI 3 all residential"
+  },
+  {
+   "id": "s10",
+   "title": "Quality standards for laminate flooring",
+   "publisher": "Quick-Step",
+   "edition": "",
+   "url": "https://www.quick-step.co.uk/en-gb/stories/quality-standards-for-laminate-flooring",
+   "clause": "EN 13329 usage classes 21 to 24 domestic, 31 to 34 commercial"
+  },
+  {
+   "id": "s11",
+   "title": "Care & Maintenance",
+   "publisher": "Caesarstone",
+   "edition": "",
+   "url": "https://caesarstone.com/customer-service",
+   "clause": "Use trivets; avoid cleaners with pH above 11; no sealing required"
+  },
+  {
+   "id": "s12",
+   "title": "ASTM C936 Standard Specification for Solid Concrete Interlocking Paving Units",
+   "publisher": "ASTM (copy hosted by Cambridge Pavers)",
+   "edition": "C936-82 (reapproved 1988)",
+   "url": "https://CambridgePavers.com/dfiles/ASTM_qx.pdf",
+   "clause": "4.1 average compressive strength ≥ 55 MPa; 4.2 average absorption ≤ 5%"
+  },
+  {
+   "id": "s13",
+   "title": "Hofuf: Climate data",
+   "publisher": "Wikipedia (data: WMO / Jeddah Regional Climate Center, 1991 to 2020)",
+   "edition": "accessed 2026-10-06",
+   "url": "https://en.wikipedia.org/wiki/Hofuf",
+   "clause": "Climate table: July mean max 46.1 °C; record 51.3 °C; RH Jun 22, Jul 23, Aug 30, Jan 55, Dec 56; precipitation 88.8 mm"
+  },
+  {
+   "id": "s14",
+   "title": "Hydrogeochemical characterization and groundwater quality assessment in Al-Hasa, Saudi Arabia",
+   "publisher": "Arabian Journal of Geosciences (Al-Omran et al.)",
+   "edition": "2018",
+   "url": "https://link.springer.com/10.1007/s12517-018-3420-y",
+   "clause": "Abstract: TDS beyond Saudi drinking water limits"
+  },
+  {
+   "id": "s15",
+   "title": "What stones are most prone to etching",
+   "publisher": "Slabwise",
+   "edition": "",
+   "url": "https://slabwise.com/guides/what-stones-are-most-prone-to-etching-and-how-to-explain-this",
+   "clause": "Calcite stones etch; granite resists; sealing does not stop etching"
+  },
+  {
+   "id": "s16",
+   "title": "Environmental conditions and the importance of regulating it (citing NWFA)",
+   "publisher": "Teragren",
+   "edition": "2017",
+   "url": "https://teragren.com/2017/03/31/environmental-conditions-regulation/",
+   "clause": "NWFA: 35 to 55% RH, 65 to 85 °F"
+  },
+  {
+   "id": "s17",
+   "title": "COREtec Pro SPC Installation Guidelines",
+   "publisher": "COREtec",
+   "edition": "2019-07-01",
+   "url": "https://images.floorforce.com/Textures/15400/waterproof-flooring/914912a8-a628-47f1-a5e9-e6620aafe2b8/Brochure/COREtec%20Pro%20-%20SPC%20Installation%20Guidelines7_1_2019.pdf",
+   "clause": "Avoid prolonged direct sunlight (discoloration); 1/4 in (6.35 mm) perimeter expansion"
+  },
+  {
+   "id": "s18",
+   "title": "Can you wash your wallpaper?",
+   "publisher": "Scenolia",
+   "edition": "",
+   "url": "https://scenolia.com/en/content/13-washing-your-wallpaper",
+   "clause": "NF EN 233 washability levels"
+  },
+  {
+   "id": "s19",
+   "title": "Microdur Substrate Guide",
+   "publisher": "CEMHER",
+   "edition": "",
+   "url": "https://cdn.shopify.com/s/files/1/0684/5136/9234/files/MICRODUR_SUBSRATE_GUIDE.pdf",
+   "clause": "Overlay cracks with substrate movement; waterproofing membrane where moisture risk"
+  },
+  {
+   "id": "s20",
+   "title": "Microne Care Guide",
+   "publisher": "CEMHER",
+   "edition": "",
+   "url": "https://cdn.shopify.com/s/files/1/0684/5136/9234/files/MICRONE_CARE_GUIDE.pdf",
+   "clause": "No bleach/acid/steam; trivets; grit scratches; annual inspection and resealing"
+  },
+  {
+   "id": "s21",
+   "title": "ASTM F3261 Standard Specification for Resilient Flooring in Modular Format with Rigid Polymeric Core",
+   "publisher": "ASTM",
+   "edition": "F3261-25a",
+   "url": "https://store.astm.org/f3261-25a.html",
+   "clause": "Scope"
+  },
+  {
+   "id": "s22",
+   "title": "BS EN 13748-1 Terrazzo tiles for internal use",
+   "publisher": "BSI",
+   "edition": "2004+A1:2005",
+   "url": "https://knowledge.bsigroup.com/products/terrazzo-tiles-terrazzo-tiles-for-internal-use",
+   "clause": "Scope"
+  }
+ ],
+ "research_log": [
+  "2026-10-06: الرطوبة: بيانات WMO للهفوف (1991 إلى 2020) تعطي متوسط رطوبة صيفية منخفضاً 22 إلى 30٪ وشتوية نحو 55٪؛ فرضية الصيف الرطب لا تظهر في المتوسطات الشهرية، لذلك لم تُكتب في climate_ar أرقام عن رطوبة الصيف.",
+  "2026-10-06: لا توجد قاعدة سعودية أو أوروبية ملزمة لمقاومة الانزلاق في المساكن الخاصة (V&B ص1)؛ استُعمل حد PTV 36 من إرشادات UKSRG كمرجع إرشادي فقط.",
+  "2026-10-06: DIN EN 16165 حلت محل طرق DIN 51130 و51097 في ألمانيا؛ أبقيت فئات R في الأسئلة لأن الكتالوجات ما زالت تكتبها.",
+  "2026-10-06: PEI (ISO 10545-7) خاص بالبلاط المزجج حسب ISO 13006 الملحق N.",
+  "2026-10-06: لائحة SASO للبلاط تستثني بلاط الإسمنت، فالتيرازو والإنترلوك بلا علامة جودة إلزامية؛ أُحيل الإنترلوك إلى ASTM C936 والتيرازو إلى EN 13748-1.",
+  "2026-10-06: لم يُعثر على نص مفتوح يثبت حد امتصاص 5٪ للنوع H1 في EN 520، فاكتُفي بذكر النوع.",
+  "2026-10-06: مصدر ASTM C936 نسخة 1982؛ الأرقام 55 ميغاباسكال و5٪ ثابتة في الإصدارات اللاحقة حسب علمي لكن لم أتحقق من الإصدار الحالي.",
+  "2026-10-06: الأسعار مربوطة بـ boq_code فقط: البورسلان 07-01، السيراميك 07-02، الرخام 07-03، الإنترلوك 07-06، الجبس 06-03، الدهان الداخلي 06-05 (للنوعين)، الخارجي 06-06، الحجر المحلي 06-07 (سعر واجهات فقط). الجبس المقاوم للرطوبة بلا رمز لأن سعره يختلف.",
+  "2026-10-06: أضيف حقل surfaces للمساحات لتصفية المواد، ومادة دهان خارجي لربط الواجهات بالرمز 06-06."
+ ]
+}

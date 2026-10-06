@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مخطط نقاط الكهرباء والسباكة · البيت بيتك</title>
+<meta name="description" content="أضف غرف بيتك واحصل على جدول بنقاط الكهرباء والتيار الخفيف والسباكة لكل غرفة، بارتفاعاتها ومراجعها، تسلّمه لمصممك والكهربائي والسبّاك.">
+<meta property="og:title" content="مخطط نقاط الكهرباء والسباكة">
+<meta property="og:description" content="كل فيش ومخرج ماء في مكانه.. قبل أن يُصب الخرسان ويُلّيس الجدار">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التصميم</a><span>›</span><span>مخطط نقاط الكهرباء والسباكة</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">مرحلة التصميم</span>
+    <h1>مخطط نقاط الكهرباء والسباكة</h1>
+    <p class="sub">كل فيش ومخرج ماء في مكانه.. قبل أن يُصب الخرسان ويُلّيس الجدار</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>أثناء التصميم، قبل اعتماد مخططات الكهرباء والسباكة. أغلب الندم على الأفياش والمخارج يُكتشف بعد السكن، حين يصبح كل تعديل تكسيراً.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أضف غرف بيتك، أو ابدأ بغرف بيت نموذجي ثم احذف وعدّل.</li>
+      <li>راجع العدد المقترح لكل نقطة، وغيّره حسب أثاثك واستخدامك. الرقم الذي تغيّره يظهر بلون مختلف.</li>
+      <li>اطبع الجدول وسلّمه لمصممك، واطلب أن تظهر كل نقطة في مخطط الكهرباء والسباكة.</li>
+    </ol></div>
+  </div></details>
+
+  <details class="gd-gen" id="gen"><summary>قبل أن تبدأ: أساسيات تهمك</summary><div id="genIn"></div></details>
+
+  <div class="settings gd-add" style="margin-top:18px">
+    <div class="fld"><label for="addType">أضف غرفة</label><select id="addType"></select></div>
+    <button class="btn" type="button" id="addBtn">أضف</button>
+  </div>
+  <div class="kpis" id="kp"></div>
+  <div id="rooms"></div>
+  <div id="src"></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع الجدول أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل الجدول (CSV)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">يُحفظ جدولك في حسابك، وتجده في أي جهاز تدخل منه.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
+<script src="../../assets/js/config.js?v=202610060507"></script>
+<script src="../../assets/js/session.js?v=202610060507"></script>
+<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script>
+TK.ready(function(){
+var el=TK.el,$=TK.$;
+var GROUPS=[['electrical','الكهرباء'],['lowcurrent','التيار الخفيف'],['plumbing','السباكة']];
+var TOPIC={electrical:'الكهرباء',lowcurrent:'التيار الخفيف',plumbing:'السباكة'};
+var PRESET=['majlis','majlis-women','living','dining','kitchen','outdoor-kitchen','master-bed','bedroom','bedroom','bedroom','maid-room','bathroom','bathroom','bathroom','guest-wc','laundry','entrance','stairs','roof','courtyard','carport'];
+function fresh(){return {v:1,rooms:[]}}
+var ST=TK.store('bb_tool_points_v1',fresh,1),S=ST.get(),D=null,T={};
+GD.load('points').then(function(d){D=d;d.rooms.forEach(function(r){T[r.id]=r});init()},function(){GD.fail($('rooms'))});
+
+function init(){
+  var sel=$('addType');D.rooms.forEach(function(r){var o=el('option',null,r.name_ar);o.value=r.id;sel.appendChild(o)});
+  $('addBtn').addEventListener('click',function(){add(sel.value);ST.save();draw()});
+  var g=$('genIn');GROUPS.forEach(function(G){var its=D.general.filter(function(x){return x.topic===G[0]});if(!its.length)return;
+    g.appendChild(el('h3',null,G[1]));var ul=el('ul');its.forEach(function(x){ul.appendChild(GD.line(D,x,x.text_ar,'li'))});g.appendChild(ul)});
+  GD.sources(D,$('src'));draw();
+}
+function add(type){var t=T[type];if(!t)return;var same=S.rooms.filter(function(r){return r.type===type}).length;
+  S.rooms.push({id:GD.uid(),type:type,name:t.name_ar+(same?' '+(same+1):''),q:{},note:''})}
+function qty(r,it){var v=r.q[it.id];return v===undefined||v===''?it.qty:+v}
+function draw(){
+  var host=$('rooms');host.innerHTML='';
+  if(!S.rooms.length){var e=el('div','gd-empty');e.appendChild(el('p',null,'لم تضف غرفة بعد. أضف غرف بيتك واحدة واحدة، أو ابدأ بغرف بيت نموذجي ثم عدّلها.'));
+    var b=el('button','btn','ابدأ بغرف بيت نموذجي');b.type='button';b.addEventListener('click',function(){PRESET.forEach(add);ST.save();draw()});e.appendChild(b);host.appendChild(e)}
+  S.rooms.forEach(function(r,ri){var t=T[r.type];if(!t)return;
+    var c=el('div','room');var h=el('div','room-h');var nm=el('input','nm');nm.value=r.name;nm.setAttribute('aria-label','اسم الغرفة');
+    nm.addEventListener('input',function(){r.name=nm.value;ST.save()});h.appendChild(nm);h.appendChild(el('span','rtype',t.name_ar));
+    var x=el('button','x','حذف');x.type='button';x.addEventListener('click',function(){S.rooms.splice(ri,1);ST.save();draw()});h.appendChild(x);c.appendChild(h);
+    GROUPS.forEach(function(G){var its=t[G[0]]||[];if(!its.length)return;
+      var tb=el('table','pt');tb.appendChild(el('caption',null,G[1]));var th=el('thead'),hr=el('tr');['البند','العدد','الارتفاع والموضع'].forEach(function(s){hr.appendChild(el('th',null,s))});th.appendChild(hr);tb.appendChild(th);
+      var bd=el('tbody');its.forEach(function(it){var tr=el('tr');
+        var td=el('td');var nmL=el('div','pin',it.item_ar);var tg=GD.tag(it);if(tg){nmL.appendChild(document.createTextNode(' '));nmL.appendChild(tg)}td.appendChild(nmL);
+        var more=[it.qty_note_ar,it.note_ar].filter(Boolean).join(' ');
+        if(more){var dt=el('details');dt.appendChild(el('summary',null,'لماذا؟'));dt.appendChild(GD.line(D,it,more));td.appendChild(dt)}
+        tr.appendChild(td);
+        var tq=el('td','pq');var inp=el('input');inp.type='number';inp.min='0';inp.step='1';inp.inputMode='numeric';inp.value=qty(r,it);inp.setAttribute('aria-label','عدد: '+it.item_ar);
+        if(r.q[it.id]!==undefined&&r.q[it.id]!=='')inp.classList.add('chg');
+        inp.addEventListener('input',function(){if(inp.value===''||+inp.value===it.qty){delete r.q[it.id];inp.classList.remove('chg')}else{r.q[it.id]=inp.value;inp.classList.add('chg')}ST.save();kpis()});
+        tq.appendChild(inp);tr.appendChild(tq);
+        tr.appendChild(el('td','h hc',it.height_ar||''));bd.appendChild(tr)});
+      tb.appendChild(bd);c.appendChild(tb)});
+    var ta=el('textarea','rnote');ta.placeholder='ملاحظاتك على هذه الغرفة (مكان السرير، التلفزيون، الأجهزة..)';ta.value=r.note||'';ta.setAttribute('aria-label','ملاحظات '+r.name);
+    ta.addEventListener('input',function(){r.note=ta.value;ST.save();TK.grow(ta)});c.appendChild(ta);
+    host.appendChild(c);setTimeout(function(){TK.grow(ta)},0);
+  });
+  kpis();
+}
+function kpis(){var k=$('kp');k.innerHTML='';if(!D)return;var tot={electrical:0,lowcurrent:0,plumbing:0};
+  S.rooms.forEach(function(r){var t=T[r.type];if(!t)return;GROUPS.forEach(function(G){(t[G[0]]||[]).forEach(function(it){tot[G[0]]+=qty(r,it)||0})})});
+  [['الغرف',S.rooms.length],['نقاط الكهرباء',tot.electrical],['نقاط التيار الخفيف',tot.lowcurrent],['نقاط السباكة',tot.plumbing]].forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',null,String(x[1])));k.appendChild(d)})}
+$('btnCsv').addEventListener('click',function(){if(!D)return;var out=[['الغرفة','القسم','البند','العدد','الارتفاع والموضع','ملاحظة']];
+  S.rooms.forEach(function(r){var t=T[r.type];if(!t)return;GROUPS.forEach(function(G){(t[G[0]]||[]).forEach(function(it){out.push([r.name,G[1],it.item_ar,qty(r,it),it.height_ar||'',it.note_ar||''])})});if(r.note)out.push([r.name,'ملاحظاتي','','','',r.note])});
+  TK.csv(out,'نقاط-الكهرباء-والسباكة.csv')});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();draw();ST.flash('بدأت من جديد')});
+});
+</script>
+</body>
+</html>

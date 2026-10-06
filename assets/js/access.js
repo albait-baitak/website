@@ -15,6 +15,11 @@ var TOOLS=[
   {id:'t05',    name:'خارطة بنود تنفيذ بيتك',        desc:'عشر محطات بتسلسل التنفيذ الصحيح: اتفق.. واستلم.. ووثق', href:'tools/roadmap/',                     roles:['owner','contractor','admin'], live:true},
   {id:'t06',    name:'نموذج اتفاق البند الواحد',     desc:'صفحة تحميك.. تملؤها مع كل مقاول قبل أول يوم عمل',      href:'tools/agreement/',                      roles:['owner','contractor','admin'], live:true},
   {id:'t09',    name:'جدول مقارنة عروض المقاولين',   desc:'للبند الواحد.. قبل الترسية',                          href:'tools/offers/',                      roles:['owner','admin'],       live:true},
+  {id:'g1',     name:'مخطط نقاط الكهرباء والسباكة', desc:'كل فيش ومخرج ماء في مكانه.. قبل أن يُصب الخرسان ويُلّيس الجدار', href:'tools/points/',   roles:['owner','admin'], live:true},
+  {id:'g2',     name:'أبعاد الغرف المريحة',          desc:'المقاس الذي على الورق.. هل تعيش فيه براحة؟',         href:'tools/room-sizes/',  roles:['owner','admin'], live:true},
+  {id:'g3',     name:'فحص التأسيس قبل الإغلاق',      desc:'ما يُدفن في الجدار لا يُفحص بعد اللياسة.. افحصه الآن', href:'tools/rough-in/',    roles:['owner','contractor','admin'], live:true},
+  {id:'g4',     name:'جدول مواد التشطيب',            desc:'المادة المناسبة للمكان المناسب.. قبل أن تقف أمام المعرض', href:'tools/finishes/', roles:['owner','contractor','admin'], live:true},
+  {id:'g5',     name:'تقويم الصيانة الدورية',        desc:'البيت الذي يُصان في موعده.. لا يفاجئك بعطل في أشد الأيام حراً', href:'tools/maintenance/', roles:['owner','admin'], live:true},
   {id:'t07',    name:'ملف بيتك: الاستلام والسجلات',  desc:'قائمة الاستلام النهائي.. وسجلات هوية البيت',            href:'tools/handover/',                      roles:['owner','admin'],       live:true},
   {id:'t10',    name:'دفتر السنة الأولى',            desc:'سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى',          href:'tools/first-year/',                      roles:['owner','admin'],       live:true}
 ];

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>جدول مواد التشطيب · البيت بيتك</title>
+<meta name="description" content="اختر مادة الأرضية والجدران والأسقف وأسطح العمل لكل مكان في بيتك، واعرف مزاياها وعيوبها وصيانتها وما تطلبه من المورد، ثم انقلها إلى جداول الكميات.">
+<meta property="og:title" content="جدول مواد التشطيب">
+<meta property="og:description" content="المادة المناسبة للمكان المناسب.. قبل أن تقف أمام المعرض">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التنفيذ</a><span>›</span><span>جدول مواد التشطيب</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">مرحلة التنفيذ</span>
+    <h1>جدول مواد التشطيب</h1>
+    <p class="sub">المادة المناسبة للمكان المناسب.. قبل أن تقف أمام المعرض</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>قبل أن تزور المعارض وتطلب عروض التشطيب. المعرض يبيعك ما يلمع تحت إضاءته، والسؤال الصحيح: هل يناسب هذا المكان من بيتك، وهل تتحمل صيانته؟</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>لكل مكان اختر المادة لكل سطح: الأرضية والجدران والسقف وأسطح العمل.</li>
+      <li>اقرأ ما يناسب وما لا يناسب، وانسخ «ما تطلبه من المورد» إلى طلب العرض.</li>
+      <li>انقل الأرضيات والمواصفات إلى جداول الكميات لتحسب كمياتها وتكلفتها.</li>
+    </ol></div>
+  </div></details>
+
+  <details class="gd-gen" id="gen"><summary>بيئة الأحساء وموادك</summary><div id="genIn"></div></details>
+  <div class="prog-line" id="sum"></div>
+  <div id="spaces"></div>
+
+  <section class="tsec" id="schedS" hidden>
+    <h2><span class="k">∑</span>جدول التشطيبات</h2>
+    <div class="cmp-wrap"><table class="cmp" id="sched"></table></div>
+    <div class="room-actions"><button class="btn line" type="button" id="toQty">انقل إلى جداول الكميات</button><span class="msg" id="qtyMsg" role="status"></span></div>
+  </section>
+  <div id="src"></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع جدول التشطيبات أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل الجدول (CSV)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">تُحفظ اختياراتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
+<script src="../../assets/js/config.js?v=202610060507"></script>
+<script src="../../assets/js/session.js?v=202610060507"></script>
+<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script>
+TK.ready(function(){
+var el=TK.el,$=TK.$,fmt=TK.fmt;
+var SURF={floor:'الأرضية',wall:'الجدران',ceiling:'السقف',counter:'أسطح العمل'};
+var COND={dry:'مكان جاف',wet:'رذاذ الماء',slip:'أرضية قد تبتل',kitchen:'دهون وحرارة المطبخ',traffic:'حركة كثيفة ورمل',sun:'شمس وحرارة خارجية',outdoor_shade:'خارجي مظلل',stairs:'درج'};
+function fresh(){return {v:1,sel:{},note:{}}}
+var ST=TK.store('bb_tool_finishes_v1',fresh,1),S=ST.get(),D=null,M={},BOQ={};
+Promise.all([GD.load('finishes'),GD.json('refs/boq/boq_library.json').catch(function(){return null})]).then(function(r){D=r[0];
+  D.materials.forEach(function(m){M[m.id]=m});if(r[1])r[1].items.forEach(function(i){BOQ[i.code]=i});init()},function(){GD.fail($('spaces'))});
+function init(){
+  var ul=el('ul');(D.climate_ar||[]).forEach(function(x){ul.appendChild(GD.line(D,x,x.text_ar,'li'))});$('genIn').appendChild(ul);
+  draw();GD.sources(D,$('src'));
+}
+function key(sp,su){return sp.id+'|'+su}
+function price(m){var b=m.boq_code&&BOQ[m.boq_code];if(!b||!b.price||b.price.typ==null)return null;var p=b.price;
+  return 'سعر تقديري توريداً وتركيباً: من '+fmt(p.low,0)+' إلى '+fmt(p.high,0)+' ريال لكل '+b.unit_ar+'، والأكثر شيوعاً نحو '+fmt(p.typ,0)+'. المصدر: مكتبة بنود الفيلا السعودية ('+b.name_ar+').'}
+function card(m,sp){
+  var w=el('div','mt');
+  var bad=(m.avoid||[]).filter(function(c){return sp.conditions.indexOf(c)>=0});
+  var f=el('div','fitw '+(bad.length?'r':'g'),bad.length?'لا يُنصح به هنا: '+bad.map(function(c){return COND[c]||c}).join('، ')+'.':'يناسب هذا المكان.');w.appendChild(f);
+  var pc=el('div','pc');var a=el('div');a.appendChild(el('h4',null,'مزاياه'));var u1=el('ul');(m.pros_ar||[]).forEach(function(t){u1.appendChild(el('li',null,t))});a.appendChild(u1);
+  var b=el('div');b.appendChild(el('h4',null,'ما ينبغي أن تعرفه'));var u2=el('ul');(m.cons_ar||[]).forEach(function(t){u2.appendChild(el('li',null,t))});b.appendChild(u2);pc.appendChild(a);pc.appendChild(b);w.appendChild(pc);
+  if(m.maintenance_ar){var p=el('p','pr');p.appendChild(el('b',null,'الصيانة: '));p.appendChild(document.createTextNode(m.maintenance_ar));w.appendChild(p)}
+  if(m.ask_ar&&m.ask_ar.length){var ak=el('div','ask');ak.appendChild(el('h4',null,'اطلب من المورد'));var u3=el('ul');m.ask_ar.forEach(function(x){u3.appendChild(GD.line(D,x,x.text_ar,'li'))});ak.appendChild(u3);w.appendChild(ak)}
+  var pr=price(m);if(pr)w.appendChild(el('p','pr',pr));
+  var tg=GD.tag(m);if(tg){var tp=el('p','pr');tp.appendChild(tg);w.appendChild(tp)}
+  return w;
+}
+function draw(){
+  var host=$('spaces');host.innerHTML='';
+  D.spaces.forEach(function(sp){
+    var c=el('div','room');var h=el('div','room-h');h.appendChild(el('b',null,sp.name_ar));h.appendChild(el('span','rtype',sp.conditions.map(function(x){return COND[x]||x}).join(' · ')));c.appendChild(h);
+    if(sp.note_ar)c.appendChild(el('p','gd-line',sp.note_ar));
+    (sp.surfaces||[]).forEach(function(su){
+      var k=key(sp,su),f=el('div','fld');f.style.marginTop='10px';var id='s_'+k.replace('|','_');var lb=el('label',null,SURF[su]||su);lb.htmlFor=id;
+      var sel=el('select');sel.id=id;var o0=el('option',null,'اختر المادة');o0.value='';sel.appendChild(o0);
+      var ok=[],no=[];D.materials.forEach(function(m){if(m.surfaces.indexOf(su)<0)return;((m.avoid||[]).some(function(x){return sp.conditions.indexOf(x)>=0})?no:ok).push(m)});
+      function grp(lab,arr){if(!arr.length)return;var g=el('optgroup');g.label=lab;arr.forEach(function(m){var o=el('option',null,m.name_ar);o.value=m.id;g.appendChild(o)});sel.appendChild(g)}
+      grp('تناسب هذا المكان',ok);grp('لا يُنصح بها هنا',no);
+      sel.value=S.sel[k]||'';var box=el('div');
+      function show(){box.innerHTML='';var m=M[sel.value];if(m)box.appendChild(card(m,sp))}
+      sel.addEventListener('change',function(){if(sel.value)S.sel[k]=sel.value;else delete S.sel[k];ST.save();show();sched()});
+      f.appendChild(lb);f.appendChild(sel);c.appendChild(f);c.appendChild(box);show();
+    });
+    host.appendChild(c);
+  });
+  sched();
+}
+function rowsOut(){var out=[];D.spaces.forEach(function(sp){(sp.surfaces||[]).forEach(function(su){var m=M[S.sel[key(sp,su)]];if(m)out.push({sp:sp,su:su,m:m,bad:(m.avoid||[]).some(function(x){return sp.conditions.indexOf(x)>=0})})})});return out}
+function sched(){
+  var R=rowsOut(),T=$('sched');T.innerHTML='';$('schedS').hidden=!R.length;
+  var tot=0;D.spaces.forEach(function(sp){tot+=(sp.surfaces||[]).length});
+  var s=$('sum');s.innerHTML='';[['اخترت',R.length+' من '+tot],['لا يُنصح بها في مكانها',R.filter(function(r){return r.bad}).length]].forEach(function(x){var e=el('span',null,x[0]+': ');e.appendChild(el('b',null,String(x[1])));s.appendChild(e)});
+  if(!R.length)return;
+  var th=el('thead'),hr=el('tr');['المكان','السطح','المادة','ملاحظة'].forEach(function(t){hr.appendChild(el('th',null,t))});th.appendChild(hr);T.appendChild(th);
+  var tb=el('tbody');R.forEach(function(r){var tr=el('tr');tr.appendChild(el('td','k',r.sp.name_ar));tr.appendChild(el('td',null,SURF[r.su]));tr.appendChild(el('td',null,r.m.name_ar));tr.appendChild(el('td',null,r.bad?'لا يُنصح به هنا':''));tb.appendChild(tr)});T.appendChild(tb);
+}
+/* النقل إلى جداول الكميات: أنواع الأرضيات، ومواصفة الدهان والتكسية والجبس إن كانت فارغة */
+$('toQty').addEventListener('click',function(){
+  var m=$('qtyMsg'),Q=null;try{Q=JSON.parse(localStorage.getItem('bb_tool_qty_v1')||'null')}catch(e){}
+  if(!Q||!Q.fins){m.textContent='افتح «جداول الكميات والتكاليف» مرة واحدة أولاً، ثم عد وانقل.';m.className='msg bad';return}
+  var R=rowsOut(),added=0,specs=0;Q.q=Q.q||{};
+  R.forEach(function(r){if(r.su==='floor'&&Q.fins.indexOf(r.m.name_ar)<0){Q.fins.push(r.m.name_ar);added++}});
+  function spec(k,w,txt){var o=Q.q[k];if(!o)o=Q.q[k]={sp:'',w:String(w),pr:''};if(!o.sp&&txt){o.sp=txt;specs++}}
+  function pick(su,ids){for(var i=0;i<R.length;i++)if(R[i].su===su&&(!ids||ids.indexOf(R[i].sp.id)>=0))return R[i].m.name_ar;return ''}
+  spec('paintW',0,pick('wall',['living','majlis','bedrooms','corridors']));spec('paintC',0,pick('ceiling'));spec('tile',8,pick('wall',['bath_wall','kitchen_wall']));
+  try{localStorage.setItem('bb_tool_qty_v1',JSON.stringify(Q));TK.push('bb_tool_qty_v1')}catch(e){m.textContent='تعذر النقل. أعد المحاولة.';m.className='msg bad';return}
+  m.className='msg good';m.textContent='نُقلت أنواع الأرضيات ('+added+') والمواصفات ('+specs+'). افتح جداول الكميات واختر لكل فراغ أرضيته.';
+});
+$('btnCsv').addEventListener('click',function(){if(!D)return;var out=[['المكان','السطح','المادة','لا يُنصح به هنا','اطلب من المورد']];
+  rowsOut().forEach(function(r){out.push([r.sp.name_ar,SURF[r.su],r.m.name_ar,r.bad?'نعم':'',(r.m.ask_ar||[]).map(function(x){return x.text_ar}).join(' | ')])});TK.csv(out,'جدول-التشطيبات.csv')});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();draw();ST.flash('بدأت من جديد')});
+});
+</script>
+</body>
+</html>

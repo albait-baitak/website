@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أبعاد الغرف المريحة · البيت بيتك</title>
+<meta name="description" content="أدخل مقاسات غرف بيتك من المخطط، وقارنها بالأبعاد المريحة والإضاءة المناسبة لكل غرفة، بمراجعها.">
+<meta property="og:title" content="أبعاد الغرف المريحة">
+<meta property="og:description" content="المقاس الذي على الورق.. هل تعيش فيه براحة؟">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التصميم</a><span>›</span><span>أبعاد الغرف المريحة</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">مرحلة التصميم</span>
+    <h1>أبعاد الغرف المريحة</h1>
+    <p class="sub">المقاس الذي على الورق.. هل تعيش فيه براحة؟</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>حين يصلك المخطط المبدئي، وقبل أن تشتري الأثاث. المخطط يُظهر الغرف، لكن الراحة في الممرات حول السرير والمسافة أمام الكنب وعرض ممر المطبخ.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أضف الغرف التي تريد مراجعتها.</li>
+      <li>اكتب المسافات الصافية من المخطط بالسنتيمتر، من سطح التشطيب أو حافة الأثاث الفعلي.</li>
+      <li>كل رقم يُقارن فوراً بالمرجع: مناسب، أو مقبول ويمكن أفضل، أو أضيق من الحد. ناقش الأحمر مع مصممك قبل اعتماد المخطط.</li>
+    </ol></div>
+  </div></details>
+
+  <details class="gd-gen" id="gen"><summary>قبل أن تقيس</summary><div id="genIn"></div></details>
+
+  <div class="settings gd-add" style="margin-top:18px">
+    <div class="fld"><label for="addType">أضف غرفة</label><select id="addType"></select></div>
+    <button class="btn" type="button" id="addBtn">أضف</button>
+  </div>
+  <div class="prog-line" id="sum"></div>
+  <div id="rooms"></div>
+  <div id="src"></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع بطاقات الغرف أو احفظها PDF</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">تُحفظ مقاساتك في حسابك، وتجدها في أي جهاز تدخل منه.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
+<script src="../../assets/js/config.js?v=202610060507"></script>
+<script src="../../assets/js/session.js?v=202610060507"></script>
+<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script>
+TK.ready(function(){
+var el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
+var PRESET=['majlis-men','living','dining','master','kids','kitchen','bath','entry','stair'];
+var UNIT={cm:'سم'};
+function fresh(){return {v:1,rooms:[]}}
+var ST=TK.store('bb_tool_roomsizes_v1',fresh,1),S=ST.get(),D=null,T={};
+GD.load('rooms').then(function(d){D=d;d.rooms.forEach(function(r){T[r.id]=r});init()},function(){GD.fail($('rooms'))});
+function init(){
+  var sel=$('addType');D.rooms.forEach(function(r){var o=el('option',null,r.name_ar);o.value=r.id;sel.appendChild(o)});
+  $('addBtn').addEventListener('click',function(){add(sel.value);ST.save();draw()});
+  var ul=el('ul');D.general.forEach(function(x){ul.appendChild(GD.line(D,x,x.text_ar,'li'))});$('genIn').appendChild(ul);
+  GD.sources(D,$('src'));draw();
+}
+function add(type){var t=T[type];if(!t)return;var same=S.rooms.filter(function(r){return r.type===type}).length;S.rooms.push({id:GD.uid(),type:type,name:t.name_ar+(same?' '+(same+1):''),val:{}})}
+/* القيمة المقاسة: سم مباشرة، أو نسبة المسافة إلى قطر الشاشة */
+function value(c,v){if(v==null)return null;
+  if(c.unit==='ratio'){var d=num(v.d),s=num(v.s);if(!d||!s)return null;return d/(s*2.54)}
+  var n=num(v);return v===''||!isFinite(n)||n<=0?null:n}
+function judge(c,x){
+  if(x==null)return null;var u=c.unit==='ratio'?'':' '+(UNIT[c.unit]||c.unit);
+  if(c.min!=null&&x<c.min)return {k:'r',t:'أقل من الحد ('+fmt(c.min)+u+')'};
+  if(c.max!=null&&x>c.max)return {k:'r',t:'أكبر من المناسب ('+fmt(c.max)+u+')'};
+  if(c.ideal_min!=null&&x<c.ideal_min)return {k:'y',t:'مقبول، والأفضل '+fmt(c.ideal_min)+u+' أو أكثر'};
+  return {k:'g',t:'مناسب'};
+}
+function range(c){var u=c.unit==='ratio'?'':' '+(UNIT[c.unit]||c.unit),a=[];
+  if(c.min!=null)a.push('الأدنى '+fmt(c.min)+u);if(c.ideal_min!=null)a.push('الأفضل '+fmt(c.ideal_min)+u);if(c.max!=null)a.push('الأعلى '+fmt(c.max)+u);return a.join(' · ')}
+function draw(){
+  var host=$('rooms');host.innerHTML='';var R=0,Y=0,G=0;
+  if(!S.rooms.length){var e=el('div','gd-empty');e.appendChild(el('p',null,'أضف الغرف التي تريد مراجعة مقاساتها، أو ابدأ بالغرف الأساسية.'));
+    var b=el('button','btn','ابدأ بالغرف الأساسية');b.type='button';b.addEventListener('click',function(){PRESET.forEach(add);ST.save();draw()});e.appendChild(b);host.appendChild(e)}
+  S.rooms.forEach(function(r,ri){var t=T[r.type];if(!t)return;
+    var c=el('div','room');var h=el('div','room-h');var nm=el('input','nm');nm.value=r.name;nm.setAttribute('aria-label','اسم الغرفة');nm.addEventListener('input',function(){r.name=nm.value;ST.save()});
+    h.appendChild(nm);var pill=el('span','pill');h.appendChild(pill);
+    var x=el('button','x','حذف');x.type='button';x.addEventListener('click',function(){S.rooms.splice(ri,1);ST.save();draw()});h.appendChild(x);c.appendChild(h);
+    var res=[];
+    t.checks.forEach(function(ck){
+      var me={j:null};
+      var row=el('div','dm');var lb=el('div','lb');var b=el('b',null,ck.label_ar);var tg=GD.tag(ck);if(tg){b.appendChild(document.createTextNode(' '));b.appendChild(tg)}lb.appendChild(b);lb.appendChild(el('small',null,ck.input_ar));row.appendChild(lb);
+      var inw=el('div','in'),rs=el('div','rs');
+      function mk(key,ph,lab){var i=el('input');i.inputMode='decimal';i.placeholder=ph;i.setAttribute('aria-label',ck.label_ar+(lab?': '+lab:''));
+        var cur=ck.unit==='ratio'?(r.val[ck.id]||{})[key]:r.val[ck.id];i.value=cur==null?'':cur;
+        i.addEventListener('input',function(){if(ck.unit==='ratio'){var o=r.val[ck.id]||{};o[key]=i.value;r.val[ck.id]=o}else{if(i.value==='')delete r.val[ck.id];else r.val[ck.id]=i.value}ST.save();paint()});return i}
+      if(ck.unit==='ratio'){inw.appendChild(mk('d','سم','المسافة بالسنتيمتر'));inw.appendChild(el('span',null,'سم'));inw.appendChild(mk('s','بوصة','قطر الشاشة بالبوصة'));inw.appendChild(el('span',null,'بوصة'))}
+      else{inw.appendChild(mk(null,'',''));inw.appendChild(el('span',null,UNIT[ck.unit]||ck.unit))}
+      row.appendChild(inw);row.appendChild(rs);c.appendChild(row);
+      function paint(){var xv=value(ck,r.val[ck.id]),j=judge(ck,xv);rs.innerHTML='';
+        if(j){rs.appendChild(el('span','st '+j.k,j.t+(ck.unit==='ratio'?' (النسبة '+fmt(xv,2)+')':'')))}
+        rs.appendChild(el('span','rng',range(ck)));var tp=GD.line(D,ck,ck.tip_ar);rs.appendChild(tp);me.j=j;sumUp()}
+      res.push(me);paint();
+    });
+    function sumUp(){var a={r:0,y:0,g:0};res.forEach(function(m){if(m.j)a[m.j.k]++});pill.className='pill'+(a.r?' r':a.y?' y':a.g?' g':'');
+      pill.textContent=a.r?a.r+' تحتاج مراجعة':a.y?a.y+' يمكن أفضل':a.g?'مناسبة':'لم تُقس بعد';total()}
+    if(t.lux){var lx=el('div','lux');lx.appendChild(document.createTextNode('الإضاءة المناسبة: عامة '));lx.appendChild(el('b',null,t.lux.general+' لوكس'));
+      if(t.lux.task){lx.appendChild(document.createTextNode('، وللقراءة أو العمل '));lx.appendChild(el('b',null,t.lux.task+' لوكس'))}
+      var rf=GD.refs(D,t.lux.source_ids);if(rf)lx.appendChild(rf);if(t.lux.note_ar){var dt=el('details');dt.appendChild(el('summary',null,'عن الإضاءة'));dt.appendChild(el('p',null,t.lux.note_ar));lx.appendChild(dt)}c.appendChild(lx)}
+    if(t.tips&&t.tips.length){var ul=el('ul','rtips');t.tips.forEach(function(tp){ul.appendChild(GD.line(D,tp,tp.text_ar,'li'))});c.appendChild(ul)}
+    host.appendChild(c);
+  });
+  total();
+}
+function total(){var a={r:0,y:0,g:0,n:0};if(D)S.rooms.forEach(function(r){var t=T[r.type];if(!t)return;t.checks.forEach(function(k){a.n++;var j=judge(k,value(k,r.val[k.id]));if(j)a[j.k]++})});
+  var s=$('sum');s.innerHTML='';[['قيست',(a.r+a.y+a.g)+' من '+a.n],['مناسبة',a.g],['يمكن أفضل',a.y],['تحتاج مراجعة',a.r]].forEach(function(x){var e=el('span',null,x[0]+': ');e.appendChild(el('b',null,String(x[1])));s.appendChild(e)})}
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();draw();ST.flash('بدأت من جديد')});
+});
+</script>
+</body>
+</html>

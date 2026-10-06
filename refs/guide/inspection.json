@@ -1,0 +1,1050 @@
+{
+ "version": "1",
+ "built": "2026-10-06",
+ "sections": [
+  {
+   "id": "supply",
+   "name_ar": "تغذية المياه",
+   "when_ar": "قبل اللياسة",
+   "items": [
+    {
+     "id": "supply-joints",
+     "check_ar": "وصلات اللحام الحراري لمواسير PPR",
+     "how_ar": "افحص كل وصلة ظاهرة: حلقة البلاستيك المنصهر حول الوصلة، واستقامة الأنبوب داخل القطعة، وعدم وجود التواء أو انحناء عند اللحام.",
+     "accept_ar": "حلقتان متصلتان ظاهرتان حول الوصلة بلا فجوة، والأنبوب مستقيم غير ملتوٍ. أي وصلة مشكوك فيها تُقص وتُعاد.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s12",
+      "s11"
+     ],
+     "basis": "manufacturer",
+     "confidence": "high"
+    },
+    {
+     "id": "supply-test",
+     "check_ar": "اختبار ضغط مواسير التغذية",
+     "how_ar": "تُملأ الشبكة بالماء وتُغلق المخارج، ويُركَّب مقياس ضغط واضح. صوّر القراءة في البداية والنهاية مع الساعة. لا يُقبل اختبار مواسير البلاستيك بالهواء.",
+     "accept_ar": "حسب الكود: ضغط ماء لا يقل عن ضغط التشغيل لمدة 15 دقيقة دون هبوط أو تسريب. وحسب أحد مصنّعي PPR: 1.5 ضعف أعلى ضغط تشغيل لمدة 30 دقيقة بهبوط لا يزيد على 0.6 bar، ثم ساعتان بهبوط لا يزيد على 0.2 bar. اتبع الأشد بين الكود وكتالوج المصنّع المورِّد.",
+     "stop": true,
+     "value": 1.5,
+     "unit": "ضعف ضغط التشغيل",
+     "source_ids": [
+      "s1",
+      "s3",
+      "s4",
+      "s11"
+     ],
+     "basis": "manufacturer",
+     "confidence": "high"
+    },
+    {
+     "id": "supply-hot-cold",
+     "check_ar": "فصل الساخن عن البارد وتمييزهما",
+     "how_ar": "تتبّع كل خط من السخان والخزان حتى المخارج، وتأكد من لون أو علامة واضحة على كل خط، وأن الخطين لا يتلامسان.",
+     "accept_ar": "كل خط مميز بلونه أو بعلامة، والساخن على يسار المستخدم عند مواجهة الخلاط.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s13"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    },
+    {
+     "id": "supply-hot-insulation",
+     "check_ar": "عزل خطوط الماء الساخن",
+     "how_ar": "انظر إلى خطوط الساخن في الجدران والأرضيات: هل هي مغلفة بعازل حراري متصل، خاصة في المسارات الطويلة وعلى الأسطح؟",
+     "accept_ar": "عازل متصل بلا فراغات عند الأكواع والوصلات، وسماكته حسب المواصفات المعتمدة للمشروع.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "supply-valves",
+     "check_ar": "محبس عزل لكل حمام ومطبخ",
+     "how_ar": "حدد مكان المحبس الخاص بكل حمام والمطبخ والغسيل على الطبيعة وعلى المخطط.",
+     "accept_ar": "لكل منطقة رطبة محبس مستقل للساخن وآخر للبارد في مكان يمكن الوصول إليه بعد التشطيب.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "supply-outlets",
+     "check_ar": "مواقع مخارج الخلاطات والأجهزة",
+     "how_ar": "قِس ارتفاع كل مخرج من منسوب الأرضية النهائي، والمسافة بين مخرجي الخلاط، وبروز المخرج عن سطح الجدار.",
+     "accept_ar": "الارتفاعات والمسافات مطابقة لكتالوج الخلاط والمخطط المعتمد، والمخرج مثبت لا يتحرك، وبروزه يناسب سماكة اللياسة والبلاط.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "supply-sleeves",
+     "check_ar": "جلب المواسير عند اختراق الجدران الخرسانية والأساسات",
+     "how_ar": "عند كل اختراق لجدار خرساني أو أساس، تأكد من وجود جلبة أكبر من الماسورة وليس صبّاً مباشراً عليها.",
+     "accept_ar": "جلبة أكبر من الماسورة بمقاسين على الأقل عند جدران الأساسات، والفراغ حولها محشو بمادة مرنة.",
+     "stop": false,
+     "value": 2,
+     "unit": "مقاس أكبر",
+     "source_ids": [
+      "s6"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "drain",
+   "name_ar": "الصرف",
+   "when_ar": "قبل صب الأرضيات واللياسة",
+   "items": [
+    {
+     "id": "drain-slope",
+     "check_ar": "ميول مواسير الصرف الأفقية",
+     "how_ar": "ضع ميزان الماء على الماسورة، أو قِس فرق المنسوب بين طرفيها وقسّمه على طولها.",
+     "accept_ar": "للمواسير حتى 2.5 بوصة (نحو 65 مم): ميل لا يقل عن 2٪ (ربع بوصة لكل قدم). من 3 إلى 6 بوصات: لا يقل عن 1٪. والميل منتظم بلا انخفاضات تحبس الماء.",
+     "stop": true,
+     "value": 2,
+     "unit": "%",
+     "source_ids": [
+      "s7",
+      "s1"
+     ],
+     "basis": "code",
+     "confidence": "high"
+    },
+    {
+     "id": "drain-test",
+     "check_ar": "اختبار مواسير الصرف والتهوية",
+     "how_ar": "تُسد الفتحات وتُملأ الشبكة بالماء حتى عمود رأسي فوق أعلى وصلة، ويُعلَّم منسوب الماء ويُصوَّر في البداية والنهاية.",
+     "accept_ar": "عمود ماء لا يقل عن 3 م (10 أقدام) فوق أعلى وصلة لمدة 15 دقيقة دون هبوط. ولا يُختبر الصرف البلاستيكي بالهواء المضغوط إلا إذا أجازه دليل مصنّع المواسير، لأن انفجار وصلة تحت ضغط الهواء خطر على من حولها.",
+     "stop": true,
+     "value": 3,
+     "unit": "m",
+     "source_ids": [
+      "s5",
+      "s4",
+      "s6",
+      "s1",
+      "s27"
+     ],
+     "basis": "code",
+     "confidence": "high"
+    },
+    {
+     "id": "drain-cleanouts",
+     "check_ar": "فتحات التنظيف",
+     "how_ar": "تتبّع المسار على المخطط وعلى الطبيعة، وعدّ فتحات التنظيف وتأكد أن كلاً منها سيبقى ظاهراً بعد التشطيب.",
+     "accept_ar": "فتحة عند كل تغيير اتجاه أكبر من 45 درجة، وعند أسفل كل عمود، والمسافة بين الفتحات في الخطوط الأفقية لا تزيد على 30 م، ومقاسها مثل مقاس الماسورة حتى 4 بوصات، وتنتهي مستوية مع سطح التشطيب.",
+     "stop": true,
+     "value": 30,
+     "unit": "m",
+     "source_ids": [
+      "s8",
+      "s1"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    },
+    {
+     "id": "drain-vents",
+     "check_ar": "التهوية",
+     "how_ar": "تأكد أن كل جهاز صحي متصل بخط تهوية، وأن أعمدة التهوية صاعدة ومفتوحة إلى السطح حسب المخطط.",
+     "accept_ar": "خطوط التهوية مطابقة لمخطط الصرف المعتمد، بلا انقطاع أو انسداد، وتنتهي فوق السطح.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    },
+    {
+     "id": "drain-traps",
+     "check_ar": "السيفونات وسيفونات الصفايات",
+     "how_ar": "تأكد من وجود سيفون لكل جهاز وكل صفاية أرضية، واسأل عن طريقة حماية ماء السيفون من الجفاف في الصفايات قليلة الاستعمال.",
+     "accept_ar": "سيفون مستقل لكل جهاز، وعمق ماء السيفون بين 50 و100 مم (2 إلى 4 بوصات)، وللصفايات المعرضة للجفاف وسيلة حماية معتمدة.",
+     "stop": true,
+     "value": 50,
+     "unit": "mm",
+     "source_ids": [
+      "s9"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    },
+    {
+     "id": "drain-floor-drains",
+     "check_ar": "مناسيب الصفايات الأرضية",
+     "how_ar": "قِس منسوب جسم الصفاية مقارنة بمنسوب البلاط النهائي، وراجع اتجاه الميل المخطط نحوها.",
+     "accept_ar": "الصفاية في أخفض نقطة، ومنسوبها يسمح بميل الأرضية نحوها بعد البلاط، وجسمها مثبت لا يتحرك.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "drain-protection",
+     "check_ar": "حماية المواسير والفتحات",
+     "how_ar": "انظر إلى أطراف المواسير المفتوحة وإلى المواسير الممددة على الأرض قبل الصب.",
+     "accept_ar": "كل طرف مفتوح مسدود بغطاء، ولا كسر أو انبعاج في المواسير، وهي مثبتة كي لا تتحرك أثناء الصب.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "electrical",
+   "name_ar": "الكهرباء",
+   "when_ar": "قبل اللياسة",
+   "items": [
+    {
+     "id": "elec-conduits",
+     "check_ar": "مواسير الكهرباء سالكة ومثبتة",
+     "how_ar": "اطلب سحب سلك شد في عينة من المواسير، وانظر إلى الوصلات والأكواع والتثبيت على الجدار.",
+     "accept_ar": "الماسورة سالكة بلا انبعاج، والوصلات محكمة، والأطراف مسدودة، وفي كل ماسورة فارغة سلك شد.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-conduit-fill",
+     "check_ar": "امتلاء المواسير بالأسلاك",
+     "how_ar": "عدّ الأسلاك المخطط لها في كل ماسورة واطلب من المقاول بيان مقاس الماسورة المختار لها.",
+     "accept_ar": "مساحة الأسلاك لا تزيد على 40٪ من مساحة مقطع الماسورة عند ثلاثة أسلاك فأكثر، وإلا تُكبّر الماسورة أو تُضاف ماسورة ثانية. والرقم من الكود الأمريكي للاسترشاد، والمعتمد جدول المقاسات في مواصفات المشروع.",
+     "stop": false,
+     "value": 40,
+     "unit": "%",
+     "source_ids": [
+      "s16"
+     ],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-boxes",
+     "check_ar": "علب المفاتيح والمقابس: الاستقامة والارتفاع",
+     "how_ar": "قِس ارتفاع العلب من منسوب الأرضية النهائي، وتأكد من استقامتها أفقياً ورأسياً، ومن بروزها مقارنة بسماكة اللياسة.",
+     "accept_ar": "الارتفاعات مطابقة للمخطط المعتمد وموحدة في الغرفة الواحدة، والعلب مستقيمة ومثبتة وحافتها على مستوى وجه اللياسة.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-min-size",
+     "check_ar": "أصغر مقطع لأسلاك الإنارة والقوى",
+     "how_ar": "اقرأ المقطع المطبوع على غلاف السلك عند الأطراف.",
+     "accept_ar": "لا يقل مقطع أسلاك النحاس في دوائر الإنارة والقوى الثابتة عن 1.5 مم².",
+     "stop": false,
+     "value": 1.5,
+     "unit": "mm²",
+     "source_ids": [
+      "s14"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-sockets",
+     "check_ar": "مقاطع أسلاك دوائر المقابس",
+     "how_ar": "قارن مقطع السلك بقاطع الدائرة في جدول اللوحة وبالمساحة التي تخدمها الدائرة.",
+     "accept_ar": "لكل دائرة مقابس قاطع يناسب مقطع السلك بعد تصحيحه لحرارة المكان: الشائع 2.5 مم² على قاطع 16 أو 20 أمبير بتوصيل شعاعي، و4 مم² على 25 أو 32 أمبير بحسب حساب المهندس. وفي الأسقف والأسطح والجدران المعرضة للشمس في الأحساء تزيد الحرارة على 45 درجة، فيقل تحمل السلك نحو 20٪ عند 45 درجة ونحو 30٪ عند 50 درجة، والمرجع جدول الأحمال المعتمد. ولا تُقبل الدائرة الحلقية إلا بتصميم مهندس واختبار استمرارية الحلقة من طرفيها.",
+     "stop": false,
+     "value": 2.5,
+     "unit": "mm²",
+     "source_ids": [
+      "s15",
+      "s26"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-circuits",
+     "check_ar": "دوائر مستقلة للمكيفات والأحمال الثقيلة",
+     "how_ar": "طابق المواسير الخارجة من موقع اللوحة مع جدول الأحمال: لكل مكيف وسخان وفرن وغسالة دائرة مستقلة، والإنارة منفصلة عن المقابس.",
+     "accept_ar": "كل حمل ثقيل على دائرته، ومقطع سلك المكيف حسب لوحة بيانات الجهاز ودليل المصنّع والمخطط المعتمد.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-earth",
+     "check_ar": "السلك الأرضي واستمراريته",
+     "how_ar": "تأكد من وجود سلك أرضي في كل دائرة يصل إلى كل علبة، واطلب قياس استمرارية الموصلات الأرضية بجهاز مقاومة منخفضة بعد سحب الأسلاك.",
+     "accept_ar": "سلك أرضي في كل علبة دون استثناء، ونتيجة قياس الاستمرارية مسجلة لكل دائرة.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s18"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-earthing",
+     "check_ar": "نظام التأريض والربط الرئيسي والاختبارات قبل التشغيل",
+     "how_ar": "اطلب رؤية قطب التأريض وموصله إلى طرف التأريض الرئيسي في اللوحة، وتأكد من ربط مواسير الماء والغاز المعدنية بهذا الطرف عند دخولها البيت، واطلب محضر قياس مقاومة العزل واختبار قواطع التسرب قبل التشغيل.",
+     "accept_ar": "طرف تأريض رئيسي مربوط بالقطب الأرضي بموصل ظاهر معلَّم، ومواسير الخدمات المعدنية مربوطة به، ومحضر موقّع بقياس مقاومة العزل لكل دائرة (لا تقل عن 1 ميغا أوم عند جهد اختبار 500 فولت مستمر)، وبزمن فصل كل قاطع تسرب 30 ملي أمبير مقيساً بجهاز (لا يزيد على 40 ملي ثانية عند تيار الاختبار المحدد).",
+     "stop": true,
+     "value": 1,
+     "unit": "MΩ",
+     "source_ids": [
+      "s28",
+      "s29",
+      "s30"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "elec-no-joints",
+     "check_ar": "لا وصلات أسلاك داخل المواسير",
+     "how_ar": "اسأل المقاول عن أماكن الوصلات، وافتح عينة من العلب للتأكد أن الوصلات داخل علب يمكن الوصول إليها.",
+     "accept_ar": "كل وصلة داخل علبة يمكن فتحها للفحص والصيانة، ولا وصلة مدفونة داخل ماسورة أو جدار.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s17"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "elec-labels",
+     "check_ar": "ترقيم الدوائر",
+     "how_ar": "تأكد أن أطراف الأسلاك عند اللوحة مرقمة، وأن الأرقام مطابقة لجدول اللوحة والمخطط.",
+     "accept_ar": "كل دائرة لها رقم ثابت عند اللوحة وفي الجدول، ويمكن تتبعها إلى غرفتها.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "low-current",
+   "name_ar": "التيار الخفيف",
+   "when_ar": "قبل اللياسة",
+   "items": [
+    {
+     "id": "lc-separation",
+     "check_ar": "فصل التيار الخفيف عن الكهرباء",
+     "how_ar": "تتبّع مواسير الإنترنت والتلفزيون والكاميرات والإنتركم، وتأكد أنها لا تشترك مع مواسير الكهرباء.",
+     "accept_ar": "مواسير مستقلة للتيار الخفيف، أو فاصل داخل المجرى المشترك، أو أسلاك معزولة لأعلى جهد موجود.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s19"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "lc-boxes",
+     "check_ar": "علب مستقلة لنقاط التيار الخفيف",
+     "how_ar": "انظر إلى العلب عند كل نقطة إنترنت أو تلفزيون.",
+     "accept_ar": "علبة خاصة للتيار الخفيف، أو علبة مزدوجة بفاصل بين القسمين.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s19"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "lc-pull-wires",
+     "check_ar": "أسلاك السحب في المواسير الفارغة",
+     "how_ar": "اسحب طرف السلك في عينة من المواسير للتأكد أنه متصل من طرف إلى طرف.",
+     "accept_ar": "في كل ماسورة فارغة سلك سحب ممتد بين طرفيها.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "lc-central-point",
+     "check_ar": "التجميع إلى نقطة مركزية",
+     "how_ar": "تأكد أن مسارات الإنترنت والكاميرات تتجه إلى موقع جهاز الشبكة المحدد في المخطط.",
+     "accept_ar": "كل النقاط تصل إلى نقطة التجميع دون انقطاع، وموقعها قريب من مصدر كهرباء وتهوية.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "lc-bends",
+     "check_ar": "الأكواع وعلب السحب",
+     "how_ar": "عدّ الأكواع في المسارات الطويلة.",
+     "accept_ar": "أكواع قليلة بقطر واسع، وعلب سحب في المسارات الطويلة أو كثيرة الانحناء.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "lc-spare",
+     "check_ar": "مواسير احتياطية",
+     "how_ar": "اسأل عن المواسير الاحتياطية إلى السطح والأسوار وغرف المعيشة.",
+     "accept_ar": "مواسير احتياطية مسدودة الأطراف ومعلَّمة على المخطط لاحتياجات مستقبلية.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "ac",
+   "name_ar": "التكييف",
+   "when_ar": "قبل اللياسة والأسقف",
+   "items": [
+    {
+     "id": "ac-insulation",
+     "check_ar": "عزل مواسير النحاس",
+     "how_ar": "انظر إلى مواسير السائل والغاز: هل كل منها معزول وحده؟ قِس سماكة العازل عند طرف ظاهر.",
+     "accept_ar": "كل ماسورة معزولة منفردة، وسماكة العازل حسب دليل المصنّع (مثال دايكن: 10 مم على 6.4 مم، و13 مم على 9.5 و12.7 مم، و20 مم إذا تجاوزت الحرارة 30 درجة والرطوبة 80٪)، والعازل يتحمل 120 درجة، ولا فراغات عند الوصلات.",
+     "stop": true,
+     "value": 13,
+     "unit": "mm",
+     "source_ids": [
+      "s20",
+      "s21"
+     ],
+     "basis": "manufacturer",
+     "confidence": "high"
+    },
+    {
+     "id": "ac-pressure",
+     "check_ar": "اختبار ضغط مواسير النحاس بالنيتروجين",
+     "how_ar": "يُضخ النيتروجين بالضغط المحدد في دليل الوحدة، ويُصوَّر المقياس عند البدء وعند النهاية مع التاريخ والساعة.",
+     "accept_ar": "الضغط والمدة حسب دليل الوحدة المركبة، ولا يتجاوز الضغط أبداً الحد الأقصى المسموح المكتوب على لوحة بيانات الوحدة، ولا هبوط في الضغط طوال المدة. مثال لأنظمة VRF من ميتسوبيشي إلكتريك (City Multi): 4.15 MPa لمدة يوم كامل، ولا يُنقل هذا الرقم إلى المكيفات الجدارية.",
+     "stop": true,
+     "value": 4.15,
+     "unit": "MPa",
+     "source_ids": [
+      "s21",
+      "s20"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "ac-brazing",
+     "check_ar": "وصلات النحاس داخل الجدران والأسقف",
+     "how_ar": "اسأل عن عدد الوصلات المدفونة وطريقة لحامها، وانظر إلى الوصلات الظاهرة.",
+     "accept_ar": "أقل عدد ممكن من الوصلات المدفونة، واللحام نظيف بلا تشققات، ونجح اختبار الضغط بعد آخر وصلة.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "ac-condensate-slope",
+     "check_ar": "ميل خط تصريف التكثيف",
+     "how_ar": "قِس فرق المنسوب على طول خط التصريف بميزان الماء من الوحدة الداخلية حتى نقطة التصريف.",
+     "accept_ar": "ميل لا يقل عن 1٪ في اتجاه التصريف، وقطر داخلي لا يقل عن 19 مم (3/4 بوصة) ولا يصغر حتى نقطة التصريف.",
+     "stop": true,
+     "value": 1,
+     "unit": "%",
+     "source_ids": [
+      "s10"
+     ],
+     "basis": "code",
+     "confidence": "high"
+    },
+    {
+     "id": "ac-condensate-trap",
+     "check_ar": "سيفون خط التكثيف ونقطة التصريف",
+     "how_ar": "اعرف نوع الوحدة الداخلية، ثم راجع ما يطلبه دليلها بخصوص السيفون، وحدد أين ينتهي الخط.",
+     "accept_ar": "الوحدات الجدارية: لا سيفون في خرطوم التصريف نفسه حسب دليل دايكن. الوحدات المخفية والمركزية: السيفون حسب دليل المصنّع. وإن وُصل الخط بشبكة الصرف فيكون بوصلة غير مباشرة: فاصل هوائي فوق قمع أو صفاية ذات سيفون، لا ربطاً مباشراً بماسورة الصرف. ولا ينتهي الخط على السطح أو الواجهة.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s20",
+      "s10"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "ac-sleeves",
+     "check_ar": "جلب اختراق الجدران الخارجية",
+     "how_ar": "انظر إلى فتحة مرور المواسير في الجدار الخارجي: قطرها، وميلها، ووجود جلبة.",
+     "accept_ar": "فتحة بميل نحو الخارج وفيها جلبة، وقطرها حسب دليل الوحدة (مثال دايكن: 65 مم)، والفراغ حول المواسير مختوم.",
+     "stop": true,
+     "value": 65,
+     "unit": "mm",
+     "source_ids": [
+      "s20",
+      "s21"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "ac-ends",
+     "check_ar": "إغلاق أطراف المواسير",
+     "how_ar": "انظر إلى أطراف النحاس عند الوحدات الداخلية والخارجية.",
+     "accept_ar": "كل طرف مغلق بإحكام لمنع الغبار والرطوبة حتى تركيب الوحدات.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "gas",
+   "name_ar": "الغاز",
+   "when_ar": "قبل اللياسة وإغلاق الجدران",
+   "items": [
+    {
+     "id": "gas-test",
+     "check_ar": "اختبار ضغط خطوط الغاز قبل الإغلاق",
+     "how_ar": "تُسد أطراف الخط ويُركّب مقياس ضغط مناسب، ويُصوَّر المقياس في البداية والنهاية مع الساعة. لا يُستعمل الأكسجين في الاختبار أبداً.",
+     "accept_ar": "يُختبر الخط بالهواء أو النيتروجين أو غاز خامل آخر بضغط لا يقل عن 1.5 ضعف أعلى ضغط تشغيل، ولا يقل عن 3 psi (نحو 21 كيلوباسكال)، ويثبت الضغط 10 دقائق على الأقل دون هبوط، أو حسب اشتراطات الجهة المختصة ومورد الغاز إن كانت أشد. ثم تُفحص الوصلات الظاهرة بالماء والصابون.",
+     "stop": true,
+     "value": 3,
+     "unit": "psi",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "code",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "wet",
+   "name_ar": "العزل في المناطق الرطبة",
+   "when_ar": "قبل التسوية والبلاط",
+   "items": [
+    {
+     "id": "wet-surface",
+     "check_ar": "تجهيز السطح والزوايا قبل العزل",
+     "how_ar": "انظر إلى السطح قبل دهان العازل، وإلى التقاء الأرضية بالجدار.",
+     "accept_ar": "سطح نظيف متماسك بلا بروزات، وشريط تقوية من نظام المصنّع عند كل زاوية والتقاء أرضية بجدار.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s24"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "wet-shower-walls",
+     "check_ar": "ارتفاع العزل على جدران الدش",
+     "how_ar": "قِس ارتفاع طبقة العزل على جدران منطقة الدش من منسوب الأرضية النهائي.",
+     "accept_ar": "العزل يغطي جدران منطقة الدش حتى 1800 مم من منسوب الأرضية النهائي على الأقل.",
+     "stop": true,
+     "value": 1800,
+     "unit": "mm",
+     "source_ids": [
+      "s24",
+      "s25"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "wet-upturn",
+     "check_ar": "صعود العزل على باقي الجدران",
+     "how_ar": "قِس صعود العزل على الجدران خارج منطقة الدش من منسوب الأرضية النهائي.",
+     "accept_ar": "لا يقل صعود العزل على الجدران خارج منطقة الدش عن 15 سم فوق الأرضية النهائية، ويُفضَّل 30 سم، وحول المغسلة والمرحاض حتى ارتفاع البلاط إن أمكن. والمرجع النهائي مواصفات مشروعك ودليل المصنّع.",
+     "stop": true,
+     "value": 150,
+     "unit": "mm",
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "wet-penetrations",
+     "check_ar": "العزل حول الصفايات والمواسير",
+     "how_ar": "انظر إلى كل اختراق في الأرضية والجدار: الصفاية، والمواسير، ومخارج الخلاطات.",
+     "accept_ar": "كل اختراق محكم بقطعة أو مادة من نظام العزل نفسه، والعزل متصل بجسم الصفاية.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [
+      "s25"
+     ],
+     "basis": "manufacturer",
+     "confidence": "medium"
+    },
+    {
+     "id": "wet-cure",
+     "check_ar": "مدة الجفاف قبل اختبار الغمر",
+     "how_ar": "سجّل تاريخ وساعة انتهاء آخر طبقة عزل.",
+     "accept_ar": "لا يبدأ الغمر قبل 24 ساعة من انتهاء العزل، أو المدة الأطول التي يحددها المصنّع.",
+     "stop": false,
+     "value": 24,
+     "unit": "h",
+     "source_ids": [
+      "s23"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "wet-flood",
+     "check_ar": "اختبار الغمر بالماء",
+     "how_ar": "تُسد الصفاية ويُملأ المكان بالماء، ويُعلَّم المنسوب بشريط في موضعين ويُصوَّر، ثم تُفحص الأسقف والجدران المجاورة والدور السفلي.",
+     "accept_ar": "عمق الماء بين 25 و100 مم، والمدة لا تقل عن 24 ساعة وقد تمتد إلى 72، ولا هبوط في المنسوب ولا أثر رطوبة أسفل المكان أو حوله.",
+     "stop": true,
+     "value": 24,
+     "unit": "h",
+     "source_ids": [
+      "s22",
+      "s23"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "wet-protection",
+     "check_ar": "حماية العزل بعد الاختبار",
+     "how_ar": "تأكد من وضع طبقة حماية قبل التسوية، ومن عدم المشي على العزل بأدوات حادة.",
+     "accept_ar": "العزل سليم بلا خدوش أو ثقوب حتى تغطيته، وأي ضرر يُصلح ويُعاد اختبار الغمر.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  },
+  {
+   "id": "docs",
+   "name_ar": "التوثيق",
+   "when_ar": "قبل كل إغلاق",
+   "items": [
+    {
+     "id": "doc-wall-photos",
+     "check_ar": "صور الجدران بشريط القياس",
+     "how_ar": "صوّر كل جدار فيه تمديدات مع شريط قياس أفقي من زاوية ثابتة وآخر رأسي من منسوب الأرضية، بحيث تظهر الأرقام بوضوح.",
+     "accept_ar": "لكل جدار صورة كاملة وصور قريبة يمكن منها تحديد موقع أي ماسورة بالسنتيمتر.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "doc-floor-photos",
+     "check_ar": "صور تمديدات الأرضيات قبل الصب",
+     "how_ar": "صوّر مسارات الصرف والتغذية والكهرباء في الأرضية من زاوية عالية مع شريط قياس من الجدران.",
+     "accept_ar": "كل مسار في الأرضية موثق بصورة تظهر بعده عن جدارين.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "doc-as-built",
+     "check_ar": "رسم المسارات على المخطط",
+     "how_ar": "على نسخة من المخطط ارسم بالألوان مسار كل خط كما نُفّذ مع المسافات الرئيسية.",
+     "accept_ar": "مخطط منفذ لكل دور يبيّن التغذية والصرف والكهرباء والتيار الخفيف والتكييف، موقّع من المقاول.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "doc-test-records",
+     "check_ar": "محاضر الاختبارات",
+     "how_ar": "اجمع محضراً لكل اختبار: الضغط أو المنسوب في البداية والنهاية، والمدة، والتاريخ، وصورة المقياس.",
+     "accept_ar": "محضر موقّع لكل من اختبار التغذية والصرف والنحاس والغمر والقياسات الكهربائية.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "doc-organize",
+     "check_ar": "ترتيب الصور وحفظها",
+     "how_ar": "سمِّ الصور باسم الدور والغرفة والجدار والتاريخ، واحفظ نسختين في مكانين.",
+     "accept_ar": "تستطيع الوصول إلى صور أي جدار خلال دقيقة واحدة.",
+     "stop": false,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    },
+    {
+     "id": "doc-signoff",
+     "check_ar": "استلام مكتوب قبل الإغلاق",
+     "how_ar": "اطلب من المهندس المشرف أو المقاول توقيع قائمة الفحص لكل غرفة قبل بدء اللياسة أو الصب.",
+     "accept_ar": "قائمة موقّعة لكل غرفة، وكل الملاحظات مغلقة.",
+     "stop": true,
+     "value": null,
+     "unit": null,
+     "source_ids": [],
+     "basis": "practice",
+     "confidence": "medium"
+    }
+   ]
+  }
+ ],
+ "general": [
+  {
+   "text_ar": "الكود السعودي للسباكة SBC 701 مبني على الكود الدولي IPC ويتبع ترقيمه في الغالب، لذلك تُذكر بنود IPC هنا مرجعاً للأرقام، وتُطابق مع نسخة SBC 701 المعتمدة.",
+   "source_ids": [
+    "s1",
+    "s2"
+   ]
+  },
+  {
+   "text_ar": "المرجع النهائي هو المخططات المعتمدة ومواصفات مشروعك ودليل المصنّع للمنتج المركّب فعلاً. إن خالف أحدها الأرقام هنا فاتبع الأشد.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "البنود المعلَّمة «لا تُغلق قبله» يصعب إصلاحها بعد اللياسة أو الصب إلا بالتكسير، فلا تسمح بالإغلاق قبل اعتمادها.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "هذه القائمة تساعدك على متابعة المقاول ولا تغني عن المهندس المشرف أو جهة الفحص المعتمدة.",
+   "source_ids": []
+  },
+  {
+   "text_ar": "بعض الأرقام مأخوذة من أكواد أمريكية أو بريطانية أو من أدلة مصنّعين محددين، فاطلب من المقاول بيان المرجع الذي يعمل به.",
+   "source_ids": [
+    "s14",
+    "s15",
+    "s16",
+    "s20",
+    "s21",
+    "s26",
+    "s31"
+   ]
+  }
+ ],
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Saudi Plumbing Code SBC 701-CR-18 (table of contents)",
+   "publisher": "Saudi Building Code National Committee",
+   "edition": "2018",
+   "url": "https://www.scribd.com/document/572912808/Sbc-Code-701",
+   "clause": "Table of contents lists Sections 312 Tests and Inspections, 314 Condensate Disposal, 704 Drainage Piping Installation, 708 Cleanouts, 1002 Trap Requirements (IPC numbering). Clause text not visible in the copy reviewed."
+  },
+  {
+   "id": "s2",
+   "title": "2018 Saudi Plumbing Code (SBC 701) Study Companion, Table of Contents",
+   "publisher": "International Code Council",
+   "edition": "2021 printing",
+   "url": "https://shop.iccsafe.org/media/wysiwyg/material/4217S18SBC-TOC.pdf",
+   "clause": "Study Session 3: Sections 308 through 316, General Regulations II"
+  },
+  {
+   "id": "s3",
+   "title": "Pressure test certification affidavit (quotes Florida Building Code Residential P2503.7)",
+   "publisher": "City of Winter Springs, FL",
+   "edition": "FBC Residential 2023, 8th ed.",
+   "url": "https://winterspringsfl.org/sites/default/files/fileattachments/community_development/page/24164/pressure_test_certification_affidavit_in_accordance_with_the_florida_building_code.pdf",
+   "clause": "P2503.7 Water-supply system testing: not less than working pressure, or air test not less than 50 psi for piping other than plastic; held not less than 15 minutes"
+  },
+  {
+   "id": "s4",
+   "title": "Self Certification Form, 2021 IPC Plumbing Pipe Pressure Testing",
+   "publisher": "New Castle County, Delaware",
+   "edition": "IPC 2021",
+   "url": "https://www.newcastlede.gov/DocumentCenter/View/54682/Self-Certification-Form-2021-IPC-PLUMBING-PIPE-PRESSURE-TESTING",
+   "clause": "IPC 312.5 water supply test at min. working pressure 15 min (plastic); DWV water test 10 ft head 15 min; DWV air test 5 psi 15 min"
+  },
+  {
+   "id": "s5",
+   "title": "2021 Significant Changes to the IRC, P2503.5.1 DWV rough-in test",
+   "publisher": "International Code Council",
+   "edition": "2021",
+   "url": "https://www.iccsafe.org/wp-content/uploads/2021_SigChanges_IRC_P2503.5.1.pdf",
+   "clause": "P2503.5.1: water not less than 10 ft (3048 mm) above highest fitting for 15 min; air 5 psi or 10 in Hg for 15 min"
+  },
+  {
+   "id": "s6",
+   "title": "Ohio Admin. Code 4101:3-3-01, General regulations (Ohio Plumbing Code, based on IPC 2021)",
+   "publisher": "Cornell LII / State of Ohio",
+   "edition": "IPC 2021 with Ohio amendments",
+   "url": "https://law.cornell.edu/regulations/ohio/Ohio-Admin-Code-4101-3-3-01",
+   "clause": "312.2 drainage and vent test (10 ft head, 15 min; air 5 psi, 15 min); 305.3 pipe sleeve two pipe sizes greater through foundation walls"
+  },
+  {
+   "id": "s7",
+   "title": "6.2 Drainage Piping Installation and Slopes (IPC study guide)",
+   "publisher": "Open Exam Prep",
+   "edition": "IPC (edition not stated)",
+   "url": "https://open-exam-prep.com/study-guides/icc-commercial-plumbing/sanitary-drainage-systems/drainage-installation-slopes",
+   "clause": "IPC 704.1 / Table 704.1: 2.5 in and smaller 1/4 in per ft; 3 to 6 in 1/8 in per ft; 8 in and larger 1/16 in per ft"
+  },
+  {
+   "id": "s8",
+   "title": "Code requirements for drainage system cleanouts",
+   "publisher": "PHCP Pros",
+   "edition": "IPC 2012",
+   "url": "https://www.phcppros.com/articles/1902-code-requirements-for-drainage-system-cleanouts",
+   "clause": "IPC 2012 708.3.1 (100 ft spacing), 708.3.3 (change of direction > 45 deg), 708.3.4 (base of stack), 708.4 (concealed piping), 708.7 (size), 708.8 (clearance), 708.9 (access). Later editions renumber these under 708.1.x"
+  },
+  {
+   "id": "s9",
+   "title": "An overview of plumbing trap requirements under the International Plumbing Code",
+   "publisher": "ICC Building Safety Journal",
+   "edition": "IPC 2024",
+   "url": "https://www.iccsafe.org/building-safety-journal/bsj-technical/an-overview-of-plumbing-trap-requirements-under-the-international-plumbing-code/",
+   "clause": "IPC Chapter 10: separate trap per fixture; trap seal 2 in min, 4 in max; trap seal protection for floor drains (ASSE 1018, 1044, 1072)"
+  },
+  {
+   "id": "s10",
+   "title": "Air conditioner condensate handling and drainage",
+   "publisher": "InspectAPedia",
+   "edition": "IPC (edition not stated)",
+   "url": "https://InspectAPedia.com/aircond/Condensate_Handling.php",
+   "clause": "IPC 314.2.1 slope not less than 1/8 in per 12 in (1%); IPC 314.2.2 drain size not less than 3/4 in (19 mm) internal diameter; IPC 802.1.5 discharge to the drainage system through an indirect waste pipe by means of an air break or air gap; warning that a direct connection to a building drain can draw sewer gas back into the air handler"
+  },
+  {
+   "id": "s11",
+   "title": "PPRC Pipe, Assembly",
+   "publisher": "Fırat Plastik",
+   "edition": "web page, accessed 2026-10-06",
+   "url": "https://www.firat.com/en-us/indoor-piping-system/cold-hot-water-pipe-systems/pprc-product-range/pprc-pipe/assembly",
+   "clause": "Tightness test: 1.5 x highest proposed pressure 30 min, drop not more than 0.6 bar; then 2 h, drop not more than 0.2 bar; welding time table"
+  },
+  {
+   "id": "s12",
+   "title": "PP-R Socket Fusion Instructions",
+   "publisher": "NIBCO",
+   "edition": "Form PPRSF-0417, 2017",
+   "url": "https://res.cloudinary.com/dzhpkjoqj/Nibco/PP-R-Pro-IOM-Manual.pdf",
+   "clause": "Insertion depth marking; do not twist; both PP-R rings visible and joined around the connection"
+  },
+  {
+   "id": "s13",
+   "title": "Hot on left (forum thread quoting UPC 417.5)",
+   "publisher": "The Building Code Forum",
+   "edition": "UPC 2024",
+   "url": "https://www.thebuildingcodeforum.com/forum/goto/post?id=319431",
+   "clause": "UPC 417.5: hot water corresponds to the left side of the fixture fitting"
+  },
+  {
+   "id": "s14",
+   "title": "Minimum cross sections (IEC 60364-5-52)",
+   "publisher": "Voltimum",
+   "edition": "article",
+   "url": "https://www.voltimum.co.uk/news/57-minimum-cross-sections-electrical",
+   "clause": "IEC 60364-5-52 minimum cross-section table: copper, power and lighting circuits 1.5 mm2; signalling and control 0.5 mm2 (table number not stated in article)"
+  },
+  {
+   "id": "s15",
+   "title": "Standard circuit arrangements for socket-outlet circuits",
+   "publisher": "NAPIT (via Voltimum)",
+   "edition": "article, BS 7671 based",
+   "url": "https://content.voltimum.com/uk/133863/201109277329200907305588_0.pdf",
+   "clause": "Table 1: ring 2.5 mm2, 30/32 A, 100 m2; radial 4 mm2, 30/32 A, 75 m2; radial 2.5 mm2, 20 A, 50 m2"
+  },
+  {
+   "id": "s16",
+   "title": "Code Q&A: Sizing a Raceway",
+   "publisher": "EC&M",
+   "edition": "NEC (article)",
+   "url": "https://www.ecmweb.com/national-electrical-code/qa/article/20900934/code-qa-sizing-a-raceway",
+   "clause": "NEC Chapter 9 Table 1: 1 conductor 53%, 2 conductors 31%, 3 or more 40%; NEC 300.17"
+  },
+  {
+   "id": "s17",
+   "title": "Accessibility of connections and maintenance-free junction boxes",
+   "publisher": "IET",
+   "edition": "BS 7671 (edition with Amendment 1)",
+   "url": "https://electrical.theiet.org/media/1534/accessibility-of-connections-and-maintenance-free-junction-boxes.pdf",
+   "clause": "Regulation 526.3: every connection shall be accessible for inspection, testing and maintenance, with listed exceptions"
+  },
+  {
+   "id": "s18",
+   "title": "Earth continuity testing: an in-depth look",
+   "publisher": "Voltimum / Kewtech",
+   "edition": "article",
+   "url": "https://www.voltimum.co.uk/news/earth-continuity-testing-depth-look",
+   "clause": "BS 7671 Regulation 643.2 continuity of protective conductors; 643.1 instruments to BS EN 61557"
+  },
+  {
+   "id": "s19",
+   "title": "Installation of Band I and Band II circuits",
+   "publisher": "NICEIC (via Voltimum)",
+   "edition": "article",
+   "url": "https://www.voltimum.co.uk/news/niceic/installation-band-i-and-band-ii-circuits",
+   "clause": "BS 7671 Regulation 528.1: Band I not in same wiring system as Band II unless insulated for highest voltage, separate compartments, or separate conduit/trunking"
+  },
+  {
+   "id": "s20",
+   "title": "FTXF-E / ATXF-E Installer reference guide",
+   "publisher": "Daikin Europe",
+   "edition": "4PEN519439-19U",
+   "url": "https://www.daikin.be/content/dam/document-library/Installer-reference-guide/ac/split/ftxf-e/FTXF-E.ATXF-E_Installer%20reference%20guide_4PEN519439-19U_English.pdf",
+   "clause": "7.1.2 insulation (6.4 mm pipe >= 10 mm; 9.5/12.7 mm >= 13 mm; >30 C and >80% RH >= 20 mm; heat resistance >= 120 C); 6.3.5 drain hose downward slope, traps not permitted; 6.3.3 wall hole 65 mm sloping outward with wall embedded pipe; never pressurise the product with a pressure higher than the maximum allowable pressure"
+  },
+  {
+   "id": "s21",
+   "title": "Installation Manual, PURY-M-YXM-A / PURY-EM-YXM-A (City Multi outdoor unit)",
+   "publisher": "Mitsubishi Electric",
+   "edition": "KR79D222H01",
+   "url": "https://library.mitsubishielectric.co.uk/pdf/download_full/5700",
+   "clause": "9-6 air tightness test: pressurize to design pressure 4.15 MPa with nitrogen; pass if pressure holds one day; 9-7-1 insulation thickness; 9-5-3 seal openings around pipes"
+  },
+  {
+   "id": "s22",
+   "title": "ASTM D5957-98(2013) Standard Guide for Flood Testing Horizontal Waterproofing Installations (summary)",
+   "publisher": "Intertek",
+   "edition": "D5957-98(2013)",
+   "url": "https://intertek.com/building/standards/astm-d5957-98",
+   "clause": "Water depth min 1 in, max 4 in at lowest point; duration min 24 h, max 72 h; level monitored in at least two locations"
+  },
+  {
+   "id": "s23",
+   "title": "ASTM D5957-98(2021) Standard Guide for Flood Testing Horizontal Waterproofing Installations",
+   "publisher": "ASTM International",
+   "edition": "D5957-98(2021)",
+   "url": "https://store.astm.org/d5957-98r21.html",
+   "clause": "Scope: horizontal surfaces slope not greater than 2%; max 100 mm ponded water; minimum 24 h cure after installation (48 h below 10 C)"
+  },
+  {
+   "id": "s24",
+   "title": "Waterproofing Details: Sika Tile Installation Systems, Internal and External Areas",
+   "publisher": "Sika New Zealand",
+   "edition": "01/19 (AS 3740 based)",
+   "url": "https://nzl.sika.com/dam/dms/nz01/5/sika-tile-installation-systems-waterproofing-details-booklet-0515-nz.pdf",
+   "clause": "Figures 4.1 to 4.3 (pp. 7 to 9): shower walls waterproofed to 1800 from finished floor level; floor upstand 25 mm; SealTape / Joint Bandage at junctions"
+  },
+  {
+   "id": "s25",
+   "title": "Nitoproof Extent of Treatment of Wet Areas (meets AS 3740)",
+   "publisher": "Fosroc / Parchem Australia",
+   "edition": "TSD/W-WASD04 Issue 2, 23/10/19",
+   "url": "https://www.fosroc.com.au/sites/default/files/resources_file_storage/Nitoproof-Extent_of_Treatment_of_Wet_Areas-Meets_AS3740.pdf",
+   "clause": "Waterproof to 1800 from finished floor level in shower; seal tap, shower rose and bath spout penetrations"
+  },
+  {
+   "id": "s26",
+   "title": "3.2 Temperature, grouping and installation derating factors for Dubai",
+   "publisher": "Open Exam Prep (DM electrical exam study guide)",
+   "edition": "web page, accessed 2026-10-06",
+   "url": "https://open-exam-prep.com/study-guides/ae-dm-electrical-exam/cable-sizing-and-load-calculation/cable-derating-factors",
+   "clause": "Ambient correction Ca for 70 °C PVC: 1.00 at 30 °C, 0.87 at 40 °C, 0.79 at 45 °C, 0.71 at 50 °C; Dubai design base 45 °C air ambient"
+  },
+  {
+   "id": "s27",
+   "title": "The dangers of air testing PVC, CPVC and ABS plumbing systems",
+   "publisher": "Charlotte Pipe and Foundry",
+   "edition": "2024-02-16",
+   "url": "https://www.charlottepipe.com/articles/the-dangers-of-air-testing-pvc-cpvc-and-abs-plumbing-systems",
+   "clause": "Compressed air stores energy and can cause explosive failure; recommends hydrostatic test at 10 ft head (4.3 psi)"
+  },
+  {
+   "id": "s28",
+   "title": "Re-emerging metallic pipework",
+   "publisher": "NICEIC (via Voltimum)",
+   "edition": "2010-04-12, BS 7671",
+   "url": "https://www.voltimum.co.uk/news/re-emerging-metallic-pipework",
+   "clause": "Regulation 411.3.1.2: main protective bonding conductors connect water installation pipes and gas installation pipes to the main earthing terminal"
+  },
+  {
+   "id": "s29",
+   "title": "What are the changes to the requirements for insulation resistance testing?",
+   "publisher": "Professional Electrician",
+   "edition": "BS 7671:2018+A2:2022",
+   "url": "https://professional-electrician.com/?p=48745",
+   "clause": "Regulation 643.3.1 and Table 64: circuits up to 500 V (230/400 V) tested at 500 V d.c., minimum 1 MΩ"
+  },
+  {
+   "id": "s30",
+   "title": "Update on RCD testing",
+   "publisher": "NICEIC (via Professional Electrician)",
+   "edition": "2021-06-05, BS 7671 18th Edition",
+   "url": "https://professional-electrician.com/?p=32417",
+   "clause": "Regulation 643.8: RCD for additional protection rated not more than 30 mA, tested with an instrument; disconnection within 40 ms at the specified test current (5 IΔn, or 0.25 A for some devices)"
+  },
+  {
+   "id": "s31",
+   "title": "8.5 Gas piping inspection, testing and purging",
+   "publisher": "Open Exam Prep (ICC residential mechanical study guide)",
+   "edition": "IRC G2417 / IFGC 406 (edition not stated)",
+   "url": "https://open-exam-prep.com/study-guides/icc-residential-mechanical/fuel-gas-piping-appliances/gas-testing-purging",
+   "clause": "G2417.4.1 test pressure not less than 1.5 x maximum working pressure and not less than 3 psig; G2417.4.2 held at least 10 minutes; G2417.2 air, nitrogen, CO2 or inert gas, oxygen prohibited"
+  }
+ ],
+ "research_log": [
+  "SBC 701 full text not accessible online (sbc.gov.sa portal and ICC Digital Codes require login; Scribd copy shows only chapters 1 to 2 and the TOC). Clause numbers taken from IPC adoptions that reproduce the text.",
+  "IPC 312.5 water supply test confirmed via FBC Residential 2023 P2503.7 (identical IRC/IPC wording) and New Castle County 2021 IPC form: working pressure, 15 min, air test only for non-plastic pipe.",
+  "IPC 312.2 / 312.3 DWV test (10 ft head, 5 psi air, 15 min) confirmed via ICC 2021 Significant Changes P2503.5.1, New Castle County form and Ohio Plumbing Code (IPC 2021 based). Note: older IRC used 5 ft head; IPC uses 10 ft.",
+  "Cleanout clauses seen only in IPC 2012 numbering (708.3.x); IPC 2015 onward places them under 708.1.x. Confidence set to medium.",
+  "Condensate slope 1% and 3/4 in drain size cited as IPC 314.2.1 / 314.2.2 via InspectAPedia; edition not stated.",
+  "SBC 401 text not accessed. Electrical values use IEC 60364-5-52 (via Voltimum), BS 7671 standard circuits (NAPIT), and NEC Chapter 9 Table 1 for conduit fill (US code, not SBC). Flag for verification against SBC 401 before publishing.",
+  "Switch and socket mounting heights dropped: no citable Saudi source found; item refers to approved drawings.",
+  "Hot water pipe insulation thickness dropped: no SBC 602 clause seen; item kept as practice without a number.",
+  "Hot on left cited from UPC 2024 417.5 via a forum quote; IPC equivalent (607.4) not seen this session.",
+  "Daikin wall split guide gives insulation thickness and states traps are not permitted on the drain hose, but gives no nitrogen test pressure. Nitrogen test value taken from Mitsubishi City Multi VRF manual (4.15 MPa, one day) as an example only; split units vary by model.",
+  "ASTM D5957 targets horizontal decks over occupied space; applied to bathroom flood test by analogy. Brief asked for 24 to 48 h; D5957 gives 24 h minimum, 72 h maximum.",
+  "Wet area upturn values come from AS 3740 based manufacturer details (Sika NZ, Fosroc AU): 1800 mm in shower, 25 mm floor upstand elsewhere. No Saudi or MOMAH source found; local specifications often require more. Marked low confidence.",
+  "PPR pressure test from Fırat Plastik assembly page (DIN-style two stage test). Other makers may differ; the item tells the owner to follow the supplier's manual if stricter.",
+  "Review 2026-10-06: UK ring-circuit acceptance removed from elec-sockets; ambient derating factors cited from a study guide (BS 7671 Table 4B1 itself not fetched).",
+  "Review 2026-10-06: Saudi Civil Defense / SASO gas piping test rules not verified; gas-test uses IRC G2417 / IFGC 406 values.",
+  "Review 2026-10-06: wet-upturn changed to Saudi practice (150 mm, prefer 300 mm) with no published Saudi source; AS 3740 25 mm figure no longer used."
+ ]
+}

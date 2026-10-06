@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>تقويم الصيانة الدورية · البيت بيتك</title>
+<meta name="description" content="سجّل آخر مرة نفذت فيها كل عمل صيانة في بيتك، ويحسب لك الموعد القادم والمتأخر، مع طريقة التنفيذ ومرجع كل مدة.">
+<meta property="og:title" content="تقويم الصيانة الدورية">
+<meta property="og:description" content="البيت الذي يُصان في موعده.. لا يفاجئك بعطل في أشد الأيام حراً">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة السكن</a><span>›</span><span>تقويم الصيانة الدورية</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">مرحلة السكن</span>
+    <h1>تقويم الصيانة الدورية</h1>
+    <p class="sub">البيت الذي يُصان في موعده.. لا يفاجئك بعطل في أشد الأيام حراً</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>من أول شهر بعد السكن، وطوال عمر البيت. أعطال الصيف والمطر أغلبها صيانة تأخرت: فلتر مسدود، أو مصرف سطح لم يُنظف.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>أخفِ ما لا يوجد في بيتك، كمضخة أو سخان أو حديقة.</li>
+      <li>سجّل تاريخ آخر مرة لكل عمل، أو اضغط «نُفذ اليوم» بعد تنفيذه.</li>
+      <li>راجع «المستحق الآن» أول كل شهر، وأضف المواعيد إلى تقويم جوالك. وسجّل الأعطال وملاحظاتها في دفتر السنة الأولى.</li>
+    </ol></div>
+  </div></details>
+
+  <div class="gate" id="gate"></div>
+  <div class="room-actions">
+    <div class="segs" role="group" aria-label="العرض"><button type="button" id="fDue" aria-pressed="true">المستحق الآن</button><button type="button" id="fAll" aria-pressed="false">كل الأعمال</button><button type="button" id="fOff" aria-pressed="false">المخفية</button></div>
+  </div>
+  <details class="gd-gen" id="gen"><summary>عن الصيانة في الأحساء</summary><div id="genIn"></div></details>
+  <div id="list"></div>
+  <div id="src"></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnIcs">أضف المواعيد إلى تقويم جوالك</button>
+    <button class="btn line" type="button" id="btnPrint">اطبع التقويم</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">يُحفظ تقويمك في حسابك، وتجده في أي جهاز تدخل منه.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
+<script src="../../assets/js/config.js?v=202610060507"></script>
+<script src="../../assets/js/session.js?v=202610060507"></script>
+<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script>
+TK.ready(function(){
+var el=TK.el,$=TK.$;
+var SYS={ac:'التكييف',water:'المياه والخزانات',plumbing:'السباكة والصرف',electrical:'الكهرباء',safety:'السلامة',roof:'السطح',exterior:'الواجهات والأبواب',garden:'الحديقة',pest:'الحشرات',appliances:'أجهزة المطبخ والغسيل'};
+var MON=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+function fresh(){return {v:1,last:{},off:{},view:'due'}}
+var ST=TK.store('bb_tool_maint_v1',fresh,1),S=ST.get(),D=null;
+GD.load('maintenance').then(function(d){D=d;init()},function(){GD.fail($('list'))});
+function today(){var d=new Date();return iso(d)}
+function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function next(t){var v=S.last[t.id];if(!v)return null;var d=new Date(v+'T00:00:00');
+  if(t.interval_months<1)d.setDate(d.getDate()+Math.round(t.interval_months*28));else{var m=d.getMonth()+t.interval_months,day=d.getDate();d.setDate(1);d.setMonth(m);var dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,dim))}
+  return iso(d)}
+function days(a,b){return Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/864e5)}
+function every(n){return n<1?'كل أسبوعين':n===1?'كل شهر':n===2?'كل شهرين':n<12?'كل '+n+' أشهر':n===12?'كل سنة':n%12===0?'كل '+(n/12)+' سنوات':'كل '+n+' شهراً'}
+function state(t){var n=next(t);if(!n)return {k:'new',t:'لم يُسجل بعد'};var d=days(n,today());
+  if(d<0)return {k:'over',t:'متأخر '+GD.n(-d,['يوماً واحداً','يومين','أيام','يوماً'])};if(d<=14)return {k:'soon',t:d===0?'موعده اليوم':'بعد '+GD.n(d,['يوم واحد','يومين','أيام','يوماً'])};return {k:'ok',t:'القادم: '+n}}
+function fmtDate(s){var d=new Date(s+'T00:00:00');return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()}
+function init(){
+  var ul=el('ul');D.general.forEach(function(x){ul.appendChild(GD.line(D,x,x.text_ar,'li'))});$('genIn').appendChild(ul);
+  [['fDue','due'],['fAll','all'],['fOff','off']].forEach(function(b){$(b[0]).addEventListener('click',function(){S.view=b[1];ST.save();draw()})});
+  draw();GD.sources(D,$('src'));
+}
+function draw(){
+  ['fDue','fAll','fOff'].forEach(function(id,i){$(id).setAttribute('aria-pressed',String(S.view===['due','all','off'][i]))});
+  var host=$('list');host.innerHTML='';var c={over:0,soon:0,new:0,ok:0},shown=0;
+  D.tasks.forEach(function(t){if(!S.off[t.id])c[state(t).k]++});
+  Object.keys(SYS).forEach(function(sys){
+    var ts=D.tasks.filter(function(t){if(t.system!==sys)return false;if(S.view==='off')return !!S.off[t.id];if(S.off[t.id])return false;if(S.view==='due'){var k=state(t).k;return k!=='ok'}return true});
+    if(!ts.length)return;var g=el('section','qgroup');var h=el('h3',null,SYS[sys]);h.appendChild(el('span',null,ts.length+''));g.appendChild(h);
+    ts.forEach(function(t){shown++;var s=state(t);var row=el('div','mtask'+(s.k==='over'?' over':s.k==='soon'?' soon':''));
+      var tt=el('div','t');var b=el('b',null,t.task_ar);var tg=GD.tag(t);if(tg){b.appendChild(document.createTextNode(' '));b.appendChild(tg)}tt.appendChild(b);
+      var meta=every(t.interval_months)+' · '+(t.who==='tech'?'يحتاج فنياً':'تنفذه بنفسك');if(t.season_months&&t.season_months.length)meta+=' · أنسب وقت: '+t.season_months.map(function(m){return MON[m-1]}).join(' و');
+      tt.appendChild(el('small',null,meta));row.appendChild(tt);
+      var ctl=el('div','ctl');var pill=el('span','pill'+(s.k==='over'?' r':s.k==='soon'?' y':s.k==='ok'?' g':''),s.t);ctl.appendChild(pill);
+      var inp=el('input');inp.type='date';inp.value=S.last[t.id]||'';inp.max=today();inp.setAttribute('aria-label','آخر مرة: '+t.task_ar);
+      inp.addEventListener('change',function(){if(inp.value)S.last[t.id]=inp.value;else delete S.last[t.id];ST.save();draw()});ctl.appendChild(inp);
+      var dn=el('button','btn sm line','نُفذ اليوم');dn.type='button';dn.addEventListener('click',function(){S.last[t.id]=today();ST.save();draw();ST.flash('سُجل: '+t.task_ar)});ctl.appendChild(dn);
+      var hd=el('button','linkbtn',S.off[t.id]?'إظهار':'لا يوجد عندي');hd.type='button';hd.addEventListener('click',function(){if(S.off[t.id])delete S.off[t.id];else S.off[t.id]=true;ST.save();draw()});ctl.appendChild(hd);
+      row.appendChild(ctl);
+      var dt=el('details');dt.appendChild(el('summary',null,'كيف ولماذا؟'));dt.appendChild(el('p',null,t.how_ar));dt.appendChild(GD.line(D,t,t.why_ar));
+      if(S.last[t.id])dt.appendChild(el('p',null,'آخر مرة: '+fmtDate(S.last[t.id])+(next(t)?' · القادم: '+fmtDate(next(t)):'')));row.appendChild(dt);
+      g.appendChild(row)});
+    host.appendChild(g);
+  });
+  if(!shown){var e=el('div','gd-empty');e.appendChild(el('p',null,S.view==='due'?'لا شيء مستحق الآن. كل الأعمال المسجلة في موعدها.':S.view==='off'?'لا أعمال مخفية.':'لا أعمال.'));host.appendChild(e)}
+  var G=$('gate');G.innerHTML='';
+  if(c.over){G.className='gate no';G.appendChild(el('b',null,GD.n(c.over,['عمل واحد متأخر','عملان متأخران','أعمال متأخرة','عملاً متأخراً'])));G.appendChild(el('p',null,'ابدأ بها، خصوصاً ما يخص السلامة والتكييف قبل الصيف ومصارف السطح قبل المطر.'))}
+  else if(c.soon){G.className='gate';G.appendChild(el('b',null,GD.n(c.soon,['عمل واحد','عملان','أعمال','عملاً'])+' خلال أسبوعين'));G.appendChild(el('p',null,'رتّبها الآن، واحجز الفني لما يحتاج فنياً.'))}
+  else if(c.new){G.className='gate';G.appendChild(el('b',null,'لم تسجّل بعد تاريخ '+GD.n(c.new,['عمل واحد','عملين','أعمال','عملاً'])));G.appendChild(el('p',null,'سجّل تاريخ آخر مرة لكل عمل، أو اضغط «نُفذ اليوم» بعد تنفيذه، ليحسب لك الموعد القادم.'))}
+  else{G.className='gate yes';G.appendChild(el('b',null,'كل الأعمال في موعدها'));G.appendChild(el('p',null,'عد إلى التقويم أول كل شهر.'))}
+}
+/* ملف تقويم بالمواعيد القادمة يُفتح في تقويم الجوال */
+$('btnIcs').addEventListener('click',function(){if(!D)return;
+  var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//albait-baitak//maintenance//AR','CALSCALE:GREGORIAN'],n=0,stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  D.tasks.forEach(function(t){if(S.off[t.id])return;var d=next(t);if(!d)return;if(d<today())d=today();var x=d.replace(/-/g,'');var e=new Date(d+'T00:00:00');e.setDate(e.getDate()+1);
+    L.push('BEGIN:VEVENT','UID:'+t.id+'-'+x+'@albait-baitak','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+x,'DTEND;VALUE=DATE:'+iso(e).replace(/-/g,''),'SUMMARY:صيانة: '+t.task_ar.replace(/[,;]/g,' '),'DESCRIPTION:'+t.how_ar.replace(/[,;\n]/g,' '),'BEGIN:VALARM','TRIGGER:-PT9H','ACTION:DISPLAY','DESCRIPTION:صيانة','END:VALARM','END:VEVENT');n++});
+  L.push('END:VCALENDAR');
+  if(!n){ST.flash('سجّل تاريخ آخر مرة لبعض الأعمال أولاً');return}
+  var b=new Blob([L.join('\r\n')],{type:'text/calendar;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='صيانة-بيتي.ics';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);ST.flash('نُزّل '+GD.n(n,['موعد واحد','موعدان','مواعيد','موعداً']))});
+$('btnPrint').addEventListener('click',function(){var v=S.view;S.view='all';draw();window.print();S.view=v;draw()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();draw();ST.flash('بدأت من جديد')});
+});
+</script>
+</body>
+</html>

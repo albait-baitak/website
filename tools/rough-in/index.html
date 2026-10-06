@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>فحص التأسيس قبل الإغلاق · البيت بيتك</title>
+<meta name="description" content="قائمة فحص لكل ما سيُدفن في الجدران والأرضيات: تغذية المياه والصرف والكهرباء والتيار الخفيف والتكييف والعزل، بطريقة الفحص ومعيار القبول ومرجعه.">
+<meta property="og:title" content="فحص التأسيس قبل الإغلاق">
+<meta property="og:description" content="ما يُدفن في الجدار لا يُفحص بعد اللياسة.. افحصه الآن">
+<meta property="og:locale" content="ar_SA">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610060507">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610060507">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة التنفيذ</a><span>›</span><span>فحص التأسيس قبل الإغلاق</span></nav>
+  <div class="tool-hero nonum">
+    <span class="stage-tag">مرحلة التنفيذ</span>
+    <h1>فحص التأسيس قبل الإغلاق</h1>
+    <p class="sub">ما يُدفن في الجدار لا يُفحص بعد اللياسة.. افحصه الآن</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>بعد انتهاء تمديدات السباكة والكهرباء والتكييف، وقبل اللياسة وصب الأرضيات والتبليط. هذه آخر لحظة ترى فيها ما سيبقى خلف الجدار عشرين سنة.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>امشِ مع المقاول أو المشرف قسماً قسماً، وافتح «كيف تفحص؟» لكل بند.</li>
+      <li>علّم كل بند: <b style="color:var(--ok)">مطابق</b>، أو <b style="color:var(--stop)">يحتاج تصحيح</b>، أو لا ينطبق على بيتك.</li>
+      <li>البنود الموسومة «لا تُغلق قبله» تمنع الإغلاق حتى تُصحح. وسجّل في خارطة بنود التنفيذ تاريخ الاستلام.</li>
+    </ol></div>
+  </div></details>
+
+  <div class="gate" id="gate"></div>
+  <div class="prog-line" id="progLine"></div>
+  <div class="toc" id="toc" style="margin-top:14px"></div>
+  <details class="gd-gen" id="gen"><summary>قبل أن تبدأ</summary><div id="genIn"></div></details>
+  <div id="secs"></div>
+  <div id="src"></div>
+
+  <div class="tool-actions">
+    <button class="btn" type="button" id="btnPrint">اطبع محضر الفحص أو احفظه PDF</button>
+    <button class="btn line" type="button" id="btnCsv">نزّل المحضر (CSV)</button>
+    <button class="btn line" type="button" id="btnReset">ابدأ من جديد</button>
+    <span class="saved" id="saved">يُحفظ فحصك في حسابك، وتجده في أي جهاز تدخل منه.</span>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610060507"></script>
+<script src="../../assets/js/config.js?v=202610060507"></script>
+<script src="../../assets/js/session.js?v=202610060507"></script>
+<script src="../../assets/js/toolkit.js?v=202610060507"></script>
+<script src="../../assets/js/guide.js?v=202610060507"></script>
+<script>
+TK.ready(function(){
+var el=TK.el,$=TK.$;
+var STATES=[['ok','مطابق','✓'],['bad','يحتاج تصحيح','✕'],['chk2','لا ينطبق','–']];
+var LBL={ok:'مطابق',bad:'يحتاج تصحيح',chk2:'لا ينطبق'};
+function fresh(){return {v:1,st:{},notes:{},date:{}}}
+var ST=TK.store('bb_tool_roughin_v1',fresh,1),S=ST.get(),D=null,rows=[];
+GD.load('inspection').then(function(d){D=d;init()},function(){GD.fail($('secs'))});
+function init(){
+  var ul=el('ul');D.general.forEach(function(x){ul.appendChild(GD.line(D,x,x.text_ar,'li'))});$('genIn').appendChild(ul);
+  var toc=$('toc');D.sections.forEach(function(s){var a=el('a',null,s.name_ar);a.href='#sec-'+s.id;a.id='toc-'+s.id;toc.appendChild(a)});
+  draw();GD.sources(D,$('src'));paint();
+}
+function draw(){
+  var host=$('secs');host.innerHTML='';rows=[];
+  D.sections.forEach(function(sec,si){
+    var g=el('section','qgroup tsec');g.id='sec-'+sec.id;var h=el('h3',null,(si+1)+'. '+sec.name_ar);var meta=el('span');meta.id='sm-'+sec.id;h.appendChild(meta);g.appendChild(h);
+    var dl=el('div','prog-line');dl.appendChild(document.createTextNode((sec.when_ar?'متى: '+sec.when_ar+' · ':'')+'تاريخ الفحص: '));
+    var di=el('input');di.type='date';di.value=S.date[sec.id]||'';di.setAttribute('aria-label','تاريخ فحص '+sec.name_ar);
+    di.addEventListener('change',function(){if(di.value)S.date[sec.id]=di.value;else delete S.date[sec.id];ST.save()});dl.appendChild(di);g.appendChild(dl);
+    sec.items.forEach(function(it){
+      var row=el('div','lchk');var t=el('div','t');t.appendChild(document.createTextNode(it.check_ar));if(it.stop)t.appendChild(el('span','stopmark','لا تُغلق قبله'));
+      var tg=GD.tag(it);if(tg){t.appendChild(document.createTextNode(' '));t.appendChild(tg)}row.appendChild(t);
+      var tri=el('div','tri');tri.setAttribute('role','group');tri.setAttribute('aria-label','حالة البند');
+      STATES.forEach(function(s){var b=el('button',s[0]);b.type='button';b.appendChild(el('span','s',s[2]));b.appendChild(document.createTextNode(s[1]));
+        b.addEventListener('click',function(){if(S.st[it.id]===s[0])delete S.st[it.id];else S.st[it.id]=s[0];ST.save();paint()});tri.appendChild(b)});
+      row.appendChild(tri);
+      var dt=el('details');dt.appendChild(el('summary',null,'كيف تفحص؟'));
+      var p1=el('p');p1.appendChild(el('b',null,'الفحص: '));p1.appendChild(document.createTextNode(it.how_ar));dt.appendChild(p1);
+      var p2=el('p');p2.appendChild(el('b',null,'القبول: '));p2.appendChild(document.createTextNode(it.accept_ar));var rf=GD.refs(D,it.source_ids);if(rf)p2.appendChild(rf);dt.appendChild(p2);row.appendChild(dt);
+      var nt=el('div','note'),ta=el('textarea');ta.rows=1;ta.placeholder='الملاحظة ومكانها (الدور، الغرفة)';ta.setAttribute('aria-label','ملاحظة: '+it.check_ar);ta.value=S.notes[it.id]||'';
+      ta.addEventListener('input',function(){if(ta.value)S.notes[it.id]=ta.value;else delete S.notes[it.id];ST.save();TK.grow(ta)});nt.appendChild(ta);row.appendChild(nt);
+      g.appendChild(row);rows.push({it:it,sec:sec,tri:tri,ta:ta});setTimeout(function(){TK.grow(ta)},0);
+    });
+    host.appendChild(g);
+  });
+}
+function paint(){
+  var c={ok:0,bad:0,chk2:0},n=0,block={},openStop=0;
+  rows.forEach(function(r){n++;var v=S.st[r.it.id];if(v)c[v]++;r.tri.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.classList.contains(v)))});
+    if(r.it.stop&&v!=='ok'&&v!=='chk2'){openStop++;block[r.sec.id]=(block[r.sec.id]||0)+1}});
+  D.sections.forEach(function(sec){var tot=sec.items.length,dn=sec.items.filter(function(i){return S.st[i.id]}).length,b=block[sec.id]||0;
+    var m=$('sm-'+sec.id);m.textContent=dn+' من '+tot+(b?' · '+b+' تمنع الإغلاق':'');var a=$('toc-'+sec.id);a.className=dn===tot&&!b?'done':''});
+  var pl=$('progLine');pl.innerHTML='';[['فُحص',(c.ok+c.bad+c.chk2)+' من '+n],['مطابق',c.ok],['يحتاج تصحيح',c.bad],['لا ينطبق',c.chk2]].forEach(function(x){var s=el('span',null,x[0]+': ');s.appendChild(el('b',null,String(x[1])));pl.appendChild(s)});
+  var G=$('gate');G.innerHTML='';
+  var names=D.sections.filter(function(s){return block[s.id]}).map(function(s){return s.name_ar});
+  if(openStop){G.className='gate no';G.appendChild(el('b',null,'لا تسمح بالإغلاق بعد'));G.appendChild(el('p',null,'بنود «لا تُغلق قبله» التي لم تُعلَّم مطابقة: '+GD.n(openStop,['بند واحد','بندان','بنود','بنداً'])+'، في: '+names.join('، ')+'. صححها وافحصها مرة أخرى قبل اللياسة أو الصب.'))}
+  else if(c.bad){G.className='gate';G.appendChild(el('b',null,'يمكن الإغلاق بعد التصحيح'));G.appendChild(el('p',null,'البنود المانعة مطابقة، وما زال يحتاج تصحيحاً: '+GD.n(c.bad,['بند واحد','بندان','بنود','بنداً'])+'. اتفق مع المقاول على تصحيحها ووثّقها.'))}
+  else{G.className='gate yes';G.appendChild(el('b',null,'البنود المانعة مطابقة'));G.appendChild(el('p',null,(c.ok+c.chk2)<n?'أكمل بقية البنود، وصوّر كل جدار بالمتر قبل الإغلاق.':'اكتمل الفحص. صوّر كل جدار بالمتر واحفظ الصور في ملف بيتك.'))}
+}
+$('btnCsv').addEventListener('click',function(){if(!D)return;var out=[['القسم','تاريخ الفحص','البند','لا تُغلق قبله','الحالة','الملاحظة']];
+  D.sections.forEach(function(sec){sec.items.forEach(function(it){out.push([sec.name_ar,S.date[sec.id]||'',it.check_ar,it.stop?'نعم':'',LBL[S.st[it.id]]||'لم يُفحص',S.notes[it.id]||''])})});TK.csv(out,'فحص-التأسيس.csv')});
+$('btnPrint').addEventListener('click',function(){window.print()});
+TK.resetButton($('btnReset'),function(){S=ST.clear();draw();paint();ST.flash('بدأت من جديد')});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1604 @@
+{
+ "version": "1",
+ "built": "2026-10-06",
+ "rooms": [
+  {
+   "id": "majlis-men",
+   "name_ar": "مجلس الرجال",
+   "checks": [
+    {
+     "id": "majlis-men-width",
+     "label_ar": "عرض المجلس",
+     "input_ar": "أقصر بُعد صافٍ للمجلس بين جدارين متقابلين",
+     "unit": "cm",
+     "min": 280,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "هذا الحد الأدنى النظامي لغرف المجلس والطعام والصالة. في مجلس جلسته على الجدارين المتقابلين، اطرح عمق الجلستين من العرض لتعرف ما يبقى للوسط.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "majlis-men-center",
+     "label_ar": "الوسط الخالي بين الجلستين المتقابلتين",
+     "input_ar": "المسافة الخالية بين حافتي المقاعد المتقابلة (أو بين المقعد والطاولات الصغيرة أمامه)",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": 150,
+     "max": null,
+     "tip_ar": "يكفي 75 سم ليمر شخص واحد بين الضيوف، و150 سم تتيح لمن يقدم القهوة أن يلتفت ويمر بالدلة والصينية دون أن يحتك بركب الجالسين.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "majlis-men-path",
+     "label_ar": "ممر الدخول إلى الجلسة",
+     "input_ar": "أضيق عرض للمسار من باب المجلس إلى أبعد مقعد",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "اترك مساراً لا يقل عن 75 سم من الباب إلى الجلسة، ولا تجعل الضيف يمر أمام صف كامل من الجالسين ليصل إلى مكانه.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "majlis-men-door",
+     "label_ar": "عرض باب المجلس",
+     "input_ar": "الفتحة الصافية للباب حين يكون مفتوحاً",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": 85,
+     "max": null,
+     "tip_ar": "باب المجلس يستقبل الضيوف وكبار السن، فاجعل فتحته الصافية 85 سم إن أمكن، خصوصاً إذا كان يفتح على الخارج مباشرة.",
+     "source_ids": [
+      "s33",
+      "s34"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "اجعل للمجلس مدخلاً من الخارج أو من بهو مستقل، بحيث لا يرى الضيف داخل البيت ولا يمر بأهله.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "احسب طول الجلسة على الجدران بعدد الضيوف في المناسبات لا في الأيام العادية، فالمجلس يُصمم ليومه الأكبر.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "زجاج النوافذ لا يقل عن 8٪ من مساحة أرضية المجلس، والجزء القابل للفتح لا يقل عن 4٪ منها.",
+     "source_ids": [
+      "s5"
+     ]
+    },
+    {
+     "text_ar": "وزّع الإضاءة طبقات: إضاءة عامة خافتة متجانسة، وإضاءة جدارية أو مخفية فوق الجلسة، ونقاط تبرز اللوحات أو الخط العربي. وضع لكل طبقة مفتاحاً مستقلاً.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": 300,
+    "note_ar": "قيمة الصالة في المعيار الصيني 100 لوكس للنشاط العام و300 للقراءة بإضاءة موضعية، ونطاق CIBSE لغرف المعيشة 100 إلى 300. قيم السكن إرشادية غير ملزمة في أغلب المعايير.",
+    "source_ids": [
+     "s37",
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "majlis-women",
+   "name_ar": "مجلس النساء",
+   "checks": [
+    {
+     "id": "majlis-women-width",
+     "label_ar": "عرض المجلس",
+     "input_ar": "أقصر بُعد صافٍ للمجلس بين جدارين متقابلين",
+     "unit": "cm",
+     "min": 280,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "الحد الأدنى النظامي نفسه لغرف المجلس. إن كان المجلس يستقبل الأطفال مع أمهاتهم فاحسب لهم مساحة لعب في الوسط.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "majlis-women-center",
+     "label_ar": "الوسط الخالي بين الجلستين المتقابلتين",
+     "input_ar": "المسافة الخالية بين حافتي المقاعد المتقابلة",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": 150,
+     "max": null,
+     "tip_ar": "150 سم في الوسط تتيح الضيافة وحركة الأطفال وعربة الطفل دون إرباك الجالسات.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "majlis-women-path",
+     "label_ar": "ممر الدخول إلى الجلسة",
+     "input_ar": "أضيق عرض للمسار من باب المجلس إلى أبعد مقعد",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "لا يقل المسار عن 75 سم، وأبعده عن أطراف المقاعد حتى لا تتعثر الضيفة بالحقائب أو الأقدام.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "majlis-women-door",
+     "label_ar": "عرض باب المجلس",
+     "input_ar": "الفتحة الصافية للباب حين يكون مفتوحاً",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": 85,
+     "max": null,
+     "tip_ar": "85 سم فتحة صافية مريحة لعربة الطفل ولكبيرات السن.",
+     "source_ids": [
+      "s33",
+      "s34"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "اجعل مدخل مجلس النساء منفصلاً عن مدخل الرجال، وقريباً من حمام للضيفات ومن المطبخ أو غرفة التحضير.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "اختبر خطوط النظر: من باب مجلس الرجال أو مدخله يجب ألا يُرى داخل مجلس النساء ولا بابه.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "زجاج النوافذ لا يقل عن 8٪ من مساحة الأرضية، والجزء القابل للفتح لا يقل عن 4٪.",
+     "source_ids": [
+      "s5"
+     ]
+    },
+    {
+     "text_ar": "إضاءة دافئة متدرجة تخدم الجلسة، مع إضاءة واضحة عند المرآة إن وُجدت في المدخل.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": 300,
+    "note_ar": "مثل الصالة: 100 لوكس عامة و300 موضعية للقراءة. نطاق CIBSE لغرف المعيشة 100 إلى 300، وهي قيم إرشادية.",
+    "source_ids": [
+     "s37",
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "living",
+   "name_ar": "صالة المعيشة",
+   "checks": [
+    {
+     "id": "living-width",
+     "label_ar": "عرض الصالة",
+     "input_ar": "أقصر بُعد صافٍ للصالة",
+     "unit": "cm",
+     "min": 280,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "الحد الأدنى النظامي للصالة. الصالة العائلية في البيت السعودي تتسع غالباً لأكثر من ذلك بكثير، فقدّر عدد الجالسين يومياً.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "living-tv-ratio",
+     "label_ar": "مسافة المشاهدة إلى قطر الشاشة",
+     "input_ar": "المسافة من موضع عيني الجالس إلى الشاشة مقسومة على قطر الشاشة (بالوحدة نفسها)",
+     "unit": "ratio",
+     "min": 1.0,
+     "ideal_min": 1.2,
+     "max": 1.6,
+     "tip_ar": "النسبة 1.2 تعطي زاوية رؤية نحو 40 درجة (تجربة سينمائية)، و1.6 تعطي نحو 30 درجة (مشاهدة عامة). مثال: شاشة 65 بوصة (165 سم) تناسبها مسافة بين 198 و264 سم تقريباً.",
+     "source_ids": [
+      "s30"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "living-path",
+     "label_ar": "الممر بين قطع الأثاث",
+     "input_ar": "أضيق مسار حركة بين الكنب والطاولات أو الجدار",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "مسار الحركة الأساسي لا يقل عن 75 سم، ولا تجعله يمر بين الجالس والشاشة.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "living-turn",
+     "label_ar": "المساحة الحرة في الوسط",
+     "input_ar": "قطر أكبر دائرة خالية من الأثاث يمكن رسمها في الصالة",
+     "unit": "cm",
+     "min": null,
+     "ideal_min": 150,
+     "max": null,
+     "tip_ar": "دائرة حرة بقطر 150 سم تضمن حركة مريحة لكبار السن ولكرسي متحرك إن احتجتم إليه يوماً.",
+     "source_ids": [
+      "s35"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "لا تضع الشاشة مقابل نافذة أو بجانبها مباشرة، فالانعكاس يفسد المشاهدة نهاراً.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "زاوية 30 درجة تناسب المشاهدة العامة، و40 درجة لغرفة السينما المنزلية. احسب المسافة من قطر الشاشة التي ستشتريها فعلاً.",
+     "source_ids": [
+      "s30"
+     ]
+    },
+    {
+     "text_ar": "زجاج النوافذ لا يقل عن 8٪ من مساحة الأرضية، والجزء القابل للفتح لا يقل عن 4٪.",
+     "source_ids": [
+      "s5"
+     ]
+    },
+    {
+     "text_ar": "ثلاث طبقات إضاءة: عامة بمفتاح تخفيت، وموضعية بجانب مقعد القراءة، وخلفية خافتة خلف الشاشة تخفف إجهاد العين.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": 300,
+    "note_ar": "المعيار الصيني: 100 لوكس للنشاط العام و300 للقراءة والكتابة بإضاءة موضعية. نطاق CIBSE لغرف المعيشة 100 إلى 300. قيم إرشادية للسكن.",
+    "source_ids": [
+     "s37",
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "dining",
+   "name_ar": "غرفة الطعام",
+   "checks": [
+    {
+     "id": "dining-width",
+     "label_ar": "عرض غرفة الطعام",
+     "input_ar": "أقصر بُعد صافٍ للغرفة",
+     "unit": "cm",
+     "min": 280,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "الحد الأدنى النظامي لغرف الطعام. أضف عرض الطاولة إلى مسافتي السحب على الجانبين لتعرف العرض الذي تحتاجه فعلاً.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "dining-wall-noaccess",
+     "label_ar": "من حافة الطاولة إلى الجدار (لا مرور خلف الكرسي)",
+     "input_ar": "المسافة من حافة الطاولة إلى الجدار أو الخزانة في جهة لا يمر منها أحد",
+     "unit": "cm",
+     "min": 81,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "81 سم تكفي لسحب الكرسي والجلوس إذا لم يكن خلفه ممر.",
+     "source_ids": [
+      "s8"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "dining-wall-access",
+     "label_ar": "من حافة الطاولة إلى الجدار (ممر خلف الكرسي)",
+     "input_ar": "المسافة من حافة الطاولة إلى الجدار في جهة يمر منها من يقدم الطعام",
+     "unit": "cm",
+     "min": 91,
+     "ideal_min": 112,
+     "max": null,
+     "tip_ar": "91 سم تسمح بالمرور جانبياً خلف الجالس، و112 سم تسمح بالمشي خلفه وأنت تحمل صحناً.",
+     "source_ids": [
+      "s8"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "dining-seat-width",
+     "label_ar": "العرض لكل جالس",
+     "input_ar": "طول ضلع الطاولة مقسوماً على عدد الكراسي فيه",
+     "unit": "cm",
+     "min": 61,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "61 سم لكل شخص هو الأدنى، وأي أقل من ذلك يجعل المرافق تتزاحم.",
+     "source_ids": [
+      "s10"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "كثير من البيوت تأكل على سفرة أرضية في المناسبات. إن كان ذلك عادتكم فاجعل جزءاً من المجلس أو الصالة خالياً قابلاً للفرش، وقريباً من المطبخ.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "قرّب غرفة الطعام من المطبخ أو من غرفة التحضير، واجعل مسار التقديم لا يمر بالمجلس.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "علّق الثريا أو الإنارة المعلقة في منتصف الطاولة لا في منتصف الغرفة، وأضف إضاءة عامة خافتة حولها.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 150,
+    "task": null,
+    "note_ar": "المعيار الصيني يعطي 150 لوكس على سطح الطاولة. قيمة إرشادية للسكن.",
+    "source_ids": [
+     "s37"
+    ]
+   }
+  },
+  {
+   "id": "master",
+   "name_ar": "غرفة النوم الرئيسية",
+   "checks": [
+    {
+     "id": "master-width",
+     "label_ar": "عرض الغرفة",
+     "input_ar": "أقصر بُعد صافٍ للغرفة",
+     "unit": "cm",
+     "min": 210,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "هذا الحد الأدنى النظامي لأي غرفة نوم. غرفة رئيسية بسرير مزدوج تحتاج عرض السرير مضافاً إليه ممرين جانبيين.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "master-bedside",
+     "label_ar": "الممر بجانب السرير",
+     "input_ar": "المسافة بين طرف السرير والجدار أو الخزانة، على كل جانب",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "ممر 75 سم على الجانبين يتيح لكل من الزوجين أن ينهض ويرتب السرير دون أن يزعج الآخر.",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "master-foot",
+     "label_ar": "المساحة عند قدم السرير",
+     "input_ar": "المسافة من نهاية السرير إلى الجدار أو الخزانة أو التسريحة",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "75 سم عند القدم كافية للمرور. إن كانت أمامها خزانة بأبواب مفصلية فخذ عرض الباب مفتوحاً في الحسبان.",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "master-route",
+     "label_ar": "المسار من الباب إلى النافذة",
+     "input_ar": "أضيق عرض للمسار من باب الغرفة إلى النافذة",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "مسار حر بعرض 75 سم يتيح فتح النافذة والستارة دون الصعود على السرير.",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "شباك غرفة النوم في الدور العلوي إن كان معداً للهروب فلا تزيد جلسته على 110 سم.",
+     "source_ids": [
+      "s41"
+     ]
+    },
+    {
+     "text_ar": "لا تجعل السرير في خط النظر من الباب المفتوح، فالغرفة الرئيسية أكثر الغرف خصوصية.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "إضاءة عامة خافتة، وإضاءة قراءة موجهة لكل جانب من السرير بمفتاح مستقل، ومفتاح للإضاءة العامة بجانب السرير.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 75,
+    "task": 150,
+    "note_ar": "المعيار الصيني: 75 لوكس عامة و150 للقراءة عند رأس السرير بإضاءة موضعية. نطاق CIBSE لغرف النوم 100 إلى 150. قيم إرشادية.",
+    "source_ids": [
+     "s37",
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "kids",
+   "name_ar": "غرفة نوم الأطفال",
+   "checks": [
+    {
+     "id": "kids-width",
+     "label_ar": "عرض الغرفة",
+     "input_ar": "أقصر بُعد صافٍ للغرفة",
+     "unit": "cm",
+     "min": 210,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "الحد الأدنى النظامي لغرفة النوم. إذا كانت لطفلين فارسم السريرين والمكتب قبل اعتماد العرض.",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "kids-bedside",
+     "label_ar": "الممر بجانب كل سرير",
+     "input_ar": "المسافة الحرة على جانب واحد من كل سرير (أو بين سريرين)",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "يكفي جانب واحد حر بعرض 75 سم لكل سرير، ويمكن أن يشترك سريران في ممر واحد بينهما.",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kids-route",
+     "label_ar": "المسار من الباب إلى النافذة",
+     "input_ar": "أضيق عرض للمسار من باب الغرفة إلى النافذة",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "75 سم مسار حر، ولا تضع المكتب أو الخزانة بحيث يقطعه.",
+     "source_ids": [
+      "s31"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "شباك غرفة النوم في الدور العلوي إن كان معداً للهروب فلا تزيد جلسته على 110 سم.",
+     "source_ids": [
+      "s41"
+     ]
+    },
+    {
+     "text_ar": "ضع المكتب بحيث يأتي ضوء النافذة من الجانب لا من الخلف ولا من الأمام.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "إضاءة عامة، وإضاءة مكتب موجهة، وإضاءة ليلية خافتة قرب الأرض للأطفال الصغار.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 75,
+    "task": 300,
+    "note_ar": "المعيار الصيني: 75 لوكس عامة لغرفة النوم، و300 للقراءة والكتابة (قيمة الصالة) تصلح للمكتب بإضاءة موضعية. قيم إرشادية.",
+    "source_ids": [
+     "s37"
+    ]
+   }
+  },
+  {
+   "id": "dressing",
+   "name_ar": "غرفة الملابس",
+   "checks": [
+    {
+     "id": "dressing-aisle",
+     "label_ar": "الممر بين الخزائن",
+     "input_ar": "المسافة الحرة بين واجهتي الخزائن أو بين الخزانة والجدار",
+     "unit": "cm",
+     "min": 61,
+     "ideal_min": 76,
+     "max": null,
+     "tip_ar": "61 سم ممر ضيق لشخص واحد، و76 إلى 91 سم أريح لتبديل الملابس وفتح الأدراج.",
+     "source_ids": [
+      "s39"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "dressing-hanging-depth",
+     "label_ar": "عمق خزانة التعليق",
+     "input_ar": "عمق الرف أو الخزانة التي تُعلق فيها الملابس",
+     "unit": "cm",
+     "min": 51,
+     "ideal_min": 61,
+     "max": null,
+     "tip_ar": "61 سم عمق يناسب أكتاف الثياب والمعاطف، وما دون 51 سم يجعل الملابس تحتك بالباب أو تميل.",
+     "source_ids": [
+      "s39"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "dressing-width-one",
+     "label_ar": "عرض غرفة الملابس بخزائن على جهة واحدة",
+     "input_ar": "العرض الصافي للغرفة إذا كانت الخزائن على جدار واحد",
+     "unit": "cm",
+     "min": 122,
+     "ideal_min": 152,
+     "max": null,
+     "tip_ar": "عمق الخزانة مضافاً إليه الممر. 122 سم أدنى ما يعمل.",
+     "source_ids": [
+      "s39"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "dressing-width-two",
+     "label_ar": "عرض غرفة الملابس بخزائن على جهتين",
+     "input_ar": "العرض الصافي للغرفة إذا كانت الخزائن على جدارين متقابلين",
+     "unit": "cm",
+     "min": 183,
+     "ideal_min": 213,
+     "max": null,
+     "tip_ar": "عمقا الخزانتين مضافاً إليهما الممر. ما دون 183 سم يجعل الأبواب والأدراج تتصادم.",
+     "source_ids": [
+      "s39"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "إن كانت للخزائن أبواب مفصلية فأضف عرض الباب مفتوحاً إلى الممر، أو استخدم أبواباً منزلقة أو رفوفاً مفتوحة.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "اجعل غرفة الملابس بين غرفة النوم والحمام لتخدم الروتين اليومي.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "إضاءة عمودية على واجهات الخزائن أو داخلها أنفع من مصباح واحد في السقف يلقي ظل الشخص على الملابس.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": 150,
+    "note_ar": "لا توجد قيمة مستقلة لغرفة الملابس في المراجع المتاحة، والقيمة هنا قياساً على نطاق CIBSE لغرف النوم (100 إلى 150). ثقة منخفضة.",
+    "source_ids": [
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "kitchen",
+   "name_ar": "المطبخ",
+   "checks": [
+    {
+     "id": "kitchen-aisle-one",
+     "label_ar": "ممر العمل (طباخ واحد)",
+     "input_ar": "المسافة بين واجهتي سطح العمل المتقابلين أو بين سطح العمل والجزيرة",
+     "unit": "cm",
+     "min": 107,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "107 سم أقل ممر عمل مريح لشخص واحد مع فتح أبواب الأجهزة.",
+     "source_ids": [
+      "s7"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kitchen-aisle-two",
+     "label_ar": "ممر العمل (أكثر من طباخ)",
+     "input_ar": "المسافة بين واجهتي سطح العمل إذا كان يعمل في المطبخ أكثر من شخص",
+     "unit": "cm",
+     "min": 122,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "في البيت السعودي غالباً يعمل في المطبخ أكثر من شخص، فاجعل الممر 122 سم على الأقل.",
+     "source_ids": [
+      "s7"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kitchen-walkway",
+     "label_ar": "ممر العبور",
+     "input_ar": "عرض الممر الذي يعبر المطبخ دون أن يكون منطقة عمل",
+     "unit": "cm",
+     "min": 91,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "ممر العبور لا يقل عن 91 سم، والأفضل ألا يقطع مثلث العمل.",
+     "source_ids": [
+      "s9"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kitchen-counter-height",
+     "label_ar": "ارتفاع سطح العمل",
+     "input_ar": "الارتفاع من الأرضية النهائية إلى ظهر سطح العمل",
+     "unit": "cm",
+     "min": 85,
+     "ideal_min": 90,
+     "max": 95,
+     "tip_ar": "الارتفاعات القياسية 85 و90 و95 سم. اختر ما يناسب طول من يطبخ أكثر: الأنسب أن يقع السطح أسفل المرفق بقليل.",
+     "source_ids": [
+      "s23"
+     ],
+     "basis": "standard",
+     "confidence": "medium"
+    },
+    {
+     "id": "kitchen-sink-landing",
+     "label_ar": "سطح العمل بجانب المغسلة",
+     "input_ar": "طول سطح العمل الحر على الجانب الأوسع من المغسلة",
+     "unit": "cm",
+     "min": 61,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "61 سم على جانب و46 سم على الجانب الآخر على الأقل، للأواني المتسخة والنظيفة.",
+     "source_ids": [
+      "s11"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kitchen-cooktop-landing",
+     "label_ar": "سطح العمل بجانب الموقد",
+     "input_ar": "طول سطح العمل الحر على الجانب الأوسع من الموقد",
+     "unit": "cm",
+     "min": 38,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "38 سم على جانب و30 سم على الآخر على الأقل، لتضع القدر الساخن فوراً.",
+     "source_ids": [
+      "s13"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "kitchen-triangle",
+     "label_ar": "مجموع أضلاع مثلث العمل",
+     "input_ar": "مجموع المسافات بين منتصف المغسلة والموقد والثلاجة",
+     "unit": "cm",
+     "min": null,
+     "ideal_min": null,
+     "max": 792,
+     "tip_ar": "لا يزيد المجموع على 792 سم، وكل ضلع بين 122 و274 سم. المثلث الكبير يُتعب من يطبخ، والصغير يزحمه.",
+     "source_ids": [
+      "s6"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "عرض المطبخ لا يقل نظاماً عن 180 سم ومساحته عن 5 م².",
+     "source_ids": [
+      "s1"
+     ]
+    },
+    {
+     "text_ar": "اترك 38 سم من سطح العمل بجانب مقبض الثلاجة أو مقابلها على بعد لا يزيد على 122 سم.",
+     "source_ids": [
+      "s12"
+     ]
+    },
+    {
+     "text_ar": "المسافة بين سطح العمل وأسفل الخزائن العلوية 45 سم على الأقل، أما فوق الموقد فالمسافة حسب دليل الشفاط والموقد، وهي أكبر غالباً.",
+     "source_ids": [
+      "s23"
+     ]
+    },
+    {
+     "text_ar": "في البيوت الكبيرة يفيد مطبخ تحضير أو مطبخ خارجي للطبخ الثقيل والمناسبات، مع مطبخ داخلي نظيف للاستخدام اليومي.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "المطبخ المفتوح على المعيشة مسموح بشرط تهوية الفراغين وطرد الأدخنة بطريقة فعالة.",
+     "source_ids": [
+      "s42"
+     ]
+    },
+    {
+     "text_ar": "أهم طبقة إضاءة في المطبخ هي إضاءة أسفل الخزائن العلوية فوق سطح العمل، لأن الإضاءة العامة وحدها تجعل ظلك على ما تقطعه.",
+     "source_ids": [
+      "s15"
+     ]
+    }
+   ],
+   "lux": {
+    "general": 150,
+    "task": 300,
+    "note_ar": "نطاق CIBSE للمطبخ 150 إلى 300 لوكس. المعيار الصيني أدنى (100 عامة و150 على سطح العمل). ويُستحسن الحد الأعلى على سطح العمل بإضاءة موضعية.",
+    "source_ids": [
+     "s38",
+     "s37"
+    ]
+   }
+  },
+  {
+   "id": "bath",
+   "name_ar": "الحمام",
+   "checks": [
+    {
+     "id": "bath-width",
+     "label_ar": "عرض الحمام",
+     "input_ar": "أقصر بُعد صافٍ للحمام",
+     "unit": "cm",
+     "min": 140,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "الحد الأدنى النظامي للحمام 140 سم عرضاً و2.8 م² مساحة. المرحاض المنفصل الصغير 100 سم و1.5 م².",
+     "source_ids": [
+      "s1"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "bath-wc-side",
+     "label_ar": "محور المرحاض إلى الجدار الجانبي",
+     "input_ar": "المسافة من منتصف كرسي المرحاض إلى أقرب جدار أو قطعة جانبية",
+     "unit": "cm",
+     "min": 38,
+     "ideal_min": 46,
+     "max": null,
+     "tip_ar": "38 سم حد الكود، و46 سم أريح للكتفين.",
+     "source_ids": [
+      "s21"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "bath-front-clear",
+     "label_ar": "المساحة أمام المرحاض والمغسلة",
+     "input_ar": "المسافة من مقدمة المرحاض أو المغسلة إلى الجدار أو القطعة المقابلة",
+     "unit": "cm",
+     "min": 53,
+     "ideal_min": 76,
+     "max": null,
+     "tip_ar": "53 سم حد الكود، و76 سم مساحة حرة مريحة للوقوف والانحناء.",
+     "source_ids": [
+      "s16"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "bath-basin-side",
+     "label_ar": "محور المغسلة إلى الجدار الجانبي",
+     "input_ar": "المسافة من منتصف المغسلة إلى الجدار الجانبي",
+     "unit": "cm",
+     "min": 38,
+     "ideal_min": 51,
+     "max": null,
+     "tip_ar": "51 سم تمنع احتكاك المرفق بالجدار أثناء الوضوء وغسل الوجه.",
+     "source_ids": [
+      "s17"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "bath-double-basin",
+     "label_ar": "المسافة بين مغسلتين",
+     "input_ar": "المسافة بين منتصفي المغسلتين في المغسلة المزدوجة",
+     "unit": "cm",
+     "min": 76,
+     "ideal_min": 91,
+     "max": null,
+     "tip_ar": "91 سم بين المحورين تسمح لشخصين بالاستخدام معاً.",
+     "source_ids": [
+      "s18"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    },
+    {
+     "id": "bath-shower",
+     "label_ar": "البعد الداخلي لمنطقة الدش",
+     "input_ar": "أقصر بُعد داخلي لمساحة الاستحمام",
+     "unit": "cm",
+     "min": 76,
+     "ideal_min": 91,
+     "max": null,
+     "tip_ar": "76 × 76 سم حد الكود، و91 × 91 سم حجم مريح يسمح بالانحناء والاستدارة.",
+     "source_ids": [
+      "s20"
+     ],
+     "basis": "reference",
+     "confidence": "high"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "المرحاض في حجرة مستقلة لا يقل داخلياً عن 76 × 152 سم كوداً، والمريح 91 × 168 سم.",
+     "source_ids": [
+      "s22"
+     ]
+    },
+    {
+     "text_ar": "ارتفاع المغسلة يتراوح بين 81 و109 سم بحسب المستخدم، فاختره لمن يستخدمها أكثر.",
+     "source_ids": [
+      "s19"
+     ]
+    },
+    {
+     "text_ar": "نافذة الحمام لا تقل عن 0.30 م² ونصفها قابل للفتح، أو تهوية ميكانيكية.",
+     "source_ids": [
+      "s43"
+     ]
+    },
+    {
+     "text_ar": "ضع إضاءة المرآة على جانبيها أو فوقها بإنارة منتشرة، لا مصباحاً واحداً فوق الرأس يلقي ظلالاً على الوجه.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "راعِ عند تحديد اتجاه المرحاض ألا يكون إلى القبلة.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 150,
+    "task": null,
+    "note_ar": "نطاق CIBSE للحمام 150 إلى 200 لوكس، والمعيار الصيني 100. أضف إضاءة موضعية للمرآة.",
+    "source_ids": [
+     "s38",
+     "s37"
+    ]
+   }
+  },
+  {
+   "id": "entry",
+   "name_ar": "المدخل والممرات",
+   "checks": [
+    {
+     "id": "entry-door",
+     "label_ar": "عرض باب مدخل الفيلا",
+     "input_ar": "عرض فتحة باب المدخل الرئيسي",
+     "unit": "cm",
+     "min": 80,
+     "ideal_min": 85,
+     "max": null,
+     "tip_ar": "80 سم الحد الأدنى النظامي. 85 سم فتحة صافية أريح لنقل الأثاث ولكبار السن.",
+     "source_ids": [
+      "s4",
+      "s34"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "entry-corridor",
+     "label_ar": "عرض الممر الداخلي",
+     "input_ar": "أضيق عرض صافٍ للممر بعد التشطيب",
+     "unit": "cm",
+     "min": 90,
+     "ideal_min": 120,
+     "max": null,
+     "tip_ar": "90 سم الحد الأدنى النظامي. إذا فُتحت على الممر أبواب غرف جانبية فاجعله 120 سم ليسهل الدخول والالتفاف.",
+     "source_ids": [
+      "s1",
+      "s33",
+      "s36"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "entry-room-door",
+     "label_ar": "عرض أبواب الغرف على الممر",
+     "input_ar": "الفتحة الصافية لباب غرفة يفتح على الممر",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "تكفي فتحة صافية 75 سم إذا كان عرض الممر 120 سم، أو 90 سم والدخول إلى الباب مواجهةً لا من الجانب. وفي ممر 105 سم يُدخل منه إلى الباب من الجانب اجعل الفتحة 77.5 سم، وفي ممر 90 سم اجعلها 80 سم.",
+     "source_ids": [
+      "s33"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "اجعل للمدخل مساحة انتظار قبل الوصول إلى المجالس، فلا يُرى داخل البيت من الباب المفتوح.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "خصص مكاناً للأحذية والعباءات قرب المدخل بعمق لا يضيّق الممر عن عرضه النظامي.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "إضاءة الممرات متجانسة بلا بقع مظلمة، ويمكن إضافة إضاءة منخفضة قرب الأرض للتنقل ليلاً.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": null,
+    "note_ar": "نطاق CIBSE للممرات 100 إلى 150 لوكس. المعيار الصيني يعطي قيماً أدنى للممرات المشتركة. قيم إرشادية.",
+    "source_ids": [
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "stair",
+   "name_ar": "الدرج",
+   "checks": [
+    {
+     "id": "stair-width",
+     "label_ar": "صافي عرض الدرج والبسطة",
+     "input_ar": "العرض الصافي للدرج بين الجدار والدرابزين، وعرض البسطة",
+     "unit": "cm",
+     "min": 90,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "90 سم الحد الأدنى النظامي في الفلل، والبسطة لا تقل عن عرض الدرج.",
+     "source_ids": [
+      "s2"
+     ],
+     "basis": "standard",
+     "confidence": "high"
+    },
+    {
+     "id": "stair-riser",
+     "label_ar": "ارتفاع الدرجة (القائمة)",
+     "input_ar": "ارتفاع الدرجة الواحدة",
+     "unit": "cm",
+     "min": null,
+     "ideal_min": null,
+     "max": 19.6,
+     "tip_ar": "لا يزيد القائم على 19.6 سم في الكود الأمريكي السكني الذي يقوم عليه الكود السعودي السكني. والأريح 16 إلى 18 سم بحسب معادلة الخطوة.",
+     "source_ids": [
+      "s25"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "stair-tread",
+     "label_ar": "عمق الدرجة (النائمة)",
+     "input_ar": "عمق الدرجة من حافة إلى حافة دون البروز",
+     "unit": "cm",
+     "min": 25.4,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "لا تقل النائمة عن 25.4 سم. تحقق من قيمة الكود السعودي السكني عند المهندس المصمم.",
+     "source_ids": [
+      "s26"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "stair-step-rule",
+     "label_ar": "معادلة الخطوة",
+     "input_ar": "ضعف ارتفاع القائمة مضافاً إليه عمق النائمة",
+     "unit": "cm",
+     "min": 59,
+     "ideal_min": 63,
+     "max": 65,
+     "tip_ar": "الخطوة المريحة للبالغ نحو 63 سم. إذا خرجت النتيجة عن 59 إلى 65 فالدرج متعب أو غير آمن.",
+     "source_ids": [
+      "s28",
+      "s29"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "stair-headroom",
+     "label_ar": "الارتفاع الحر فوق الدرج",
+     "input_ar": "أقل ارتفاع رأسي من خط حواف الدرج إلى السقف أو الكمرة فوقه",
+     "unit": "cm",
+     "min": 203,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "لا يقل الارتفاع الحر عن 203 سم في أي نقطة. انتبه للكمرات وبطن الدرج العلوي.",
+     "source_ids": [
+      "s24"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    },
+    {
+     "id": "stair-handrail",
+     "label_ar": "ارتفاع الدرابزين",
+     "input_ar": "ارتفاع أعلى الدرابزين رأسياً من خط حواف الدرجات",
+     "unit": "cm",
+     "min": 86,
+     "ideal_min": null,
+     "max": 95,
+     "tip_ar": "بين 86 و95 سم، وهو ما يجمع حد الكود الأمريكي (86 إلى 97) واشتراطات المباني السكنية للسلالم المفتوحة في الفلل (85 إلى 95). ولا تمر من فتحات الدرابزين أجسام يزيد قطرها على 10 سم.",
+     "source_ids": [
+      "s27",
+      "s44"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "حافظ على تساوي ارتفاع جميع الدرجات في الدرج الواحد، فالفرق الصغير أخطر من الدرجة العالية.",
+     "source_ids": [
+      "s25"
+     ]
+    },
+    {
+     "text_ar": "الدرج يضاء طبيعياً من الواجهة أو من منور نظامي، أو صناعياً بما لا يقل عن 11 لوكس.",
+     "source_ids": [
+      "s3"
+     ]
+    },
+    {
+     "text_ar": "ضع مفتاحي إضاءة أعلى الدرج وأسفله، وفكر في إضاءة جانبية منخفضة لكل درجة لاستخدام الليل.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 100,
+    "task": null,
+    "note_ar": "الحد النظامي الأدنى للإضاءة الصناعية 11 لوكس. وللراحة يُستحسن القياس على نطاق CIBSE للممرات (100 إلى 150).",
+    "source_ids": [
+     "s3",
+     "s38"
+    ]
+   }
+  },
+  {
+   "id": "laundry",
+   "name_ar": "غرفة الغسيل",
+   "checks": [
+    {
+     "id": "laundry-front",
+     "label_ar": "المساحة أمام الغسالة والنشافة",
+     "input_ar": "المسافة من واجهة الأجهزة إلى الجدار أو القطعة المقابلة",
+     "unit": "cm",
+     "min": 107,
+     "ideal_min": 120,
+     "max": null,
+     "tip_ar": "تحتاج إلى فتح الباب والانحناء وسلة الغسيل معاً. 120 سم مريحة.",
+     "source_ids": [
+      "s7",
+      "s32"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "laundry-counter-height",
+     "label_ar": "ارتفاع سطح الطي",
+     "input_ar": "ارتفاع سطح طي الملابس من الأرضية",
+     "unit": "cm",
+     "min": 85,
+     "ideal_min": 90,
+     "max": 95,
+     "tip_ar": "ارتفاع سطح عمل المطبخ نفسه يناسب طي الملابس واقفاً.",
+     "source_ids": [
+      "s23"
+     ],
+     "basis": "practice",
+     "confidence": "low"
+    },
+    {
+     "id": "laundry-door",
+     "label_ar": "عرض باب غرفة الغسيل",
+     "input_ar": "الفتحة الصافية لباب الغرفة",
+     "unit": "cm",
+     "min": 75,
+     "ideal_min": null,
+     "max": null,
+     "tip_ar": "75 سم على الأقل لتمر سلة الغسيل. ولإدخال الغسالة أو النشافة قِس عرض الجهاز مع غلافه قبل اعتماد الباب.",
+     "source_ids": [
+      "s33"
+     ],
+     "basis": "reference",
+     "confidence": "medium"
+    }
+   ],
+   "tips": [
+    {
+     "text_ar": "اجعل غرفة الغسيل قريبة من غرف النوم أو مرتبطة بها بدرج خدمة، ومتصلة بسطح أو فناء للنشر.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "وفّر نافذة أو تهوية ميكانيكية لطرد الرطوبة وحرارة النشافة.",
+     "source_ids": []
+    },
+    {
+     "text_ar": "إضاءة عامة جيدة وإضاءة فوق سطح الطي لتمييز البقع والألوان.",
+     "source_ids": []
+    }
+   ],
+   "lux": {
+    "general": 150,
+    "task": 300,
+    "note_ar": "لا توجد قيمة مستقلة لغرفة الغسيل في المراجع المتاحة، والقيمة هنا قياساً على نطاق CIBSE للمطبخ. ثقة منخفضة.",
+    "source_ids": [
+     "s38"
+    ]
+   }
+  }
+ ],
+ "general": [
+  {
+   "id": "gen-measure",
+   "text_ar": "قِس كل مسافة صافية من سطح التشطيب النهائي لا من محور الجدار، ومن حافة الأثاث الفعلي الذي ستشتريه.",
+   "source_ids": []
+  },
+  {
+   "id": "gen-standard",
+   "text_ar": "القيم الموسومة «نظامي» حدود دنيا في اشتراطات المباني السكنية لوزارة البلديات والإسكان، وما سواها توصيات مهنية للراحة لا إلزام فيها.",
+   "source_ids": [
+    "s1"
+   ]
+  },
+  {
+   "id": "gen-room-min",
+   "text_ar": "الحدود النظامية الدنيا: المجلس والطعام والصالة 11.2 م² وعرض 280 سم، غرفة النوم 6.5 م² وعرض 210 سم، المطبخ 5 م² وعرض 180 سم، الحمام 2.8 م² وعرض 140 سم، المرحاض المنفصل 1.5 م² وعرض 100 سم، الممرات عرض 90 سم.",
+   "source_ids": [
+    "s1"
+   ]
+  },
+  {
+   "id": "gen-daylight",
+   "text_ar": "كل غرفة: زجاج لا يقل عن 8٪ من مساحة أرضيتها، وجزء قابل للفتح لا يقل عن 4٪.",
+   "source_ids": [
+    "s5"
+   ]
+  },
+  {
+   "id": "gen-lux-note",
+   "text_ar": "مستويات الإضاءة في البيوت إرشادية في أغلب المعايير. المعيار الأوروبي EN 12464-1 خاص بأماكن العمل ولا يغطي السكن، لذلك تُعتمد هنا قيم CIBSE والمعيار الصيني للسكن مرجعاً.",
+   "source_ids": [
+    "s37",
+    "s38"
+   ]
+  },
+  {
+   "id": "gen-layers",
+   "text_ar": "خطط الإضاءة ثلاث طبقات لكل غرفة: عامة تملأ المكان، وموضعية حيث تعمل أو تقرأ، وجمالية تبرز الجدران والتفاصيل. وضع لكل طبقة مفتاحاً، ويفضل مفتاح تخفيت للعامة.",
+   "source_ids": []
+  },
+  {
+   "id": "gen-family",
+   "text_ar": "الأسرة الكبيرة والضيافة المتكررة تعني أن الحدود الدنيا نادراً ما تكفي. صمم المجالس والمطبخ وغرفة الطعام على أكبر عدد يجتمع عادة، لا على الحد الأدنى.",
+   "source_ids": []
+  },
+  {
+   "id": "gen-privacy",
+   "text_ar": "افصل حركة الضيوف عن حركة الأسرة: مجلس رجال بمدخل مستقل، ومجلس نساء بمدخل آخر، وحمام ضيوف قريب من كل منهما.",
+   "source_ids": []
+  }
+ ],
+ "sources": [
+  {
+   "id": "s1",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-4 بند 2 (جدول الحدود الدنيا للأبعاد والمساحات)، ص28"
+  },
+  {
+   "id": "s2",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-12 بند 2، ص33-34"
+  },
+  {
+   "id": "s3",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-12 بند 4، ص34"
+  },
+  {
+   "id": "s4",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-7 بند 2 (عرض مدخل الفلل 0.80م)، ص30"
+  },
+  {
+   "id": "s5",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-15 بند 2، ص35"
+  },
+  {
+   "id": "s6",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA (National Kitchen & Bath Association)",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 3: Distance Between Work Centers (total ≤ 26 ft / 7.9 m; each leg 4-9 ft / 1.2-2.7 m)"
+  },
+  {
+   "id": "s7",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 6: Work Aisle (42 in / 1067 mm one cook; 48 in / 1219 mm multiple cooks)"
+  },
+  {
+   "id": "s8",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 7: Traffic Clearance at Seating (32 in / 813 mm no traffic; 36 in / 914 mm edge past; 44 in / 1118 mm walk past), pp. 8-10"
+  },
+  {
+   "id": "s9",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 8: Walkway (36 in / 914 mm)"
+  },
+  {
+   "id": "s10",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 9: Seating Clearance (24 in / 610 mm wide per diner), p. 11"
+  },
+  {
+   "id": "s11",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 11: Cleanup/Prep Sink Landing Area (24 in / 610 mm one side, 18 in / 457 mm other side)"
+  },
+  {
+   "id": "s12",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 16: Refrigerator Landing Area (15 in / 381 mm; across ≤ 48 in / 1219 mm)"
+  },
+  {
+   "id": "s13",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 17: Cooking Surface Landing Area (12 in / 305 mm one side, 15 in / 381 mm other side)"
+  },
+  {
+   "id": "s15",
+   "title": "Kitchen Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "references 2015 IRC/IPC; file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Kitchen-Planning-Guidelines.pdf",
+   "clause": "Guideline 31: Lighting (task lighting on all work surfaces)"
+  },
+  {
+   "id": "s16",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 4: Clear Space (30 in / 762 mm recommended; code 21 in / 533 mm in front of lavatory, toilet, bidet, tub), pp. 41-45"
+  },
+  {
+   "id": "s17",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 5: Single-Lavatory Placement (20 in / 508 mm; code 15 in / 381 mm), pp. 47-48"
+  },
+  {
+   "id": "s18",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 6: Double-Lavatory Placement (36 in / 914 mm; code 30 in / 762 mm), p. 49"
+  },
+  {
+   "id": "s19",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 7: Lavatory/Vanity Height (32-43 in / 813-1092 mm), p. 50"
+  },
+  {
+   "id": "s20",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 9: Shower Size (36 x 36 in / 914 x 914 mm; code 30 x 30 in / 762 x 762 mm), pp. 51-52"
+  },
+  {
+   "id": "s21",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 20: Toilet/Bidet Placement (18 in / 457 mm; code 15 in / 381 mm), pp. 66-67"
+  },
+  {
+   "id": "s22",
+   "title": "Bathroom Planning Guidelines with Access Standards",
+   "publisher": "NKBA",
+   "edition": "file posted 2022-05",
+   "url": "https://kb.nkba.org/uploads/2022/05/Bath-Planning-Guidelines.pdf",
+   "clause": "Guideline 21: Toilet Compartment (36 x 66 in / 914 x 1676 mm; code 30 x 60 in / 762 x 1524 mm), p. 68"
+  },
+  {
+   "id": "s23",
+   "title": "UNI EN 1116:2018 Coordinating sizes for kitchen furniture and kitchen appliances (technical summary)",
+   "publisher": "CATAS (A. Giavon)",
+   "edition": "June 2018 summary of EN 1116:2018",
+   "url": "https://catas.com/uploads/media/unien1116-eng.pdf",
+   "clause": "Worktop heights 850 / 900 / 950 mm (+50 mm); min 450 mm between worktop and wall unit underside"
+  },
+  {
+   "id": "s24",
+   "title": "2018 Residential Stair Guide (quoting IRC 2018)",
+   "publisher": "City of Twin Falls Building Department",
+   "edition": "IRC 2018",
+   "url": "https://www.tfid.org/DocumentCenter/View/6771/2018-RESIDENTIAL-STAIR-GUIDE",
+   "clause": "IRC R311.7.2 Headroom: 6 ft 8 in"
+  },
+  {
+   "id": "s25",
+   "title": "2018 Residential Stair Guide (quoting IRC 2018)",
+   "publisher": "City of Twin Falls Building Department",
+   "edition": "IRC 2018",
+   "url": "https://www.tfid.org/DocumentCenter/View/6771/2018-RESIDENTIAL-STAIR-GUIDE",
+   "clause": "IRC R311.7.5.1 Risers: max 7-3/4 in (196 mm); variation ≤ 3/8 in"
+  },
+  {
+   "id": "s26",
+   "title": "2018 Residential Stair Guide (quoting IRC 2018)",
+   "publisher": "City of Twin Falls Building Department",
+   "edition": "IRC 2018",
+   "url": "https://www.tfid.org/DocumentCenter/View/6771/2018-RESIDENTIAL-STAIR-GUIDE",
+   "clause": "IRC R311.7.5.2 Treads: min 10 in (254 mm)"
+  },
+  {
+   "id": "s27",
+   "title": "2018 Residential Stair Guide (quoting IRC 2018)",
+   "publisher": "City of Twin Falls Building Department",
+   "edition": "IRC 2018",
+   "url": "https://www.tfid.org/DocumentCenter/View/6771/2018-RESIDENTIAL-STAIR-GUIDE",
+   "clause": "IRC R311.7.8.1 Handrail height: 34-38 in (864-965 mm)"
+  },
+  {
+   "id": "s28",
+   "title": "Treppe Rechner (Schrittmaßregel nach DIN 18065)",
+   "publisher": "deutschland-rechner.de",
+   "edition": "online, accessed 2026-10-06",
+   "url": "https://www.deutschland-rechner.de/treppe-rechner",
+   "clause": "Schrittmaßregel: 2 × Steigung + Auftritt = 59 bis 65 cm, ideal 63 cm"
+  },
+  {
+   "id": "s29",
+   "title": "Treppe berechnen",
+   "publisher": "TÜV SÜD",
+   "edition": "online, accessed 2026-10-06",
+   "url": "https://www.tuvsud.com/de-de/indust-re/bautechnik-info/allgemeine-bautechnik/treppen-bruestungen-gelaender/treppe-berechnen",
+   "clause": "Schrittmaßregel: 2 × Steigungshöhe + Auftritt ≈ 63 cm"
+  },
+  {
+   "id": "s30",
+   "title": "How far away should you sit from your TV?",
+   "publisher": "What Hi-Fi? (V. Burns, J. Svetlik)",
+   "edition": "updated 2026-07-24",
+   "url": "https://www.whathifi.com/advice/how-to-calculate-the-right-viewing-distance-for-your-tv",
+   "clause": "SMPTE ~30° field of view for mixed use; SMPTE/THX ~40° for home cinema; 4K: 1-1.5 × screen size, 1.2 × for 40°"
+  },
+  {
+   "id": "s31",
+   "title": "Approved Document M, Volume 1: Dwellings",
+   "publisher": "HM Government (UK)",
+   "edition": "2015 edition incorporating 2016 amendments",
+   "url": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+   "clause": "Category 2 M4(2), para 2.25 a-d (750 mm clear access zones around beds and door-to-window route), pp. 18-19"
+  },
+  {
+   "id": "s32",
+   "title": "Approved Document M, Volume 1: Dwellings",
+   "publisher": "HM Government (UK)",
+   "edition": "2015 edition incorporating 2016 amendments",
+   "url": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+   "clause": "M4(2) para 2.24 b (1200 mm clear space in front of kitchen units and appliances), p. 18"
+  },
+  {
+   "id": "s33",
+   "title": "Approved Document M, Volume 1: Dwellings",
+   "publisher": "HM Government (UK)",
+   "edition": "2015 edition incorporating 2016 amendments",
+   "url": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+   "clause": "M4(2) para 2.22, Table 2.1 (door 750 / corridor 900 head-on, 1200 not head-on; door 775 / 1050; door 800 / 900), p. 17"
+  },
+  {
+   "id": "s34",
+   "title": "Approved Document M, Volume 1: Dwellings",
+   "publisher": "HM Government (UK)",
+   "edition": "2015 edition incorporating 2016 amendments",
+   "url": "https://assets.publishing.service.gov.uk/media/5a7f8a82ed915d74e622b17b/BR_PDF_AD_M1_2015_with_2016_amendments_V3.pdf",
+   "clause": "M4(2) para 2.20 (principal private entrance: min clear opening 850 mm), pp. 16-17"
+  },
+  {
+   "id": "s35",
+   "title": "Lifetime Homes Criterion 7: Circulation Space",
+   "publisher": "Centre for Accessible Environments (CAE)",
+   "edition": "Lifetime Homes criteria, online",
+   "url": "https://cae.org.uk/our-services/housing-services/lifetime-homes/7-circulation-space/",
+   "clause": "Living/dining: 1500 mm turning circle; 750 mm clear width between items on essential routes"
+  },
+  {
+   "id": "s36",
+   "title": "Lifetime Homes Criterion 6: Internal doorways and hallways",
+   "publisher": "Centre for Accessible Environments (CAE)",
+   "edition": "Lifetime Homes criteria, online",
+   "url": "https://cae.org.uk/our-services/housing-services/lifetime-homes/6-internal-doorways-and-hallways/",
+   "clause": "Dwelling hallway min 900 mm (750 mm at pinch points); door widths table"
+  },
+  {
+   "id": "s37",
+   "title": "GB 50034-2013 Standard for lighting design of buildings (建筑照明设计标准)",
+   "publisher": "Ministry of Housing and Urban-Rural Development, PRC",
+   "edition": "2013",
+   "url": "https://sj.ruc.edu.cn/docs/2019-11/d33bbe0e0b8845e8bac7025f5e14554d.pdf",
+   "clause": "Table 5.1.1 住宅建筑照明标准值, p. 22 (living 100/300*, bedroom 75/150*, dining 150, kitchen 100/150*, bathroom 100 lx)"
+  },
+  {
+   "id": "s38",
+   "title": "Improving the energy performance of the typical multi-family buildings in Amman, Jordan (Table 5: lighting setpoints based on CIBSE 2013)",
+   "publisher": "City, Territory and Architecture (SpringerOpen)",
+   "edition": "2022, doi 10.1186/s40410-022-00151-8",
+   "url": "https://cityterritoryarchitecture.springeropen.com/articles/10.1186/s40410-022-00151-8/tables/5",
+   "clause": "Table 5 (living 100-300, kitchen 150-300, bathroom 150-200, bedroom 100-150, corridors 100-150 lx)"
+  },
+  {
+   "id": "s39",
+   "title": "Walk-In Closet Dimensions Guide",
+   "publisher": "HomeGuide (T. Grupa)",
+   "edition": "2026-06-30",
+   "url": "https://homeguide.com/articles/walk-in-closet-dimensions",
+   "clause": "Hanging depth 24 in (20 in tight); walkway min 24 in, 30-36 in comfortable; one-wall 4-5 ft, two-wall 6-7 ft"
+  },
+  {
+   "id": "s41",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-1 بند 2 (جلسة شباك الهروب في غرف النوم بالأدوار العلوية ≤ 1.1م)، ص26"
+  },
+  {
+   "id": "s42",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-15 بند 6 (المطبخ المفتوح على صالة المعيشة)، ص35"
+  },
+  {
+   "id": "s43",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-15 بند 3 (نوافذ الحمامات ≥ 0.30م² نصفها قابل للفتح)، ص35"
+  },
+  {
+   "id": "s44",
+   "title": "اشتراطات إنشاء المباني السكنية",
+   "publisher": "وزارة البلديات والإسكان (MOMAH)",
+   "edition": "1446هـ/2024م",
+   "url": "https://momah.gov.sa/sites/default/files/2025-11/ashtratat%20ansha%20almbany%20alsknyt9%20ywlyh%202024.pdf",
+   "clause": "5-1-1 بند 1 (درابزين الشرفات والسلالم المفتوحة 85-95 سم، يمنع مرور جسم قطره 10 سم)، ص26"
+  }
+ ],
+ "research_log": [
+  "MOMAH residential requirements 1446: values and clause numbers taken from the project's own verified extraction refs/lib_residential.json and refs/rules_v2.json (pages are PDF page indices of the momah.gov.sa file). Clause numbering there was audited (reversed RTL numbering corrected).",
+  "SBC 1101 text was not obtainable (also noted in refs/rules_v2.json). Riser, tread, headroom and handrail values therefore come from IRC 2018 (the model code SBC 1101 is based on), via a municipal stair guide quoting the code sections. Confidence medium until checked against SBC 1101.",
+  "IRC headroom: the stair guide printed 6 ft 8 in as 2036 mm; 6 ft 8 in = 2032 mm. Value used: 203 cm.",
+  "NKBA Kitchen and Bath Planning Guidelines read via WebFetch of kb.nkba.org PDFs (2022-05 uploads). Inches converted to cm and rounded: 42 in=107, 48 in=122, 36 in=91, 32 in=81, 44 in=112, 24 in=61, 18 in=46, 15 in=38, 12 in=30, 26 ft=792, 4 ft=122, 9 ft=274, 21 in=53, 30 in=76, 20 in=51. Page numbers for kitchen Guidelines 3, 6, 8, 11, 16, 17, 31 were not returned and are omitted.",
+  "NKBA bath 'code' values are IRC/IPC-derived residential minimums; ADA/access-standard values were deliberately not used.",
+  "TV distance ratio computed geometrically for a 16:9 screen: width = 0.872 × diagonal; distance = width / (2·tan(θ/2)) gives 1.63 × diagonal at 30° and 1.20 × at 40°. SMPTE EG-18 and THX documents themselves were not read; angles taken from What Hi-Fi. The check uses unit 'ratio' (not cm) by necessity.",
+  "Neufert Architects' Data and Time-Saver Standards for Interior Design / Human Dimension & Interior Space (Panero & Zelnik) were not accessible online (archive.org OCR blocked), so no page from them is cited. UK Approved Document M (M4(2)) and Lifetime Homes were used instead for bed, route and corridor clearances; they are accessibility-oriented minimums for ordinary dwellings.",
+  "Majlis: no published standard found for floor or sofa seating depth or for the facing distance in a Saudi majlis. Only the MOMAH minimum width and general circulation values (750 mm route, 1500 mm turning circle from Lifetime Homes Criterion 7) are used; seating depth is left to the designer with no number.",
+  "Lighting: EN 12464-1 covers indoor work places and not dwellings, so it was not used. Residential values from GB 50034-2013 Table 5.1.1 (normative in China; a GB/T 50034-2024 edition appears in catalog listings and was not checked) and CIBSE 2013 ranges as reproduced in a peer-reviewed article (secondary source; SLL Code/Handbook not read directly). Dressing room and laundry values are analogies, low confidence.",
+  "Dressing room dimensions come from a consumer guide (HomeGuide) only: basis practice, confidence low. Kitchen counter height from a CATAS technical summary of EN 1116:2018, not the standard itself.",
+  "Laundry front clearance: no laundry-specific source found; min borrowed from NKBA one-cook work aisle and ideal from AD M 2.24b kitchen appliance clearance. Low confidence.",
+  "Arabic text checked for banned words, three-dot ellipsis and em-dash."
+ ]
+}
