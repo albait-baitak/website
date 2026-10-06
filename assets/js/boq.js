@@ -12,6 +12,11 @@ function render(D,host){
   var k=el('div','boq-kpis');
   [['الإجمالي التقديري',n(Math.round(t.T),0)+' ريال'],['للمتر المربع المبني',B?n(Math.round(t.T/B),0)+' ريال':'·'],['بنود مقيسة من المخطط',String(t.meas)],['بنود مقدّرة بقاعدة',String(t.est)],['بنود تُسعّر بعرض',String(t.unpriced)]].forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',null,x[1]));k.appendChild(d)});
   host.appendChild(k);
+  var md=D.mode||{},mw=[];
+  if(md.skeleton==='indicator')mw.push('العظم مقدّر بمؤشر تكلفة المتر المربع لأن المخططات الإنشائية لم تُرفع');
+  if(md.finish==='indicator')mw.push('التشطيب مقدّر بمؤشر تكلفة المتر المربع لأن أبعاد الفراغات لم تُقرأ (المقيس '+(md.coverage||0)+'٪ من المسطح)');
+  else if(md.finish==='partial')mw.push('بعض الفراغات لم تُقَس، فكميات التشطيب تغطي '+(md.coverage||0)+'٪ من المسطح');
+  if(mw.length){var wb=el('p','boq-warn');wb.textContent='جدول تقديري: '+mw.join('، و')+'. تُفصَّل البنود حين تُرفع المخططات الناقصة أو ملف DXF.';host.appendChild(wb)}
   if(D.checks&&D.checks.length){var cb=el('div','boq-checks');var bad=D.checks.filter(function(c){return !c.ok}).length;
     cb.appendChild(el('h4',null,bad?'فحوص المعقولية: '+bad+' تحتاج نظرة':'فحوص المعقولية: النسب ضمن المعتاد'));var ul=el('ul');
     D.checks.forEach(function(c){var li=el('li',c.ok?'ok':'warn');li.appendChild(el('span','ic',c.ok?'✓':'!'));var tx=el('span');tx.appendChild(el('b',null,c.name+': '+c.value));tx.appendChild(document.createTextNode(' · المعتاد '+c.expected+(c.note?' · '+c.note:'')));li.appendChild(tx);ul.appendChild(li)});
@@ -85,6 +90,8 @@ function build(D){
   sm.columns=[{width:34},{width:46},{width:18},{width:14}];
   var t1=sm.addRow(['جدول الكميات التقديري']);t1.font={bold:true,size:16,color:{argb:BROWN}};sm.mergeCells(t1.number,1,t1.number,4);
   [['المشروع',(D.title||P.name||'')],['الرقم والإصدار',(P.ref||'')+(P.rev?' · الإصدار '+P.rev:'')],['تاريخ الجدول',D.date||''],['تاريخ الأسعار',D.price_date||''],['المسطحات المبنية',B?B+' م²':'لم تُقرأ']].forEach(function(x){var r=sm.addRow(x);r.getCell(1).font={bold:true,color:{argb:BROWN}}});
+  var md=D.mode||{},mw=[];if(md.skeleton==='indicator')mw.push('العظم بمؤشر المتر المربع');if(md.finish==='indicator')mw.push('التشطيب بمؤشر المتر المربع');else if(md.finish==='partial')mw.push('التشطيب يغطي '+(md.coverage||0)+'٪ من المسطح');
+  if(mw.length){var wr=sm.addRow(['جدول تقديري: '+mw.join('، و')+'.']);wr.font={bold:true,color:{argb:'FFB26042'}};sm.mergeCells(wr.number,1,wr.number,4)}
   sm.addRow([]);
   var h2=sm.addRow(['القسم','البيان','المبلغ (ريال)','النسبة']);head(sm,h2);
   var f1=h2.number+1;

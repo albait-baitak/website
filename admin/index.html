@@ -18,8 +18,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062201">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610062201">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062219">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610062219">
 </head>
 <body>
 <header class="top">
@@ -204,16 +204,16 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610062201"></script>
-<script src="../assets/js/config.js?v=202610062201"></script>
-<script src="../assets/js/stats.js?v=202610062201"></script>
-<script src="../assets/js/access.js?v=202610062201"></script>
-<script src="../assets/js/session.js?v=202610062201"></script>
-<script src="../assets/js/rules.js?v=202610062201"></script>
-<script src="../assets/js/report.js?v=202610062201"></script>
-<script src="../assets/js/boq.js?v=202610062201"></script>
-<script src="../assets/js/adminstats.js?v=202610062201"></script>
-<script src="../assets/js/adminpush.js?v=202610062201"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610062219"></script>
+<script src="../assets/js/config.js?v=202610062219"></script>
+<script src="../assets/js/stats.js?v=202610062219"></script>
+<script src="../assets/js/access.js?v=202610062219"></script>
+<script src="../assets/js/session.js?v=202610062219"></script>
+<script src="../assets/js/rules.js?v=202610062219"></script>
+<script src="../assets/js/report.js?v=202610062219"></script>
+<script src="../assets/js/boq.js?v=202610062219"></script>
+<script src="../assets/js/adminstats.js?v=202610062219"></script>
+<script src="../assets/js/adminpush.js?v=202610062219"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -416,7 +416,7 @@ function fillEditor(){
     RULES.filter(function(R){return G.layers.indexOf(R.l)>=0}).forEach(function(R){
       var r=(rep.results||{})[R.c]||{},row=el('div','ed-row');row.dataset.c=R.c;
       var c1=el('div');c1.appendChild(document.createTextNode(R.n));c1.appendChild(el('span','code',R.c));c1.title=R.r;row.appendChild(c1);
-      var v=el('select');[['','·'],['ok','مطابق'],['fail','مخالف'],['na','لا يخص هذا المشروع'],['unk','غير موضّح في المخطط'],['conflict','تعارض في المرجع']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
+      var v=el('select');[['','·'],['ok','مطابق'],['fail','مخالف'],['na','لا يخص هذا المشروع'],['unk','غير موضّح في المخطط'],['conflict','تعارض في المرجع'],['style','معلّق على نمط الطراز']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
       var s=el('select');[['',''],['stop','تمنع الرفع'],['major','تُعالج قبل الرفع'],['minor','تحسين مقترح']].forEach(function(o){if(o[0]==='stop'&&G.id==='qual')return;var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=r.sev||'';s.dataset.k='sev';s.setAttribute('aria-label','الدرجة '+R.c);row.appendChild(s);
       var f=el('textarea');f.value=r.f||'';f.dataset.k='f';f.setAttribute('aria-label','في المخطط '+R.c);row.appendChild(f);
       var x=el('textarea');x.value=r.fix||'';x.dataset.k='fix';x.setAttribute('aria-label','العلاج '+R.c);row.appendChild(x);
@@ -547,8 +547,15 @@ $('btnBoqRun').addEventListener('click',function(){
 });
 $('btnBoqCsv').addEventListener('click',function(){if(bdoc)BOQ.csv(bdoc,bcur.ref+'.csv')});
 $('btnBoqXlsx').addEventListener('click',function(){if(!bdoc)return;var b=this;b.disabled=true;BOQ.xlsx(bdoc,bcur.ref+'.xlsx').catch(function(e){var m=$('bqPMsg');m.className='msg bad';m.textContent='تعذر إنشاء ملف الإكسل: '+e.message}).then(function(){b.disabled=false})});
+var pubArm=null;
 $('btnBoqPub').addEventListener('click',function(){
-  if(!bdocRow)return;msg('bqPMsg','جارٍ النشر..');
+  if(!bdocRow)return;
+  var md=(bdoc&&bdoc.mode)||{},w=[];
+  if(md.finish==='indicator')w.push('التشطيب كله مقدّر بالمؤشر لا بالكميات (الفراغات المقيسة '+(md.coverage||0)+'٪)');
+  else if(md.finish==='partial')w.push('كميات التشطيب ناقصة (الفراغات المقيسة '+(md.coverage||0)+'٪)');
+  if(md.skeleton==='indicator')w.push('العظم مقدّر بالمؤشر لعدم رفع الإنشائي');
+  if(w.length&&pubArm!==bdocRow.id){pubArm=bdocRow.id;var m=$('bqPMsg');m.className='msg bad';m.textContent='تنبيه قبل النشر: '+w.join('، و')+'. هذا جدول تقديري لا جدول كميات. اضغط «اعتماد ونشر» مرة أخرى إن أردت نشره كما هو.';return}
+  pubArm=null;msg('bqPMsg','جارٍ النشر..');
   BB.from('boq_docs').update({published:true,published_at:new Date().toISOString()}).eq('id',bdocRow.id).then(function(r){if(r.error)throw r.error;return BB.from('boq_requests').update({status:'published'}).eq('id',bcur.id)})
   .then(function(){msg('bqPMsg','نُشر الجدول ووصل لحساب المكتب.','good');bcur.status='published';loadBoqDoc();loadBoqs()}).catch(function(){msg('bqPMsg','تعذر النشر.','bad')});
 });

@@ -34,22 +34,23 @@ function buildPrompt(meta: string, disc: string[], note: string): string {
   return "أنت مهندس كميات سعودي. مهمتك الآن القراءة فقط: تستخرج من لوحات الفيلا المرفقة البيانات الخام التي تُحسب منها الكميات، ولا تحسب أي كمية إجمالية بنفسك؛ الحساب يتم بعدك بمعادلات ثابتة.\n" +
     "بيانات المشروع: " + meta + "\nالتخصصات المرفوعة: " + have + ". غير المرفوعة: " + missing + ".\n" + (note ? "ملاحظات المكتب: " + note + "\n" : "") + "\n" +
     "قواعد صارمة:\n" +
-    "- لا تخترع رقماً. ما لا يُقرأ بثقة اكتبه null واذكره في questions.\n" +
-    "- إن وُجد استخراج من ملفات DXF فأرقامه من ملف الرسم نفسه، فقدّمها على القراءة من الصور، واكتب src=\"dxf\". وما قرأته من بُعد مكتوب src=\"dim\"، وما قسته بالمقياس src=\"scale\".\n" +
+    "- لا تخترع رقماً. ما لا يُقرأ بثقة اكتبه null واذكره في questions. والقياس من الرسم بالمقياس ليس اختراعاً: هو عمل مهندس الكميات حين لا يُكتب البُعد.\n" +
+    "- المقياس: خذ بُعداً مكتوباً على اللوحة نفسها مرجعاً (ضلع الأرض، أو محور، أو بُعد غرفة مكتوب)، وقس به ما لم يُكتب، واكتب src=\"scale\". لا تترك فراغاً أو جداراً بلا أبعاد إلا إن تعذر القياس أيضاً.\n" +
+    "- إن وُجد استخراج من ملف DXF أو من طبقة النص في PDF فأرقامه من ملف الرسم نفسه، فقدّمها على القراءة من الصور، واكتب src=\"dxf\" أو src=\"pdf\". في استخراج PDF: النصوص على السطر نفسه (y) متجاورة في الرسم، فاسم الفراغ وأبعاده تحته عادة، ورموز الفتحات (D1، W2) وأعدادها في كل لوحة مذكورة؛ والعدد الفعلي من المساقط لا من الجداول والواجهات. وما قرأته من بُعد مكتوب src=\"dim\"، وما قسته بالمقياس src=\"scale\".\n" +
     "- الفراغات: لكل فراغ في كل دور اسمه واستخدامه وأبعاده الصافية L وW إن كان مستطيلاً، وإلا area_m2 وperimeter_m. ارتفاع السقف الصافي h_m إن ظهر في القطاعات. مادة الأرضية والسقف إن ظهرتا في جدول التشطيبات أو المخطط، وإلا porcelain وpaint. ارتفاع تكسية الجدران wall_tile_h_m للحمامات والمطبخ والغسيل إن ظهر.\n" +
     "- use واحدة من: majlis, living, dining, master, bed, maid, kitchen, bath, wc, laundry, corridor, stair, store, outdoor_covered, other. (bath حمام كامل، wc مرحاض ومغسلة ضيوف).\n" +
     "- floor_finish واحدة من: porcelain, ceramic, marble, parquet, vinyl, stone, other, none. وceiling واحدة من: gypsum, paint, none.\n" +
-    "- الجدران: لكل دور أطوال الجدران على المحور مجمّعة بنوعها: ext20 خارجي 20 سم، int15 داخلي 15 سم، int10 داخلي 10 سم، below20 تحت منسوب الأرض. اذكر الطول من الأبعاد المكتوبة لا من التقدير.\n" +
-    "- الفتحات: من جدول الأبواب والنوافذ إن وُجد، وإلا من المساقط؛ kind: door_main, door_ext, door_int, window, sliding؛ ومعها w وh بالمتر وcount، وin=ext للفتحات في الجدران الخارجية وint للداخلية.\n" +
+    "- الجدران: لكل دور أطوال الجدران على المحور مجمّعة بنوعها: ext20 خارجي 20 سم، int15 داخلي 15 سم، int10 داخلي 10 سم، below20 تحت منسوب الأرض. اجمع الطول من الأبعاد المكتوبة، وما لم يُكتب فقسه من الرسم بالمقياس واذكر ذلك في assumptions. الجدار الخارجي محيط المبنى في كل دور، والداخلي مجموع الفواصل بين الفراغات.\n" +
+    "- الفتحات: من جدول الأبواب والنوافذ إن وُجد، وإلا من المساقط؛ kind: door_main (باب مدخل الفيلا), door_ext (باب خارجي آخر في المبنى), door_int, window, sliding؛ ومعها tag (رمزها في الجدول مثل D1 أو W2) وw وh بالمتر وcount، وin=ext للفتحات في الجدران الخارجية وint للداخلية. count هو عدد تكرار الرمز في المساقط بعدّه فعلاً، وإن لم تستطع عدّه فاكتبه null ولا تفترض 1. بوابات السور ليست أبواباً: بوابة السيارات gate_car وبوابة المشاة gate_ped.\n" +
     "- الأدوار: لكل دور المسطح الإجمالي gross_m2 من جدول المساحات إن وُجد، وارتفاعه من البلاطة إلى البلاطة height_m، وسمك البلاطة slab_thk_m.\n" +
-    "- السطح والموقع: مسقط السطح، وطول الدروة وارتفاعها، ومساحة الأرض ومحيطها، وطول السور، وعدد بوابات السيارات، ومساحة المسطحات الخضراء والأرضيات الخارجية إن ظهرت في الموقع العام.\n" +
+    "- السطح والموقع: مسقط السطح، وطول الدروة وارتفاعها، ومساحة الأرض ومحيطها، وطول السور، وعدد بوابات السيارات gates_car وبوابات المشاة gates_ped، ومساحة المسطحات الخضراء والأرضيات الخارجية إن ظهرت في الموقع العام.\n" +
     "- الواجهات: stone_m2 مساحة تكسية الحجر إن ظهرت مادتها وأبعادها في الواجهات، وإلا null.\n" +
     "- الدرج: عدد الدرجات وعرضها لكل درج. والدرابزين: طوله الإجمالي.\n" +
     "- الكهرباء والسباكة والتكييف (mep): أعداد فقط ومن مخططاتها فقط إن رُفعت: light, socket, ac_points, lowcurrent, water_points, drain_points, wc, basin, sink, heaters, manholes, split_units, ducted_units, exhaust_fans, panels. وإن لم تُرفع فاترك mep فارغاً {}.\n" +
     "- الإنشائي (structure): فقط إن رُفعت المخططات الإنشائية، من جداول القواعد والأعمدة والكمرات والبلاطات: footings [{count,L,W,D}]، necks [{count,w,d,h}]، ties [{length_m,w,d}]، slab_on_grade {area_m2,thk_m}، columns [{floor,count,w,d,h}]، slabs [{floor,area_m2,thk_m,type:\"solid|hordi\"}]، beams [{floor,length_m,w,d}] بطول إجمالي لكل مقطع، وstairs_m3 وexcavation_m3 وbackfill_m3 وrebar_t إن كُتبت صراحة. وإن لم تُرفع فاجعله null.\n" +
     "- floor في كل عنصر هو id الدور كما عرّفته في floors (مثل G وF وA).\n" +
     "- اكتب بالعربية الفصحى في الأسماء والأسئلة، واستخدم «..» لا «…».\n\n" +
-    'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"","plot":{"area_m2":null,"perimeter_m":null,"fence_m":null,"gates_car":null,"yard_soft_m2":null,"yard_hard_m2":null},"floors":[{"id":"G","name":"الدور الأرضي","gross_m2":null,"height_m":null,"slab_thk_m":null}],"roof":{"area_m2":null,"parapet_m":null,"parapet_h_m":null},"rooms":[{"floor":"G","name":"المجلس","use":"majlis","L":null,"W":null,"area_m2":null,"perimeter_m":null,"h_m":null,"floor_finish":"porcelain","ceiling":"paint","wall_tile_h_m":null,"src":"dim"}],"walls":[{"floor":"G","kind":"ext20","length_m":0,"height_m":null}],"openings":[{"floor":"G","kind":"window","w":1.5,"h":1.6,"count":1,"in":"ext"}],"facade":{"stone_m2":null},"stairs":[{"steps":null,"width_m":null}],"railings_m":null,"mep":{},"structure":null,"assumptions":[],"questions":[],"excluded":[]}';
+    'أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n{"title":"","plot":{"area_m2":null,"perimeter_m":null,"fence_m":null,"gates_car":null,"gates_ped":null,"yard_soft_m2":null,"yard_hard_m2":null},"floors":[{"id":"G","name":"الدور الأرضي","gross_m2":null,"height_m":null,"slab_thk_m":null}],"roof":{"area_m2":null,"parapet_m":null,"parapet_h_m":null},"rooms":[{"floor":"G","name":"المجلس","use":"majlis","L":null,"W":null,"area_m2":null,"perimeter_m":null,"h_m":null,"floor_finish":"porcelain","ceiling":"paint","wall_tile_h_m":null,"src":"dim"}],"walls":[{"floor":"G","kind":"ext20","length_m":0,"height_m":null}],"openings":[{"floor":"G","kind":"window","tag":"W1","w":1.5,"h":1.6,"count":null,"in":"ext"}],"facade":{"stone_m2":null},"stairs":[{"steps":null,"width_m":null}],"railings_m":null,"mep":{},"structure":null,"assumptions":[],"questions":[],"excluded":[]}';
 }
 
 function b64(buf: ArrayBuffer): string {
@@ -142,9 +143,10 @@ Deno.serve(async (req) => {
       const blocks: unknown[] = [], skipped: string[] = [], dxfTexts: string[] = [];
       let budget = 24 * 1024 * 1024;
       const all = (rq.files ?? []) as F[];
-      for (const f of [...all.filter((f) => f.role === "dxf_extract"), ...all.filter((f) => f.role !== "dxf_extract")]) {
+      const isEx = (f: F) => f.role === "dxf_extract" || f.role === "pdf_extract";
+      for (const f of [...all.filter(isEx), ...all.filter((f) => !isEx(f))]) {
         const lower = (f.path || f.name).toLowerCase();
-        if (f.role === "dxf_extract") {
+        if (isEx(f)) {
           const { data: blob } = await db.storage.from("plans").download(f.path);
           try { const ex = JSON.parse(await blob!.text()); if (ex?.text) dxfTexts.push(ex.text); } catch { skipped.push(f.name); }
           continue;
@@ -164,7 +166,7 @@ Deno.serve(async (req) => {
           : { type: "image", source: { type: "base64", media_type: imgType, data } });
       }
       if (!blocks.length && !dxfTexts.length) return await fail("no_readable_files", { result: { skipped } });
-      if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات DXF:\n\n" + dxfTexts.join("\n\n---\n\n") });
+      if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات الرسم (DXF أو طبقة النص في PDF):\n\n" + dxfTexts.join("\n\n---\n\n") });
 
       const disc: string[] = bq.disciplines?.length ? bq.disciplines : ["arch"];
       const r = await callClaude(apiKey, model, [...blocks, { type: "text", text: buildPrompt(meta, disc, bq.note ?? "") }]);
@@ -185,6 +187,7 @@ Deno.serve(async (req) => {
         v: 2, title: A.title || pj.name, project: { name: pj.name, ref: pj.ref, rev: rq.rev }, date: new Date().toISOString().slice(0, 10),
         price_date: LIB.price_date, areas: { built_m2: Math.round(C.built * 100) / 100 },
         basis: "الكميات محسوبة بمعادلات ثابتة على ما قُرئ من مخططات الإصدار " + rq.rev + " (" + disc.map((k) => DISC[k] ?? k).join("، ") + ")، على طريقة القياس المكتوبة لكل بند في مكتبة البنود، ولكل بند سطر حساب. البنود الموسومة «تقدير» محسوبة بقاعدة مكتوبة لعدم رفع مخططات تخصصها. أسعار الوحدات هي الأسعار النموذجية في المكتبة.",
+        mode: { skeleton: C.skeletonByIndicator ? "indicator" : "measured", finish: C.finishByIndicator ? "indicator" : C.coverage < 0.75 ? "partial" : "measured", coverage: Math.round(C.coverage * 100) },
         sections: P.sections, total: P.total, checks: K,
         assumptions: [...C.assumptions, ...(A.assumptions ?? [])], excluded: A.excluded ?? [], questions: C.questions, skipped,
         takeoff: T,

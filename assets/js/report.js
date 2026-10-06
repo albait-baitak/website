@@ -4,7 +4,7 @@ var FQ_ASSETS=(document.currentScript&&document.currentScript.src||'').replace(/
 function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
 var SEVN={stop:'تمنع الرفع',major:'تُعالج قبل الرفع',minor:'تحسين مقترح'};
 var VD=[['ready','جاهز للرفع','لا مخالفة تمنع الرفع ولا تُعالج قبله'],['fix','يُرفع بعد العلاج','علاجها موضعي لا يغير التكوين'],['redesign','يعاد للتصميم','علاجها يغير التكوين']];
-function stLabel(r){if(!r)return['unk','لم يُفحص'];if(r.v==='ok')return['ok','مطابق'];if(r.v==='na')return['na','لا يخص هذا المشروع'];if(r.v==='unk')return['unk','غير موضّح في المخطط'];if(r.v==='conflict')return['unk','تعارض في المرجع'];return['fail-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
+function stLabel(r){if(!r)return['unk','لم يُفحص'];if(r.v==='ok')return['ok','مطابق'];if(r.v==='na')return['na','لا يخص هذا المشروع'];if(r.v==='unk')return['unk','غير موضّح في المخطط'];if(r.v==='conflict')return['unk','تعارض في المرجع'];if(r.v==='style')return['unk','معلّق على نمط الطراز'];return['fail-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
 
 function allChecks(rep){
   var list=RULES.filter(function(R){return !rep.listed||rep.results[R.c]}).map(function(R){return {R:R,r:rep.results[R.c]||null}});
@@ -13,7 +13,7 @@ function allChecks(rep){
 }
 function tally(rep){
   var t={};LAYERS.forEach(function(L){t[L.id]={stop:0,major:0,minor:0,unk:0,ok:0}});
-  allChecks(rep).forEach(function(k){var r=k.r;if(!r)return;var T=t[k.R.l];if(r.v==='fail')T[r.sev||'major']++;else if(r.v==='unk'||r.v==='conflict')T.unk++;else if(r.v==='ok')T.ok++});
+  allChecks(rep).forEach(function(k){var r=k.r;if(!r)return;var T=t[k.R.l];if(r.v==='fail')T[r.sev||'major']++;else if(r.v==='unk'||r.v==='conflict'||r.v==='style')T.unk++;else if(r.v==='ok')T.ok++});
   return t;
 }
 function lname(id){for(var i=0;i<LAYERS.length;i++)if(LAYERS[i].id===id)return LAYERS[i].n;return ''}
@@ -188,7 +188,7 @@ window.FQ_pages=function(rep,host,logoSrc){
   GROUPS.forEach(function(G,i){if(rep.summary&&rep.summary[i]){var p=el('p');p.appendChild(el('b',null,G.n+': '));p.appendChild(document.createTextNode(rep.summary[i]));l.appendChild(p)}});
   if(rep.assumptions&&rep.assumptions.length)l.appendChild(el('p','as','افتراضات الفحص: '+rep.assumptions.join(' · ')));sm.appendChild(l);
   var T={};LAYERS.forEach(function(L){T[L.id]={stop:0,major:0,minor:0,unk:0}});
-  checks.forEach(function(k){if(!k.r)return;if(k.r.v==='fail')T[k.R.l][k.r.sev||'major']++;else if(k.r.v==='unk'||k.r.v==='conflict')T[k.R.l].unk++});
+  checks.forEach(function(k){if(!k.r)return;if(k.r.v==='fail')T[k.R.l][k.r.sev||'major']++;else if(k.r.v==='unk'||k.r.v==='conflict'||k.r.v==='style')T[k.R.l].unk++});
   function ln(id){for(var q=0;q<LAYERS.length;q++)if(LAYERS[q].id===id)return LAYERS[q].n;return ''}
   var tb=el('table','pp-tl'),th=el('thead'),tr=el('tr');['','تمنع الرفع','تُعالج قبل الرفع','تحسين مقترح','غير محسوم'].forEach(function(x,i){tr.appendChild(el('th',['','k-stop','k-major','k-minor',''][i],x))});th.appendChild(tr);tb.appendChild(th);
   var bd=el('tbody');
@@ -197,7 +197,7 @@ window.FQ_pages=function(rep,host,logoSrc){
   tb.appendChild(bd);sm.appendChild(tb);b.appendChild(sm);add(b);
 
   function hdr(cols,cls){var t=el('table','pp-row');var cg=el('colgroup');cls.forEach(function(c){var x=el('col',c);cg.appendChild(x)});t.appendChild(cg);var r=el('tr');cols.forEach(function(c){r.appendChild(el('th',null,c))});t.appendChild(r);return t}
-  function st(r){if(!r)return['','·'];if(r.v==='ok')return['k-ok','مطابق'];if(r.v==='na')return['','لا يخص هذا المشروع'];if(r.v==='unk')return['','غير موضّح في المخطط'];if(r.v==='conflict')return['','تعارض في المرجع'];return['k-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
+  function st(r){if(!r)return['','·'];if(r.v==='ok')return['k-ok','مطابق'];if(r.v==='na')return['','لا يخص هذا المشروع'];if(r.v==='unk')return['','غير موضّح في المخطط'];if(r.v==='conflict')return['','تعارض في المرجع'];if(r.v==='style')return['','معلّق على نمط الطراز'];return['k-'+(r.sev||'major'),'مخالف · '+(SEVN[r.sev]||'')]}
   var ord={stop:0,major:1,minor:2};
   GROUPS.forEach(function(G){
     var gh=blk();gh.appendChild(el('div','pp-grp',''));gh.lastChild.appendChild(el('b',null,G.n));gh.lastChild.appendChild(el('span',null,G.sub));

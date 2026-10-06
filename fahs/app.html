@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062201">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610062201">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062219">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610062219">
 </head>
 <body>
 <header class="top">
@@ -65,7 +65,7 @@
               <label class="drop2" id="nDrop" for="nFiles">
                 <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
                 <b>اسحب ملفات المخطط هنا</b>
-                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق للفحص: DXF، فأبعاده ومساحاته تُقرأ من الملف نفسه. وDWG يُرفق معه DXF أو PDF.</small>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
               </label>
               <ul class="flist" id="nList"></ul>
             </div>
@@ -104,7 +104,7 @@
               <label class="drop2" id="rDrop" for="rFiles">
                 <input type="file" id="rFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
                 <b>اسحب ملفات المخطط هنا</b>
-                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق للفحص: DXF، فأبعاده ومساحاته تُقرأ من الملف نفسه. وDWG يُرفق معه DXF أو PDF.</small>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
               </label>
               <ul class="flist" id="rList"></ul>
             </div>
@@ -168,16 +168,17 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610062201"></script>
-<script src="../assets/js/config.js?v=202610062201"></script>
-<script src="../assets/js/stats.js?v=202610062201"></script>
-<script src="../assets/js/access.js?v=202610062201"></script>
-<script src="../assets/js/session.js?v=202610062201"></script>
-<script src="../assets/js/rules.js?v=202610062201"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610062201"></script>
-<script src="../assets/js/dxf.js?v=202610062201"></script>
-<script src="../assets/js/report.js?v=202610062201"></script>
-<script src="../assets/js/boq.js?v=202610062201"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610062219"></script>
+<script src="../assets/js/config.js?v=202610062219"></script>
+<script src="../assets/js/stats.js?v=202610062219"></script>
+<script src="../assets/js/access.js?v=202610062219"></script>
+<script src="../assets/js/session.js?v=202610062219"></script>
+<script src="../assets/js/rules.js?v=202610062219"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610062219"></script>
+<script src="../assets/js/dxf.js?v=202610062219"></script>
+<script src="../assets/js/pdfx.js?v=202610062219"></script>
+<script src="../assets/js/report.js?v=202610062219"></script>
+<script src="../assets/js/boq.js?v=202610062219"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -257,6 +258,16 @@ function uploadFiles(P,m,warn){
   P.files.forEach(function(f,i){
     var base=user.id+'/'+batch+'/'+(i+1);
     queue.push({blob:f,path:base+'.'+ext(f.name),meta:{name:f.name,size:f.size,type:f.type||ext(f.name)},bar:i});
+    if(ext(f.name)==='pdf'&&window.BBPDF){
+      chain=chain.then(function(){msg(m,'قراءة نصوص ملف PDF: '+f.name+'..');if(bars[i])bars[i].style.width='15%';return sleep(30)})
+      .then(function(){return BBPDF.process(f)})
+      .then(function(o){var x=o.extract;
+        if(x.text_pages){var json=new Blob([JSON.stringify(x)],{type:'application/json'});
+          queue.push({blob:json,path:base+'-pdftext.json',meta:{name:'استخراج نصوص PDF: '+f.name,size:json.size,type:'application/json',role:'pdf_extract',of:f.name}})}
+        if(x.raster_pages&&x.raster_pages>=x.read)warn.push(f.name+' (صور ممسوحة بلا طبقة نص: تُقرأ أبعاده بالنظر فقط، والأدق PDF مصدّر من برنامج الرسم أو DXF)');
+      }).catch(function(){});
+      return;
+    }
     if(ext(f.name)!=='dxf'||!window.BBDXF)return;
     chain=chain.then(function(){msg(m,'قراءة ملف DXF: '+f.name+'..');if(bars[i])bars[i].style.width='20%';return sleep(30)})
     .then(function(){return BBDXF.process(f)})
@@ -331,7 +342,7 @@ $('fNew').addEventListener('submit',function(e){
     if(r.error)throw r.error;
     NP.reset();$('fNew').reset();$('cNew').hidden=true;
     return loadProjects().then(function(){return openProject(project.id)}).then(function(){
-      msg('rMsg','وصل الإصدار الأول برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر التقرير هنا خلال دقائق.':' يصلك التقرير في هذه الصفحة.')+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'، فسيُقرأ يدوياً.':''),'good')});
+      msg('rMsg','وصل الإصدار الأول برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر التقرير هنا خلال دقائق.':' يصلك التقرير في هذه الصفحة.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),'good')});
   }).catch(function(e){msg('nMsg',quotaMsg(e),'bad')})
   .then(function(){busy=false;$('nSubmit').disabled=false});
 });
@@ -408,7 +419,7 @@ $('fRev').addEventListener('submit',function(e){
   busy=true;$('rSubmit').disabled=true;var warn=[];
   uploadFiles(RP,'rMsg',warn).then(function(files){return insertRev(cur,files,$('rNote').value.trim())})
   .then(function(r){if(r.error)throw r.error;RP.reset();$('fRev').reset();
-    msg('rMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر تقريره مع المقارنة بالإصدار السابق خلال دقائق.':' يصلك تقريره مع المقارنة بالإصدار السابق.')+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'.':''),'good');return loadRevs()})
+    msg('rMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر تقريره مع المقارنة بالإصدار السابق خلال دقائق.':' يصلك تقريره مع المقارنة بالإصدار السابق.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),'good');return loadRevs()})
   .catch(function(e){msg('rMsg',quotaMsg(e),'bad')})
   .then(function(){busy=false;$('rSubmit').disabled=false});
 });

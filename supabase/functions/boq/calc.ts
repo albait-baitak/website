@@ -4,12 +4,12 @@
 
 export type Takeoff = {
   title?: string;
-  plot?: { area_m2?: number | null; perimeter_m?: number | null; fence_m?: number | null; gates_car?: number | null; yard_soft_m2?: number | null; yard_hard_m2?: number | null };
+  plot?: { area_m2?: number | null; perimeter_m?: number | null; fence_m?: number | null; gates_car?: number | null; gates_ped?: number | null; yard_soft_m2?: number | null; yard_hard_m2?: number | null };
   floors?: { id: string; name?: string; gross_m2?: number | null; height_m?: number | null; slab_thk_m?: number | null }[];
   roof?: { area_m2?: number | null; parapet_m?: number | null; parapet_h_m?: number | null };
   rooms?: { floor: string; name?: string; use?: string; L?: number | null; W?: number | null; area_m2?: number | null; perimeter_m?: number | null; h_m?: number | null; floor_finish?: string | null; ceiling?: string | null; wall_tile_h_m?: number | null; src?: string }[];
   walls?: { floor: string; kind: string; length_m: number; height_m?: number | null }[];
-  openings?: { floor?: string; kind: string; w: number; h: number; count?: number; in?: string }[];
+  openings?: { floor?: string; kind: string; tag?: string; w: number; h: number; count?: number | null; in?: string }[];
   facade?: { stone_m2?: number | null; ext_finish_m2?: number | null };
   stairs?: { steps?: number | null; width_m?: number | null }[];
   railings_m?: number | null;
@@ -78,11 +78,14 @@ export function compute(T: Takeoff, points: any | null) {
 
   // ===== الفتحات =====
   const op = T.openings ?? [];
-  const opA = (k: (o: any) => boolean) => sum(op.filter(k).map((o) => (num(o.w) ?? 0) * (num(o.h) ?? 0) * (num(o.count) ?? 1)));
+  const GATE = (o: any) => o.kind === "gate_car" || o.kind === "gate_ped";
+  const noCount = op.filter((o) => !GATE(o) && num(o.count) == null);
+  if (noCount.length) Q.push(`لم يُعدّ في المساقط تكرار ${noCount.length === 1 ? "الفتحة" : "الفتحات"}: ${[...new Set(noCount.map((o) => (o.tag ? o.tag + " " : "") + "(" + o.w + "×" + o.h + ")"))].join("، ")}، فلم تدخل في الكميات حتى يُؤكَّد عددها.`);
+  const opA = (k: (o: any) => boolean) => sum(op.filter((o) => !GATE(o) && k(o)).map((o) => (num(o.w) ?? 0) * (num(o.h) ?? 0) * (num(o.count) ?? 0)));
   const opBig = (o: any) => (num(o.w) ?? 0) * (num(o.h) ?? 0) > 0.5;
   const extOpen = opA((o) => o.in !== "int" && opBig(o));
   const intOpen = opA((o) => o.in === "int" && opBig(o));
-  const doorsInt = sum(op.filter((o) => o.kind === "door_int").map((o) => num(o.count) ?? 1));
+  const doorsInt = sum(op.filter((o) => o.kind === "door_int").map((o) => num(o.count) ?? 0));
 
   // ===== الأعمال الإنشائية =====
   const S = T.structure;
@@ -195,15 +198,19 @@ export function compute(T: Takeoff, points: any | null) {
   }
 
   // ===== الأبواب والنوافذ =====
-  const cnt = (k: string) => sum(op.filter((o) => o.kind === k).map((o) => num(o.count) ?? 1));
-  if (doorsInt) add("08-01", doorsInt, `من جدول الأبواب أو المساقط: ${doorsInt} باباً`);
+  const cnt = (k: string) => sum(op.filter((o) => o.kind === k).map((o) => num(o.count) ?? 0));
+  if (doorsInt) add("08-01", doorsInt, op.filter((o) => o.kind === "door_int" && num(o.count)).map((o) => `${o.tag ?? ""} ${o.count}×(${o.w}×${o.h})`.trim()).join(" + "));
   const dm = cnt("door_main") + cnt("door_ext");
   if (dm) add("08-02", dm, `باب المدخل والأبواب الخارجية: ${dm}`);
   const winA = opA((o) => o.kind === "window"), sldA = opA((o) => o.kind === "sliding");
-  if (winA) add("08-03", winA, op.filter((o) => o.kind === "window").map((o) => `${o.count ?? 1}×${o.w}×${o.h}`).join(" + "));
-  if (sldA) add("08-04", sldA, op.filter((o) => o.kind === "sliding").map((o) => `${o.count ?? 1}×${o.w}×${o.h}`).join(" + "));
+  const opTxt = (k: string) => op.filter((o) => o.kind === k && num(o.count)).map((o) => `${o.tag ? o.tag + ": " : ""}${o.count}×${o.w}×${o.h}`).join(" + ");
+  if (winA) add("08-03", winA, opTxt("window"));
+  if (sldA) add("08-04", sldA, opTxt("sliding"));
   if (num(T.railings_m)) add("08-05", T.railings_m!, "أطوال الدرابزين من المساقط");
-  if (num(T.plot?.gates_car)) add("08-06", T.plot!.gates_car!, "من الموقع العام");
+  const gc = num(T.plot?.gates_car) ?? (sum(op.filter((o) => o.kind === "gate_car").map((o) => num(o.count) ?? 0)) || null);
+  if (gc) add("08-06", gc, "بوابات السيارات من الموقع العام وواجهة السور");
+  const gp = num(T.plot?.gates_ped) ?? sum(op.filter((o) => o.kind === "gate_ped").map((o) => num(o.count) ?? 0));
+  if (gp) A.push(`بوابات المشاة في السور (${gp}) لا بند لها في المكتبة، فتُسعّر بعرض من مورد الحدادة.`);
 
   // ===== الكهرباء والسباكة والتكييف =====
   const M = T.mep ?? {};
@@ -222,7 +229,7 @@ export function compute(T: Takeoff, points: any | null) {
   mepLine("10-03", "ac_points", /-ac$/);
   mepLine("10-07", "lowcurrent", /./, "lowcurrent");
   add("10-04", num(M.panels) ?? (floors.length + 1), num(M.panels) != null ? "من المخططات" : `لوحة رئيسية + لوحة لكل دور (${floors.length})`, num(M.panels) == null);
-  add("10-05", 1, "مقطوعية");
+  add("10-05", 1, "بند مقطوع للمشروع");
   const baths = indoor.filter((r) => r.use === "bath").length, wcs = indoor.filter((r) => r.use === "wc").length, kit = kitchens.length, lau = indoor.filter((r) => r.use === "laundry").length;
   const fx = (key: string, code: string, est: number, why: string) => { const v = num(M[key]); add(code, v ?? est, v != null ? "من مخطط السباكة" : why, v == null); };
   if (baths + wcs + kit + lau) {
@@ -246,11 +253,24 @@ export function compute(T: Takeoff, points: any | null) {
 
   // ===== الأعمال العامة والخارجية =====
   if (num(T.plot?.area_m2)) add("01-01", T.plot!.area_m2!, `مساحة الأرض ${f2(T.plot!.area_m2!)} م²`);
-  add("01-02", 1, "مقطوعية"); add("01-03", 1, "مقطوعية");
+  add("01-02", 1, "بند مقطوع للمشروع"); add("01-03", 1, "بند مقطوع للمشروع");
   const fence = num(T.plot?.fence_m) ?? num(T.plot?.perimeter_m);
   if (fence) add("12-01", fence, num(T.plot?.fence_m) ? "طول السور من الموقع العام" : `محيط الأرض ${f2(fence)} م (البوابات غير مخصومة)`, !num(T.plot?.fence_m));
   if (num(T.plot?.yard_soft_m2)) add("12-02", T.plot!.yard_soft_m2!, "المسطحات الخضراء من الموقع العام");
   if (num(T.plot?.yard_hard_m2)) add("07-06", T.plot!.yard_hard_m2!, "الأرضيات الخارجية من الموقع العام");
+
+  // التشطيب: إن لم تُقَس فراغات تكفي (أقل من نصف المسطح الصافي المتوقع) قُدّر التشطيب كله بمؤشر المتر المربع،
+  // وصارت بنود التشطيب المقيسة جزئياً للعلم حتى لا تُحسب مرتين ولا يظهر الإجمالي ناقصاً بلا تنبيه
+  const roomsArea = sum(indoor.map((r) => r.area));
+  const coverage = built > 0 ? roomsArea / (built * 0.85) : 0;
+  let finishByIndicator = false;
+  if (built > 0 && coverage < 0.5) {
+    finishByIndicator = true;
+    add("13-02", built, `إجمالي المسطحات المبنية ${f2(built)} م²: التشطيب بمؤشر التكلفة لأن الفراغات المقيسة ${f2(roomsArea)} م² فقط (${Math.round(coverage * 100)}٪ من المتوقع)`, true);
+    const inFin = /^(06-0[1-6]|07-0[1-5]|08-0[1-5]|09-0[789]|09-10|10-0[1237]|11-0[1-4])$/;
+    for (const l of lines) if (inFin.test(l.code)) { l.info = true; l.calc += "؛ للعلم: داخل في مؤشر التشطيب 13-02"; }
+    A.push("الفراغات المقيسة أقل من نصف المسطح، فقُدّر التشطيب كاملاً بمؤشر تكلفة المتر المربع (فئة متوسطة)، وبنود التشطيب المقيسة معروضة للعلم دون مبلغ. يُفصَّل التشطيب بنوداً حين تُقرأ أبعاد الفراغات.");
+  }
 
   // مؤشر العظم في المكتبة يشمل البلك والحفر والعزل، فإن قُدّر العظم به صارت هذه البنود للعلم حتى لا تُحسب مرتين
   if (skeletonByIndicator) {
@@ -258,7 +278,7 @@ export function compute(T: Takeoff, points: any | null) {
     for (const l of lines) if (inSk.includes(l.code)) { l.info = true; l.calc += "؛ للعلم: داخل في مؤشر العظم 13-01"; }
     A.push("مؤشر العظم في المكتبة يشمل البلك والحفر والعزل وجزءاً من تمديدات الكهرباء والسباكة داخل الجدران؛ فبنود البلك والعزل معروضة بكمياتها للعلم دون مبلغ، ونقاط الكهرباء والسباكة مسعّرة كاملة وقد يتداخل جزء منها مع المؤشر.");
   }
-  return { lines, assumptions: A, questions: Q, built, concreteTotal, skeletonByIndicator, rooms, ext, intT: i15 + i10 };
+  return { lines, assumptions: A, questions: Q, built, concreteTotal, skeletonByIndicator, finishByIndicator, coverage, roomsArea, rooms, ext, intT: i15 + i10 };
 }
 
 // فحوص المعقولية: تُقارن نسب المشروع بمؤشرات مكتبة البنود نفسها، وما خرج عنها يُعلَّم ولا يُخفى
@@ -273,11 +293,12 @@ export function checks(C: ReturnType<typeof compute>, T: Takeoff, totals: { skel
     const v = rs.reduce((s, r) => s + r.area, 0) / g;
     out.push({ name: `مجموع مساحات فراغات ${f.name ?? f.id} إلى مسطحه`, value: Math.round(v * 100) + "٪", expected: "75٪ إلى 95٪", ok: v >= 0.75 && v <= 0.95, note: v < 0.75 ? "فراغات لم تُقرأ على الأرجح." : v > 0.95 ? "مساحات مكررة أو مسطح الدور أقل من الحقيقي." : undefined });
   }
+  out.push({ name: "الفراغات المقيسة إلى المسطح المبني", value: Math.round(C.roomsArea) + " م² (" + Math.round(C.coverage * 100) + "٪ من المتوقع)", expected: "75٪ فأكثر حتى تُفصَّل كميات التشطيب بنوداً", ok: C.coverage >= 0.75, note: C.coverage < 0.5 ? "التشطيب مقدّر بالمؤشر لا بالكميات." : C.coverage < 0.75 ? "بعض الفراغات لم تُقَس، فكميات التشطيب ناقصة." : undefined });
   const sk = lib.byCode["13-01"]?.p, fn = lib.byCode["13-02"]?.p;
   if (totals.skeleton && sk && !C.skeletonByIndicator) { const v = totals.skeleton / B; out.push({ name: "تكلفة العظم للمتر المربع", value: Math.round(v) + " ريال", expected: `${sk.low} إلى ${sk.high} ريال (مؤشر 13-01)`, ok: v >= (sk.low ?? 0) * 0.85 && v <= (sk.high ?? 1e9) * 1.15 }); }
-  if (totals.finish && fn) { const v = totals.finish / B; out.push({ name: "تكلفة التشطيب المسعّر للمتر المربع", value: Math.round(v) + " ريال", expected: `${fn.low} إلى ${fn.high} ريال (مؤشر 13-02)، والبنود التي بعرض غير داخلة`, ok: v >= (fn.low ?? 0) * 0.5 && v <= (fn.high ?? 1e9) }); }
+  if (totals.finish && fn && !C.finishByIndicator) { const v = totals.finish / B; out.push({ name: "تكلفة التشطيب المسعّر للمتر المربع", value: Math.round(v) + " ريال", expected: `${fn.low} إلى ${fn.high} ريال (مؤشر 13-02)، والبنود التي بعرض غير داخلة`, ok: v >= (fn.low ?? 0) * 0.5 && v <= (fn.high ?? 1e9) }); }
   const all = lib.byCode["13-03"]?.p;
-  if (totals.total && all) { const v = totals.total / B; out.push({ name: "إجمالي المسعّر للمتر المربع", value: Math.round(v) + " ريال", expected: `${all.low} إلى ${all.high} ريال تسليم مفتاح (مؤشر 13-03)، والبنود التي بعرض غير داخلة`, ok: v >= (all.low ?? 0) * 0.6 && v <= (all.high ?? 1e9) }); }
+  if (totals.total && all) { const v = totals.total / B; out.push({ name: "إجمالي المسعّر للمتر المربع", value: Math.round(v) + " ريال", expected: `${all.low} إلى ${all.high} ريال تسليم مفتاح (مؤشر 13-03)، والبنود التي بعرض غير داخلة`, ok: v >= (all.low ?? 0) * 0.6 && v <= (all.high ?? 1e9) && C.coverage >= 0.5, note: C.coverage < 0.5 ? "الإجمالي يعتمد على مؤشرات المتر المربع لا على كميات مقيسة." : undefined }); }
   return out;
 }
 
@@ -295,7 +316,7 @@ export function assemble(C: ReturnType<typeof compute>, lib: LibItem[]) {
     s.items.push({ code: it.c, name: it.n, unit: it.u, qty: l.qty, est: !!l.est, info: !!l.info, rate, low: it.p.low, high: it.p.high,
       amount, calc: l.calc, spec: (it.desc + " " + it.spec).trim(),
       note: l.info ? "للعلم: غير داخل في المجموع." : rate == null ? "يُسعّر بعرض لغياب مصدر منشور كافٍ." : it.p.basis === "توريد فقط" ? "السعر للتوريد فقط." : "" });
-    if (amount != null) { s.total += amount; total += amount; if (["02", "03", "04", "13"].includes(dv) || l.code === "05-01") skeleton += amount; if (["05", "06", "07", "08"].includes(dv) && l.code !== "05-01") finish += amount; }
+    if (amount != null) { s.total += amount; total += amount; if (["02", "03", "04"].includes(dv) || l.code === "13-01" || l.code === "05-01") skeleton += amount; if ((["05", "06", "07", "08"].includes(dv) && l.code !== "05-01") || l.code === "13-02") finish += amount; }
   }
   return { sections: Object.keys(secs).sort().map((k) => secs[k]), total, skeleton, finish, byCode };
 }
