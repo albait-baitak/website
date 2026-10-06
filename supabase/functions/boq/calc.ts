@@ -178,7 +178,7 @@ export function compute(T: Takeoff, points: any | null) {
   if (other.length) Q.push(`أرضيات ${other.length} فراغاً من مادة ليس لها بند في المكتبة (${[...new Set(other.map((r) => r.ff))].join("، ")})، فتُسعّر بعرض.`);
   const dry = indoor.filter((r) => !WET.includes(r.use) && r.use !== "kitchen" && r.ff !== "none");
   if (dry.length) {
-    const sk = sum(dry.map((r) => r.per)) - sum(op.filter((o) => o.kind === "door_int").map((o) => (num(o.w) ?? 0) * (num(o.count) ?? 1))) * 2 - sum(op.filter((o) => o.kind === "door_main" || o.kind === "door_ext").map((o) => (num(o.w) ?? 0) * (num(o.count) ?? 1)));
+    const sk = sum(dry.map((r) => r.per)) - sum(op.filter((o) => o.kind === "door_int").map((o) => (num(o.w) ?? 0) * (num(o.count) ?? 0))) * 2 - sum(op.filter((o) => o.kind === "door_main" || o.kind === "door_ext").map((o) => (num(o.w) ?? 0) * (num(o.count) ?? 0)));
     add("07-05", Math.max(sk, 0), `محيط الفراغات الجافة ${f2(sum(dry.map((r) => r.per)))} م ناقص عروض الأبواب (الداخلية بجانبيها)`);
   }
   const st = T.stairs ?? [];
