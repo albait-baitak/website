@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062124">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610062124">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062144">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610062144">
 </head>
 <body>
 <header class="top">
@@ -82,6 +82,14 @@
           <h2 id="prName"></h2>
           <p class="muted"><span class="mono" id="prRef"></span> · <span id="prMeta"></span></p>
         </div>
+
+        <section class="card wait-card" id="cWait" hidden>
+          <div class="card-h"><h2 id="wTitle"></h2><span class="muted" id="wRef"></span></div>
+          <div class="card-b">
+            <ol class="wsteps" id="wSteps"></ol>
+            <p class="wnote" id="wNote"></p>
+          </div>
+        </section>
 
         <section class="card">
           <div class="card-h"><h2>الإصدارات</h2><span class="muted">كل رفع إصدار مرقّم، ولكل إصدار تقريره</span></div>
@@ -160,22 +168,22 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610062124"></script>
-<script src="../assets/js/config.js?v=202610062124"></script>
-<script src="../assets/js/stats.js?v=202610062124"></script>
-<script src="../assets/js/access.js?v=202610062124"></script>
-<script src="../assets/js/session.js?v=202610062124"></script>
-<script src="../assets/js/rules.js?v=202610062124"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610062124"></script>
-<script src="../assets/js/dxf.js?v=202610062124"></script>
-<script src="../assets/js/report.js?v=202610062124"></script>
-<script src="../assets/js/boq.js?v=202610062124"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610062144"></script>
+<script src="../assets/js/config.js?v=202610062144"></script>
+<script src="../assets/js/stats.js?v=202610062144"></script>
+<script src="../assets/js/access.js?v=202610062144"></script>
+<script src="../assets/js/session.js?v=202610062144"></script>
+<script src="../assets/js/rules.js?v=202610062144"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610062144"></script>
+<script src="../assets/js/dxf.js?v=202610062144"></script>
+<script src="../assets/js/report.js?v=202610062144"></script>
+<script src="../assets/js/boq.js?v=202610062144"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
 var $=function(id){return document.getElementById(id)};
 var el=FQ.el, user=null, projects=[], cur=null, revs=[], boqs=[], openReq=null, openBoq=null;
-var STATUS={submitted:'مستلم',in_review:'قيد الفحص',published:'التقرير جاهز',cancelled:'ملغى'};
+var STATUS={submitted:'بانتظار الفحص',in_review:'قيد الفحص',published:'التقرير جاهز',cancelled:'ملغى'};
 var BSTATUS={submitted:'مستلم',in_review:'قيد الإعداد',published:'الجدول جاهز',cancelled:'ملغى'};
 var DISC={arch:'معماري',struct:'إنشائي',elec:'كهربائي',plumb:'صحي',hvac:'تكييف'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
@@ -361,10 +369,26 @@ function drawRevs(){
     var act=el('td');if(reps[q.id]){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
     tr.appendChild(act);tb.appendChild(tr)});
   stack(tb);
+  drawWait();
   var sel=$('bRev');sel.innerHTML='';
   revs.forEach(function(q){var o=el('option',null,'الإصدار '+q.rev+(reps[q.id]?'':' (لم يصدر تقريره بعد)'));o.value=q.id;sel.appendChild(o)});
   boqWarn();
 }
+
+/* حالة آخر إصدار: ما دام تقريره لم يصدر يظهر مسار الفحص، ويُقفل رفع إصدار جديد حتى يُبنى كل إصدار على ملاحظات سابقه */
+var waitPoll=null;
+function drawWait(){
+  var q=revs[0],c=$('cWait'),pending=q&&(q.status==='submitted'||q.status==='in_review');
+  clearInterval(waitPoll);$('cRev').hidden=!!pending;c.hidden=!pending;if(!pending)return;
+  $('wTitle').textContent='الإصدار '+q.rev+' '+(q.status==='in_review'?'قيد الفحص':'وصل وينتظر الفحص');
+  $('wRef').textContent=q.ref;
+  var steps=[['وصل الإصدار',fmtDate(q.created_at),'done'],['الفحص',q.status==='in_review'?'يجري الآن':'يبدأ قريباً',q.status==='in_review'?'now':'next'],['التقرير','يظهر هنا حين يصدر','next']];
+  var ol=$('wSteps');ol.innerHTML='';steps.forEach(function(x){var li=el('li',x[2]);li.appendChild(el('b',null,x[0]));li.appendChild(el('span',null,x[1]));ol.appendChild(li)});
+  $('wNote').textContent='يصدر التقرير في هذه الصفحة، وتتحدث حالته وحدها وأنت فيها. ورفع إصدار جديد لهذا المشروع يُفتح بعد صدور تقرير هذا الإصدار، حتى يُبنى كل إصدار على ملاحظات سابقه. أما جداول الكميات فتطلبها متى شئت.';
+  waitPoll=setInterval(function(){if(!cur||document.hidden)return;
+    BB.from('requests').select('status').eq('id',q.id).maybeSingle().then(function(r){if(r.data&&r.data.status!==q.status)loadRevs()})},45000);
+}
+$('btnBack').addEventListener('click',function(){clearInterval(waitPoll)});
 $('bRev').addEventListener('change',boqWarn);
 function stopsOf(rep){var n=0;if(!rep||!rep.results)return 0;Object.keys(rep.results).forEach(function(k){var r=rep.results[k];if(r&&r.v==='fail'&&r.sev==='stop')n++});(rep.extra||[]).forEach(function(r){if(r.v==='fail'&&r.sev==='stop')n++});return n}
 function boqWarn(){

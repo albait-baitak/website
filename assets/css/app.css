@@ -254,3 +254,15 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .push-steps{margin:8px 0 0;padding-inline-start:20px;font-size:14px;color:var(--ink-2);display:grid;gap:4px}
 .push-h{font-size:14px;margin:8px 0 0}
 .push-types{display:grid;gap:10px}
+/* حالة الإصدار بانتظار التقرير */
+.wait-card{border-color:var(--terra)}
+.wsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:w}
+.wsteps li{position:relative;padding:12px 14px 12px 14px;border:1px solid var(--line);border-radius:var(--r-card);background:var(--paper);counter-increment:w}
+.wsteps li b{display:block;font-size:15px}
+.wsteps li b::before{content:counter(w) ". ";color:var(--ink-2);font-weight:400}
+.wsteps li span{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.wsteps li.done{border-color:var(--ok)} .wsteps li.done b{color:var(--ok)} .wsteps li.done b::before{content:"✓ ";color:var(--ok)}
+.wsteps li.now{border-color:var(--major);box-shadow:inset 0 0 0 1px var(--major)} .wsteps li.now b{color:var(--major)}
+.wsteps li.next{opacity:.7}
+.wnote{margin:14px 0 0;font-size:14px;color:var(--ink-2);line-height:1.8}
+@media (max-width:560px){.wsteps{grid-template-columns:1fr}}
