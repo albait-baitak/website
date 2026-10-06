@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061227">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610061227">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061246">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061246">
 </head>
 <body>
 <header class="top">
@@ -160,15 +160,15 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610061227"></script>
-<script src="../assets/js/config.js?v=202610061227"></script>
-<script src="../assets/js/access.js?v=202610061227"></script>
-<script src="../assets/js/session.js?v=202610061227"></script>
-<script src="../assets/js/rules.js?v=202610061227"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610061227"></script>
-<script src="../assets/js/dxf.js?v=202610061227"></script>
-<script src="../assets/js/report.js?v=202610061227"></script>
-<script src="../assets/js/boq.js?v=202610061227"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061246"></script>
+<script src="../assets/js/config.js?v=202610061246"></script>
+<script src="../assets/js/access.js?v=202610061246"></script>
+<script src="../assets/js/session.js?v=202610061246"></script>
+<script src="../assets/js/rules.js?v=202610061246"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610061246"></script>
+<script src="../assets/js/dxf.js?v=202610061246"></script>
+<script src="../assets/js/report.js?v=202610061246"></script>
+<script src="../assets/js/boq.js?v=202610061246"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -267,8 +267,17 @@ function uploadFiles(P,m,warn){
   }
   return chain.then(next);
 }
+/* الإعدادات: النشر الآلي وحد الاستخدام الشهري */
+var SET={auto:false,limit:20};
+BB.from('app_settings').select('key,value').then(function(r){(r.data||[]).forEach(function(x){if(x.key==='auto_publish')SET.auto=x.value===true;if(x.key==='monthly_limit')SET.limit=+x.value||20})});
+/* في النشر الآلي يبدأ الفحص فور الإرسال، ويصل التقرير خلال دقائق */
+var poll=null;
+function autoRun(id){if(!SET.auto)return;BB.functions.invoke('analyze',{body:{request_id:id}}).catch(function(){});
+  clearInterval(poll);var n=0;poll=setInterval(function(){n++;if(n>40){clearInterval(poll);return}
+    BB.from('requests').select('status').eq('id',id).maybeSingle().then(function(r){if(r.data&&r.data.status==='published'){clearInterval(poll);if(cur)loadRevs();loadProjects();msg('rMsg','صدر التقرير. اضغط «اعرض التقرير» في جدول الإصدارات.','good')}})},20000)}
+function quotaMsg(e){return e&&(e.code==='42501'||/row-level security/i.test(e.message||''))?'بلغت حد الإصدارات المسموح هذا الشهر ('+SET.limit+'). يتجدد الحد أول الشهر القادم، وللزيادة تواصل معنا.':'تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.'}
 function insertRev(project,files,note){
-  return BB.from('requests').insert({project_id:project.id,office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:files,project:project.data||{},change_note:note||null}).select('id,ref,rev').single();
+  return BB.from('requests').insert({project_id:project.id,office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:files,project:project.data||{},change_note:note||null}).select('id,ref,rev').single().then(function(r){if(!r.error&&r.data)autoRun(r.data.id);return r});
 }
 
 /* مشاريعي */
@@ -313,8 +322,8 @@ $('fNew').addEventListener('submit',function(e){
     if(r.error)throw r.error;
     NP.reset();$('fNew').reset();$('cNew').hidden=true;
     return loadProjects().then(function(){return openProject(project.id)}).then(function(){
-      msg('rMsg','وصل الإصدار الأول برقم '+r.data.ref+'. يصلك التقرير في هذه الصفحة.'+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'، فسيُقرأ يدوياً.':''),'good')});
-  }).catch(function(){msg('nMsg','تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.','bad')})
+      msg('rMsg','وصل الإصدار الأول برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر التقرير هنا خلال دقائق.':' يصلك التقرير في هذه الصفحة.')+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'، فسيُقرأ يدوياً.':''),'good')});
+  }).catch(function(e){msg('nMsg',quotaMsg(e),'bad')})
   .then(function(){busy=false;$('nSubmit').disabled=false});
 });
 
@@ -337,10 +346,11 @@ function loadRevs(){
   ]).then(function(rs){
     revs=rs[0].data||[];boqs=rs[1].data||[];
     var ids=revs.filter(function(q){return q.status==='published'}).map(function(q){return q.id});
-    return (ids.length?BB.from('reports').select('request_id,data').in('request_id',ids).eq('published',true):Promise.resolve({data:[]})).then(function(r){
-      reps={};(r.data||[]).forEach(function(x){reps[x.request_id]=x.data});drawRevs();drawBoqs()});
+    return (ids.length?BB.from('reports').select('request_id,data,auto').in('request_id',ids).eq('published',true):Promise.resolve({data:[]})).then(function(r){
+      reps={};repAuto={};(r.data||[]).forEach(function(x){reps[x.request_id]=x.data;repAuto[x.request_id]=x.auto});drawRevs();drawBoqs()});
   });
 }
+var repAuto={};
 function drawRevs(){
   var tb=$('revBody');tb.innerHTML='';
   revs.forEach(function(q){
@@ -373,8 +383,8 @@ $('fRev').addEventListener('submit',function(e){
   busy=true;$('rSubmit').disabled=true;var warn=[];
   uploadFiles(RP,'rMsg',warn).then(function(files){return insertRev(cur,files,$('rNote').value.trim())})
   .then(function(r){if(r.error)throw r.error;RP.reset();$('fRev').reset();
-    msg('rMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'. يصلك تقريره مع المقارنة بالإصدار السابق.'+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'.':''),'good');return loadRevs()})
-  .catch(function(){msg('rMsg','تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.','bad')})
+    msg('rMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر تقريره مع المقارنة بالإصدار السابق خلال دقائق.':' يصلك تقريره مع المقارنة بالإصدار السابق.')+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'.':''),'good');return loadRevs()})
+  .catch(function(e){msg('rMsg',quotaMsg(e),'bad')})
   .then(function(){busy=false;$('rSubmit').disabled=false});
 });
 
@@ -402,12 +412,22 @@ function drawCmp(q,prevQ,c,rep){
     col.appendChild(ul);body.appendChild(col)});
   $('cCmp').hidden=false;
 }
+/* التقرير مع التغذية الراجعة: موافقة أو اعتراض على كل مخالفة، وتقييم للتقرير */
+function renderWithFb(q,d){
+  BB.from('report_feedback').select('rule_code,kind,rating,note').eq('request_id',q.id).then(function(r){
+    var state={},rate={};(r.data||[]).forEach(function(x){if(x.rule_code==='_report')rate={value:x.rating,note:x.note};else state[x.rule_code]={kind:x.kind,note:x.note}});
+    function up(row){row.request_id=q.id;row.user_id=user.id;row.updated_at=new Date().toISOString();return BB.from('report_feedback').upsert(row,{onConflict:'request_id,user_id,rule_code'}).then(function(x){if(x.error)throw x.error})}
+    FQ.render(d,$('report'),{auto:!!repAuto[q.id],
+      fb:{state:state,onSet:function(code,kind,note){return up({rule_code:code,kind:kind,note:note||null,rating:null})}},
+      rate:{value:rate.value,note:rate.note,onSave:function(v,note){return up({rule_code:'_report',kind:'rating',rating:v,note:note})}}});
+  });
+}
 function openReport(q){
   var d=reps[q.id];if(!d)return;openReq=q;d.ref=d.ref||q.ref;
   $('cBoqView').hidden=true;$('cCmp').hidden=true;
   var prevQ=revs.filter(function(x){return x.rev<q.rev&&reps[x.id]}).sort(function(a,b){return b.rev-a.rev})[0];
   if(prevQ)drawCmp(q,prevQ,compare(reps[prevQ.id],d),d);
-  $('cReport').hidden=false;FQ.render(d,$('report'));($('cCmp').hidden?$('cReport'):$('cCmp')).scrollIntoView({behavior:'smooth',block:'start'});
+  $('cReport').hidden=false;renderWithFb(q,d);($('cCmp').hidden?$('cReport'):$('cCmp')).scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('fGap').addEventListener('submit',function(e){
   e.preventDefault();if(!openReq)return;

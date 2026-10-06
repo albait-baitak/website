@@ -1,5 +1,6 @@
 // دالة الفحص الآلي: تقرأ ملفات الطلب، وترسلها لـClaude مع قواعد الفحص الفني، وتحفظ مسودة التقرير.
-// لا يشغّلها إلا المشرف. والمسودة لا تصل للمكتب قبل مراجعة المعماري واعتماده.
+// يشغّلها المشرف، أو صاحب الطلب حين يكون النشر الآلي مشغّلاً في الإعدادات؛ وحينها يُنشر التقرير فور اكتماله،
+// وإلا بقي مسودة لا تصل للمكتب قبل مراجعة المعماري واعتماده.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const cors = {
@@ -124,11 +125,11 @@ Deno.serve(async (req) => {
   const apiKey = Deno.env.get("ANTHROPIC_API_KEY");
   const model = Deno.env.get("ANALYSIS_MODEL") ?? "claude-opus-5-5";
 
-  // التحقق أن المستدعي مشرف
+  // من يشغّل الفحص: المشرف دائماً، وصاحب الطلب نفسه حين يكون النشر الآلي مشغّلاً (مرة واحدة لكل إصدار)
   const authHeader = req.headers.get("Authorization") ?? "";
   const userClient = createClient(url, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: authHeader } } });
-  const { data: isAdmin, error: adminErr } = await userClient.rpc("is_admin");
-  if (adminErr || !isAdmin) return json({ error: "not_admin" }, 403);
+  const { data: isAdmin } = await userClient.rpc("is_admin");
+  const { data: who } = await userClient.auth.getUser();
   if (!apiKey) return json({ error: "missing_api_key", message: "أضف ANTHROPIC_API_KEY في أسرار الدوال" }, 500);
 
   const { request_id } = await req.json().catch(() => ({}));
@@ -137,6 +138,13 @@ Deno.serve(async (req) => {
   const db = createClient(url, service);
   const { data: rq, error: rqErr } = await db.from("requests").select("*").eq("id", request_id).single();
   if (rqErr || !rq) return json({ error: "request_not_found" }, 404);
+  const { data: setRow } = await db.from("app_settings").select("value").eq("key", "auto_publish").maybeSingle();
+  const autoPublish = setRow?.value === true;
+  if (!isAdmin) {
+    if (!autoPublish || !who?.user || who.user.id !== rq.user_id) return json({ error: "not_allowed" }, 403);
+    const { data: done } = await db.from("analysis_runs").select("id").eq("request_id", request_id).in("status", ["running", "done"]).limit(1);
+    if (done && done.length) return json({ ok: true, already: true }, 202);
+  }
 
   // تشغيل واحد في كل مرة لكل طلب
   const { data: running } = await db.from("analysis_runs").select("id,created_at").eq("request_id", request_id).eq("status", "running")
@@ -219,13 +227,17 @@ Deno.serve(async (req) => {
         questions: uniq([...(A.questions ?? []), ...(Q.questions ?? [])]),
         files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
         skipped,
-        foot: "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
+        foot: autoPublish ? "فحص آلي على المرجع." : "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
+        reviewed: false,
       };
       await db.from("analysis_runs").update({ status: "done", result: report, usage, finished_at: new Date().toISOString() }).eq("id", run.id);
       const { data: existing } = await db.from("reports").select("id,published").eq("request_id", request_id).maybeSingle();
-      if (!existing) await db.from("reports").insert({ request_id, data: report });
-      else if (!existing.published) await db.from("reports").update({ data: report }).eq("id", existing.id);
-      if (rq.status === "submitted") await db.from("requests").update({ status: "in_review" }).eq("id", request_id);
+      // النشر الآلي: يصل التقرير صاحبه فوراً، ويبقى للمشرف أن يراجعه بعدها
+      const pub = autoPublish ? { published: true, published_at: new Date().toISOString(), auto: true } : {};
+      if (!existing) await db.from("reports").insert({ request_id, data: report, ...pub });
+      else if (!existing.published) await db.from("reports").update({ data: report, ...pub }).eq("id", existing.id);
+      if (autoPublish) await db.from("requests").update({ status: "published" }).eq("id", request_id);
+      else if (rq.status === "submitted") await db.from("requests").update({ status: "in_review" }).eq("id", request_id);
     } catch (e) {
       const m = String((e as Error)?.message ?? e);
       await fail(m.startsWith("api_error:") ? m : "exception:" + m.slice(0, 500));

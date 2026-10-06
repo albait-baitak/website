@@ -168,3 +168,20 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 @media (max-width:900px){.acc-k{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.acc-k{grid-template-columns:1fr 1fr;padding:12px 14px 0}.acc-tools{padding:12px 14px}}
 .acc-tools select{width:auto!important;flex:0 0 auto}
+/* الجودة والإعدادات */
+.q-set{display:flex;flex-direction:column;gap:14px}
+.q-auto{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--paper);cursor:pointer}
+.q-auto input{width:20px;height:20px;margin-top:3px;accent-color:var(--terra)}
+.q-auto b{display:block}.q-auto small{display:block;color:var(--ink-2);font-size:13px;line-height:1.7;margin-top:2px}
+.q-k{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.q-k>div{border:1px solid var(--line);border-radius:var(--r-card);padding:12px 14px;background:var(--paper)}
+.q-k span{display:block;font-size:12.5px;color:var(--ink-2)}
+.q-k b{font-size:20px;font-family:var(--mono)}
+.q-k b.ok{color:var(--ok)} .q-k b.wait{color:var(--major)} .q-k b.bad{color:var(--stop)}
+.q-h{font-size:15px;margin:18px 0 8px}
+.q-top{margin:0;padding-inline-start:20px}
+.q-top li{display:flex;gap:10px;align-items:baseline;padding:4px 0;border-bottom:1px dashed var(--line)}
+.q-top li b{margin-inline-start:auto;font-size:13px}
+.q-top code,#vQ td code{font-size:11.5px;color:var(--ink-2);margin-inline-start:6px}
+#vQ .tbl td small.sub{display:block;color:var(--ink-2);font-size:12.5px}
+#vQ .tbl tr.pend td{background:color-mix(in srgb,var(--stop) 6%,transparent)}

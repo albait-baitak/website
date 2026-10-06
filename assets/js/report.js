@@ -20,15 +20,39 @@ function lname(id){for(var i=0;i<LAYERS.length;i++)if(LAYERS[i].id===id)return L
 var ORD={stop:0,major:1,minor:2};
 function sevSort(a,b){var x=ORD[a.r.sev],y=ORD[b.r.sev];return (x==null?1:x)-(y==null?1:y)||a.R.l-b.R.l}
 
-function render(rep,host){
-  host.innerHTML='';
+/* التغذية الراجعة: موافقة أو اعتراض على كل مخالفة، وتقييم للتقرير كله */
+function fbRow(code,fb){
+  var w=el('div','fb-row'),cur=(fb.state&&fb.state[code])||{};
+  var a=el('button','fb-b'+(cur.kind==='agree'?' on':''),'أوافق');a.type='button';
+  var o=el('button','fb-b'+(cur.kind==='object'?' on obj':''),'أعترض');o.type='button';
+  var ta=el('textarea','fb-note');ta.placeholder='لماذا تعترض؟ (مثال: البعد مكتوب في لوحة كذا)';ta.rows=2;ta.value=cur.note||'';ta.hidden=cur.kind!=='object';
+  var sv=el('button','btn sm line','أرسل الاعتراض');sv.type='button';sv.hidden=cur.kind!=='object';var st=el('span','fb-st');
+  function set(kind,note){st.textContent='..';Promise.resolve(fb.onSet(code,kind,note)).then(function(){cur={kind:kind,note:note};if(fb.state)fb.state[code]=cur;
+      a.className='fb-b'+(kind==='agree'?' on':'');o.className='fb-b'+(kind==='object'?' on obj':'');st.textContent=kind==='agree'?'شكراً':'وصل اعتراضك'},function(){st.textContent='تعذر الإرسال'})}
+  a.addEventListener('click',function(){ta.hidden=true;sv.hidden=true;set('agree',null)});
+  o.addEventListener('click',function(){ta.hidden=false;sv.hidden=false;ta.focus()});
+  sv.addEventListener('click',function(){set('object',ta.value.trim()||null)});
+  w.appendChild(el('span','fb-q','هل هذا الحكم صحيح؟'));w.appendChild(a);w.appendChild(o);w.appendChild(st);w.appendChild(ta);w.appendChild(sv);return w;
+}
+function rateBlock(rt){
+  var b=el('div','blk rate-blk');var h=el('h4',null,'قيّم هذا التقرير');h.appendChild(el('span',null,'رأيك يطوّر الفحص'));b.appendChild(h);
+  var v=rt.value||0,stars=el('div','stars');stars.setAttribute('role','radiogroup');stars.setAttribute('aria-label','التقييم');
+  for(var i=1;i<=5;i++)(function(n){var s=el('button','star'+(n<=v?' on':''),'★');s.type='button';s.setAttribute('aria-label',n+' من 5');s.addEventListener('click',function(){v=n;[].forEach.call(stars.children,function(c,j){c.className='star'+(j<n?' on':'')})});stars.appendChild(s)})(i);
+  b.appendChild(stars);var ta=el('textarea','fb-note');ta.rows=2;ta.placeholder='ما الذي أفادك؟ وما الذي ينقص التقرير؟';ta.value=rt.note||'';b.appendChild(ta);
+  var sv=el('button','btn sm','أرسل التقييم');sv.type='button';var st=el('span','fb-st');
+  sv.addEventListener('click',function(){if(!v){st.textContent='اختر عدد النجوم أولاً';return}st.textContent='..';Promise.resolve(rt.onSave(v,ta.value.trim()||null)).then(function(){st.textContent='شكراً، وصل تقييمك'},function(){st.textContent='تعذر الإرسال'})});
+  var r=el('div','row');r.appendChild(sv);r.appendChild(st);b.appendChild(r);return b;
+}
+function render(rep,host,opts){
+  opts=opts||{};host.innerHTML='';
   var box=el('article','rep');
   var h=el('div','rep-h');var hl=el('div');
   hl.appendChild(el('p','eyb','تقرير الفحص الفني'));
   hl.appendChild(el('h3',null,rep.title||'مخطط مرفوع'));
   hl.appendChild(el('p','sub',rep.sub||''));
   var hr=el('div');hr.style.textAlign='left';
-  hr.appendChild(el('span','badge'+(rep.kind==='live'?' live':''),rep.kind==='live'?'فحص آلي · مسودة تراجعها عين معماري':'عينة · فحص يدوي على المرجع'));
+  var isLive=rep.kind==='live'||rep.kind==='reviewed',isRev=rep.reviewed||rep.kind==='reviewed';
+  hr.appendChild(el('span','badge'+(isLive?' live':''),isLive?(isRev?'فحص آلي · راجعه معماري':opts.auto?'فحص آلي':'فحص آلي · مسودة تراجعها عين معماري'):'عينة · فحص يدوي على المرجع'));
   var m=el('p','mono',(rep.ref||'')+' · '+(rep.date||new Date().toISOString().slice(0,10)));m.style.marginTop='6px';hr.appendChild(m);
   var pb=el('button','btn sm pdfbtn','تنزيل التقرير PDF');pb.type='button';var ps=el('p','status pdfst');pb.addEventListener('click',function(){exportPdf(rep,pb,ps)});hr.appendChild(pb);hr.appendChild(ps);
   h.appendChild(hl);h.appendChild(hr);box.appendChild(h);
@@ -65,6 +89,7 @@ function render(rep,host){
       var d=el('div');var tt=el('div','t',k.R.n);tt.appendChild(el('code',null,k.R.c));d.appendChild(tt);
       var dl=el('dl');[['المطلوب',k.R.r,''],['في المخطط',k.r.f,''],['العلاج',k.r.fix||'','fix']].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',p[2]||null,p[1]))});
       d.appendChild(dl);if(k.r.note)d.appendChild(el('p','note','ملاحظة: '+k.r.note));d.appendChild(el('p','note',k.R.s||''));
+      if(opts.fb)d.appendChild(fbRow(k.R.c,opts.fb));
       f.appendChild(d);fb.appendChild(f);
     });
     box.appendChild(fb);
@@ -91,7 +116,9 @@ function render(rep,host){
   }
   if(rep.questions&&rep.questions.length){var qb=el('div','blk');var qh=el('h4',null,'أسئلة لم يجب عنها المخطط');qh.appendChild(el('span',null,'تبقى غير موضّحة حتى تُستوفى'));qb.appendChild(qh);var ol=el('ol','qs-l');rep.questions.forEach(function(q){ol.appendChild(el('li',null,q))});qb.appendChild(ol);box.appendChild(qb)}
   if(rep.extra&&rep.extra.length){var nb=el('div','blk');nb.appendChild(el('h4',null,'قاعدة مقترحة من هذا الفحص'));rep.extra.forEach(function(x){nb.appendChild(el('p','newrule',x.c+' · '+x.n+': '+x.r))});box.appendChild(nb)}
-  var ft=el('div','rep-f');ft.appendChild(el('span',null,rep.foot||'التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة.'));ft.appendChild(el('span',null,'الملفات: '+(rep.files||'')));box.appendChild(ft);
+  if(opts.rate)box.appendChild(rateBlock(opts.rate));
+  var ft=el('div','rep-f');ft.appendChild(el('span',null,rep.foot||'التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة.'));
+  var lia=el('p','rep-liab','تقرير الفحص الفني أداة مساعدة سابقة للرفع، لا تحل محل المراجعة الهندسية ولا اعتماد الأمانة، والمسؤولية الهندسية والنظامية عن المخطط على المكتب أو المصمم المعدّ له.');box.appendChild(lia);ft.appendChild(el('span',null,'الملفات: '+(rep.files||'')));box.appendChild(ft);
   host.appendChild(box);
 }
 
@@ -153,7 +180,7 @@ window.FQ_pages=function(rep,host,logoSrc){
   // الافتتاح
   var b=blk();var tt=el('div','pp-title');tt.appendChild(el('h1',null,rep.title||'مخطط مرفوع'));tt.appendChild(el('p',null,rep.sub||''));
   var meta=el('div','meta');[['الملفات',rep.files||'',0],['المرجع',rep.ref||'',1],['التاريخ',date,1]].forEach(function(m){var s=el('span');s.appendChild(el('b',null,m[0]+': '));var v=el('bdi',null,m[1]);if(m[2])v.dir='ltr';s.appendChild(v);meta.appendChild(s)});tt.appendChild(meta);
-  tt.appendChild(el('span','tag'+(rep.kind==='live'?' live':''),rep.kind==='live'?'فحص آلي أولي · مسودة تراجعها عين معماري':'فحص يدوي على المرجع'));
+  var isLv=rep.kind==='live'||rep.kind==='reviewed',isRv=rep.reviewed||rep.kind==='reviewed';tt.appendChild(el('span','tag'+(isLv?' live':''),isLv?(isRv?'فحص آلي · راجعه معماري':rep.auto?'فحص آلي':'فحص آلي أولي · مسودة تراجعها عين معماري'):'فحص يدوي على المرجع'));
   b.appendChild(tt);
   b.appendChild(el('div','pp-vl','حكم المطابقة · يُبنى من فحص المطابقة وحده'));
   var vd=el('div','pp-vd');VD.forEach(function(v){var d=el('div',rep.verdict===v[0]?'on':'');d.appendChild(el('b',null,v[1]));d.appendChild(el('small',null,v[2]));vd.appendChild(d)});b.appendChild(vd);
@@ -211,7 +238,7 @@ window.FQ_pages=function(rep,host,logoSrc){
   (rep.questions||[]).forEach(function(q,i){var bb=blk();if(i===0)bb.appendChild(sec('أسئلة لم يجب عنها المخطط','تبقى غير موضّحة حتى تُستوفى'));var d=el('div','pp-q');d.appendChild(el('span',null,String(i+1)));d.appendChild(el('div',null,q));bb.appendChild(d);add(bb)});
   if(rep.extra&&rep.extra.length){var bb=blk();bb.appendChild(sec('قاعدة مقترحة من هذا الفحص'));rep.extra.forEach(function(x){bb.appendChild(el('div','pp-nr',x.c+' · '+x.n+': '+x.r))});add(bb)}
   var lb=blk();lb.appendChild(sec('حدود التقرير'));var lm=el('div','pp-lim');
-  ['التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة وحدها.','المسؤولية المهنية عن التصميم تبقى على المكتب المصمم وختمه.','دقة القياس محكومة بما في المخطط المرفوع، وما لا يُقرأ بثقة يُنقل إلى الأسئلة.','كل قاعدة بمصدرها، والموسوم «للتحقق» لم يُثبَّت رقمه من النص الأصلي بعد.'].concat(rep.foot?[rep.foot]:[]).forEach(function(x){lm.appendChild(el('div',null,x))});
+  ['تقرير الفحص الفني أداة مساعدة سابقة للرفع، لا تحل محل المراجعة الهندسية ولا اعتماد الأمانة، والمسؤولية الهندسية والنظامية عن المخطط على المكتب أو المصمم المعدّ له.','المسؤولية المهنية عن التصميم تبقى على المكتب المصمم وختمه.','دقة القياس محكومة بما في المخطط المرفوع، وما لا يُقرأ بثقة يُنقل إلى الأسئلة.','كل قاعدة بمصدرها، والموسوم «للتحقق» لم يُثبَّت رقمه من النص الأصلي بعد.'].concat(rep.foot?[rep.foot]:[]).forEach(function(x){lm.appendChild(el('div',null,x))});
   lb.appendChild(lm);add(lb);
   pages.forEach(function(p,i){p.querySelector('.pp-f .n').textContent=(i+1)+' / '+pages.length});
   return pages;

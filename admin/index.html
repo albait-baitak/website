@@ -11,8 +11,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061227">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610061227">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610061246">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610061246">
 </head>
 <body>
 <header class="top">
@@ -30,6 +30,7 @@
         <button type="button" role="tab" data-m="acc" aria-selected="true">الحسابات<span class="badge" id="pendBadge" hidden></span></button>
         <button type="button" role="tab" data-m="req" aria-selected="false">طلبات الفحص<span class="badge" id="reqBadge" hidden></span></button>
         <button type="button" role="tab" data-m="boq" aria-selected="false">جداول الكميات<span class="badge" id="boqBadge" hidden></span></button>
+        <button type="button" role="tab" data-m="q" aria-selected="false">الجودة والإعدادات<span class="badge" id="qBadge" hidden></span></button>
       </div>
 
       <section class="card" id="vAcc">
@@ -107,6 +108,30 @@
       </section>
       </div>
 
+      <div id="vQ" hidden style="display:none">
+      <section class="card">
+        <div class="card-h"><h2>الإعدادات</h2></div>
+        <div class="card-b q-set">
+          <label class="q-auto"><input type="checkbox" id="sAuto"><span><b>النشر الآلي للفحص الفني</b><small id="sAutoTx"></small></span></label>
+          <div class="grid2">
+            <div class="f"><label for="sLim">حد الإصدارات لكل حساب في الشهر</label><input id="sLim" type="number" min="1" max="500" inputmode="numeric"></div>
+            <div class="f"><label for="sBoq">حد طلبات جداول الكميات لكل حساب في الشهر</label><input id="sBoq" type="number" min="0" max="100" inputmode="numeric"></div>
+          </div>
+          <div class="row"><button class="btn" type="button" id="sSave">احفظ الإعدادات</button><span class="msg" id="sMsg" role="status"></span></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-h"><h2>دقة المحرك حسب مراجعتك</h2><span class="muted">كل تقرير تنشره بعد مراجعته يُقارن بحكم المحرك</span></div>
+        <div class="card-b"><div class="q-k" id="qAcc"></div><div id="qTop"></div></div>
+      </section>
+      <section class="card">
+        <div class="card-h"><h2>التغذية الراجعة من المكاتب والمصممين</h2></div>
+        <div class="card-b"><div class="q-k" id="qFbK"></div></div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>التاريخ</th><th>الطلب</th><th>النوع</th><th>البند</th><th>الملاحظة</th></tr></thead><tbody id="qFb"></tbody></table></div>
+        <div class="empty" id="qFbEmpty" hidden>لا تغذية راجعة بعد.</div>
+      </section>
+      </div>
+
       <div id="vBoqs" hidden style="display:none">
       <section class="card">
         <div class="card-h"><h2>طلبات جداول الكميات</h2></div>
@@ -140,13 +165,13 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610061227"></script>
-<script src="../assets/js/config.js?v=202610061227"></script>
-<script src="../assets/js/access.js?v=202610061227"></script>
-<script src="../assets/js/session.js?v=202610061227"></script>
-<script src="../assets/js/rules.js?v=202610061227"></script>
-<script src="../assets/js/report.js?v=202610061227"></script>
-<script src="../assets/js/boq.js?v=202610061227"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610061246"></script>
+<script src="../assets/js/config.js?v=202610061246"></script>
+<script src="../assets/js/access.js?v=202610061246"></script>
+<script src="../assets/js/session.js?v=202610061246"></script>
+<script src="../assets/js/rules.js?v=202610061246"></script>
+<script src="../assets/js/report.js?v=202610061246"></script>
+<script src="../assets/js/boq.js?v=202610061246"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -158,12 +183,52 @@ function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregor
 function stack(tb){var t=tb.closest('table');t.classList.add('stack');var hs=[].map.call(t.querySelectorAll('thead th'),function(h){return h.textContent.trim()});[].forEach.call(tb.rows,function(r){[].forEach.call(r.cells,function(c,i){if(hs[i])c.dataset.l=hs[i]})})}
 function vis(id,on){var e=$(id);e.hidden=!on;if(e.style.display==='contents'||e.style.display==='none'||e.dataset.c){e.dataset.c=1;e.style.display=on?'contents':'none'}}
 
-BBA.guard(['admin'],'../account/').then(function(){vis('vApp',true);vis('vBoqs',false);loadAcc().then(loadReqs).then(loadBoqs)});
+BBA.guard(['admin'],'../account/').then(function(){vis('vApp',true);vis('vBoqs',false);vis('vQ',false);loadAcc().then(loadReqs).then(loadBoqs)});
 
 /* التبويب الرئيسي */
 $('mainTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   this.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
-  var m=b.dataset.m;$('vAcc').hidden=m!=='acc';vis('vReqs',m==='req');vis('vBoqs',m==='boq');if(m==='acc')loadAcc();else if(m==='req')loadReqs();else loadBoqs()});
+  var m=b.dataset.m;$('vAcc').hidden=m!=='acc';vis('vReqs',m==='req');vis('vBoqs',m==='boq');vis('vQ',m==='q');if(m==='acc')loadAcc();else if(m==='req')loadReqs();else if(m==='boq')loadBoqs();else loadQ()});
+
+
+/* الجودة والإعدادات */
+var SETS={};
+function rname(c){for(var i=0;i<RULES.length;i++)if(RULES[i].c===c)return RULES[i].n;return c}
+function kbox(host,items){host.innerHTML='';items.forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',x[2]||null,String(x[1])));host.appendChild(d)})}
+function autoTx(){$('sAutoTx').textContent=$('sAuto').checked?'مشغّل: يبدأ الفحص فور إرسال المكتب ويُنشر تقريره دون مراجعتك، وتبقى قادراً على مراجعته بعد نشره.':'مطفأ: لا يصل تقرير إلا بعد مراجعتك واعتمادك. شغّله حين تطمئن إلى دقة المحرك أدناه.'}
+$('sAuto').addEventListener('change',autoTx);
+function loadQ(){
+  return Promise.all([
+    BB.from('app_settings').select('key,value'),
+    BB.from('reports').select('id,request_id,auto,edit_stats,published_at').eq('published',true),
+    BB.from('report_feedback').select('rule_code,kind,rating,note,created_at,requests(ref,office_name)').order('created_at',{ascending:false})
+  ]).then(function(r){
+    SETS={};(r[0].data||[]).forEach(function(x){SETS[x.key]=x.value});
+    $('sAuto').checked=SETS.auto_publish===true;$('sLim').value=SETS.monthly_limit||20;$('sBoq').value=SETS.boq_monthly_limit!=null?SETS.boq_monthly_limit:5;autoTx();
+    var reps=r[1].data||[],rev=reps.filter(function(x){return x.edit_stats}),tot=0,ch=0,vc=0,cnt={};
+    rev.forEach(function(x){var e=x.edit_stats;tot+=e.total||0;ch+=e.changed||0;if(e.verdict_changed)vc++;(e.codes||[]).forEach(function(c){cnt[c]=(cnt[c]||0)+1})});
+    var acc=tot?Math.round((1-ch/tot)*1000)/10:null;
+    kbox($('qAcc'),[['تقارير راجعتها',rev.length],['أحكام قارنتها',tot],['أحكام عدّلتها',ch],['المطابقة لحكمك',acc==null?'لا بيانات':acc+'٪',acc==null?'':acc>=95?'ok':acc>=85?'wait':'bad'],['حكم مطابقة غيّرته',vc],['نُشرت آلياً',reps.filter(function(x){return x.auto}).length]]);
+    var top=Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]}).slice(0,10),T=$('qTop');T.innerHTML='';
+    if(top.length){T.appendChild(el('h3','q-h','أكثر القواعد التي تعدّل حكمها'));var ul=el('ol','q-top');top.forEach(function(c){var li=el('li');li.appendChild(el('span',null,rname(c)));li.appendChild(el('code',null,c));li.appendChild(el('b',null,cnt[c]+' مرة'));ul.appendChild(li)});T.appendChild(ul)}
+    var fb=r[2].data||[],rt=fb.filter(function(x){return x.kind==='rating'}),ob=fb.filter(function(x){return x.kind==='object'}),ag=fb.filter(function(x){return x.kind==='agree'});
+    var avg=rt.length?Math.round(rt.reduce(function(s,x){return s+(x.rating||0)},0)/rt.length*10)/10:null;
+    kbox($('qFbK'),[['تقييمات',rt.length],['متوسط التقييم',avg==null?'لا بيانات':avg+' من 5'],['موافقات على أحكام',ag.length],['اعتراضات',ob.length,ob.length?'bad':'']]);
+    $('qBadge').hidden=!ob.length;$('qBadge').textContent=ob.length;
+    var tb=$('qFb');tb.innerHTML='';var rows=fb.filter(function(x){return x.kind!=='agree'});$('qFbEmpty').hidden=!!rows.length;
+    rows.forEach(function(x){var tr=el('tr'+'');if(x.kind==='object')tr.className='pend';tr.appendChild(el('td',null,fmtDate(x.created_at)));
+      var rq=x.requests||{};var t=el('td');t.appendChild(el('span','mono',rq.ref||''));if(rq.office_name)t.appendChild(el('small','sub',rq.office_name));tr.appendChild(t);
+      tr.appendChild(el('td',null,x.kind==='rating'?'تقييم '+'★'.repeat(x.rating||0):'اعتراض'));
+      var bc=el('td');if(x.rule_code!=='_report'){bc.appendChild(el('span',null,rname(x.rule_code)));bc.appendChild(el('code',null,x.rule_code))}else bc.textContent='التقرير كله';tr.appendChild(bc);
+      tr.appendChild(el('td',null,x.note||'·'));tb.appendChild(tr)});
+    stack(tb);
+  });
+}
+$('sSave').addEventListener('click',function(){
+  var lim=parseInt($('sLim').value,10),bq=parseInt($('sBoq').value,10);if(!(lim>=1)){msg('sMsg','اكتب حداً صحيحاً للإصدارات.','bad');return}if(!(bq>=0))bq=5;
+  var rows=[{key:'auto_publish',value:$('sAuto').checked},{key:'monthly_limit',value:lim},{key:'boq_monthly_limit',value:bq}].map(function(x){x.updated_at=new Date().toISOString();return x});
+  msg('sMsg','جارٍ الحفظ..');BB.from('app_settings').upsert(rows).then(function(r){if(r.error){msg('sMsg','تعذر الحفظ.','bad');return}msg('sMsg',$('sAuto').checked?'حُفظت. النشر الآلي مشغّل الآن.':'حُفظت.','good')});
+});
 
 /* المسجلون: مقسمون بالنوع، ولكل نوع بياناته */
 var accs=[],act={},prj={},accT='all';
@@ -299,9 +364,13 @@ function save(publish){
   if(publish&&missing){msg('eMsg','بقيت '+missing+' قاعدة بلا حكم. أكملها قبل النشر.','bad');return Promise.resolve()}
   if(publish){var bad=Object.keys(d.results).filter(function(c){return d.results[c].v==='fail'&&!d.results[c].sev});if(bad.length){msg('eMsg','حدد درجة المخالفة في: '+bad.join('، '),'bad');return Promise.resolve()}}
   msg('eMsg','جارٍ الحفظ..');
-  var row={request_id:cur.id,data:d};if(publish){row.published=true;row.published_at=new Date().toISOString()}
-  var q=reportRow?BB.from('reports').update(row).eq('id',reportRow.id).select().single():BB.from('reports').insert(row).select().single();
-  return q.then(function(r){if(r.error)throw r.error;reportRow=r.data;
+  var row={request_id:cur.id,data:d};if(publish){row.published=true;row.published_at=new Date().toISOString();d.reviewed=true}
+  /* عدّاد تعديلاتك: يقارن حكمك المنشور بحكم المحرك الأخير */
+  var pre=publish?BB.from('analysis_runs').select('result').eq('request_id',cur.id).eq('status','done').order('created_at',{ascending:false}).limit(1).then(function(r){
+    var ai=r.data&&r.data[0]&&r.data[0].result;if(!ai||!ai.results)return;var ch=[],tot=0;
+    Object.keys(d.results).forEach(function(c){var a=ai.results[c],b=d.results[c];if(!a)return;tot++;if(a.v!==b.v||(b.v==='fail'&&(a.sev||'major')!==(b.sev||'major')))ch.push(c)});
+    row.edit_stats={total:tot,changed:ch.length,codes:ch,verdict_changed:(ai.verdict||'')!==(d.verdict||''),at:new Date().toISOString()}}):Promise.resolve();
+  return pre.then(function(){return reportRow?BB.from('reports').update(row).eq('id',reportRow.id).select().single():BB.from('reports').insert(row).select().single()}).then(function(r){if(r.error)throw r.error;reportRow=r.data;
     if(publish)return BB.from('requests').update({status:'published'}).eq('id',cur.id);
     if(cur.status==='submitted')return BB.from('requests').update({status:'in_review'}).eq('id',cur.id);
   }).then(function(){msg('eMsg',publish?'نُشر التقرير ووصل لحساب المكتب.':'حُفظت المسودة.','good');$('btnUnpub').hidden=!(reportRow&&reportRow.published);loadReqs();
