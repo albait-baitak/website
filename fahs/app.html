@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>بوابة المكتب · الفحص الفني</title>
+<title>مشاريع المكتب · الفحص الفني</title>
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
 
       <!-- بيانات المكتب -->
       <section class="card" id="cProfile">
-        <div class="card-h"><h2>بيانات المكتب</h2><span class="muted">تُحفظ مرة وتُستخدم في كل طلب</span></div>
+        <div class="card-h"><h2>بيانات المكتب</h2><span class="muted">تُحفظ مرة وتُستخدم في كل مشروع</span></div>
         <div class="card-b">
           <form id="fProfile" class="grid2" novalidate>
             <div class="f"><label for="pOffice">اسم المكتب</label><input id="pOffice" autocomplete="organization" required></div>
@@ -40,19 +40,19 @@
         </div>
       </section>
 
-      <!-- طلب جديد -->
-      <section class="card" id="cNew">
-        <div class="card-h"><h2>طلب فحص جديد</h2><span class="muted">المساقط والواجهات والقطاعات والموقع العام</span></div>
+      <!-- مشاريعي -->
+      <section class="card" id="cProjects">
+        <div class="card-h"><h2>مشاريعي</h2><div class="row"><button class="linkbtn" type="button" id="btnRefresh">تحديث</button><button class="btn sm" type="button" id="btnNew">مشروع جديد</button></div></div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم المشروع</th><th>المشروع</th><th>آخر إصدار</th><th>الحالة</th><th></th></tr></thead><tbody id="projBody"></tbody></table></div>
+        <div class="empty" id="projEmpty" hidden>لا مشاريع بعد. ابدأ بمشروع جديد، ثم ارفع إصداره الأول للفحص.</div>
+      </section>
+
+      <!-- مشروع جديد -->
+      <section class="card" id="cNew" hidden>
+        <div class="card-h"><h2>مشروع جديد</h2><span class="muted">بيانات المشروع مرة واحدة، ثم ملفات الإصدار الأول</span></div>
         <div class="card-b">
           <form id="fNew" class="grid2" novalidate>
-            <div class="full">
-              <label class="drop2" id="nDrop" for="nFiles">
-                <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
-                <b>اسحب ملفات المخطط هنا</b>
-                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق للفحص: DXF، فأبعاده ومساحاته تُقرأ من الملف نفسه. وDWG يُرفق معه DXF أو PDF.</small>
-              </label>
-              <ul class="flist" id="nList"></ul>
-            </div>
+            <div class="f full"><label for="nName">اسم المشروع</label><input id="nName" maxlength="160" placeholder="مثال: فيلا آل محمد · حي السلام"></div>
             <div class="f"><label for="nType">نوع المسكن</label><select id="nType"><option value="">اختر</option><option>فيلا</option><option>دبلكس</option><option>تاون هاوس</option><option>بيت</option></select></div>
             <div class="f"><label for="nFloors">الأدوار</label><select id="nFloors"><option value="">اختر</option><option>أرضي</option><option>أرضي وأول</option><option>أرضي وأول وملحق علوي</option><option>مع قبو</option></select></div>
             <div class="f"><label for="nCity">المدينة</label><input id="nCity"></div>
@@ -61,32 +61,98 @@
             <div class="f"><label for="nStreets">الشوارع وعروضها <span class="o">م</span></label><input id="nStreets" placeholder="جنوب 15 · شرق 10"></div>
             <div class="f"><label for="nPattern">نمط الموجهات <span class="o">إن عُرف</span></label><select id="nPattern"><option value="">لا أعرف</option><option>معاصر</option><option>انتقالي</option><option>تقليدي</option></select></div>
             <div class="f"><label for="nPrev">ملاحظات سابقة من الأمانة <span class="o">إن وُجدت</span></label><input id="nPrev"></div>
+            <div class="full">
+              <label class="drop2" id="nDrop" for="nFiles">
+                <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
+                <b>اسحب ملفات المخطط هنا</b>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق للفحص: DXF، فأبعاده ومساحاته تُقرأ من الملف نفسه. وDWG يُرفق معه DXF أو PDF.</small>
+              </label>
+              <ul class="flist" id="nList"></ul>
+            </div>
             <label class="check2 full"><input type="checkbox" id="nAgree"><span>اطلعت على <a href="./#terms">السرية والمسؤولية</a>، وأقر بأن التقرير فحص سابق للرفع لا يغني عن مراجعة الأمانة.</span></label>
-            <div class="row full"><button class="btn" type="submit" id="nSubmit">إرسال الطلب</button><span class="msg" id="nMsg" role="status"></span></div>
+            <div class="row full"><button class="btn" type="submit" id="nSubmit">أنشئ المشروع وأرسل الإصدار الأول</button><button class="btn line" type="button" id="nCancel">إلغاء</button><span class="msg" id="nMsg" role="status"></span></div>
           </form>
         </div>
       </section>
 
-      <!-- طلباتي -->
-      <section class="card" id="cMine">
-        <div class="card-h"><h2>طلباتي</h2><button class="linkbtn" type="button" id="btnRefresh">تحديث</button></div>
-        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الرقم المرجعي</th><th>المشروع</th><th>التاريخ</th><th>الحالة</th><th></th></tr></thead><tbody id="mineBody"></tbody></table></div>
-        <div class="empty" id="mineEmpty" hidden>لا طلبات بعد.</div>
-      </section>
+      <!-- المشروع -->
+      <div id="vProject" hidden style="display:none">
+        <div class="proj-h">
+          <button class="linkbtn" type="button" id="btnBack">كل المشاريع</button>
+          <h2 id="prName"></h2>
+          <p class="muted"><span class="mono" id="prRef"></span> · <span id="prMeta"></span></p>
+        </div>
 
-      <!-- عرض التقرير -->
-      <section id="cReport" hidden>
-        <div id="report"></div>
-        <div class="card" style="margin-top:18px">
-          <div class="card-h"><h2>ملاحظات الأمانة بعد الرفع</h2><span class="muted">تُقارن بالتقرير، وكل فجوة تصير قاعدة جديدة</span></div>
+        <section class="card">
+          <div class="card-h"><h2>الإصدارات</h2><span class="muted">كل رفع إصدار مرقّم، ولكل إصدار تقريره</span></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الإصدار</th><th>التاريخ</th><th>ما تغيّر</th><th>الحالة</th><th></th></tr></thead><tbody id="revBody"></tbody></table></div>
+        </section>
+
+        <section class="card" id="cRev">
+          <div class="card-h"><h2>إصدار جديد للفحص</h2><span class="muted">بعد معالجة الملاحظات، ارفع المخطط المعدّل</span></div>
           <div class="card-b">
-            <form id="fGap" novalidate>
-              <div class="f"><label for="gText">ملاحظات المراجع كما وردت <span class="o">كل ملاحظة في سطر</span></label><textarea id="gText"></textarea></div>
-              <div class="row" style="margin-top:10px"><button class="btn line" type="submit">إرسال الملاحظات</button><span class="msg" id="gMsg" role="status"></span></div>
+            <form id="fRev" class="grid2" novalidate>
+              <div class="full">
+              <label class="drop2" id="rDrop" for="rFiles">
+                <input type="file" id="rFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
+                <b>اسحب ملفات المخطط هنا</b>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق للفحص: DXF، فأبعاده ومساحاته تُقرأ من الملف نفسه. وDWG يُرفق معه DXF أو PDF.</small>
+              </label>
+              <ul class="flist" id="rList"></ul>
+            </div>
+              <div class="f full"><label for="rNote">ما الذي تغيّر في هذا الإصدار <span class="o">يساعد المراجع، اختياري</span></label><textarea id="rNote" placeholder="مثال: رُفعت سترة السطح إلى 1.80م، وأُغلقت نوافذ الملحق جهة الجار"></textarea></div>
+              <label class="check2 full"><input type="checkbox" id="rAgree"><span>اطلعت على <a href="./#terms">السرية والمسؤولية</a>، وأقر بأن التقرير فحص سابق للرفع لا يغني عن مراجعة الأمانة.</span></label>
+              <div class="row full"><button class="btn" type="submit" id="rSubmit">أرسل الإصدار</button><span class="msg" id="rMsg" role="status"></span></div>
             </form>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section class="card" id="cBoq">
+          <div class="card-h"><h2>جداول الكميات</h2><span class="muted">تُستخرج متى شئت من أي إصدار، بالمواصفات والأسعار التقديرية</span></div>
+          <div class="card-b">
+            <form id="fBoq" class="grid2" novalidate>
+              <div class="f"><label for="bRev">الإصدار الذي يُبنى عليه الجدول</label><select id="bRev"></select></div>
+              <div class="f"><label>التخصصات المرفوعة في هذا الإصدار</label>
+                <div class="disc" id="bDisc">
+                  <label><input type="checkbox" value="arch" checked disabled> معماري</label>
+                  <label><input type="checkbox" value="struct"> إنشائي</label>
+                  <label><input type="checkbox" value="elec"> كهربائي</label>
+                  <label><input type="checkbox" value="plumb"> صحي</label>
+                  <label><input type="checkbox" value="hvac"> تكييف</label>
+                </div>
+              </div>
+              <p class="full boq-warn" id="bWarn" hidden></p>
+              <div class="f full"><label for="bNote">ملاحظات للجدول <span class="o">اختياري: مستوى التشطيب، بنود تريد استثناءها</span></label><textarea id="bNote"></textarea></div>
+              <p class="muted full">ما لم تُرفع مخططاته يُقدَّر بالمتر المربع ويُوسم في الجدول بأنه تقديري. ويصلك الجدول في هذه الصفحة بعد المراجعة.</p>
+              <div class="row full"><button class="btn" type="submit" id="bSubmit">اطلب جدول الكميات</button><span class="msg" id="bMsg" role="status"></span></div>
+            </form>
+          </div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم الجدول</th><th>الإصدار</th><th>التخصصات</th><th>التاريخ</th><th>الحالة</th><th></th></tr></thead><tbody id="boqBody"></tbody></table></div>
+          <div class="empty" id="boqEmpty" hidden>لم تطلب جدول كميات لهذا المشروع بعد.</div>
+        </section>
+
+        <!-- المقارنة والتقرير -->
+        <section id="cCmp" class="card" hidden>
+          <div class="card-h"><h2 id="cmpTitle">ما تغيّر عن الإصدار السابق</h2><span class="muted" id="cmpSub"></span></div>
+          <div class="card-b cmp3" id="cmpBody"></div>
+        </section>
+        <section id="cReport" hidden>
+          <div id="report"></div>
+          <div class="card" style="margin-top:18px">
+            <div class="card-h"><h2>ملاحظات الأمانة بعد الرفع</h2><span class="muted">تُقارن بالتقرير، وكل فجوة تصير قاعدة جديدة</span></div>
+            <div class="card-b">
+              <form id="fGap" novalidate>
+                <div class="f"><label for="gText">ملاحظات المراجع كما وردت <span class="o">كل ملاحظة في سطر</span></label><textarea id="gText"></textarea></div>
+                <div class="row" style="margin-top:10px"><button class="btn line" type="submit">إرسال الملاحظات</button><span class="msg" id="gMsg" role="status"></span></div>
+              </form>
+            </div>
+          </div>
+        </section>
+        <section id="cBoqView" class="card" hidden>
+          <div class="card-h"><h2 id="bvTitle">جدول الكميات</h2><div class="row"><button class="btn sm line" type="button" id="bvCsv">نزّل الجدول (Excel)</button></div></div>
+          <div class="card-b" id="bvBody"></div>
+        </section>
+      </div>
     </div>
 
   </div>
@@ -102,20 +168,24 @@
 <script src="../assets/vendor/dxf-parser-1.1.2.js?v=VERSION"></script>
 <script src="../assets/js/dxf.js?v=VERSION"></script>
 <script src="../assets/js/report.js?v=VERSION"></script>
+<script src="../assets/js/boq.js?v=VERSION"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
 var $=function(id){return document.getElementById(id)};
-var el=FQ.el, user=null, files=[], mine=[], openReq=null;
+var el=FQ.el, user=null, projects=[], cur=null, revs=[], boqs=[], openReq=null, openBoq=null;
 var STATUS={submitted:'مستلم',in_review:'قيد الفحص',published:'التقرير جاهز',cancelled:'ملغى'};
+var BSTATUS={submitted:'مستلم',in_review:'قيد الإعداد',published:'الجدول جاهز',cancelled:'ملغى'};
+var DISC={arch:'معماري',struct:'إنشائي',elec:'كهربائي',plumb:'صحي',hvac:'تكييف'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function size(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB'}
 function fmtDate(s){try{return new Date(s).toLocaleDateString('ar-SA-u-ca-gregory-nu-latn',{year:'numeric',month:'short',day:'numeric'})}catch(e){return s.slice(0,10)}}
+function show(id,on){var v=$(id);v.hidden=!on;if(v.style.display==='none'||v.style.display==='contents')v.style.display=on?'contents':'none'}
 
 /* لا يدخل هذه الصفحة إلا مكتب معتمد أو المشرف */
 BBA.guard(['office'],'../account/').then(function(a){
-  user=a.user;$('vApp').hidden=false;$('vApp').style.display='contents';
-  $('whoEmail').textContent=user.email;loadProfile();loadMine();
+  user=a.user;show('vApp',true);
+  $('whoEmail').textContent=user.email;loadProfile();loadProjects();
 });
 
 /* بيانات المكتب */
@@ -134,54 +204,49 @@ $('fProfile').addEventListener('submit',function(e){
     profile.office_name=o;profile.engineer=g;profile.phone=p;$('whoName').textContent=o;msg('pMsg','حُفظت البيانات.','good');
   });
 });
+function profileOk(m){if(profile.office_name&&profile.engineer&&profile.phone)return true;msg(m,'احفظ بيانات المكتب أولاً.','bad');$('pOffice').focus();return false}
 
-/* الملفات */
-var OK_EXT=['pdf','dwg','dxf','png','jpg','jpeg','webp'];
+/* اختيار الملفات: نسخة لكل نموذج */
+var OK_EXT=['pdf','dwg','dxf','png','jpg','jpeg','webp'],READABLE=['pdf','png','jpg','jpeg','webp','dxf'];
 function ext(n){return (n.split('.').pop()||'').toLowerCase()}
-function drawFiles(){
-  var ul=$('nList');ul.innerHTML='';
-  files.forEach(function(f,i){
-    var li=el('li');li.appendChild(el('span','ext',ext(f.name).toUpperCase()));li.appendChild(el('span','nm',f.name));
-    var end=el('span','row');end.appendChild(el('span','sz',size(f.size)));
-    var rm=el('button','linkbtn','حذف');rm.type='button';rm.addEventListener('click',function(){files.splice(i,1);drawFiles()});end.appendChild(rm);
-    li.appendChild(end);var pg=el('div','prog');pg.appendChild(el('i'));li.appendChild(pg);ul.appendChild(li);
-  });
+function picker(p){
+  var P={files:[]};
+  function draw(){var ul=$(p+'List');ul.innerHTML='';
+    P.files.forEach(function(f,i){
+      var li=el('li');li.appendChild(el('span','ext',ext(f.name).toUpperCase()));li.appendChild(el('span','nm',f.name));
+      var end=el('span','row');end.appendChild(el('span','sz',size(f.size)));
+      var rm=el('button','linkbtn','حذف');rm.type='button';rm.addEventListener('click',function(){P.files.splice(i,1);draw()});end.appendChild(rm);
+      li.appendChild(end);var pg=el('div','prog');pg.appendChild(el('i'));li.appendChild(pg);ul.appendChild(li)})}
+  function add(fl){var bad=[];
+    for(var i=0;i<fl.length;i++){var f=fl[i];
+      if(OK_EXT.indexOf(ext(f.name))<0){bad.push(f.name);continue}
+      if(f.size>50*1048576){bad.push(f.name+' (أكبر من 50MB)');continue}
+      if(!P.files.some(function(x){return x.name===f.name&&x.size===f.size}))P.files.push(f)}
+    draw();msg(p+'Msg',bad.length?'لم تُضف: '+bad.join('، '):'',bad.length?'bad':'')}
+  $(p+'Files').addEventListener('change',function(){add(this.files);this.value=''});
+  var dz=$(p+'Drop');
+  ['dragenter','dragover'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.add('over')})});
+  ['dragleave','drop'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.remove('over')})});
+  dz.addEventListener('drop',function(e){if(e.dataTransfer.files.length)add(e.dataTransfer.files)});
+  P.reset=function(){P.files=[];draw()};P.bars=function(){return $(p+'List').querySelectorAll('.prog i')};
+  P.check=function(m){
+    if(!P.files.length){msg(m,'أرفق ملفات المخطط.','bad');return false}
+    if(!P.files.some(function(f){return READABLE.indexOf(ext(f.name))>=0})){msg(m,'الفحص الآلي لا يقرأ DWG. أرفق معه نسخة DXF أو PDF من المخطط.','bad');return false}
+    return true};
+  return P;
 }
-function addFiles(fl){
-  var bad=[];
-  for(var i=0;i<fl.length;i++){var f=fl[i];
-    if(OK_EXT.indexOf(ext(f.name))<0){bad.push(f.name);continue}
-    if(f.size>50*1048576){bad.push(f.name+' (أكبر من 50MB)');continue}
-    if(!files.some(function(x){return x.name===f.name&&x.size===f.size}))files.push(f)}
-  drawFiles();if(bad.length)msg('nMsg','لم تُضف: '+bad.join('، '),'bad');else msg('nMsg','');
-}
-$('nFiles').addEventListener('change',function(){addFiles(this.files);this.value=''});
-var dz=$('nDrop');
-['dragenter','dragover'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.add('over')})});
-['dragleave','drop'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.remove('over')})});
-dz.addEventListener('drop',function(e){if(e.dataTransfer.files.length)addFiles(e.dataTransfer.files)});
-
-/* إرسال الطلب */
-var sending=false,READABLE=['pdf','png','jpg','jpeg','webp','dxf'];
+var NP=picker('n'),RP=picker('r');
 function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
-$('fNew').addEventListener('submit',function(e){
-  e.preventDefault();if(sending)return;
-  if(!profile.office_name||!profile.engineer||!profile.phone){msg('nMsg','احفظ بيانات المكتب أولاً.','bad');$('pOffice').focus();return}
-  if(!files.length){msg('nMsg','أرفق ملفات المخطط.','bad');return}
-  if(!files.some(function(f){return READABLE.indexOf(ext(f.name))>=0})){msg('nMsg','الفحص الآلي لا يقرأ DWG. أرفق معه نسخة DXF أو PDF من المخطط.','bad');return}
-  var need=[['nType','نوع المسكن'],['nFloors','الأدوار'],['nCity','المدينة'],['nDistrict','الحي'],['nArea','مساحة الأرض'],['nStreets','الشوارع وعروضها']];
-  var miss=need.filter(function(p){return !$(p[0]).value.trim()});
-  if(miss.length){msg('nMsg','أكمل: '+miss.map(function(p){return p[1]}).join('، ')+'.','bad');$(miss[0][0]).focus();return}
-  if(!$('nAgree').checked){msg('nMsg','الإقرار بالسرية والمسؤولية شرط لإرسال الطلب.','bad');return}
-  sending=true;$('nSubmit').disabled=true;
-  var batch=(crypto.randomUUID?crypto.randomUUID():String(Date.now())),uploaded=[],queue=[],bars=$('nList').querySelectorAll('.prog i'),warn=[];
-  // 1. قراءة ملفات DXF في المتصفح قبل الرفع
+
+/* رفع ملفات إصدار: قراءة DXF في المتصفح ثم الرفع، ويعيد قائمة الملفات المرفوعة */
+function uploadFiles(P,m,warn){
+  var batch=(crypto.randomUUID?crypto.randomUUID():String(Date.now())),uploaded=[],queue=[],bars=P.bars();
   var chain=Promise.resolve();
-  files.forEach(function(f,i){
+  P.files.forEach(function(f,i){
     var base=user.id+'/'+batch+'/'+(i+1);
     queue.push({blob:f,path:base+'.'+ext(f.name),meta:{name:f.name,size:f.size,type:f.type||ext(f.name)},bar:i});
     if(ext(f.name)!=='dxf'||!window.BBDXF)return;
-    chain=chain.then(function(){msg('nMsg','قراءة ملف DXF: '+f.name+'..');if(bars[i])bars[i].style.width='20%';return sleep(30)})
+    chain=chain.then(function(){msg(m,'قراءة ملف DXF: '+f.name+'..');if(bars[i])bars[i].style.width='20%';return sleep(30)})
     .then(function(){return BBDXF.process(f)})
     .then(function(o){
       var json=new Blob([JSON.stringify(o.extract)],{type:'application/json'});
@@ -189,52 +254,155 @@ $('fNew').addEventListener('submit',function(e){
       o.images.forEach(function(im,k){queue.push({blob:im.blob,path:base+'-view-'+(k+1)+'.'+im.ext,meta:{name:'معاينة DXF ('+im.label+'): '+f.name,size:im.blob.size,type:im.type,role:'dxf_view',of:f.name}})});
     }).catch(function(err){warn.push(f.name+(String(err&&err.message).indexOf('binary')>=0?' (DXF ثنائي)':''))});
   });
-  // 2. الرفع
   var done=0;
   function next(){
-    if(done>=queue.length)return Promise.resolve();
-    var q=queue[done];
-    msg('nMsg','رفع الملفات '+(done+1)+' من '+queue.length+'..');
+    if(done>=queue.length)return Promise.resolve(uploaded);
+    var q=queue[done];msg(m,'رفع الملفات '+(done+1)+' من '+queue.length+'..');
     return BB.storage.from('plans').upload(q.path,q.blob,{upsert:false,contentType:q.meta.type&&q.meta.type.indexOf('/')>0?q.meta.type:undefined}).then(function(r){
       if(r.error)throw r.error;if(q.bar!=null&&bars[q.bar])bars[q.bar].style.width='100%';
-      var m=q.meta;m.path=q.path;uploaded.push(m);done++;return next();
-    });
+      var mm=q.meta;mm.path=q.path;uploaded.push(mm);done++;return next()});
   }
-  chain.then(next).then(function(){
-    return BB.from('requests').insert({
-      office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:uploaded,
-      project:{type:$('nType').value,floors:$('nFloors').value,city:$('nCity').value.trim(),district:$('nDistrict').value.trim(),
-        area:$('nArea').value.trim(),streets:$('nStreets').value.trim(),pattern:$('nPattern').value,prev:$('nPrev').value.trim()}
-    }).select('ref').single();
-  }).then(function(r){
-    if(r.error)throw r.error;
-    msg('nMsg','وصل طلبك برقم '+r.data.ref+'. يصلك التقرير في هذه الصفحة.'+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'، فسيُقرأ يدوياً.':''),'good');
-    files=[];drawFiles();$('fNew').reset();loadMine();
-  }).catch(function(){msg('nMsg','تعذر إرسال الطلب. تأكد من الاتصال وأعد المحاولة.','bad')})
-  .then(function(){sending=false;$('nSubmit').disabled=false});
-});
+  return chain.then(next);
+}
+function insertRev(project,files,note){
+  return BB.from('requests').insert({project_id:project.id,office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:files,project:project.data||{},change_note:note||null}).select('id,ref,rev').single();
+}
 
-/* طلباتي */
-function loadMine(){
-  BB.from('requests').select('id,ref,created_at,status,project').order('created_at',{ascending:false}).then(function(r){
-    mine=r.data||[];var tb=$('mineBody');tb.innerHTML='';$('mineEmpty').hidden=!!mine.length;
-    mine.forEach(function(q){
-      var tr=el('tr');tr.appendChild(el('td','mono',q.ref));
-      var p=q.project||{};tr.appendChild(el('td',null,[p.type,p.city,p.district].filter(Boolean).join(' · ')));
-      tr.appendChild(el('td',null,fmtDate(q.created_at)));
-      var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]||q.status));tr.appendChild(st);
-      var act=el('td');
-      if(q.status==='published'){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
-      tr.appendChild(act);tb.appendChild(tr);
-    });
+/* مشاريعي */
+function loadProjects(){
+  return Promise.all([
+    BB.from('projects').select('id,ref,name,data,created_at').order('created_at',{ascending:false}),
+    BB.from('requests').select('id,project_id,rev,status,created_at').order('rev',{ascending:false})
+  ]).then(function(rs){
+    projects=rs[0].data||[];var reqs=rs[1].data||[],last={};
+    reqs.forEach(function(q){if(q.project_id&&!last[q.project_id])last[q.project_id]=q});
+    var tb=$('projBody');tb.innerHTML='';$('projEmpty').hidden=!!projects.length;
+    projects.forEach(function(p){
+      var l=last[p.id],tr=el('tr','click');tr.appendChild(el('td','mono',p.ref));tr.appendChild(el('td',null,p.name));
+      tr.appendChild(el('td',null,l?'الإصدار '+l.rev+' · '+fmtDate(l.created_at):'لا إصدارات'));
+      var st=el('td');if(l)st.appendChild(el('span','status-pill st-'+l.status,STATUS[l.status]||l.status));tr.appendChild(st);
+      var act=el('td'),b=el('button','btn sm line','افتح');b.type='button';act.appendChild(b);tr.appendChild(act);
+      tr.addEventListener('click',function(){openProject(p.id)});tb.appendChild(tr)});
   });
 }
-$('btnRefresh').addEventListener('click',loadMine);
-function openReport(q){
-  BB.from('reports').select('data').eq('request_id',q.id).eq('published',true).maybeSingle().then(function(r){
-    if(!r.data)return;openReq=q;var d=r.data.data;d.ref=d.ref||q.ref;
-    $('cReport').hidden=false;FQ.render(d,$('report'));$('cReport').scrollIntoView({behavior:'smooth',block:'start'});
+$('btnRefresh').addEventListener('click',loadProjects);
+$('btnNew').addEventListener('click',function(){$('cNew').hidden=false;$('nName').focus();$('cNew').scrollIntoView({behavior:'smooth',block:'start'})});
+$('nCancel').addEventListener('click',function(){$('cNew').hidden=true});
+
+/* مشروع جديد = مشروع + الإصدار الأول */
+var busy=false;
+$('fNew').addEventListener('submit',function(e){
+  e.preventDefault();if(busy)return;
+  if(!profileOk('nMsg'))return;
+  if(!$('nName').value.trim()){msg('nMsg','اكتب اسم المشروع.','bad');$('nName').focus();return}
+  var need=[['nType','نوع المسكن'],['nFloors','الأدوار'],['nCity','المدينة'],['nDistrict','الحي'],['nArea','مساحة الأرض'],['nStreets','الشوارع وعروضها']];
+  var miss=need.filter(function(p){return !$(p[0]).value.trim()});
+  if(miss.length){msg('nMsg','أكمل: '+miss.map(function(p){return p[1]}).join('، ')+'.','bad');$(miss[0][0]).focus();return}
+  if(!NP.check('nMsg'))return;
+  if(!$('nAgree').checked){msg('nMsg','الإقرار بالسرية والمسؤولية شرط للإرسال.','bad');return}
+  busy=true;$('nSubmit').disabled=true;var warn=[],project=null;
+  var data={type:$('nType').value,floors:$('nFloors').value,city:$('nCity').value.trim(),district:$('nDistrict').value.trim(),area:$('nArea').value.trim(),streets:$('nStreets').value.trim(),pattern:$('nPattern').value,prev:$('nPrev').value.trim()};
+  BB.from('projects').insert({name:$('nName').value.trim(),data:data}).select('id,ref,name,data').single()
+  .then(function(r){if(r.error)throw r.error;project=r.data;return uploadFiles(NP,'nMsg',warn)})
+  .then(function(files){return insertRev(project,files,null)})
+  .then(function(r){
+    if(r.error)throw r.error;
+    NP.reset();$('fNew').reset();$('cNew').hidden=true;
+    return loadProjects().then(function(){return openProject(project.id)}).then(function(){
+      msg('rMsg','وصل الإصدار الأول برقم '+r.data.ref+'. يصلك التقرير في هذه الصفحة.'+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'، فسيُقرأ يدوياً.':''),'good')});
+  }).catch(function(){msg('nMsg','تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.','bad')})
+  .then(function(){busy=false;$('nSubmit').disabled=false});
+});
+
+/* صفحة المشروع */
+function openProject(id){
+  cur=projects.filter(function(p){return p.id===id})[0];if(!cur)return Promise.resolve();
+  show('vProject',true);$('cProjects').hidden=true;$('cNew').hidden=true;$('cProfile').hidden=true;
+  $('prName').textContent=cur.name;$('prRef').textContent=cur.ref;
+  var d=cur.data||{};$('prMeta').textContent=[d.type,d.floors,d.city,d.district,d.area?('أرض '+d.area+' م²'):''].filter(Boolean).join(' · ');
+  $('cReport').hidden=true;$('cCmp').hidden=true;$('cBoqView').hidden=true;msg('rMsg','');msg('bMsg','');
+  window.scrollTo({top:0,behavior:'smooth'});
+  return loadRevs();
+}
+$('btnBack').addEventListener('click',function(){show('vProject',false);$('cProjects').hidden=false;$('cProfile').hidden=false;cur=null;loadProjects()});
+var reps={};
+function loadRevs(){
+  return Promise.all([
+    BB.from('requests').select('id,ref,rev,status,created_at,change_note').eq('project_id',cur.id).order('rev',{ascending:false}),
+    BB.from('boq_requests').select('id,ref,request_id,disciplines,status,created_at,note').eq('project_id',cur.id).order('created_at',{ascending:false})
+  ]).then(function(rs){
+    revs=rs[0].data||[];boqs=rs[1].data||[];
+    var ids=revs.filter(function(q){return q.status==='published'}).map(function(q){return q.id});
+    return (ids.length?BB.from('reports').select('request_id,data').in('request_id',ids).eq('published',true):Promise.resolve({data:[]})).then(function(r){
+      reps={};(r.data||[]).forEach(function(x){reps[x.request_id]=x.data});drawRevs();drawBoqs()});
   });
+}
+function drawRevs(){
+  var tb=$('revBody');tb.innerHTML='';
+  revs.forEach(function(q){
+    var tr=el('tr');tr.appendChild(el('td',null,'الإصدار '+q.rev));tr.appendChild(el('td',null,fmtDate(q.created_at)));
+    tr.appendChild(el('td',null,q.change_note||(q.rev===1?'الإصدار الأول':'')));
+    var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]||q.status));tr.appendChild(st);
+    var act=el('td');if(reps[q.id]){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
+    tr.appendChild(act);tb.appendChild(tr)});
+  var sel=$('bRev');sel.innerHTML='';
+  revs.forEach(function(q){var o=el('option',null,'الإصدار '+q.rev+(reps[q.id]?'':' (لم يصدر تقريره بعد)'));o.value=q.id;sel.appendChild(o)});
+  boqWarn();
+}
+$('bRev').addEventListener('change',boqWarn);
+function stopsOf(rep){var n=0;if(!rep||!rep.results)return 0;Object.keys(rep.results).forEach(function(k){var r=rep.results[k];if(r&&r.v==='fail'&&r.sev==='stop')n++});(rep.extra||[]).forEach(function(r){if(r.v==='fail'&&r.sev==='stop')n++});return n}
+function boqWarn(){
+  var id=$('bRev').value,w=$('bWarn'),q=revs.filter(function(x){return x.id===id})[0];w.hidden=true;if(!q)return;
+  var rep=reps[id],latest=revs[0]&&revs[0].id===id,t=[];
+  if(!latest)t.push('هذا ليس آخر إصدار في المشروع.');
+  if(!rep)t.push('تقرير فحص هذا الإصدار لم يصدر بعد.');
+  else{var s=stopsOf(rep);if(s)t.push('في تقرير هذا الإصدار '+s+(s===1?' مخالفة مانعة':' مخالفات مانعة')+'، فقد تتغير الكميات بعد معالجتها.')}
+  if(t.length){w.textContent=t.join(' ')+' يمكنك الطلب، والقرار لك.';w.hidden=false}
+}
+
+/* إصدار جديد */
+$('fRev').addEventListener('submit',function(e){
+  e.preventDefault();if(busy||!cur)return;
+  if(!profileOk('rMsg'))return;if(!RP.check('rMsg'))return;
+  if(!$('rAgree').checked){msg('rMsg','الإقرار بالسرية والمسؤولية شرط للإرسال.','bad');return}
+  busy=true;$('rSubmit').disabled=true;var warn=[];
+  uploadFiles(RP,'rMsg',warn).then(function(files){return insertRev(cur,files,$('rNote').value.trim())})
+  .then(function(r){if(r.error)throw r.error;RP.reset();$('fRev').reset();
+    msg('rMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'. يصلك تقريره مع المقارنة بالإصدار السابق.'+(warn.length?' وتعذرت القراءة الآلية لملف: '+warn.join('، ')+'.':''),'good');return loadRevs()})
+  .catch(function(){msg('rMsg','تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.','bad')})
+  .then(function(){busy=false;$('rSubmit').disabled=false});
+});
+
+/* التقرير والمقارنة بالإصدار السابق */
+function ruleName(code,rep){for(var i=0;i<RULES.length;i++)if(RULES[i].c===code)return RULES[i].n;var x=(rep.extra||[]).filter(function(e){return e.c===code})[0];return x?x.n:code}
+function results(rep){var o={};Object.keys(rep.results||{}).forEach(function(k){o[k]=rep.results[k]});(rep.extra||[]).forEach(function(x){o[x.c]=x});return o}
+function compare(prev,curr){
+  var A=results(prev),B=results(curr),fixed=[],still=[],added=[],unclear=[];
+  var keys={};Object.keys(A).concat(Object.keys(B)).forEach(function(k){keys[k]=1});
+  Object.keys(keys).forEach(function(k){
+    var a=A[k],b=B[k],af=a&&a.v==='fail',bf=b&&b.v==='fail';
+    if(af&&bf)still.push({c:k,r:b});else if(af&&b&&(b.v==='ok'||b.v==='na'))fixed.push({c:k,r:a});else if(af)unclear.push({c:k,r:a});else if(bf)added.push({c:k,r:b})});
+  return {fixed:fixed,still:still,added:added,unclear:unclear};
+}
+var SEVN={stop:'مانعة',major:'جوهرية',minor:'تحسينية'};
+function drawCmp(q,prevQ,c,rep){
+  $('cmpTitle').textContent='الإصدار '+q.rev+' مقارنة بالإصدار '+prevQ.rev;
+  $('cmpSub').textContent='عولجت '+c.fixed.length+' · بقيت '+c.still.length+' · جديدة '+c.added.length;
+  var body=$('cmpBody');body.innerHTML='';
+  [['fixed','عولجت',c.fixed],['still','بقيت',c.still],['added','ظهرت في هذا الإصدار',c.added],['unclear','لم يتضح علاجها',c.unclear]].forEach(function(g){
+    if(g[0]==='unclear'&&!g[2].length)return;
+    var col=el('div','cmpcol '+g[0]);var h=el('h3');h.appendChild(el('b',null,String(g[2].length)));h.appendChild(document.createTextNode(' '+g[1]));col.appendChild(h);
+    var ul=el('ul');if(!g[2].length)ul.appendChild(el('li','none','لا شيء'));
+    g[2].forEach(function(x){var li=el('li');li.appendChild(el('span',null,ruleName(x.c,rep)));if(x.r&&x.r.sev)li.appendChild(el('small','sev-'+x.r.sev,SEVN[x.r.sev]||''));ul.appendChild(li)});
+    col.appendChild(ul);body.appendChild(col)});
+  $('cCmp').hidden=false;
+}
+function openReport(q){
+  var d=reps[q.id];if(!d)return;openReq=q;d.ref=d.ref||q.ref;
+  $('cBoqView').hidden=true;$('cCmp').hidden=true;
+  var prevQ=revs.filter(function(x){return x.rev<q.rev&&reps[x.id]}).sort(function(a,b){return b.rev-a.rev})[0];
+  if(prevQ)drawCmp(q,prevQ,compare(reps[prevQ.id],d),d);
+  $('cReport').hidden=false;FQ.render(d,$('report'));($('cCmp').hidden?$('cReport'):$('cCmp')).scrollIntoView({behavior:'smooth',block:'start'});
 }
 $('fGap').addEventListener('submit',function(e){
   e.preventDefault();if(!openReq)return;
@@ -245,6 +413,37 @@ $('fGap').addEventListener('submit',function(e){
     $('gText').value='';msg('gMsg','وصلت الملاحظات. شكراً لك.','good');
   });
 });
+
+/* جداول الكميات */
+function drawBoqs(){
+  var tb=$('boqBody');tb.innerHTML='';$('boqEmpty').hidden=!!boqs.length;
+  boqs.forEach(function(b){
+    var q=revs.filter(function(x){return x.id===b.request_id})[0];
+    var tr=el('tr');tr.appendChild(el('td','mono',b.ref));tr.appendChild(el('td',null,q?'الإصدار '+q.rev:''));
+    tr.appendChild(el('td',null,(b.disciplines||[]).map(function(k){return DISC[k]||k}).join('، ')));
+    tr.appendChild(el('td',null,fmtDate(b.created_at)));
+    var st=el('td');st.appendChild(el('span','status-pill st-'+b.status,BSTATUS[b.status]||b.status));tr.appendChild(st);
+    var act=el('td');if(b.status==='published'){var v=el('button','btn sm','اعرض الجدول');v.type='button';v.addEventListener('click',function(){openBoqDoc(b,q)});act.appendChild(v)}
+    tr.appendChild(act);tb.appendChild(tr)});
+}
+$('fBoq').addEventListener('submit',function(e){
+  e.preventDefault();if(busy||!cur)return;
+  var rid=$('bRev').value;if(!rid){msg('bMsg','ارفع إصداراً أولاً.','bad');return}
+  var disc=['arch'];$('bDisc').querySelectorAll('input:checked:not([disabled])').forEach(function(i){disc.push(i.value)});
+  busy=true;$('bSubmit').disabled=true;
+  BB.from('boq_requests').insert({project_id:cur.id,request_id:rid,disciplines:disc,note:$('bNote').value.trim()||null}).select('ref').single().then(function(r){
+    if(r.error)throw r.error;$('bNote').value='';msg('bMsg','وصل طلب الجدول برقم '+r.data.ref+'. يصلك في هذه الصفحة بعد المراجعة.','good');return loadRevs();
+  }).catch(function(){msg('bMsg','تعذر إرسال الطلب. أعد المحاولة.','bad')}).then(function(){busy=false;$('bSubmit').disabled=false});
+});
+function fmtN(n,d){return n==null||n===''?'':Number(n).toLocaleString('en-US',{maximumFractionDigits:d==null?2:d})}
+function openBoqDoc(b,q){
+  BB.from('boq_docs').select('data').eq('boq_id',b.id).eq('published',true).maybeSingle().then(function(r){
+    if(!r.data)return;openBoq={b:b,q:q,d:r.data.data};BOQ.render(openBoq.d,$('bvBody'));
+    $('bvTitle').textContent='جدول الكميات '+b.ref+(q?' · الإصدار '+q.rev:'');
+    $('cReport').hidden=true;$('cCmp').hidden=true;$('cBoqView').hidden=false;$('cBoqView').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+}
+$('bvCsv').addEventListener('click',function(){if(openBoq)BOQ.csv(openBoq.d,openBoq.b.ref+'.csv')});
 })();
 </script>
 </body>
