@@ -1,6 +1,6 @@
 
-@font-face{font-family:"Janna";src:url("../fonts/Janna-LT.ttf") format("truetype");font-weight:400;font-display:swap}
-@font-face{font-family:"Janna";src:url("../fonts/Janna-LT-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:"Janna";src:url("../fonts/Janna-LT.woff2") format("woff2"),url("../fonts/Janna-LT.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Janna";src:url("../fonts/Janna-LT-Bold.woff2") format("woff2"),url("../fonts/Janna-LT-Bold.ttf") format("truetype");font-weight:700;font-display:swap}
 /* لوحة فحص هندسية: ورق رسم محايد بشبكة مليمترية خافتة، جداول وأختام بدل البطاقات، التيراكوتا للفعل والحكم فقط */
 :root{
   --paper:#F6F5F1; --sheet:#FFFFFF; --grid:rgba(31,26,23,.045);
