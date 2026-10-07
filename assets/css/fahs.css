@@ -336,6 +336,7 @@ details.lay summary .cnts{margin-inline-start:auto;font-family:var(--mono);font-
 .pp *{box-sizing:border-box}
 .pp-h{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1.5px solid #A65338;flex:none}
 .pp-h .pp-bn{font-size:17px;color:#1F1A17}
+.pp-h .pp-logo{height:34px;width:auto;display:block;margin-inline-start:-4px}
 .pp-fe{display:inline-flex;align-items:center;gap:10px}
 .pp-fe img{height:9px;opacity:.6}
 .pp-h .pt{text-align:left;display:flex;flex-direction:column;line-height:1.35}

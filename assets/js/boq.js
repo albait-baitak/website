@@ -88,6 +88,7 @@ function build(D){
 
   // الملخص (أول ورقة)
   sm.columns=[{width:34},{width:46},{width:18},{width:14}];
+  if(LOGO_B64){var lid=wb.addImage({base64:LOGO_B64,extension:'png'});var lr=sm.addRow([]);lr.height=48;sm.addImage(lid,{tl:{col:0,row:0},ext:{width:174,height:48}})}
   var t1=sm.addRow(['جدول الكميات التقديري']);t1.font={bold:true,size:16,color:{argb:BROWN}};sm.mergeCells(t1.number,1,t1.number,4);
   [['المشروع',(D.title||P.name||'')],['الرقم والإصدار',(P.ref||'')+(P.rev?' · الإصدار '+P.rev:'')],['تاريخ الجدول',D.date||''],['تاريخ الأسعار',D.price_date||''],['المسطحات المبنية',B?B+' م²':'لم تُقرأ']].forEach(function(x){var r=sm.addRow(x);r.getCell(1).font={bold:true,color:{argb:BROWN}}});
   var md=D.mode||{},mw=[];if(md.skeleton==='indicator')mw.push('العظم بمؤشر المتر المربع');if(md.finish==='indicator')mw.push('التشطيب بمؤشر المتر المربع');else if(md.finish==='partial')mw.push('التشطيب يغطي '+(md.coverage||0)+'٪ من المسطح');
@@ -109,8 +110,11 @@ function build(D){
   [['أسئلة تُستوفى من المكتب',D.questions],['افتراضات الجدول',D.assumptions],['خارج الجدول',D.excluded],['أساس الجدول',D.basis?[D.basis]:[]]].forEach(function(g){if(!g[1]||!g[1].length)return;var h=an.addRow([g[0]]);h.font={bold:true,color:{argb:TERRA}};g[1].forEach(function(s,i){var r=an.addRow([String(i+1),s]);r.getCell(2).alignment={wrapText:true,vertical:'top'}});an.addRow([])});
   return wb;
 }
+/* شعار الموقع لملف الإكسل: يُجلب مرة، وإن تعذر يُبنى الملف بلا شعار */
+var LOGO_B64=null;
+function loadLogo(){if(LOGO_B64)return Promise.resolve();return fetch(BASE+'assets/img/brand/logo-horizontal.png').then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){return new Promise(function(res){var fr=new FileReader();fr.onload=function(){LOGO_B64=String(fr.result);res()};fr.onerror=function(){res()};fr.readAsDataURL(b)})}).catch(function(){})}
 function xlsx(D,name){
-  return loadXL().then(function(){return build(D).xlsx.writeBuffer()}).then(function(buf){save(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),name)});
+  return loadXL().then(loadLogo).then(function(){return build(D).xlsx.writeBuffer()}).then(function(buf){save(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),name)});
 }
 window.BOQ={render:render,csv:csv,xlsx:xlsx,build:build,totals:totals};
 })();

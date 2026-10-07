@@ -6,8 +6,8 @@
   "start_url": "./account/?home=1",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#F5EFE8",
-  "theme_color": "#5A3420",
+  "background_color": "#F6F5F1",
+  "theme_color": "#F6F5F1",
   "icons": [
     {
       "src": "assets/img/icon-192.png",
@@ -22,7 +22,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "assets/img/logo-mark.svg",
+      "src": "assets/img/brand/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
