@@ -56,6 +56,7 @@ function render(R){
   k.appendChild(kpi('متوسط مدة الزيارة',secs(K.avg_session_s),'زيارات بصفحة واحدة: '+(K.bounce==null?'·':K.bounce+'٪')));
   k.appendChild(kpi('حسابات جديدة',n(K.signups),delta(K.signups,P.signups)));
   k.appendChild(kpi('استخدموا أداة',n(K.tool_users),delta(K.tool_users,P.tool_users)));
+  k.appendChild(kpi('ضغطوا «تواصل»',n(K.contacts),pct(K.contacts,K.visitors)+' من الزوار'));
   out.appendChild(k);
   if(!K.pageviews){out.appendChild(el('p','empty','لم تُسجَّل زيارات في هذه الفترة بعد. الإحصاء يبدأ من لحظة نشره، وزياراتك أنت مستبعدة.'))}
 

@@ -51,6 +51,7 @@ function compose(t: string, r: Record<string, any>): Msg | null {
       url: ADMIN + (r.kind === "boq" ? "#boq=" : "#req=") + r.id, tag: "job-" + r.id,
     };
   }
+  if (t === "contact") return { title: "زائر ضغط «تواصل»", body: `${r.name || r.email ? who + "\n" : ""}من صفحة «${r.title || r.path}»\nقد تصلك رسالة واتساب الآن.`, url: ADMIN + "#st", tag: "contact" };
   if (t === "visit") {
     const from = r.src || r.ref || "رابط مباشر";
     return { title: "زائر جديد", body: `«${r.title || r.path}»\nمن ${from}${r.dev && DEV[r.dev] ? " · " + DEV[r.dev] : ""}`, url: ADMIN + "#st", tag: "visit" };

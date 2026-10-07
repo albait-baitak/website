@@ -1,6 +1,6 @@
 /* إحصاءات الموقع الداخلية: تُسجَّل في قاعدة الموقع نفسها لا عند طرف خارجي.
    لا كوكيز ولا عنوان IP؛ الزائر يُعرف بمعرّف عشوائي في متصفحه، وإن دخل بحسابه رُبطت زياراته به.
-   الأحداث: pv فتح صفحة، end مدة البقاء عند المغادرة، tool حفظ في أداة، signup تسجيل، login دخول. */
+   الأحداث: pv فتح صفحة، end مدة البقاء عند المغادرة، tool حفظ في أداة، signup تسجيل، login دخول، contact ضغط زر التواصل. */
 (function(){
 var C=window.BB_CONFIG;if(!C||!window.fetch)return;
 if(navigator.webdriver||/bot|crawl|spider|slurp|headless|lighthouse|preview/i.test(navigator.userAgent||''))return;
@@ -48,7 +48,9 @@ window.BBStat={
   /* حفظ في أداة: مرة لكل أداة في كل فتح للصفحة */
   tool:function(key){if(once[key])return;once[key]=1;send({kind:'tool',title:title(),meta:{key:String(key).slice(0,60)}})},
   signup:function(role){send({kind:'signup',meta:{role:String(role||'').slice(0,20)}})},
-  login:function(){send({kind:'login'})}
+  login:function(){send({kind:'login'})},
+  /* ضغط زر التواصل: يُحسب في الإحصائيات ويصل المدير إشعار به */
+  contact:function(where){send({kind:'contact',title:title(),meta:{where:String(where||'').slice(0,30)}})}
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',pv);else pv();
 })();

@@ -19,6 +19,18 @@ if(!document.querySelector('link[href*="assets/css/app.css"]')&&!document.getEle
 var slot=head.querySelector('[data-auth]');
 if(!slot){slot=el('div','auth');slot.setAttribute('data-auth','');head.appendChild(slot)}
 
+if(!document.getElementById('bb-hc-css')){var hc=document.createElement('style');hc.id='bb-hc-css';hc.textContent='.hdr-contact{display:inline-flex;align-items:center;gap:6px;margin-inline-start:auto;margin-inline-end:10px;padding:5px 11px;border:1px solid var(--line-2);border-radius:var(--r-ctl);color:var(--ink);text-decoration:none;font-size:14px;line-height:1.4;white-space:nowrap}.hdr-contact:hover,.hdr-contact:focus-visible{border-color:var(--terra);color:var(--terra)}.top nav~.hdr-contact{margin-inline-start:0}.top .hdr-contact~.auth{margin-inline-start:0}@media (max-width:980px){.top nav~.hdr-contact{margin-inline-start:auto}}@media (max-width:720px){.hdr-contact{padding:5px 9px;margin-inline-end:6px;font-size:13.5px}}@media (max-width:340px){.hdr-contact span{display:none}}';document.head.appendChild(hc)}
+/* تواصل مباشر عبر واتساب، قبل خانة الحساب (لا يظهر في لوحة الإدارة) */
+var CONTACT=window.BB_CONFIG&&window.BB_CONFIG.contact;
+if(CONTACT&&!/\/admin\//.test(location.pathname)&&!head.querySelector('.hdr-contact')){
+  var ct=el('a','hdr-contact');ct.href=CONTACT;ct.target='_blank';ct.rel='noopener';
+  ct.setAttribute('aria-label','تواصل معنا عبر واتساب');ct.title='تواصل معنا عبر واتساب';
+  ct.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 8.5h7M8.5 11.5h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  ct.appendChild(el('span',null,'تواصل'));
+  ct.addEventListener('click',function(){if(window.BBStat&&BBStat.contact)BBStat.contact('header')});
+  head.insertBefore(ct,slot);
+}
+
 /* زر قائمة الجوال */
 var nav=head.querySelector('nav');
 if(nav){
