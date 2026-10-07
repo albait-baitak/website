@@ -114,7 +114,7 @@ $('stDays').addEventListener('click',function(e){var b=e.target.closest('button'
 $('stReload').addEventListener('click',load);
 
 /* صانع الروابط الموسومة: لكل منشور رابط يعرّف بمصدره في الإحصائيات */
-var SITE='https://albait-baitak.github.io/website/';
+var SITE=location.origin+'/';
 function mk(){var p=$('stLPage').value||'',s=$('stLSrc').value,c=$('stLCamp').value.trim().toLowerCase().replace(/[^a-z0-9\-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
   var u=SITE+p+'?utm_source='+encodeURIComponent(s)+(c?'&utm_campaign='+encodeURIComponent(c):'');$('stLOut').value=u}
 ['stLPage','stLSrc','stLCamp'].forEach(function(id){$(id).addEventListener('input',mk)});mk();
