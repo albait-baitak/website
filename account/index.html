@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610072227">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610072227">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610080041">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610080041">
 </head>
 <body>
 <header class="top">
@@ -133,6 +133,7 @@
     <div id="vHome" hidden style="display:none">
       <div class="who-bar"><span>مرحباً <b id="hName"></b> · <span id="hRole"></span></span><label class="stage-pick" id="hStageL" hidden>مرحلتك <select id="hStage"><option value="">لم تحدد</option><option value="decision">القرار</option><option value="design">التصميم</option><option value="build">التنفيذ</option><option value="living">السكن</option></select></label></div>
       <p class="msg good" id="hWelcome" role="status" hidden></p>
+      <div id="hDash" class="dash"></div>
       <div id="hGroups"></div>
     </div>
   </div>
@@ -140,12 +141,16 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610072227"></script>
-<script src="../assets/js/config.js?v=202610072227"></script>
-<script src="../assets/js/stats.js?v=202610072227"></script>
-<script src="../assets/js/access.js?v=202610072227"></script>
-<script src="../assets/js/session.js?v=202610072227"></script>
-<script src="../assets/js/userpush.js?v=202610072227"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610080041"></script>
+<script src="../assets/js/config.js?v=202610080041"></script>
+<script src="../assets/js/stats.js?v=202610080041"></script>
+<script src="../assets/js/access.js?v=202610080041"></script>
+<script src="../assets/js/session.js?v=202610080041"></script>
+<script src="../assets/js/userpush.js?v=202610080041"></script>
+<script src="../assets/js/dash/sum-a.js?v=202610072227"></script>
+<script src="../assets/js/dash/sum-b.js?v=202610072227"></script>
+<script src="../assets/js/dash/sum-c.js?v=202610072227"></script>
+<script src="../assets/js/dash.js?v=202610080041"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -274,13 +279,23 @@ $('fReg').addEventListener('submit',function(e){
 
 /* أدواتك: الفرد يرى رحلته بالمراحل الأربع ومرحلته أولاً، وأصحاب المهن يرون أدوات عملهم أولاً ثم بقية الأدوات */
 var WELCOME={owner:'أُنشئ حسابك. اختر أداة وابدأ، وكل ما تكتبه يُحفظ في حسابك.',contractor:'أُنشئ حسابك. اختر أداة وابدأ، وكل ما تكتبه يُحفظ في حسابك.',pw:'حُفظت كلمة المرور الجديدة.'};
-function toolCard(t){var a=el('a','tool');a.href='../'+t.href;a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,'افتح'));return a}
+/* بطاقة الأداة: وصفها، وإن كان للمستخدم فيها عمل فوين وصل وآخر تعديل */
+var INFO=null,LIST=[];
+function toolCard(t){var a=el('a','tool');a.href='../'+t.href;
+  var no=t.stage?LIST.indexOf(t):-1;var hd=el('b');if(no>=0)hd.appendChild(el('i','tno',('0'+(no+1)).slice(-2)));hd.appendChild(document.createTextNode(t.name));a.appendChild(hd);
+  var x=INFO&&window.BBDash?INFO[BBDash.slugOf(t)]:null;
+  if(x&&!x.s.empty){a.classList.add('used');a.appendChild(el('span','tst',x.s.line||'بدأت فيها.'));var br=BBDash.bar(x.s);if(br)a.appendChild(br);
+    var f=el('span','tft');f.appendChild(el('em',null,'أكمل'));f.appendChild(el('small',null,'آخر تعديل '+BBDash.ago(x.ts)));a.appendChild(f)}
+  else{a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,x?'فتحتها ولم تبدأ':'افتح'))}
+  return a}
 function group(title,tools,note,cls){var sec=el('section','card'+(cls?' '+cls:''));var h=el('div','card-h');h.appendChild(el('h2',null,title));if(note)h.appendChild(el('span','badge-now',note));sec.appendChild(h);
   var b=el('div','card-b');var box=el('div','tools');tools.forEach(function(t){box.appendChild(toolCard(t))});b.appendChild(box);sec.appendChild(b);return sec}
-function drawHome(p){
+function drawHome(p,keepDash){
   $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
-  var w='';try{w=sessionStorage.getItem('bb_welcome')||'';sessionStorage.removeItem('bb_welcome')}catch(e){}
-  $('hWelcome').hidden=!WELCOME[w];$('hWelcome').textContent=WELCOME[w]||'';
+  if(!keepDash){var w='';try{w=sessionStorage.getItem('bb_welcome')||'';sessionStorage.removeItem('bb_welcome')}catch(e){}
+  $('hWelcome').hidden=!WELCOME[w];$('hWelcome').textContent=WELCOME[w]||''}
+  LIST=BBA.TOOLS.filter(function(t){return t.live&&t.stage});
+  if(!keepDash&&p.role!=='admin'&&window.BBDash){INFO=null;BBDash.mount($('hDash'),p,user.id,BBA.toolsFor(p.role).filter(function(t){return t.live}),function(info){INFO=info;drawHome(p,true)})}
   var G=$('hGroups');G.innerHTML='';var live=BBA.TOOLS.filter(function(t){return t.live});
   var mine=BBA.toolsFor(p.role).filter(function(t){return t.live});
   var journey=live.filter(function(t){return t.stage});
@@ -299,6 +314,8 @@ function drawHome(p){
 }
 $('hStage').addEventListener('change',function(){var v=this.value||null;
   BB.from('profiles').update({stage:v}).eq('id',user.id).then(function(r){if(r.error){$('hWelcome').hidden=false;$('hWelcome').className='msg bad';$('hWelcome').textContent='تعذر حفظ المرحلة. أعد المحاولة.';return}profile.stage=v;drawHome(profile)})});
+/* الرجوع من أداة بزر الرجوع: الصفحة من ذاكرة المتصفح، فتُحدَّث اللوحة بآخر ما عُمل */
+window.addEventListener('pageshow',function(e){if(e.persisted&&profile&&!$('vHome').hidden)drawHome(profile)});
 function route(){
   if(recovering){only('vReset');return}
   if(!user){if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
