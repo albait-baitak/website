@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
   const to = (admins ?? []).map((a: { email: string }) => a.email);
   if (!to.length) return json({ sent: false, reason: "no_admins" });
 
-  const site = Deno.env.get("SITE_URL") ?? "https://albait-baitak.com/";
+  const site = "https://albait-baitak.com/";
   const rows = [
     ["الاسم", p.full_name], ["نوع الحساب المطلوب", ROLE[p.requested_role] ?? p.requested_role],
     ["الجهة", p.office_name], ["الجوال", p.phone], ["المدينة", p.city], ["البريد", p.email],
