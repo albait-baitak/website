@@ -3,7 +3,7 @@
 // الدخول بالرمز السري في الرابط وحده (verify_jwt = false)، والقراءة بمفتاح الخدمة.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.github.io/website/";
+const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.com/";
 let TASKS: any[] = [];
 async function loadTasks() {
   if (TASKS.length) return;

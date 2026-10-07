@@ -13,7 +13,7 @@ const json = (body: unknown, status = 200) =>
 
 type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string; verify?: string; sbc?: string };
 // القواعد مصدرها واحد: refs/rules_v2.json في المستودع المنشور
-const RULES_URL = Deno.env.get("RULES_URL") ?? "https://albait-baitak.github.io/website/refs/rules_v2.json";
+const RULES_URL = Deno.env.get("RULES_URL") ?? "https://albait-baitak.com/refs/rules_v2.json";
 let RULES: Rule[] = [];
 async function loadRules() {
   if (RULES.length) return;

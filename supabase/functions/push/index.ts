@@ -12,7 +12,7 @@ const cors = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { ...cors, "Content-Type": "application/json" } });
-const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.github.io/website/";
+const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.com/";
 const ROLE: Record<string, string> = { office: "مكتب هندسي", designer: "مصمم", contractor: "مقاول", owner: "فرد" };
 const STAGE: Record<string, string> = { decision: "القرار", design: "التصميم", build: "التنفيذ", living: "السكن" };
 const DEV: Record<string, string> = { mobile: "جوال", tablet: "جهاز لوحي", desktop: "حاسوب" };

@@ -13,7 +13,7 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
 // المكتبة ودليل النقاط مصدرهما واحد: الموقع المنشور
-const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.github.io/website/";
+const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.com/";
 const LIB_URL = Deno.env.get("BOQ_LIB_URL") ?? SITE + "refs/boq/boq_library.json";
 let LIB: { built: string; price_date: string } = { built: "", price_date: "" };
 let LIBRAW: LibItem[] = [];
