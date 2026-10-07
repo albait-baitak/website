@@ -80,7 +80,7 @@ async function mailUser(db: any, uid: string, m: Msg) {
   const { data: p } = await db.from("profiles").select("email").eq("id", uid).single();
   if (!p?.email) return "no_email";
   const html = `<div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;font-size:15px;color:#1F1A17;line-height:1.9">
-<p>${m.mail}</p><p><a href="${m.url}" style="color:#B26042">افتح «البيت بيتك»</a></p>
+<p>${m.mail}</p><p><a href="${m.url}" style="color:#A65338">افتح «البيت بيتك»</a></p>
 <p style="color:#8A8079;font-size:13px">وصلتك هذه الرسالة لأن لك حساباً في «البيت بيتك».</p></div>`;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },

@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
   ].filter((r) => r[1]).map((r) => `<tr><td style="padding:4px 12px;color:#5E554E">${r[0]}</td><td style="padding:4px 12px"><b>${esc(String(r[1]))}</b></td></tr>`).join("");
   const html = `<div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;font-size:15px;color:#1F1A17">
 <p>حساب جديد ينتظر اعتمادك في «البيت بيتك»:</p><table>${rows}</table>
-<p><a href="${site}admin/#acc=pending" style="color:#B26042">افتح لوحة الإدارة لاعتماده وتحديد نوعه</a></p></div>`;
+<p><a href="${site}admin/#acc=pending" style="color:#A65338">افتح لوحة الإدارة لاعتماده وتحديد نوعه</a></p></div>`;
 
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",

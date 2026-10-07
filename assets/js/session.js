@@ -15,6 +15,15 @@ if(!document.querySelector('link[href*="assets/css/app.css"]')&&!document.getEle
   var st=document.createElement('style');st.id='bb-tk-css';st.textContent=TKCSS;document.head.appendChild(st);
 }
 
+/* علامة الشعار (العتبة) قبل اسم الموقع في الرأس */
+var brand=head.querySelector('.brand');
+if(brand&&!brand.querySelector('.bmark')){
+  var bm=document.createElement('span');bm.className='bmark';bm.setAttribute('aria-hidden','true');
+  bm.innerHTML='<svg viewBox="0 0 100 100" width="28" height="28"><rect width="100" height="100" rx="20" fill="#5A3420"/><path d="M35 76V46a15 15 0 0 1 30 0v30z" fill="#F5EFE8"/><rect x="26" y="76" width="48" height="6" rx="1" fill="#A65338"/></svg>';
+  brand.insertBefore(bm,brand.firstChild);
+  if(!document.getElementById('bb-bm-css')){var bs=document.createElement('style');bs.id='bb-bm-css';bs.textContent='.bmark{display:inline-flex;line-height:0;flex:0 0 auto}.bmark svg{display:block}@media (max-width:440px){.top .wrap{gap:10px}.bmark svg{width:24px;height:24px}.top .brand{gap:8px}}';document.head.appendChild(bs)}
+}
+
 /* خانة الحساب */
 var slot=head.querySelector('[data-auth]');
 if(!slot){slot=el('div','auth');slot.setAttribute('data-auth','');head.appendChild(slot)}

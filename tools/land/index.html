@@ -20,9 +20,9 @@
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610071704">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610072108">
 <link rel="stylesheet" href="../../assets/vendor/leaflet/leaflet.css?v=1">
-<link rel="stylesheet" href="../../assets/css/tools.css?v=202610071704">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610072108">
 </head>
 <body>
 <header class="top">
@@ -125,13 +125,13 @@
 
 <footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../../assets/vendor/supabase-2.117.2.js?v=202610071704"></script>
-<script src="../../assets/js/config.js?v=202610071704"></script>
-<script src="../../assets/js/stats.js?v=202610071704"></script>
-<script src="../../assets/js/session.js?v=202610071704"></script>
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610072108"></script>
+<script src="../../assets/js/config.js?v=202610072108"></script>
+<script src="../../assets/js/stats.js?v=202610072108"></script>
+<script src="../../assets/js/session.js?v=202610072108"></script>
 <script src="../../assets/vendor/leaflet/leaflet.js?v=1"></script>
-<script src="../../assets/js/toolkit.js?v=202610071704"></script>
-<script src="../../assets/js/landmap.js?v=202610071704"></script>
+<script src="../../assets/js/toolkit.js?v=202610072108"></script>
+<script src="../../assets/js/landmap.js?v=202610072108"></script>
 <script>
 TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$,fmt=TK.fmt,num=TK.num;
@@ -255,7 +255,7 @@ function setDrawing(v){drawing=v;var b=$('lmDraw');b.setAttribute('aria-pressed'
   $('lmap').classList.toggle('drawing',v);$('lmHint').textContent=v?'اضغط على أركان الأرض بالترتيب حول محيطها، ركناً بعد ركن.':''}
 function mapDraw(fit){
   if(!MAP)return;G.clearLayers();var m=MS(),p=m.pts;
-  if(p.length>=3)L.polygon(p,{color:'#B26042',weight:2,fillOpacity:.15}).addTo(G);else if(p.length===2)L.polyline(p,{color:'#B26042',weight:2}).addTo(G);
+  if(p.length>=3)L.polygon(p,{color:'#A65338',weight:2,fillOpacity:.15}).addTo(G);else if(p.length===2)L.polyline(p,{color:'#A65338',weight:2}).addTo(G);
   p.forEach(function(q){L.circleMarker(q,{radius:5,color:'#5A3420',fillColor:'#fff',fillOpacity:1,weight:2}).addTo(G)});
   var g=LM.geom(p);if(g)g.edges.forEach(function(e){L.marker(e.mid,{icon:L.divIcon({className:'lm-lbl',html:String(e.i+1),iconSize:[22,22]})}).addTo(G)});
   if(fit&&p.length)MAP.fitBounds(L.latLngBounds(p).pad(p.length>2?1.2:0),{maxZoom:19});

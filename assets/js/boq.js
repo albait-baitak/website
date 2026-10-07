@@ -53,7 +53,7 @@ function loadXL(){if(window.ExcelJS)return Promise.resolve();return new Promise(
 /* ملف إكسل: ملخص، وبنود بمعادلات حية، وافتراضات وأسئلة */
 function build(D){
   var X=window.ExcelJS,wb=new X.Workbook();wb.creator='البيت بيتك';wb.created=new Date();
-  var TERRA='FFB26042',BROWN='FF5A3420',CREAM='FFF5EFE8',LINE='FFD9D3CB';
+  var TERRA='FFA65338',BROWN='FF5A3420',CREAM='FFF5EFE8',LINE='FFD9D3CB';
   var bord={top:{style:'thin',color:{argb:LINE}},bottom:{style:'thin',color:{argb:LINE}},left:{style:'thin',color:{argb:LINE}},right:{style:'thin',color:{argb:LINE}}};
   function head(ws,row){row.eachCell(function(c){c.font={bold:true,color:{argb:'FFFFFFFF'}};c.fill={type:'pattern',pattern:'solid',fgColor:{argb:TERRA}};c.alignment={vertical:'middle',horizontal:'center',wrapText:true};c.border=bord});row.height=24}
   var P=D.project||{},B=(D.areas&&D.areas.built_m2)||null;
@@ -91,7 +91,7 @@ function build(D){
   var t1=sm.addRow(['جدول الكميات التقديري']);t1.font={bold:true,size:16,color:{argb:BROWN}};sm.mergeCells(t1.number,1,t1.number,4);
   [['المشروع',(D.title||P.name||'')],['الرقم والإصدار',(P.ref||'')+(P.rev?' · الإصدار '+P.rev:'')],['تاريخ الجدول',D.date||''],['تاريخ الأسعار',D.price_date||''],['المسطحات المبنية',B?B+' م²':'لم تُقرأ']].forEach(function(x){var r=sm.addRow(x);r.getCell(1).font={bold:true,color:{argb:BROWN}}});
   var md=D.mode||{},mw=[];if(md.skeleton==='indicator')mw.push('العظم بمؤشر المتر المربع');if(md.finish==='indicator')mw.push('التشطيب بمؤشر المتر المربع');else if(md.finish==='partial')mw.push('التشطيب يغطي '+(md.coverage||0)+'٪ من المسطح');
-  if(mw.length){var wr=sm.addRow(['جدول تقديري: '+mw.join('، و')+'.']);wr.font={bold:true,color:{argb:'FFB26042'}};sm.mergeCells(wr.number,1,wr.number,4)}
+  if(mw.length){var wr=sm.addRow(['جدول تقديري: '+mw.join('، و')+'.']);wr.font={bold:true,color:{argb:'FFA65338'}};sm.mergeCells(wr.number,1,wr.number,4)}
   sm.addRow([]);
   var h2=sm.addRow(['القسم','البيان','المبلغ (ريال)','النسبة']);head(sm,h2);
   var f1=h2.number+1;
@@ -101,7 +101,7 @@ function build(D){
   for(var rr=f1;rr<=l1;rr++){sm.getCell('D'+rr).value={formula:'IF($C$'+tt.number+'=0,0,C'+rr+'/$C$'+tt.number+')'};sm.getCell('D'+rr).numFmt='0.0%'}
   if(B){var pm=sm.addRow(['','للمتر المربع المبني',{formula:'C'+tt.number+'/'+B,result:Math.round((D.total||0)/B)}]);pm.getCell(3).numFmt='#,##0'}
   if(D.checks&&D.checks.length){sm.addRow([]);var hc=sm.addRow(['فحص المعقولية','قيمة المشروع','المعتاد','النتيجة']);head(sm,hc);
-    D.checks.forEach(function(c){var r=sm.addRow([c.name,c.value,c.expected,c.ok?'ضمن المعتاد':'يحتاج نظرة']);r.getCell(4).font={bold:true,color:{argb:c.ok?'FF2F6B3A':'FFB26042'}};r.eachCell({includeEmpty:true},function(x,i){if(i<=4){x.border=bord;x.alignment={wrapText:true,vertical:'top'}}})})}
+    D.checks.forEach(function(c){var r=sm.addRow([c.name,c.value,c.expected,c.ok?'ضمن المعتاد':'يحتاج نظرة']);r.getCell(4).font={bold:true,color:{argb:c.ok?'FF2F6B3A':'FFA65338'}};r.eachCell({includeEmpty:true},function(x,i){if(i<=4){x.border=bord;x.alignment={wrapText:true,vertical:'top'}}})})}
   sm.addRow([]);var nt=sm.addRow(['الأسعار تقديرية من مكتبة البنود بمصادرها، والكميات محسوبة بمعادلات ثابتة على ما قُرئ من المخططات، وتُراجع مع المخططات المعتمدة قبل الطرح.']);sm.mergeCells(nt.number,1,nt.number,4);nt.getCell(1).alignment={wrapText:true};nt.height=34;
 
   // الافتراضات والأسئلة
