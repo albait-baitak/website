@@ -1,6 +1,7 @@
 /* رأس الموقع الموحد: حالة الدخول أعلى الصفحة في كل الصفحات، وقائمة الحساب، وقائمة الجوال */
 (function(){
 var BASE=(document.currentScript&&document.currentScript.src||'').replace(/assets\/js\/session\.js.*$/,'');
+var TKCSS="#saved.tk-fail{color:var(--stop);font-weight:700}.tk-banner{margin:14px 0 0;padding:10px 14px;border:1px solid var(--major);border-inline-start-width:4px;border-radius:var(--r-ctl);background:var(--sheet);color:var(--ink);font-size:14px;line-height:1.8}.tk-strip{border-top:1px solid var(--line);background:var(--sheet);padding-block:22px 26px;margin-top:40px}.tk-strip-h{display:flex;justify-content:space-between;align-items:baseline;gap:6px 12px;flex-wrap:wrap;margin-bottom:12px}.tk-strip-h h2{font-size:17px}.tk-strip-h a{font-size:13.5px;color:var(--terra)}.tk-strip-l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}.tk-strip-l li{min-width:0}.tk-strip-l a{display:block;height:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--paper);color:var(--ink);text-decoration:none;font-size:15px;font-weight:700;line-height:1.6;overflow-wrap:anywhere}.tk-strip-l a:hover,.tk-strip-l a:focus-visible{border-color:var(--terra);color:var(--terra)}@media (max-width:560px){.tk-strip-l{grid-template-columns:1fr}}@media print{.tk-strip,.tk-banner{display:none!important}}.acct-warn{margin:6px 12px;padding:8px 10px;font-size:13px;line-height:1.8;color:var(--stop);border:1px solid var(--stop);border-radius:var(--r-ctl);background:var(--paper);max-width:300px}.stage[id]{scroll-margin-top:80px}";
 var ROLE={admin:'مدير النظام',office:'مكتب هندسي',designer:'مصمم',contractor:'مقاول',owner:'فرد'};
 /* طريقة الاستخدام: مفتوحة على الشاشات الواسعة، مطوية على الجوال حتى تظهر الأداة من أول نظرة */
 try{if(window.matchMedia&&matchMedia('(min-width:900px)').matches)document.querySelectorAll('details.howto').forEach(function(d){d.open=true})}catch(e){}
@@ -8,6 +9,11 @@ var KEY='sb-mafsmebubzvbyahmwyym-auth-token';
 var head=document.querySelector('header.top .wrap');if(!head)return;
 
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+
+/* أنماط حالة الحفظ وأدوات المرحلة وتنبيه الخروج: مصدرها آخر app.css، وتُحقن هنا في الصفحات التي لا تحمّل app.css (الأدوات والرئيسية و404) */
+if(!document.querySelector('link[href*="assets/css/app.css"]')&&!document.getElementById('bb-tk-css')){
+  var st=document.createElement('style');st.id='bb-tk-css';st.textContent=TKCSS;document.head.appendChild(st);
+}
 
 /* خانة الحساب */
 var slot=head.querySelector('[data-auth]');
@@ -23,7 +29,7 @@ if(nav){
   nav.addEventListener('click',function(e){if(e.target.closest('a')){head.parentNode.classList.remove('open');tg.setAttribute('aria-expanded','false')}});
 }
 
-function loginBtn(){slot.innerHTML='';var a=el('a','btn sm','الدخول');a.href=BASE+'account/';slot.appendChild(a)}
+function loginBtn(){slot.innerHTML='';var a=el('a','btn sm','الدخول');a.href=BASE+'account/'+(/\/(tools|fahs|admin)\//.test(location.pathname)?'?next='+encodeURIComponent(location.pathname):'');slot.appendChild(a)}
 
 var open=false,btn,menu;
 function closeMenu(){if(!menu)return;open=false;menu.hidden=true;btn.setAttribute('aria-expanded','false')}
@@ -47,10 +53,24 @@ function chip(email,p){
   if(approved&&(p.role==='office'||p.role==='designer'||p.role==='admin'))item('بوابة الفحص الفني','fahs/app.html');
   if(approved&&p.role==='admin')item('لوحة الإدارة','admin/');
   var out=el('button','acct-it acct-out','تسجيل الخروج');out.type='button';out.setAttribute('role','menuitem');
-  out.addEventListener('click',function(){window.BB.auth.signOut().then(function(){
+  var armed=false,busy=false,warn=null;
+  function leave(){window.BB.auth.signOut().then(function(){
     /* بيانات الأدوات تبقى في الحساب، وتُمسح نسختها من هذا الجهاز عند الخروج */
     try{for(var i=localStorage.length-1;i>=0;i--){var k=localStorage.key(i);if(/^bb_tool_|^bb_meta$|^bb_handoff_/.test(k))localStorage.removeItem(k)}}catch(e){}
-    location.href=BASE})});
+    location.href=BASE})}
+  function pending(){try{var m=JSON.parse(localStorage.getItem('bb_meta')||'null');return m&&m.d?Object.keys(m.d).length:0}catch(e){return 0}}
+  out.addEventListener('click',function(e){
+    e.stopPropagation();if(busy)return;
+    if(armed){leave();return}
+    busy=true;out.disabled=true;
+    /* يُرفع ما لم يُرفع قبل الخروج، فإن بقي شيء نُنبّه ولا نخرج من أول ضغطة */
+    (window.TK&&TK.flush?TK.flush():Promise.resolve()).then(null,function(){}).then(function(){
+      busy=false;out.disabled=false;
+      if(!pending()){leave();return}
+      armed=true;
+      if(!warn){warn=el('p','acct-warn','عندك تعديلات لم تُرفع إلى حسابك بعد. اتصل بالإنترنت ثم اخرج، أو اضغط «تسجيل الخروج» مرة ثانية للخروج دونها.');warn.setAttribute('role','alert');menu.insertBefore(warn,out)}
+    });
+  });
   menu.appendChild(out);
   btn.addEventListener('click',function(e){e.stopPropagation();open=!open;menu.hidden=!open;btn.setAttribute('aria-expanded',String(open))});
   slot.appendChild(btn);slot.appendChild(menu);

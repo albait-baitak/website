@@ -283,3 +283,50 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .ed-row .fb-tag.o{color:var(--stop);font-weight:700}
 .ed-row .fb-tag.a{color:var(--ok)}
 .ed-row.fb-flash{outline:2px solid var(--stop);outline-offset:2px;transition:outline-color .3s}
+
+/* ===== حالة الحفظ، وأدوات المرحلة، وتنبيه الخروج (toolkit.js وsession.js) =====
+   صفحات الأدوات والرئيسية و404 لا تحمّل هذا الملف، فتحقن session.js النص نفسه فيها. أي تعديل هنا يُنقل إلى TKCSS في session.js */
+#saved.tk-fail{color:var(--stop);font-weight:700}
+.tk-banner{margin:14px 0 0;padding:10px 14px;border:1px solid var(--major);border-inline-start-width:4px;border-radius:var(--r-ctl);background:var(--sheet);color:var(--ink);font-size:14px;line-height:1.8}
+.tk-strip{border-top:1px solid var(--line);background:var(--sheet);padding-block:22px 26px;margin-top:40px}
+.tk-strip-h{display:flex;justify-content:space-between;align-items:baseline;gap:6px 12px;flex-wrap:wrap;margin-bottom:12px}
+.tk-strip-h h2{font-size:17px}
+.tk-strip-h a{font-size:13.5px;color:var(--terra)}
+.tk-strip-l{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.tk-strip-l li{min-width:0}
+.tk-strip-l a{display:block;height:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--paper);color:var(--ink);text-decoration:none;font-size:15px;font-weight:700;line-height:1.6;overflow-wrap:anywhere}
+.tk-strip-l a:hover,.tk-strip-l a:focus-visible{border-color:var(--terra);color:var(--terra)}
+@media (max-width:560px){.tk-strip-l{grid-template-columns:1fr}}
+@media print{.tk-strip,.tk-banner{display:none!important}}
+.acct-warn{margin:6px 12px;padding:8px 10px;font-size:13px;line-height:1.8;color:var(--stop);border:1px solid var(--stop);border-radius:var(--r-ctl);background:var(--paper);max-width:300px}
+.stage[id]{scroll-margin-top:80px}
+/* ===== نهاية حالة الحفظ وأدوات المرحلة ===== */
+
+/* ===== المسارات والتنبيهات (أكتوبر) ===== */
+.tabs{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{white-space:nowrap;flex:0 0 auto}
+/* تنبيه المستخدم على جهازه */
+.upush-card .card-b{padding-block:14px}
+.upush{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.upush-t{display:flex;flex-direction:column;gap:2px;flex:1 1 260px;min-width:0}
+.upush-t b{font-size:15px;color:var(--ink)}
+.upush-t span{font-size:13.5px;color:var(--ink-2);line-height:1.8}
+.upush-a{display:flex;gap:12px;align-items:center}
+.upush .msg{flex-basis:100%;margin:0}
+.upush .msg:empty{display:none}
+.state #stPush{margin-top:16px;text-align:start;border-top:1px solid var(--line);padding-top:14px}
+/* ملخص بيانات المكتب */
+.prof-line{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 14px;font-size:14px;color:var(--ink-2);padding:10px 14px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--sheet)}
+.prof-line span{min-width:0;overflow-wrap:anywhere}
+.proj-nav{justify-content:space-between}
+.status-pill.st-none{color:var(--ink-2);border-color:var(--line-2)}
+/* أدواتك */
+.stage-pick{display:inline-flex;align-items:center;gap:8px;font-size:14px}
+.stage-pick select{font:inherit;font-size:14px;padding:4px 8px;border:1px solid var(--line-2);border-radius:var(--r-ctl);background:var(--paper)}
+#hGroups{display:flex;flex-direction:column;gap:18px}
+#hGroups .card.now{border-color:var(--terra)}
+.badge-now{font-size:12.5px;font-weight:700;color:var(--terra);border:1px solid var(--terra);border-radius:var(--r-ctl);padding:2px 8px}
+.more-tools>summary{cursor:pointer;padding:14px 20px;font-weight:700;color:var(--ink-2)}
+.more-tools[open]>summary{border-bottom:1px solid var(--line)}
+#hWelcome:empty{display:none}

@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الدخول · البيت بيتك</title>
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="البيت بيتك">
 <meta name="theme-color" content="#F6F5F1">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#F6F5F1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610062219">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610062219">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610071302">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610071302">
 </head>
 <body>
 <header class="top">
@@ -82,7 +85,7 @@
         <form id="fReset" novalidate style="display:flex;flex-direction:column;gap:14px">
           <div class="f"><label for="nPass">كلمة المرور الجديدة <span class="o">8 أحرف على الأقل</span></label><input id="nPass" type="password" autocomplete="new-password" dir="ltr"></div>
           <div class="f"><label for="nPass2">تأكيدها</label><input id="nPass2" type="password" autocomplete="new-password" dir="ltr"></div>
-          <div class="row"><button class="btn" type="submit">حفظ</button></div>
+          <div class="row"><button class="btn" type="submit" id="nBtn">حفظ</button></div>
           <p class="msg" id="nMsg" role="status"></p>
         </form>
       </div>
@@ -113,27 +116,26 @@
 
     <!-- حالة الحساب -->
     <section class="card state" id="vState" hidden>
-      <div class="card-b"><h2 id="stT"></h2><p id="stP"></p><button class="linkbtn" type="button" id="stBack" hidden data-go="vLogin">العودة للدخول</button></div>
+      <div class="card-b"><h2 id="stT"></h2><p id="stP"></p><div id="stPush" hidden></div><div class="row" id="stAct" style="justify-content:center;flex-wrap:wrap;gap:10px"><a class="btn sm line" id="stContact" hidden rel="noopener">تواصل معنا</a><button class="btn sm line" type="button" id="stOut" hidden>تسجيل الخروج</button><button class="linkbtn" type="button" id="stBack" hidden data-go="vLogin">العودة للدخول</button></div></div>
     </section>
 
     <!-- أدواتك -->
     <div id="vHome" hidden style="display:none">
-      <div class="who-bar"><span>مرحباً <b id="hName"></b> · <span id="hRole"></span></span></div>
-      <section class="card">
-        <div class="card-h"><h2>أدواتك</h2></div>
-        <div class="card-b"><div class="tools" id="hTools"></div></div>
-      </section>
+      <div class="who-bar"><span>مرحباً <b id="hName"></b> · <span id="hRole"></span></span><label class="stage-pick" id="hStageL" hidden>مرحلتك <select id="hStage"><option value="">لم تحدد</option><option value="decision">القرار</option><option value="design">التصميم</option><option value="build">التنفيذ</option><option value="living">السكن</option></select></label></div>
+      <p class="msg good" id="hWelcome" role="status" hidden></p>
+      <div id="hGroups"></div>
     </div>
   </div>
 </main>
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610062219"></script>
-<script src="../assets/js/config.js?v=202610062219"></script>
-<script src="../assets/js/stats.js?v=202610062219"></script>
-<script src="../assets/js/access.js?v=202610062219"></script>
-<script src="../assets/js/session.js?v=202610062219"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610071302"></script>
+<script src="../assets/js/config.js?v=202610071302"></script>
+<script src="../assets/js/stats.js?v=202610071302"></script>
+<script src="../assets/js/access.js?v=202610071302"></script>
+<script src="../assets/js/session.js?v=202610071302"></script>
+<script src="../assets/js/userpush.js?v=202610071302"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -144,10 +146,20 @@ var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة',designe
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
 function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function normPhone(s){return String(s||'').replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c)}).replace(/[۰-۹]/g,function(c){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)}).replace(/[\s-]/g,'').replace(/^00966/,'+966').replace(/^9665/,'+9665')}
 function okEmail(s){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)}
-function nextUrl(){var m=/[?&]next=([^&]+)/.exec(location.search);if(!m)return null;var u;try{u=decodeURIComponent(m[1])}catch(e){return null}
-  return /^\/[^\/\\]/.test(u)&&u.indexOf('/tools/')>=0?u:null}
-function state(t,p,back){$('stT').textContent=t;$('stP').textContent=p;$('stBack').hidden=!back;only('vState')}
+/* الرجوع بعد الدخول إلى الصفحة التي جاء منها، داخل الموقع فقط، وبما يسمح به نوع الحساب (لا حلقة إعادة توجيه) */
+function nextUrl(role){var v=new URLSearchParams(location.search).get('next');if(!v)return null;
+  var u;try{u=new URL(v,location.href)}catch(e){return null}
+  if(u.origin!==location.origin)return null;var path=u.pathname;
+  if(/\/tools\/[a-z0-9-]+\/$/.test(path))return path;
+  if(/\/admin\/$/.test(path)&&role==='admin')return path+(/^#[\w=-]*$/.test(u.hash)?u.hash:'');
+  if(/\/fahs\/app\.html$/.test(path)&&/^(office|designer|admin)$/.test(role))return path+(/^#p=[0-9a-f-]{36}$/.test(u.hash)?u.hash:'');
+  return null}
+var CONTACT=(window.BB_CONFIG&&BB_CONFIG.contact)||'';
+function state(t,p,back,out){$('stT').textContent=t;$('stP').textContent=p;$('stBack').hidden=!back;$('stOut').hidden=!out;$('stPush').hidden=true;
+  var c=$('stContact');c.hidden=!(out&&CONTACT);if(CONTACT)c.href=CONTACT;only('vState')}
+$('stOut').addEventListener('click',function(){BB.auth.signOut().then(function(){location.href='../'})});
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){only(b.dataset.go)})});
 function errText(e){
   var c=(e&&(e.code||''))+' '+(e&&e.message||'');
@@ -155,6 +167,7 @@ function errText(e){
   if(/email_not_confirmed|not confirmed/i.test(c))return 'أكّد بريدك أولاً من الرسالة التي وصلتك، ثم ادخل.';
   if(/user_already_exists|already registered/i.test(c))return 'هذا البريد مسجل من قبل. ادخل به، أو استعد كلمة المرور.';
   if(/weak_password|at least/i.test(c))return 'كلمة المرور ضعيفة. اجعلها 8 أحرف على الأقل.';
+  if(/same_password|different from the old/i.test(c))return 'اختر كلمة مرور مختلفة عن السابقة.';
   if(/rate|429/i.test(c))return 'محاولات كثيرة. انتظر قليلاً ثم أعد المحاولة.';
   return 'تعذر الإتمام. أعد المحاولة.';
 }
@@ -162,7 +175,7 @@ function bindRole(name,orgF,orgL){document.querySelectorAll('input[name='+name+'
 bindRole('rr2','rOrgF','rOrgL');
 function readDetails(name,p){
   var rr=(document.querySelector('input[name='+name+']:checked')||{}).value;
-  var d={requested_role:rr,full_name:$(p+'Name').value.trim(),office_name:rr==='owner'?'':$(p+'Org').value.trim(),phone:$(p+'Phone').value.trim(),city:$(p+'City').value.trim()};
+  var d={requested_role:rr,full_name:$(p+'Name').value.trim(),office_name:rr==='owner'?'':$(p+'Org').value.trim(),phone:normPhone($(p+'Phone').value),city:$(p+'City').value.trim()};
   var miss=[];if(!rr)miss.push('نوع الحساب');if(rr&&rr!=='owner'){if(!d.full_name)miss.push('الاسم');if(rr==='office'&&!d.office_name)miss.push(ORG[rr]);if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة')}
   return {d:d,miss:miss};
 }
@@ -195,7 +208,9 @@ function sLayout(){var r=sRole();
   var sp=$('sSpec');if(SPEC[r]){var cur=sp.value;sp.innerHTML='';var o0=document.createElement('option');o0.value='';o0.textContent='اختر';sp.appendChild(o0);SPEC[r].forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sp.appendChild(o)});if(SPEC[r].indexOf(cur)>=0)sp.value=cur}
   $('sNote').textContent=NOTE[r];
 }
-document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',sLayout)});sLayout();
+document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',sLayout)});
+(function(){var m=/[?&]new=(office|designer|contractor|owner)\b/.exec(location.search);if(m){var r=document.querySelector('input[name=rr][value='+m[1]+']');if(r)r.checked=true}})();
+sLayout();
 /* المرحلة اختيارية: الضغط على المختارة يلغيها */
 document.querySelectorAll('input[name=st]').forEach(function(r){var was=false;
   r.parentNode.addEventListener('pointerdown',function(){was=r.checked});
@@ -204,10 +219,11 @@ $('sShow').addEventListener('click',function(){var i=$('sPass');i.type=i.type===
 $('fSignup').addEventListener('submit',function(e){
   e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
   if(r!=='owner'){
-    d.full_name=$('sName').value.trim();d.phone=$('sPhone').value.trim();d.city=$('sCity').value.trim();
+    d.full_name=$('sName').value.trim();d.phone=normPhone($('sPhone').value);d.city=$('sCity').value.trim();
     d.office_name=$('sOrg').value.trim();if(SPEC[r])d.specialty=$('sSpec').value;
     if(!d.full_name)miss.push(r==='office'?'اسم المهندس':'الاسم');if(r==='office'&&!d.office_name)miss.push('اسم المكتب');if(SPEC[r]&&!d.specialty)miss.push('التخصص');
     if(!d.phone)miss.push('الجوال');if(!d.city)miss.push('المدينة');
+    if(d.phone&&!/^(05\d{8}|\+9665\d{8})$/.test(d.phone)){msg('sMsg','اكتب رقم جوال صحيحاً يبدأ بـ05، عشرة أرقام.','bad');return}
   }else{var st=document.querySelector('input[name=st]:checked');if(st)d.stage=st.value}
   if(!okEmail(em))miss.push('البريد');
   if(miss.length){msg('sMsg','أكمل: '+miss.join('، ')+'.','bad');return}
@@ -219,6 +235,7 @@ $('fSignup').addEventListener('submit',function(e){
     if(res.data&&res.data.user&&res.data.user.identities&&!res.data.user.identities.length){msg('sMsg',errText({code:'user_already_exists'}),'bad');return}
     msg('sMsg','');
     if(window.BBStat)BBStat.signup(r);
+    try{sessionStorage.setItem('bb_welcome',r)}catch(e){}
     if(!res.data.session)state('أكّد بريدك','أرسلنا رسالة تأكيد إلى '+em+'. افتحها وأكّد بريدك، ثم ادخل بالبريد وكلمة المرور.',true);
   });
 });
@@ -228,7 +245,9 @@ $('fReset').addEventListener('submit',function(e){
   e.preventDefault();var pw=$('nPass').value;
   if(pw.length<8){msg('nMsg','كلمة المرور 8 أحرف على الأقل.','bad');return}
   if(pw!==$('nPass2').value){msg('nMsg','كلمتا المرور غير متطابقتين.','bad');return}
-  BB.auth.updateUser({password:pw}).then(function(r){if(r.error){msg('nMsg',errText(r.error),'bad');return}recovering=false;msg('nMsg','');refresh({user:user})});
+  $('nBtn').disabled=true;msg('nMsg','جارٍ الحفظ..');
+  BB.auth.updateUser({password:pw}).then(function(r){$('nBtn').disabled=false;if(r.error){msg('nMsg',errText(r.error),'bad');return}recovering=false;msg('nMsg','');
+    try{sessionStorage.setItem('bb_welcome','pw')}catch(e){}refresh({user:user})});
 });
 
 /* إكمال بيانات حساب أُنشئ قبل التسجيل بكلمة المرور */
@@ -243,25 +262,50 @@ $('fReg').addEventListener('submit',function(e){
   });
 });
 
+/* أدواتك: الفرد يرى رحلته بالمراحل الأربع ومرحلته أولاً، وأصحاب المهن يرون أدوات عملهم أولاً ثم بقية الأدوات */
+var WELCOME={owner:'أُنشئ حسابك. اختر أداة وابدأ، وكل ما تكتبه يُحفظ في حسابك.',contractor:'أُنشئ حسابك. اختر أداة وابدأ، وكل ما تكتبه يُحفظ في حسابك.',pw:'حُفظت كلمة المرور الجديدة.'};
+function toolCard(t){var a=el('a','tool');a.href='../'+t.href;a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,'افتح'));return a}
+function group(title,tools,note,cls){var sec=el('section','card'+(cls?' '+cls:''));var h=el('div','card-h');h.appendChild(el('h2',null,title));if(note)h.appendChild(el('span','badge-now',note));sec.appendChild(h);
+  var b=el('div','card-b');var box=el('div','tools');tools.forEach(function(t){box.appendChild(toolCard(t))});b.appendChild(box);sec.appendChild(b);return sec}
+function drawHome(p){
+  $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
+  var w='';try{w=sessionStorage.getItem('bb_welcome')||'';sessionStorage.removeItem('bb_welcome')}catch(e){}
+  $('hWelcome').hidden=!WELCOME[w];$('hWelcome').textContent=WELCOME[w]||'';
+  var G=$('hGroups');G.innerHTML='';var live=BBA.TOOLS.filter(function(t){return t.live});
+  var mine=BBA.toolsFor(p.role).filter(function(t){return t.live});
+  var journey=live.filter(function(t){return t.stage});
+  if(p.role==='owner'){
+    $('hStageL').hidden=false;$('hStage').value=p.stage||'';
+    var order=['decision','design','build','living'];if(p.stage){order.splice(order.indexOf(p.stage),1);order.unshift(p.stage)}
+    order.forEach(function(k){var ts=journey.filter(function(t){return t.stage===k});if(ts.length)G.appendChild(group('مرحلة '+BBA.STAGE[k],ts,k===p.stage?'مرحلتك الآن':null,k===p.stage?'now':null))});
+    return;
+  }
+  $('hStageL').hidden=true;
+  G.appendChild(group(p.role==='admin'?'أدوات الإدارة':'أدوات عملك',mine.filter(function(t){return p.role!=='admin'||!t.stage})));
+  var rest=journey.filter(function(t){return p.role==='admin'||mine.indexOf(t)<0});
+  if(!rest.length)return;
+  var d=el('details','card more-tools');var s=el('summary',null,p.role==='admin'?'أدوات الأفراد في الموقع ('+rest.length+')':'بقية أدوات الموقع ('+rest.length+')');d.appendChild(s);
+  var b=el('div','card-b');var box=el('div','tools');rest.forEach(function(t){box.appendChild(toolCard(t))});b.appendChild(box);d.appendChild(b);G.appendChild(d);
+}
+$('hStage').addEventListener('change',function(){var v=this.value||null;
+  BB.from('profiles').update({stage:v}).eq('id',user.id).then(function(r){if(r.error){$('hWelcome').hidden=false;$('hWelcome').className='msg bad';$('hWelcome').textContent='تعذر حفظ المرحلة. أعد المحاولة.';return}profile.stage=v;drawHome(profile)})});
 function route(){
   if(recovering){only('vReset');return}
   if(!user){if($('vSignup').hidden&&$('vState').hidden)only(/[?&]new\b/.test(location.search)?'vSignup':'vLogin');else $('loading').hidden=true;return}
   var p=profile||{};
   if(p.status==='approved'&&p.role){
-    var nx=nextUrl();if(nx){location.replace(nx);return}
-    var tools=BBA.toolsFor(p.role).filter(function(t){return t.live||p.role==='admin'});
-    $('hName').textContent=p.full_name||p.office_name||user.email;$('hRole').textContent=BBA.ROLE[p.role];
-    var box=$('hTools');box.innerHTML='';
-    tools.forEach(function(t){var a=el(t.live?'a':'div','tool'+(t.live?'':' soon'));if(t.live)a.href='../'+t.href;
-      a.appendChild(el('b',null,t.name));a.appendChild(el('span',null,t.desc));a.appendChild(el('em',null,t.live?'افتح':'قريباً'));box.appendChild(a)});
-    if(!tools.length){var q=el('p','muted','أدوات مرحلتك تُبنى تباعاً، وتظهر لك هنا حين تكتمل.');box.appendChild(q)}
-    document.title='أدواتك · البيت بيتك';only('vHome');return;
+    var nx=nextUrl(p.role);if(nx){location.replace(nx);return}
+    /* فتح الموقع من أيقونة الشاشة الرئيسية: كل نوع إلى مكان عمله */
+    if(/[?&]home=1\b/.test(location.search)){if(p.role==='admin'){location.replace('../admin/');return}if(p.role==='office'||p.role==='designer'){location.replace('../fahs/app.html');return}}
+    drawHome(p);document.title='أدواتك · البيت بيتك';only('vHome');return;
   }
-  if(p.status==='rejected'){state('لم يُعتمد الحساب','لم يُعتمد طلب تسجيلك. للاستفسار تواصل معنا.');return}
-  if(p.status==='suspended'){state('الحساب موقوف','أُوقف هذا الحساب مؤقتاً. للاستفسار تواصل معنا.');return}
+  if(p.status==='rejected'){state('لم يُعتمد الحساب','لم يُعتمد طلب تسجيلك.'+(CONTACT?' للاستفسار تواصل معنا.':''),false,true);return}
+  if(p.status==='suspended'){state('الحساب موقوف','أُوقف هذا الحساب مؤقتاً.'+(CONTACT?' للاستفسار تواصل معنا.':''),false,true);return}
   if(!p.registered_at){$('regEmail').textContent=user.email;only('vReg');return}
   if(!p.notified_at)BB.functions.invoke('notify-admin').catch(function(){});
-  state('طلبك قيد المراجعة','يُراجع طلب تسجيلك ويُفعَّل حسابك بالأدوات المناسبة لك. ادخل بالبريد وكلمة المرور بعد التفعيل.');
+  var isPro=p.requested_role==='office'||p.requested_role==='designer';
+  state('طلبك قيد المراجعة',(isPro?'وصل طلب تسجيلك، ويُراجع ثم يُفعَّل حسابك للفحص الفني وجداول الكميات. ':'وصل طلب تسجيلك، ويُراجع ثم يُفعَّل حسابك. ')+'ادخل بالبريد وكلمة المرور بعد التفعيل، وتجد أدواتك جاهزة هنا.',false,true);
+  if(isPro&&window.BBUserPush){$('stPush').hidden=false;BBUserPush.mount($('stPush'),{what:'حين يُفعَّل حسابك، ثم حين تصدر تقاريرك'})}
 }
 function refresh(session){
   user=session&&session.user||null;

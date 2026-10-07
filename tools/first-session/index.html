@@ -12,8 +12,8 @@
 <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610062219">
-<link rel="stylesheet" href="../../assets/css/tools.css?v=202610062219">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610071302">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610071302">
 </head>
 <body>
 <header class="top">
@@ -26,7 +26,7 @@
 
 <main class="tool-main">
 <div class="wrap">
-  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#journey">مرحلة القرار</a><span>›</span><span>أسئلة الجلسة الأولى مع مصممك</span></nav>
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#decision">مرحلة القرار</a><span>›</span><span>أسئلة الجلسة الأولى مع مصممك</span></nav>
 
   <div class="tool-hero">
     <span class="tool-no" aria-hidden="true">01</span>
@@ -103,11 +103,11 @@
 
 <footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../../assets/vendor/supabase-2.117.2.js?v=202610062219"></script>
-<script src="../../assets/js/config.js?v=202610062219"></script>
-<script src="../../assets/js/stats.js?v=202610062219"></script>
-<script src="../../assets/js/session.js?v=202610062219"></script>
-<script src="../../assets/js/toolkit.js?v=202610062219"></script>
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610071302"></script>
+<script src="../../assets/js/config.js?v=202610071302"></script>
+<script src="../../assets/js/stats.js?v=202610071302"></script>
+<script src="../../assets/js/session.js?v=202610071302"></script>
+<script src="../../assets/js/toolkit.js?v=202610071302"></script>
 <script>
 TK.ready(function(){
 /* نص الأداة كما هو */
@@ -141,14 +141,12 @@ var GOOD=['سألك عن يومكم وعائلتك أكثر مما تكلم عن
 var CRIT=['سمعني وسأل عن حياتنا قبل أذواقنا','رحلته واضحة المراحل والمخرجات','صارحني بحدوده وأخطائه','نموذجه: عمق وتفرغ لا حجم وعدد','التكلفة حاضرة في تفكيره التصميمي','الدفعات والمدد واضحة مكتوبة','ارتياحي وتناغمي معه'];
 var AR='٠١٢٣٤٥٦٧٨٩';function ar(n){return String(n)}
 
-/* الحالة والحفظ في الجهاز */
+/* الحالة والحفظ: نسخة في الجهاز تُرفع إلى الحساب عبر TK.store */
 var KEY='bb_tool_first_session_v1';
 function fresh(){return {v:1,cands:[{id:'a',name:'المرشح أ'},{id:'b',name:'المرشح ب'},{id:'c',name:'المرشح ج'}],active:'a',star:{},notes:{a:{},b:{},c:{}},flags:{a:{bad:{},good:{}},b:{bad:{},good:{}},c:{bad:{},good:{}}},scores:{a:{},b:{},c:{}},price:{a:'',b:'',c:''},onlyStar:false}}
-var S;try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
-if(!S||S.v!==1)S=fresh();
-var tSave=null;
-function save(){clearTimeout(tSave);tSave=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S));TK.push(KEY);flash('حُفظ في حسابك')}catch(e){flash('تعذر الحفظ. أعد المحاولة.')}},250)}
-var tFl=null;function flash(t){var s=$('saved');s.textContent=t;clearTimeout(tFl);tFl=setTimeout(function(){s.textContent=''},1800)}
+var ST=TK.store(KEY,fresh,1),S=ST.get();
+function save(){ST.set(S);ST.save()}
+function flash(t){ST.flash(t)}
 var $=function(id){return document.getElementById(id)};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function cand(id){for(var i=0;i<S.cands.length;i++)if(S.cands[i].id===id)return S.cands[i]}
@@ -286,7 +284,7 @@ var armed=false,tArm=null;
 $('btnReset').addEventListener('click',function(){
   var b=this;
   if(!armed){armed=true;b.textContent='اضغط مرة ثانية لمسح كل شيء';clearTimeout(tArm);tArm=setTimeout(function(){armed=false;b.textContent='ابدأ من جديد'},4000);return}
-  armed=false;b.textContent='ابدأ من جديد';S=fresh();try{localStorage.removeItem(KEY)}catch(e){}TK.push(KEY);
+  armed=false;b.textContent='ابدأ من جديد';S=ST.clear();
   drawQs();drawAll();applyFilter();flash('بدأت من جديد');
 });
 

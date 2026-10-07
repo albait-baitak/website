@@ -13,7 +13,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/fahs.css?v=202610062219">
+<link rel="stylesheet" href="assets/css/fahs.css?v=202610071302">
 <style>
 .home-hero{padding-block:clamp(56px,9vw,104px) clamp(36px,5vw,56px);max-width:44em}
 .home-hero h1{font-size:clamp(38px,5.6vw,62px)}
@@ -71,17 +71,18 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
     <p class="kicker">بيت العمر.. من القرار إلى السكن</p>
     <h1>البيت بيتك</h1>
     <p class="lead">أربع محطات يمر بها كل من يبني بيته: القرار، ثم التصميم، ثم التنفيذ، ثم السكن. ولكل محطة أدوات عملية تشتغل معك على بيتك أنت، فتخرج منها بما تحتاجه لخطوتك التالية.</p>
+    <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn line" href="account/?new">ابدأ بحسابك.. مجاناً</a></div>
   </div>
 
   <div class="journey" id="journey" aria-label="مراحل رحلة بيت العمر">
-    <div class="stage live" data-rv>
+    <div class="stage live" id="decision" data-rv>
       <span class="k">01</span><h2>القرار</h2>
       <p>من يحمل معك مسؤولية أول القرارات.. وأثقلها؟</p>
       <a class="svc" href="tools/first-session/"><span class="no">01</span><b>أسئلة الجلسة الأولى مع مصممك</b><span>عشرون سؤالاً تكشف من أمامك.. قبل أن توقع</span></a>
       <a class="svc" href="tools/land/"><span class="no">02</span><b>دليل اختيار الأرض</b><span>ما تفحصه قبل أن تشتري أرض بيت العمر</span></a>
       <a class="svc" href="tools/budget/"><span class="no">08</span><b>حاسبة البنود والتكاليف</b><span>ميزانية بيتك بنداً بنداً.. قبل أن تبدأ</span></a>
     </div>
-    <div class="stage live" data-rv>
+    <div class="stage live" id="design" data-rv>
       <span class="k">02</span><h2>التصميم</h2>
       <p>هل تشتري مخططات.. أم تصنع قصة حياة؟</p>
       <a class="svc" href="tools/fifty/"><span class="no">03</span><b>خمسون سؤالاً قبل أن تصمم بيتك</b><span>حدد احتياجك الحقيقي.. قبل أول لقاء وقبل أول خط</span></a>
@@ -89,7 +90,7 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
       <a class="svc" href="tools/points/"><b>مخطط نقاط الكهرباء والسباكة</b><span>كل فيش ومخرج ماء في مكانه.. قبل أن يُصب الخرسان ويُلّيس الجدار</span></a>
       <a class="svc" href="tools/room-sizes/"><b>أبعاد الغرف المريحة</b><span>المقاس الذي على الورق.. هل تعيش فيه براحة؟</span></a>
     </div>
-    <div class="stage live" data-rv>
+    <div class="stage live" id="build" data-rv>
       <span class="k">03</span><h2>التنفيذ</h2>
       <p>من يقود منظومة لا قائد لها؟</p>
       <a class="svc" href="tools/quantities/"><b>جداول الكميات والتكاليف</b><span>من فراغات بيتك إلى كميات التشطيب وتكلفتها.. قبل أن تتفق مع مقاول التشطيب</span></a>
@@ -99,7 +100,7 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
       <a class="svc" href="tools/rough-in/"><b>فحص التأسيس قبل الإغلاق</b><span>ما يُدفن في الجدار لا يُفحص بعد اللياسة.. افحصه الآن</span></a>
       <a class="svc" href="tools/finishes/"><b>جدول مواد التشطيب</b><span>المادة المناسبة للمكان المناسب.. قبل أن تقف أمام المعرض</span></a>
     </div>
-    <div class="stage live" data-rv>
+    <div class="stage live" id="living" data-rv>
       <span class="k">04</span><h2>السكن</h2>
       <p>ماذا يبقى من الرحلة بعد المفتاح؟</p>
       <a class="svc" href="tools/handover/"><span class="no">07</span><b>ملف بيتك: الاستلام والسجلات</b><span>قائمة الاستلام النهائي.. وسجلات هوية البيت</span></a>
@@ -119,7 +120,7 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
       <div><h3>ما تستلمه</h3><p>تقرير الفحص الفني: حكم المطابقة (جاهز للرفع، أو يُرفع بعد العلاج، أو يعاد للتصميم)، وكل ملاحظة بمرجعها ودرجتها وعلاجها، وأسئلة لم يجب عنها المخطط. يصلك في حسابك ويُنزّل PDF.</p></div>
       <div><h3>كيف تطلبه</h3><ol><li>سجّل حساب المكتب.</li><li>يُفعَّل الحساب بعد المراجعة.</li><li>ارفع المخطط: DXF أو PDF أو صور.</li><li>يصلك التقرير في حسابك بعد مراجعة مختص.</li></ol></div>
     </div>
-    <div class="row off-cta"><a class="btn" href="fahs/">التفاصيل وتقرير العينة</a><a class="btn line on-ink" href="account/?new">سجّل حساب المكتب أو المصمم</a></div>
+    <div class="row off-cta"><a class="btn" href="fahs/">التفاصيل وتقرير العينة</a><a class="btn line on-ink" href="account/?new=office">سجّل حساب المكتب أو المصمم</a></div>
   </section>
 </div>
 </main>
@@ -130,10 +131,10 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
     <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="assets/img/sayah.png"></a></div>
   </div>
 </footer>
-<script src="assets/vendor/supabase-2.117.2.js?v=202610062219"></script>
-<script src="assets/js/config.js?v=202610062219"></script>
-<script src="assets/js/stats.js?v=202610062219"></script>
-<script src="assets/js/session.js?v=202610062219"></script>
-<script src="assets/js/motion.js?v=202610062219"></script>
+<script src="assets/vendor/supabase-2.117.2.js?v=202610071302"></script>
+<script src="assets/js/config.js?v=202610071302"></script>
+<script src="assets/js/stats.js?v=202610071302"></script>
+<script src="assets/js/session.js?v=202610071302"></script>
+<script src="assets/js/motion.js?v=202610071302"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ const cors = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { ...cors, "Content-Type": "application/json" } });
-const ROLE: Record<string, string> = { office: "مكتب هندسي", contractor: "مقاول", owner: "صاحب بيت" };
+const ROLE: Record<string, string> = { office: "مكتب هندسي", designer: "مصمم", contractor: "مقاول", owner: "فرد" };
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
 
 Deno.serve(async (req) => {

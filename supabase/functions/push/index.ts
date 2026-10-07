@@ -1,6 +1,8 @@
-// إشعارات الجوال للمدير (Web Push): يستدعيها مشغّل في قاعدة البيانات عند كل حدث مهم (تسجيل، استخدام أداة، طلب، تغذية راجعة)،
-// ويستدعيها المدير من لوحة الإدارة ليأخذ المفتاح العام أو يرسل إشعاراً تجريبياً.
-// مفاتيح VAPID تولّدها الدالة أول مرة وتحفظها في push_cfg الذي لا يقرؤه إلا الخادم؛ لا سر يدخله أحد يدوياً.
+// الإشعارات (Web Push، ومعها البريد للمستخدم إن وُجد مفتاحه):
+// - إشعارات المدير: يستدعيها مشغّل في قاعدة البيانات عند كل حدث مهم (تسجيل، أداة، طلب، تغذية راجعة، انتهاء فحص)، وتذهب لأجهزة المدراء فقط.
+// - إشعارات المستخدم (body.u): تقريرك جاهز، جدولك جاهز، اعتُمد حسابك؛ تذهب لأجهزة صاحبها، وإلى بريده إن وُجد RESEND_API_KEY.
+// - أي مستخدم داخل بحسابه يأخذ المفتاح العام (op:key) ويرسل لنفسه إشعاراً تجريبياً (op:test).
+// مفاتيح VAPID تولّدها الدالة أول مرة وتحفظها في push_cfg الذي لا يقرؤه إلا الخادم.
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import webpush from "npm:web-push@3.6.7";
 
@@ -14,32 +16,76 @@ const SITE = Deno.env.get("SITE_URL") ?? "https://albait-baitak.github.io/websit
 const ROLE: Record<string, string> = { office: "مكتب هندسي", designer: "مصمم", contractor: "مقاول", owner: "فرد" };
 const STAGE: Record<string, string> = { decision: "القرار", design: "التصميم", build: "التنفيذ", living: "السكن" };
 const DEV: Record<string, string> = { mobile: "جوال", tablet: "جهاز لوحي", desktop: "حاسوب" };
+const ADMIN = SITE + "admin/";
+const PORTAL = SITE + "fahs/app.html";
+const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]!));
 
-type Msg = { title: string; body: string; url: string; tag?: string };
+type Msg = { title: string; body: string; url: string; tag?: string; mail?: string };
+const USER_TYPES = new Set(["report_ready", "boq_ready", "approved", "test"]);
+
 function compose(t: string, r: Record<string, any>): Msg | null {
-  const who = r.name || r.email || "حساب";
+  const who = r.name || r.email || "زائر بلا حساب";
+  const proj = r.project ? `«${r.project}»` : "";
   if (t === "signup") {
     const role = ROLE[r.role] ?? "حساب";
     const wait = r.status === "pending";
     const extra = [r.org && r.org !== r.name ? r.org : null, r.city, r.stage && STAGE[r.stage] ? "مرحلة " + STAGE[r.stage] : null].filter(Boolean).join(" · ");
-    return { title: wait ? `${role} جديد ينتظر اعتمادك` : `تسجيل جديد: ${role}`, body: [who, extra].filter(Boolean).join("\n"), url: SITE + "admin/", tag: "signup" };
+    return { title: wait ? `${role} جديد ينتظر اعتمادك` : `تسجيل جديد: ${role}`, body: [who, extra].filter(Boolean).join("\n"), url: ADMIN + (wait ? "#acc=pending" : "#acc"), tag: "signup-" + (r.email ?? Date.now()) };
   }
-  if (t === "tool") return { title: r.again ? "رجع لأداة" : "استخدام أداة", body: `${who}${r.role && ROLE[r.role] ? " (" + ROLE[r.role] + ")" : ""}\n«${r.title || r.path}»`, url: SITE + "admin/" };
+  if (t === "tool") return { title: r.again ? "رجع لأداة" : "استخدام أداة", body: `${who}${r.role && ROLE[r.role] ? " (" + ROLE[r.role] + ")" : ""}\n«${r.title || r.path}»`, url: ADMIN + "#st" };
   if (t === "request") {
-    if (r.kind === "boq") return { title: "طلب جدول كميات جديد", body: `${who}\n${r.project ?? ""}`, url: SITE + "admin/", tag: "req" };
-    return { title: "طلب فحص فني جديد", body: `${who}\n${r.project ?? ""}${r.rev ? " · الإصدار " + r.rev : ""}`, url: SITE + "admin/", tag: "req" };
+    if (r.kind === "boq") return { title: "طلب جدول كميات جديد", body: `${who}\n${proj}${r.ref ? " · " + r.ref : ""}`, url: ADMIN + "#boq=" + r.id, tag: "req-" + r.id };
+    return { title: "طلب فحص فني جديد", body: `${who}\n${proj}${r.rev ? " · الإصدار " + r.rev : ""}${r.ref ? " · " + r.ref : ""}`, url: ADMIN + "#req=" + r.id, tag: "req-" + r.id };
   }
   if (t === "feedback") {
     const f = r.rec ?? {};
-    const what = f.kind === "rating" || f.rating ? `تقييم ${f.rating ?? ""} من 5` : f.kind === "agree" ? `موافقة على ${f.rule_code ?? "بند"}` : `اعتراض على ${f.rule_code ?? "بند"}`;
-    return { title: "تغذية راجعة على تقرير", body: `${who}\n${what}${f.note ? "\n" + String(f.note).slice(0, 120) : ""}`, url: SITE + "admin/" };
+    const what = f.kind === "rating" || (f.rating && !f.rule_code) ? `تقييم ${f.rating ?? ""} من 5` : `اعتراض على ${f.rule_code ?? "بند"}`;
+    return { title: r.changed ? "تعديل رأي على تقرير" : "رأي جديد على تقرير", body: `${who}${r.ref ? " · " + r.ref : ""}\n${what}${f.note ? "\n" + String(f.note).slice(0, 120) : ""}`, url: ADMIN + (r.id ? "#req=" + r.id : "#obj") };
+  }
+  if (t === "job") {
+    const ok = r.status === "done";
+    const k = r.kind === "boq" ? "جدول الكميات" : "الفحص الآلي";
+    return {
+      title: ok ? `اكتمل ${k}` : `تعذر ${k}`,
+      body: `${proj}${r.rev ? " · الإصدار " + r.rev : ""}${r.ref ? " · " + r.ref : ""}${ok ? "\nجاهز لمراجعتك ونشره." : r.error ? "\n" + r.error : ""}`,
+      url: ADMIN + (r.kind === "boq" ? "#boq=" : "#req=") + r.id, tag: "job-" + r.id,
+    };
   }
   if (t === "visit") {
     const from = r.src || r.ref || "رابط مباشر";
-    return { title: "زائر جديد", body: `«${r.title || r.path}»\nمن ${from}${r.dev && DEV[r.dev] ? " · " + DEV[r.dev] : ""}`, url: SITE + "admin/", tag: "visit" };
+    return { title: "زائر جديد", body: `«${r.title || r.path}»\nمن ${from}${r.dev && DEV[r.dev] ? " · " + DEV[r.dev] : ""}`, url: ADMIN + "#st", tag: "visit" };
   }
-  if (t === "test") return { title: "البيت بيتك", body: "الإشعارات تعمل على هذا الجهاز.", url: SITE + "admin/" };
+  // إشعارات المستخدم
+  const pUrl = PORTAL + (r.project_id ? "#p=" + r.project_id : "");
+  if (t === "report_ready") return {
+    title: "صدر تقرير الفحص الفني", body: `${proj}${r.rev ? " · الإصدار " + r.rev : ""}${r.ref ? " · " + r.ref : ""}`, url: pUrl, tag: "rep-" + r.ref,
+    mail: `صدر تقرير الفحص الفني لمشروع ${esc(r.project ?? "")}${r.rev ? " (الإصدار " + r.rev + ")" : ""}${r.ref ? "، رقم الطلب " + esc(r.ref) : ""}.`,
+  };
+  if (t === "boq_ready") return {
+    title: "جدول الكميات جاهز", body: `${proj}${r.ref ? " · " + r.ref : ""}`, url: pUrl, tag: "boq-" + r.ref,
+    mail: `جدول الكميات لمشروع ${esc(r.project ?? "")} جاهز${r.ref ? "، رقم الطلب " + esc(r.ref) : ""}.`,
+  };
+  if (t === "approved") return {
+    title: "فُعّل حسابك في «البيت بيتك»", body: "ادخل الآن إلى بوابة الفحص الفني وارفع أول مشروع.", url: PORTAL, tag: "approved",
+    mail: `فُعّل حسابك (${esc(ROLE[r.role] ?? "")}) في «البيت بيتك». تستطيع الآن رفع مشاريعك للفحص الفني وطلب جداول الكميات.`,
+  };
+  if (t === "test") return { title: "البيت بيتك", body: "الإشعارات تعمل على هذا الجهاز.", url: r.url || SITE };
   return null;
+}
+
+async function mailUser(db: any, uid: string, m: Msg) {
+  const key = Deno.env.get("RESEND_API_KEY");
+  if (!key || !m.mail) return "no_mail";
+  const { data: p } = await db.from("profiles").select("email").eq("id", uid).single();
+  if (!p?.email) return "no_email";
+  const html = `<div dir="rtl" style="font-family:Tahoma,Arial,sans-serif;font-size:15px;color:#1F1A17;line-height:1.9">
+<p>${m.mail}</p><p><a href="${m.url}" style="color:#B26042">افتح «البيت بيتك»</a></p>
+<p style="color:#8A8079;font-size:13px">وصلتك هذه الرسالة لأن لك حساباً في «البيت بيتك».</p></div>`;
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST", headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: Deno.env.get("NOTIFY_FROM") ?? "البيت بيتك <onboarding@resend.dev>", to: [p.email], subject: m.title, html }),
+  });
+  return r.ok ? "sent" : "mail_error";
 }
 
 Deno.serve(async (req) => {
@@ -58,31 +104,40 @@ Deno.serve(async (req) => {
     await db.from("push_cfg").update({ vapid_public: pub, vapid_private: priv }).eq("id", 1);
   }
 
-  // المصدر: مشغّل قاعدة البيانات (بالسر الداخلي) أو المدير (بجلسته)
-  let msg: Msg | null = null, onlyUser: string | null = null;
+  // المصدر: مشغّل قاعدة البيانات (بالسر الداخلي) أو مستخدم داخل بحسابه
+  let msg: Msg | null = null, target: string | null = null, adminsOnly = false;
   if (body.s) {
     if (body.s !== cfg.hook_secret) return json({ error: "forbidden" }, 403);
-    msg = compose(String(body.t), body.r ?? {});
+    const t = String(body.t);
+    msg = compose(t, body.r ?? {});
+    if (body.u) { if (!USER_TYPES.has(t)) return json({ error: "bad_type" }, 400); target = String(body.u); }
+    else adminsOnly = true;
   } else {
     const uc = createClient(url, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } } });
-    const { data: isAdmin } = await uc.rpc("is_admin");
-    if (!isAdmin) return json({ error: "not_admin" }, 403);
+    const { data: { user } } = await uc.auth.getUser();
+    if (!user) return json({ error: "unauthorized" }, 401);
     if (body.op === "key") return json({ key: pub });
     if (body.op !== "test") return json({ error: "bad_op" }, 400);
-    const { data: { user } } = await uc.auth.getUser();
-    onlyUser = user?.id ?? null;
-    msg = compose("test", {});
+    target = user.id;
+    const { data: isAdmin } = await uc.rpc("is_admin");
+    msg = compose("test", { url: isAdmin ? ADMIN : PORTAL });
   }
   if (!msg) return json({ sent: 0, reason: "no_message" });
 
-  let q = db.from("push_subs").select("*");
-  if (onlyUser) q = q.eq("user_id", onlyUser);
-  const { data: subs } = await q;
+  let subs: any[] = [];
+  if (target) {
+    const { data } = await db.from("push_subs").select("*").eq("user_id", target);
+    subs = data ?? [];
+  } else if (adminsOnly) {
+    const { data: admins } = await db.from("profiles").select("id").eq("role", "admin");
+    const ids = (admins ?? []).map((a: any) => a.id);
+    if (ids.length) { const { data } = await db.from("push_subs").select("*").in("user_id", ids); subs = data ?? []; }
+  }
   webpush.setVapidDetails(SITE, pub, priv);
-  const payload = JSON.stringify(msg);
+  const payload = JSON.stringify({ title: msg.title, body: msg.body, url: msg.url, tag: msg.tag });
   let sent = 0, gone = 0;
   const errs: string[] = [];
-  await Promise.all((subs ?? []).map(async (s: any) => {
+  await Promise.all(subs.map(async (s: any) => {
     try {
       await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, payload, { TTL: 86400, urgency: "normal" });
       sent++;
@@ -92,5 +147,6 @@ Deno.serve(async (req) => {
       else errs.push(String(e?.statusCode ?? "") + " " + String(e?.body ?? e?.message ?? e).slice(0, 200));
     }
   }));
-  return json({ sent, gone, errors: errs });
+  const mail = body.s && target ? await mailUser(db, target, msg) : null;
+  return json({ sent, gone, errors: errs, mail });
 });

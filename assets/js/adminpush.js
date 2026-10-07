@@ -6,7 +6,8 @@ var BASE='../',TYPES=[
   ['signup','تسجيل حساب جديد','كل تسجيل، ومعه نوعه، وهل ينتظر اعتمادك'],
   ['tool','استخدام أداة','أول مرة يعبّئ فيها شخص في أداة كل يوم'],
   ['request','طلب فحص فني أو جدول كميات','كل طلب يرسله مكتب أو مصمم'],
-  ['feedback','تغذية راجعة على تقرير','تقييم أو موافقة أو اعتراض على بند'],
+  ['job','انتهاء الفحص الآلي أو جدول الكميات','نجاحه أو تعذره، ويفتح الطلب نفسه للمراجعة'],
+  ['feedback','تغذية راجعة على تقرير','تقييم، أو اعتراض على بند، أو تغيير رأي سابق'],
   ['visit','زائر جديد','أول زيارة لكل متصفح جديد، وتزيد مع الزحمة']
 ];
 function $(id){return document.getElementById(id)}
@@ -72,7 +73,7 @@ function test(){
 
 /* أنواع الإشعارات */
 function types(){
-  var w=$('pTypes');w.innerHTML='';
+  var w=$('pTypes');w.innerHTML='';w.appendChild(el('p','muted','كل اختيار يُحفظ فور الضغط عليه. والضغط على الإشعار يفتح الطلب أو الحساب نفسه.'));
   TYPES.forEach(function(t){var l=el('label','q-auto');var c=el('input');c.type='checkbox';c.checked=!!cfg[t[0]];
     c.onchange=function(){cfg[t[0]]=c.checked;window.BB.from('app_settings').upsert({key:'notify',value:cfg,updated_at:new Date().toISOString()}).then(function(r){msg(r.error?'تعذر الحفظ: '+r.error.message:'حُفظ.',r.error?'bad':'good')})};
     var s=el('span');s.appendChild(el('b',null,t[1]));s.appendChild(el('small',null,t[2]));l.appendChild(c);l.appendChild(s);w.appendChild(l)});
