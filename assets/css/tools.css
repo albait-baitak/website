@@ -418,7 +418,7 @@ section.qpanel{padding-block:22px 0;border-top:0}
   .agdoc{border:0;padding:0;margin:0}
   .cmp input,.cmp textarea,.cmp select,.sit input,.costs input{border:0!important;background:none!important;padding:0!important}
 }
-@media print{body.print-doc main>.wrap>*:not(#docWrap),body.print-doc .tool-main>.wrap>*:not(#docWrap){display:none!important}body.print-doc #docWrap{display:block!important}}
+@media print{body.print-doc main>.wrap>*:not(#docWrap):not(.pbrand),body.print-doc .tool-main>.wrap>*:not(#docWrap):not(.pbrand){display:none!important}body.print-doc #docWrap{display:block!important}}
 @media (max-width:560px){.qtabs{flex-wrap:wrap;overflow:visible}.qtabs button{padding:10px 12px;font-size:14px}}
 
 /* عرض القراءة: السطر لا يتجاوز نحو 46em، فتبقى الأزرار والملاحظات بجوار السؤال على الشاشات الواسعة */
@@ -595,3 +595,7 @@ section.qpanel{padding-block:22px 0;border-top:0}
 .lm-t td small.hot{color:var(--stop);font-weight:700}
 .lm-st{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--ink-2);font-weight:400;margin-top:4px;white-space:nowrap}
 @media (max-width:640px){.cmp.lm-t th:first-child,.cmp.lm-t td:first-child{position:static;min-width:0;width:auto}.lm-t th,.lm-t td{padding:8px 6px}.lm-t td div,.lm-t td small{white-space:nowrap}}
+
+/* ترويسة الطباعة */
+.pbrand{display:none}
+@media print{.pbrand{display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid #1F1A17;padding-bottom:8px;margin-bottom:14px}.pbrand img{height:34px;width:auto}.pbrand span{font-family:var(--mono);font-size:12px;color:#5c544e}}

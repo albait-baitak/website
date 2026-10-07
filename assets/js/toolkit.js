@@ -216,5 +216,13 @@ function stageStrip(){
   w.appendChild(ul);nv.appendChild(w);ft.before(nv);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',stageStrip);else stageStrip();
+/* ترويسة الطباعة: الشعار واسم الموقع أعلى كل ورقة تُطبع من الأدوات */
+function printBrand(){
+  var m=document.querySelector('.tool-main>.wrap');if(!m||document.querySelector('.pbrand'))return;
+  var d=el('div','pbrand'),i=document.createElement('img');
+  i.src=base()+'assets/img/brand/logo-horizontal.svg';i.alt='البيت بيتك';d.appendChild(i);
+  var u=el('span',null,'albait-baitak.com');u.dir='ltr';d.appendChild(u);m.prepend(d);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',printBrand);else printBrand();
 window.TK={ready:ready,push:push,flush:flush,pending:pendingKeys,STAGES:STAGES,wipeLocal:wipeLocal,ar:ar,num:num,toEn:toEn,fmt:fmt,el:el,$:$,store:store,resetButton:resetButton,grow:grow,rename:rename,csv:csv};
 })();
