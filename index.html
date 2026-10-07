@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>البيت بيتك · أدوات رحلة بيت العمر</title>
-<meta name="description" content="البيت بيتك: أدوات تشتغل معك على بيتك في كل محطة من رحلة بيت العمر، من القرار إلى التصميم إلى التنفيذ إلى السكن.">
+<meta name="description" content="البيت بيتك: ملف واحد لبيتك من القرار إلى السكن. ست عشرة أداة عملية تحفظ عملك في حسابك، ولوحة تحكم تريك أين وصلت وخطوتك التالية.">
 <meta property="og:title" content="البيت بيتك">
-<meta property="og:description" content="أدوات تشتغل معك على بيتك في كل محطة من رحلة بيت العمر.">
+<meta property="og:description" content="ملف واحد لبيتك من القرار إلى السكن: أدوات تحفظ عملك، ولوحة تحكم تريك أين وصلت.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_SA">
 <link rel="canonical" href="https://albait-baitak.com/">
@@ -23,11 +23,23 @@
 <link rel="manifest" href="manifest.webmanifest?v=202610072210">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/fahs.css?v=202610080041">
+<link rel="stylesheet" href="assets/css/fahs.css?v=202610080052">
 <style>
 .home-hero{padding-block:clamp(56px,9vw,104px) clamp(36px,5vw,56px);max-width:44em}
 .home-hero h1{font-size:clamp(38px,5.6vw,62px)}
 .home-hero .lead{font-size:19px;color:var(--ink-2);margin-top:18px;max-width:58ch}
+.what{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:clamp(36px,5vw,56px);padding-top:clamp(28px,4vw,40px);border-top:2px solid var(--ink)}
+.what h2{font-size:clamp(24px,3vw,32px);line-height:1.35}
+.what-l{list-style:none;margin:22px 0 26px;padding:0;counter-reset:w}
+.what-l li{counter-increment:w;display:grid;grid-template-columns:auto 1fr;column-gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.what-l li::before{content:counter(w,decimal-leading-zero);grid-row:span 2;font-family:var(--mono);font-size:13px;color:var(--terra);padding-top:4px}
+.what-l b{font-size:17px}
+.what-l span{font-size:15px;color:var(--ink-2);line-height:1.8}
+.what-fig{margin:0}
+.what-fig img{display:block;width:100%;height:auto;border-radius:var(--r-card);border:1px solid var(--line-2);box-shadow:0 1px 0 var(--line),0 24px 48px -30px rgba(31,26,23,.45)}
+.what-fig figcaption{font-size:12.5px;color:var(--ink-2);margin-top:10px;text-align:center}
+.start-hint{display:flex;flex-direction:column;gap:4px;margin:0 0 22px}.start-hint b{font-size:clamp(20px,2.4vw,24px);line-height:1.5}.start-hint span{font-size:15.5px;color:var(--ink-2);line-height:1.8}
+@media (max-width:860px){.what{grid-template-columns:1fr}.what .btn{width:100%}}
 .journey{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-bottom:clamp(48px,7vw,80px)}
 .journey::before{content:"";position:absolute;top:0;inset-inline:0;height:2px;background:var(--ink)}
 .stage{position:relative;padding:30px 20px 8px 20px;display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -80,10 +92,31 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
   <div class="home-hero" data-rv>
     <p class="kicker">بيت العمر.. من القرار إلى السكن</p>
     <h1>البيت بيتك</h1>
-    <p class="lead">أربع محطات يمر بها كل من يبني بيته: القرار، ثم التصميم، ثم التنفيذ، ثم السكن. ولكل محطة أدوات عملية تشتغل معك على بيتك أنت، فتخرج منها بما تحتاجه لخطوتك التالية.</p>
+    <p class="lead">ملف واحد لبيتك يرافقك في أربع محطات: القرار، والتصميم، والتنفيذ، والسكن. ست عشرة أداة عملية تشتغل على بيتك أنت، وكل ما تكتبه يُحفظ في حسابك. لوحة التحكم الخاصة بك: تريك آخر ما وصلت إليه، وخطوتك التالية، ومواعيد بيتك القادمة.</p>
     <div class="row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px"><a class="btn line" href="account/?new">ابدأ بحسابك.. مجاناً</a></div>
   </div>
 
+  <section class="what" aria-labelledby="what-h" data-rv>
+    <div class="what-txt">
+      <h2 id="what-h">ماذا تجد حين تسجّل</h2>
+      <ol class="what-l">
+        <li><b>حسابك ملف بيتك</b><span>كل أداة تحفظ عملك في حسابك، فتكمله من الجوال أو الحاسوب.</span></li>
+        <li><b>لوحتك تعرف أين وصلت</b><span>آخر ما عملت عليه وكم بقي فيه، وخطوتك التالية في مرحلتك.</span></li>
+        <li><b>يذكّرك بمواعيد بيتك</b><span>الصيانة والضمانات ومدد المقاولين، في تقويم جوالك.</span></li>
+        <li><b>مبني على المراجع</b><span>اشتراطات البناء والكود السعودي وخبرة معمارية ميدانية، وما تطبعه يخرج باسم البيت وشعاره.</span></li>
+      </ol>
+      <a class="btn" href="account/?new">ابدأ بحسابك.. مجاناً</a>
+    </div>
+    <figure class="what-fig">
+      <picture>
+        <source srcset="assets/img/home-dash-dark.webp" media="(prefers-color-scheme: dark)">
+        <img src="assets/img/home-dash-light.webp" width="708" height="641" loading="lazy" decoding="async" alt="لوحة التحكم في حساب الفرد: أكمل من حيث توقفت، وخطوتك التالية، ومواعيدك القادمة">
+      </picture>
+      <figcaption>لوحة التحكم الخاصة بك، ببيانات توضيحية</figcaption>
+    </figure>
+  </section>
+
+  <div class="start-hint"><b>في أي مرحلة كنت.. تجد هنا ما يفيدك الآن.</b><span>تفكر في شراء أرض، أو تصمم، أو تبني، أو سكنت بيتك: اختر مرحلتك، وابدأ بأول أداة فيها.</span></div>
   <div class="journey" id="journey" aria-label="مراحل رحلة بيت العمر">
     <div class="stage live" id="decision" data-rv>
       <span class="k">01</span><h2>القرار</h2>
@@ -141,10 +174,10 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
     <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="assets/img/sayah.png"></a></div>
   </div>
 </footer>
-<script src="assets/vendor/supabase-2.117.2.js?v=202610080041"></script>
-<script src="assets/js/config.js?v=202610080041"></script>
-<script src="assets/js/stats.js?v=202610080041"></script>
-<script src="assets/js/session.js?v=202610080041"></script>
-<script src="assets/js/motion.js?v=202610080041"></script>
+<script src="assets/vendor/supabase-2.117.2.js?v=202610080052"></script>
+<script src="assets/js/config.js?v=202610080052"></script>
+<script src="assets/js/stats.js?v=202610080052"></script>
+<script src="assets/js/session.js?v=202610080052"></script>
+<script src="assets/js/motion.js?v=202610080052"></script>
 </body>
 </html>
