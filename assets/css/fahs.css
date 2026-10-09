@@ -530,3 +530,14 @@ body:has(.tool-main){background-size:24px 24px}
 .launch p{margin:0;font-size:15px;line-height:1.9;color:var(--ink)}
 .launch-line{margin:0;padding:10px 14px;font-size:14px;line-height:1.8;color:var(--ink-2);border:1px solid var(--line);border-inline-start:3px solid var(--terra);border-radius:var(--r-ctl);background:var(--sheet)}
 .launch-line b{color:var(--terra)}
+
+/* اتساق المخطط */
+.cons-g{font-size:13px;font-weight:700;color:var(--ink-2);margin:10px 0 6px}
+.cons-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cons-l li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14.5px;line-height:1.75;padding:6px 0;border-bottom:1px solid var(--line)}
+.cons-l li small{display:block;font-size:12.5px;color:var(--ink-2)}
+.cst{font-size:12px;font-weight:700;border-radius:var(--r-tag);padding:1px 8px;white-space:nowrap;border:1px solid currentColor}
+.cst.cst-ok{color:var(--ok)}.cst.cst-conflict{color:var(--stop)}.cst.cst-check{color:var(--major)}.cst.cst-unchecked{color:var(--ink-2)}
+.pp-cons{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:5px 0;border-bottom:1px solid #D9D3CB;font-size:11px;line-height:1.7}
+.pp-cons .cst{font-size:9.5px;padding:0 6px}.pp-cons small{color:#5E554E}
+.pp-cons .cst.cst-ok{color:#3F6B4E}.pp-cons .cst.cst-conflict{color:#9B2F22}.pp-cons .cst.cst-check{color:#B5652A}.pp-cons .cst.cst-unchecked{color:#5E554E}

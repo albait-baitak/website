@@ -2,6 +2,7 @@
 // يشغّلها المشرف، أو صاحب الطلب حين يكون النشر الآلي مشغّلاً في الإعدادات؛ وحينها يُنشر التقرير فور اكتماله،
 // وإلا بقي مسودة لا تصل للمكتب قبل مراجعة المعماري واعتماده.
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { crossCheck, consText } from "./consist.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -54,12 +55,12 @@ function buildPrompt(meta: string, g: GroupId): string {
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
     "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF أو من طبقة النص في PDF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف الرسم». في استخراج PDF يدل تجاور النصوص على السطر نفسه (y) على أنها تخص العنصر نفسه: اسم الفراغ وأبعاده تحته، والبُعد وقيمته. تحقق من الوحدة.\n- جدول الاستخراج: الحالة ok أو fail للمقروء من رقم مكتوب، و«بالقياس» لما قيس من الرسم، و«غير مقروء» لما تعذر؛ ولا تكتب في الخلاصة ما يناقض الجدول.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- إن تعارض بندان رسميان في المسألة نفسها (مذكور في نص القاعدة) فالحكم conflict، واذكر البندين في f، ولا تحكم بمخالفة.\n- نص البند الحرفي مرجع الحكم، لكن لا تنقل في f أو fix كلمة «دورة» بأي صيغة؛ اكتب «حمام» أو «مرحاض».\n" +
     (g === "comp"
-      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً. ومخالفة قاعدة قيمها «بانتظار التحقق» لا تتجاوز major إلا إن خالفت جزءاً منصوصاً برقمه في SBC، واذكر في f أن القيمة من IRC 2021.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف»): القاعدة التي يختلف إلزامها أو قيمتها بين الأنماط لا تُحكم عليها بمخالفة؛ حكمها style، واكتب في f النتيجة لكل نمط باختصار (مثل: «تخالف إن كان تقليدياً، وتطابق في الانتقالي والمعاصر»)، فهي معلّقة على النمط ولا تدخل في حكم المطابقة. ولا تطالب المبنى بمتطلبات أنماط مختلفة في وقت واحد. أما القاعدة الملزمة في الأنماط الثلاثة فيُحكم عليها عادياً. واذكر في الأسئلة أن النمط يُؤكَّد من رخصة البناء.\n"
+      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً. ومخالفة قاعدة قيمها «بانتظار التحقق» لا تتجاوز major إلا إن خالفت جزءاً منصوصاً برقمه في SBC، واذكر في f أن القيمة من IRC 2021.\n- اتساق المخطط (consistency): انقل «فحوص الاتساق الآلية» و«المطابقة الآلية بين الملفات» الواردة في الاستخراج كما هي بحالاتها. ثم أضف ما تلاحظه أنت بالنظر من تعارض داخل المجموعة: عدد النوافذ والأبواب في كل واجهة مقابل جدارها في المسقط، والمداخل بين المسقط والواجهة والموقع العام، والمناسيب بين القطاع والواجهة، وعدد درجات الدرج مع فرق منسوب الدورين، وجدول المساحات مقابل مساحات المساقط. ما تلاحظه بالنظر حالته check، ولا تجعله conflict إلا إن كان رقمين مقروءين متعارضين. وما لا تتوفر لوحاته للمقارنة فاكتبه unchecked مع سببه في where. اكتب what جملة واحدة محددة، وwhere موضعه (اللوحة والدور). ولا تكرر هنا ما في results.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف»): القاعدة التي يختلف إلزامها أو قيمتها بين الأنماط لا تُحكم عليها بمخالفة؛ حكمها style، واكتب في f النتيجة لكل نمط باختصار (مثل: «تخالف إن كان تقليدياً، وتطابق في الانتقالي والمعاصر»)، فهي معلّقة على النمط ولا تدخل في حكم المطابقة. ولا تطالب المبنى بمتطلبات أنماط مختلفة في وقت واحد. أما القاعدة الملزمة في الأنماط الثلاثة فيُحكم عليها عادياً. واذكر في الأسئلة أن النمط يُؤكَّد من رخصة البناء.\n"
       : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
     "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";
   const shape = g === "comp"
-    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict|style","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"questions":["..."]}'
+    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict|style","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"consistency":[{"kind":"in|cross","state":"ok|conflict|check|unchecked","what":"..","where":".."}],"questions":["..."]}'
     : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk|conflict","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
   return common + "أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n" + shape + "\nضع في results كل الرموز المذكورة أعلاه دون استثناء، ولا رمزاً غيرها.";
 }
@@ -174,6 +175,8 @@ Deno.serve(async (req) => {
       const blocks: unknown[] = [];
       const skipped: string[] = [];
       const dxfTexts: string[] = [];
+      // deno-lint-ignore no-explicit-any
+      const dxfObjs: any[] = [], pdfObjs: any[] = [];
       let budget = 24 * 1024 * 1024;
       const all = (rq.files ?? []) as F[];
       const isEx = (f: F) => f.role === "dxf_extract" || f.role === "pdf_extract";
@@ -183,7 +186,7 @@ Deno.serve(async (req) => {
         if (isEx(f)) {
           const { data: blob } = await db.storage.from("plans").download(f.path);
           if (!blob) { skipped.push(f.name); continue; }
-          try { const ex = JSON.parse(await blob.text()); if (ex?.text) dxfTexts.push(ex.text); } catch { skipped.push(f.name); }
+          try { const ex = JSON.parse(await blob.text()); if (ex?.text) dxfTexts.push(ex.text); (f.role === "dxf_extract" ? dxfObjs : pdfObjs).push(ex); } catch { skipped.push(f.name); }
           continue;
         }
         if (lower.endsWith(".dxf")) continue;
@@ -203,6 +206,12 @@ Deno.serve(async (req) => {
           : { type: "image", source: { type: "base64", media_type: imgType, data } });
       }
       if (!blocks.length && !dxfTexts.length) return await fail("no_readable_files", { result: { skipped } });
+      if (dxfObjs.length && pdfObjs.length) {
+        try {
+          const cc = crossCheck(dxfObjs[0], pdfObjs[0]);
+          if (cc.length) dxfTexts.push("مطابقة آلية بين ملف الرسم وملف الـPDF (حسابية من الملفين، فانقلها كما هي إلى consistency بالنوع cross):\n" + consText(cc));
+        } catch { /* المطابقة إضافة لا تمنع الفحص */ }
+      }
       if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات الرسم المرفوعة (DXF أو طبقة النص في PDF المصدّر من برنامج الرسم)، أرقامه مقروءة من الملف نفسه لا من الصورة:\n\n" + dxfTexts.join("\n\n---\n\n") });
 
       // مساران متوازيان: المطابقة وجودة التصميم
@@ -226,6 +235,7 @@ Deno.serve(async (req) => {
         assumptions: uniq([...(A.assumptions ?? []), ...(Q.assumptions ?? [])]),
         results: { ...(Q.results ?? {}), ...(A.results ?? {}) },
         extraction: A.extraction ?? [],
+        consistency: Array.isArray(A.consistency) ? A.consistency.filter((c: any) => c && c.what).slice(0, 60) : [],
         questions: uniq([...(A.questions ?? []), ...(Q.questions ?? [])]),
         files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
         skipped,

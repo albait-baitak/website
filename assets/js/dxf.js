@@ -51,11 +51,69 @@ function vertsOf(e){
   return pts;
 }
 
+/* تصنيف الكتل: باب أو نافذة من اسم الكتلة أو طبقتها */
+var RX_DOOR=/(^|[^A-Z])(DOOR|DOORS|DR|DOR)([^A-Z]|$)|باب|أبواب|ابواب/i,RX_WIN=/(^|[^A-Z])(WINDOW|WINDOWS|WIN|WND|WDW)([^A-Z]|$)|نافذ|نوافذ|شباك|شبابيك/i;
+function nameKind(name,layer){
+  var n=String(name||''),l=String(layer||'');
+  if(/^\*/.test(n))n='';
+  if(/^D\d{1,2}[A-Z]?$/i.test(n)||RX_DOOR.test(n))return 'door';
+  if(/^W\d{1,2}[A-Z]?$/i.test(n)||RX_WIN.test(n))return 'window';
+  if(RX_DOOR.test(l))return 'door';if(RX_WIN.test(l))return 'window';
+  return null;
+}
+var TAG=/^(D|W|G|DW|WD|SD|V|GD|WN|DR)[-\s.]?\d{1,2}[A-Z]?$/i;
+function tagKey(s){return String(s).replace(/\s+/g,'').toUpperCase().replace(/[-.]/g,'')}
+
+/* قراءة مباشرة لما لا تقرؤه مكتبة dxf-parser: التهشير (حدود الأرضيات غالباً) وسمات الكتل (رموز الأبواب والنوافذ كثيراً) */
+function rawScan(text){
+  var out={hatches:[],attribs:[]};
+  var L=text.split(/\r?\n/),i=0,n=L.length;
+  while(i<n-1){if(L[i].trim()==='0'&&L[i+1].trim()==='SECTION'&&(L[i+2]||'').trim()==='2'&&(L[i+3]||'').trim()==='ENTITIES'){i+=4;break}i+=2}
+  if(i>=n-1)return out;
+  var cur=null;
+  function flush(){if(!cur)return;try{if(cur.t==='HATCH')hatch(cur.p);else if(cur.t==='ATTRIB')attrib(cur.p)}catch(e){}cur=null}
+  for(;i<n-1;i+=2){
+    var c=L[i].trim(),v=L[i+1];
+    if(c==='0'){flush();var t=v.trim();if(t==='ENDSEC')break;if(t==='HATCH'||t==='ATTRIB')cur={t:t,p:[]};continue}
+    if(cur)cur.p.push([+c,v]);
+  }
+  flush();return out;
+  function attrib(p){
+    var a={l:'0',x:null,y:null,s:'',tag:'',h:1,ps:false};
+    p.forEach(function(q){var c=q[0],v=q[1];if(c===8)a.l=v.trim();else if(c===10)a.x=+v;else if(c===20)a.y=+v;else if(c===1)a.s=v;else if(c===2)a.tag=v.trim();else if(c===40)a.h=+v;else if(c===67)a.ps=v.trim()==='1';else if(c===70&&(+v&1))a.hidden=true});
+    if(!a.ps&&!a.hidden&&a.x!=null&&a.s.trim())out.attribs.push(a);
+  }
+  function hatch(p){
+    var h={l:'0',pat:'',solid:false,paths:[],ps:false},k=0;
+    function at(c){for(;k<p.length;k++)if(p[k][0]===c)return +p[k++][1];return null}
+    for(var j=0;j<p.length;j++){var c=p[j][0];if(c===8&&h.l==='0')h.l=p[j][1].trim();else if(c===2&&!h.pat)h.pat=p[j][1].trim();else if(c===67)h.ps=p[j][1].trim()==='1';else if(c===91){k=j+1;break}}
+    if(!k)return;var np=+p[k-1][1];
+    for(var q=0;q<np&&k<p.length;q++){
+      var fl=at(92);if(fl==null)break;var pts=[];
+      if(fl&2){var hb=at(72),cl=at(73),nv=at(93);
+        for(var m=0;m<nv;m++){var x=at(10),y=at(20),b=0;if(hb){if(p[k]&&p[k][0]===42){b=+p[k][1];k++}}var pt={x:x,y:y,bulge:b};pts.push(pt)}
+        var full=[];for(var m2=0;m2<pts.length;m2++){full.push(pts[m2]);var nx=pts[m2+1]||pts[0];if(pts[m2].bulge)full=full.concat(bulgePts(pts[m2],nx,pts[m2].bulge))}
+        pts=full;
+      }else{
+        var ne=at(93);
+        for(var e=0;e<ne;e++){var et=at(72);
+          if(et===1){pts.push({x:at(10),y:at(20)});at(11);at(21)}
+          else if(et===2){var cx=at(10),cy=at(20),r=at(40),a0=at(50),a1=at(51),ccw=at(73);var A0=a0*Math.PI/180,A1=a1*Math.PI/180;if(A1<A0)A1+=2*Math.PI;for(var s2=0;s2<=12;s2++){var aa=A0+(A1-A0)*s2/12;pts.push({x:cx+r*Math.cos(aa),y:cy+(ccw?1:-1)*r*Math.sin(aa)})}}
+          else if(et===3){var ex=at(10),ey=at(20);at(11);at(21);at(40);at(50);at(51);at(73);pts.push({x:ex,y:ey})}
+          else if(et===4){at(94);var nk=null,nc=null;for(;k<p.length;k++){var cc=p[k][0];if(cc===95)nk=+p[k][1];else if(cc===96){nc=+p[k][1];k++;break}}for(var z=0;z<nc;z++){pts.push({x:at(10),y:at(20)})}}
+        }
+      }
+      if(pts.length>2)h.paths.push(pts.map(function(o){return [o.x,o.y]}));
+    }
+    if(!h.ps&&h.paths.length)out.hatches.push(h);
+  }
+}
+
 /* 3. جمع العناصر بعد فك الكتل */
 function collect(dxf){
-  var P={lines:[],polys:[],texts:[],dims:[],closed:[],layers:{}},count=0,LIMIT=400000;
+  var P={lines:[],polys:[],texts:[],dims:[],closed:[],layers:{},inserts:[]},count=0,LIMIT=400000;
   function addLine(pts,layer,kind){if(pts.length>1&&count<LIMIT){P.lines.push({p:pts,l:layer,k:kind||''});count+=pts.length}}
-  function walk(list,M,depth,layerIn,top){
+  function walk(list,M,depth,layerIn,top,inKind){
     for(var i=0;i<list.length;i++){
       var e=list[i];if(!e||e.visible===false||(top&&e.inPaperSpace))continue;
       var layer=(e.layer==='0'&&layerIn)?layerIn:(e.layer||'0');
@@ -90,7 +148,8 @@ function collect(dxf){
             var m=e.actualMeasurement,a=e.linearOrAngularPoint1,b=e.linearOrAngularPoint2;
             if((m==null||isNaN(m))&&a&&b)m=Math.hypot(b.x-a.x,b.y-a.y);
             var t=clean(e.text||''),at=e.middleOfText||e.anchorPoint,axy=at?ap(M,at):null;
-            P.dims.push({m:m,t:t&&t!=='<>'?t.replace('<>',m!=null?String(+m.toFixed(3)):''):'',x:axy&&axy[0],y:axy&&axy[1],l:layer,type:e.dimensionType});
+            var raw=String(e.text||'');
+            P.dims.push({m:m,t:t&&t!=='<>'?t.replace('<>',m!=null?String(+m.toFixed(3)):''):'',ov:!!(raw&&raw.indexOf('<>')<0&&clean(raw)),x:axy&&axy[0],y:axy&&axy[1],l:layer,type:e.dimensionType});
           }
           break}
         case 'INSERT':{
@@ -98,12 +157,15 @@ function collect(dxf){
           var bp=blk.position||{x:0,y:0},sx=e.xScale||1,sy=e.yScale||1,rr=(e.rotation||0)*Math.PI/180,cs=Math.cos(rr),sn=Math.sin(rr);
           var T=[cs*sx,sn*sx,-sn*sy,cs*sy,e.position.x,e.position.y];
           var M2=mul(M,mul(T,[1,0,0,1,-bp.x,-bp.y]));
-          walk(blk.entities||[],M2,depth+1,layer,false);
+          /* كل كتلة مُدرجة تُسجَّل بموضعها، إلا ما كان داخل كتلة باب أو نافذة حتى لا يُعدّ مرتين */
+          var kn=inKind?null:nameKind(e.name,layer);
+          if(!inKind){var pxy=ap(M,e.position);P.inserts.push({name:e.name,l:layer,x:pxy[0],y:pxy[1],sx:Math.abs(sx*scaleOf(M)),kind:kn})}
+          walk(blk.entities||[],M2,depth+1,layer,false,inKind||!!kn);
           break}
       }
     }
   }
-  walk(dxf.entities||[],I,0,null,true);
+  walk(dxf.entities||[],I,0,null,true,false);
   P.truncated=count>=LIMIT;
   return P;
 }
@@ -187,7 +249,7 @@ function area(p){var a=0;for(var i=0;i<p.length-1;i++)a+=p[i][0]*p[i+1][1]-p[i+1
 function inside(pt,p){var c=false;for(var i=0,j=p.length-1;i<p.length;j=i++){var xi=p[i][0],yi=p[i][1],xj=p[j][0],yj=p[j][1];if(((yi>pt[1])!==(yj>pt[1]))&&(pt[0]<(xj-xi)*(pt[1]-yi)/(yj-yi)+xi))c=!c}return c}
 function r2(n){return Math.round(n*100)/100}
 
-function extract(P,dxf,meta,bb,cls){
+function extract(P,dxf,meta,bb,cls,raw){
   var u=(dxf.header||{}).$INSUNITS,unit=UNITS[u],guess=false;
   if(!unit){guess=true;var span=Math.max(bb.x1-bb.x0,bb.y1-bb.y0);unit=span>1500?UNITS[4]:span>150?UNITS[5]:UNITS[6]}
   var f=unit[1];
@@ -204,8 +266,22 @@ function extract(P,dxf,meta,bb,cls){
     var per=0;for(var pi=0;pi<c.p.length-1;pi++)per+=Math.hypot(c.p[pi+1][0]-c.p[pi][0],c.p[pi+1][1]-c.p[pi][1]);
     rooms.push({names:names.slice(0,3),area:r2(a),per:r2(per*f),w:r2((x1-x0)*f),h:r2((y1-y0)*f),rect:rect,layer:c.l,cx:r2((x0+x1)/2*f),cy:r2((y0+y1)/2*f),_box:[x0,x1,y0,y1]});
   });
+  rooms.forEach(function(r){r.src='poly'});
+  /* التهشير: كثيراً ما تُهشَّر أرضية الغرفة بحدودها، فهو مصدر ثانٍ لمساحات الفراغات حين لا تُرسم بخط مغلق */
+  (raw&&raw.hatches||[]).forEach(function(h){
+    var best=null,ba=0;h.paths.forEach(function(pp){var c=pp.slice();if(c.length&&(c[0][0]!==c[c.length-1][0]||c[0][1]!==c[c.length-1][1]))c.push(c[0]);var a=area(c);if(a>ba){ba=a;best=c}});
+    if(!best)return;var a=ba*f*f;if(a<0.8||a>5000)return;
+    var x0=1/0,x1=-1/0,y0=1/0,y1=-1/0;best.forEach(function(p){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
+    var cx=(x0+x1)/2,cy=(y0+y1)/2;
+    if(rooms.some(function(r){return Math.abs(r.area-a)<=Math.max(0.02*a,0.1)&&Math.abs(r.cx-cx*f)<0.3&&Math.abs(r.cy-cy*f)<0.3}))return;
+    var names=lab.filter(function(t){return inside([t.x,t.y],best)}).map(function(t){return t.s.replace(/\n/g,' ')});
+    var per=0;for(var pi=0;pi<best.length-1;pi++)per+=Math.hypot(best[pi+1][0]-best[pi][0],best[pi+1][1]-best[pi][1]);
+    rooms.push({names:names.slice(0,3),area:r2(a),per:r2(per*f),w:r2((x1-x0)*f),h:r2((y1-y0)*f),rect:false,layer:h.l,cx:r2(cx*f),cy:r2(cy*f),src:'hatch',pat:h.pat,_box:[x0,x1,y0,y1]});
+  });
   rooms.sort(function(a,b){return b.area-a.area});rooms=rooms.slice(0,400);
-  function which(x,y){for(var i=0;i<cls.length;i++){var b=cls[i].box;if(x>=b.x0&&x<=b.x1&&y>=b.y0&&y<=b.y1)return i+1}return 0}
+  /* اللوحة التي يقع فيها الموضع؛ وما وقع خارج كل اللوحات قريباً من إحداها (عنوان تحتها، أو منسوب بجانبها) يُنسب إلى أقربها */
+  function which(x,y){var best=0,bd=1/0;for(var i=0;i<cls.length;i++){var b=cls[i].box;if(x>=b.x0&&x<=b.x1&&y>=b.y0&&y<=b.y1)return i+1;
+    var dx=Math.max(b.x0-x,0,x-b.x1),dy=Math.max(b.y0-y,0,y-b.y1),d=Math.hypot(dx,dy),lim=0.35*Math.max(b.x1-b.x0,b.y1-b.y0);if(d<=lim&&d<bd){bd=d;best=i+1}}return best}
   var texts={},tl=[];
   P.texts.forEach(function(t){if(!t.top)return;var k=t.s.replace(/\n/g,' / ');if(k.length>140)k=k.slice(0,140)+'..';var sh=which(t.x,t.y),key=sh+'|'+k;if(texts[key]){texts[key].n++;return}texts[key]={s:k,n:1,x:r2(t.x*f),y:r2(t.y*f),l:t.l,sheet:sh};tl.push(texts[key])});
   tl=tl.slice(0,900);
@@ -214,8 +290,17 @@ function extract(P,dxf,meta,bb,cls){
   // ربط كل فراغ وبعد بلوحته
   rooms.forEach(function(r){r.sheet=which((r._box[0]+r._box[1])/2,(r._box[2]+r._box[3])/2);delete r._box});
   dims.forEach(function(d){d.sheet=d.x!=null?which(d.x/f,d.y/f):0});
+  var ST=sheetTypes(P,cls,which);
+  function stype(n){return n&&ST[n-1]?ST[n-1].type:null}
+  function sheetName(n){if(!n)return '';var t=ST[n-1];return 'لوحة '+n+(t&&t.type?' ('+SHEET_AR[t.type]+(t.title?': '+t.title:'')+')':'')}
+  var blocks=blockStats(P,dxf,f,which,stype),walls=wallStats(P,f,which,stype),tags=tagStats(P,which,stype);
+  var X={levels:levels.map(function(t){return {s:t.s,sheet:t.sheet}}),_which:which};
+  var checks=consistency(X,P,f,stype,sheetName,tags,blocks);
   return {
-    v:1,file:meta.name,version:meta.version,encoding:meta.encoding,
+    v:2,file:meta.name,version:meta.version,encoding:meta.encoding,
+    sheetTypes:ST.map(function(t,i){return {n:i+1,type:t.type,label:t.type?SHEET_AR[t.type]:null,title:t.title}}),
+    blocks:{door:blocks.door,window:blocks.window,doorGuess:blocks.doorGuess,bySheet:Object.keys(blocks.sheets).map(function(k){return {sheet:+k,door:blocks.sheets[k].door,window:blocks.sheets[k].window}}),names:Object.keys(blocks.names).map(function(k){var a=k.split('|');return {kind:a[0],name:a[1],n:blocks.names[k]}})},
+    walls:walls,tags:tags,checks:checks,
     units:{name:unit[0],toMeter:f,guessed:guess,insunits:u||null},
     extents_m:{w:r2((bb.x1-bb.x0)*f),h:r2((bb.y1-bb.y0)*f)},
     layers:Object.keys(P.layers).map(function(k){return {name:k,n:P.layers[k]}}).sort(function(a,b){return b.n-a.n}).slice(0,120),
@@ -225,13 +310,131 @@ function extract(P,dxf,meta,bb,cls){
   };
 }
 
+
+/* 6ب. فهم أعمق للرسم: أنواع اللوحات، والأبواب والنوافذ، والجدران، ورموز الفتحات، وفحوص الاتساق */
+var SHEET_RX=[['elevation',/واجهة|واجهه|ELEVATION/i],['section',/قطاع|مقطع|SECTION/i],['site',/موقع عام|الموقع العام|SITE\s*PLAN|LAYOUT\s*PLAN/i],['roof',/مسقط السطح|مسقط سطح|ROOF\s*PLAN/i],['plan',/مسقط|الدور|الطابق|الملحق|القبو|البدروم|PLAN|FLOOR/i],['detail',/تفصيل|تفاصيل|DETAIL/i]];
+var SHEET_AR={elevation:'واجهة',section:'قطاع',site:'موقع عام',roof:'مسقط سطح',plan:'مسقط',detail:'تفاصيل'};
+function sheetTypes(P,cls,which){
+  var by={};P.texts.forEach(function(t){if(!t.top)return;var k=which(t.x,t.y);if(!k)return;(by[k]=by[k]||[]).push(t)});
+  return cls.map(function(c,i){
+    var ts=(by[i+1]||[]).filter(function(t){return t.s.length>=3&&t.s.length<=60}).sort(function(a,b){return b.h-a.h}).slice(0,12);
+    for(var j=0;j<ts.length;j++)for(var r=0;r<SHEET_RX.length;r++)if(SHEET_RX[r][1].test(ts[j].s))return {type:SHEET_RX[r][0],title:ts[j].s.replace(/\n/g,' ')};
+    return {type:null,title:ts.length?ts[0].s.replace(/\n/g,' '):''};
+  });
+}
+function numOf(s){var m=String(s).replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/٫/g,'.').match(/[+\-±]?\s*\d+(?:[.,]\d+)?/);if(!m)return null;var t=m[0].replace(/\s/g,'').replace(',','.').replace('±','');var v=parseFloat(t);return isFinite(v)?{v:v,dec:(t.split('.')[1]||'').length}:null}
+
+function blockStats(P,dxf,f,which,stype){
+  var cache={};
+  function arcDoor(name,sc){
+    if(!(name in cache)){var b=dxf.blocks&&dxf.blocks[name],r=null;
+      if(b){var arcs=(b.entities||[]).filter(function(e){return e.type==='ARC'});
+        if(arcs.length>=1&&arcs.length<=2)arcs.forEach(function(a){var sw=a.endAngle-a.startAngle;if(sw<0)sw+=2*Math.PI;var deg=sw*180/Math.PI;if(deg>75&&deg<105)r=Math.max(r||0,a.radius)})}
+      cache[name]=r}
+    var rr=cache[name];return rr!=null&&rr*sc*f>0.45&&rr*sc*f<1.7;
+  }
+  var out={door:0,window:0,doorGuess:0,sheets:{},names:{}};
+  P.inserts.forEach(function(ins){
+    var k=ins.kind,guess=false;if(!k&&arcDoor(ins.name,ins.sx||1)){k='door';guess=true}
+    if(!k)return;var sh=which(ins.x,ins.y),st=stype(sh);if(st&&st!=='plan'&&st!=='roof')return;
+    out[k]++;if(guess)out.doorGuess++;
+    var S=out.sheets[sh]=out.sheets[sh]||{door:0,window:0};S[k]++;
+    var nm=/^\*/.test(ins.name)?'(كتلة بلا اسم)':ins.name;var key=k+'|'+nm;out.names[key]=(out.names[key]||0)+1;
+  });
+  return out;
+}
+
+var RX_WALL=/WALL|جدار|جدران|حائط|حوائط|حيطان/i;
+function wallStats(P,f,which,stype){
+  var segs=[];
+  P.lines.forEach(function(L){if(!RX_WALL.test(L.l||''))return;for(var i=0;i<L.p.length-1&&segs.length<40000;i++){var a=L.p[i],b=L.p[i+1],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);if(len*f<0.05)continue;
+    var ang=Math.atan2(dy,dx);if(ang<0)ang+=Math.PI;if(ang>=Math.PI)ang-=Math.PI;var c=Math.cos(ang),sn=Math.sin(ang);
+    var s1=c*a[0]+sn*a[1],s2=c*b[0]+sn*b[1];segs.push({ang:ang,off:-sn*a[0]+c*a[1],s1:Math.min(s1,s2),s2:Math.max(s1,s2),len:len,mx:(a[0]+b[0])/2,my:(a[1]+b[1])/2})}});
+  if(!segs.length)return null;
+  var B={};segs.forEach(function(g){var k=Math.round(g.ang*180/Math.PI)%180;(B[k]=B[k]||[]).push(g)});
+  var hist={},bySheet={},total=0,paired=0;
+  segs.forEach(function(g){total+=g.len*f});
+  Object.keys(B).forEach(function(k){
+    var list=B[k].concat(B[(+k+1)%180]||[]).sort(function(a,b){return a.off-b.off}),own=B[k];
+    own.forEach(function(g){
+      var best=null;
+      for(var j=0;j<list.length;j++){var h=list[j];if(h===g)continue;var d=(h.off-g.off)*f;if(d<0.07||d>0.45)continue;if(Math.abs(h.ang-g.ang)>0.03)continue;
+        var ov=Math.min(g.s2,h.s2)-Math.max(g.s1,h.s1);if(ov*f<0.3)continue;if(!best||d<best.d)best={d:d,ov:ov*f}}
+      if(!best)return;
+      var t=Math.round(best.d*100)/100;hist[t]=(hist[t]||0)+best.ov;paired+=best.ov;
+      var sh=which(g.mx,g.my),st=stype(sh);if(st&&st!=='plan')return;var S=bySheet[sh]=bySheet[sh]||{};S[t]=(S[t]||0)+best.ov;
+    });
+  });
+  function bins(h){var ks=Object.keys(h).map(Number).sort(function(a,b){return a-b}),out=[];ks.forEach(function(t){var last=out[out.length-1];if(last&&t-last.t<=0.015){last.len+=h[t]}else out.push({t:t,len:h[t]})});return out.filter(function(b){return b.len>=1}).sort(function(a,b){return b.len-a.len}).slice(0,6).map(function(b){return {t:b.t,len:r2(b.len)}})}
+  return {total:r2(total),paired:r2(paired),byThk:bins(hist),bySheet:Object.keys(bySheet).map(function(k){return {sheet:+k,byThk:bins(bySheet[k])}})};
+}
+
+function tagStats(P,which,stype){
+  var tags=P.texts.filter(function(t){return t.top&&TAG.test(t.s.replace(/\s+/g,''))}).map(function(t){var sh=which(t.x,t.y);return {k:tagKey(t.s),x:t.x,y:t.y,h:t.h||1,sheet:sh,st:stype(sh),sched:false}});
+  var hasTitle={};P.texts.forEach(function(t){if(t.top&&/جدول\s*(ال)?(أبواب|ابواب|نوافذ|فتحات|شبابيك)|SCHEDULE/i.test(t.s))hasTitle[which(t.x,t.y)]=1});
+  /* رموز مصفوفة عمودياً بمسافات متقاربة في لوحة فيها عنوان جدول = صفوف جدول الفتحات */
+  var bySheet={};tags.forEach(function(t){(bySheet[t.sheet]=bySheet[t.sheet]||[]).push(t)});
+  Object.keys(bySheet).forEach(function(k){if(!hasTitle[k])return;var L=bySheet[k].slice().sort(function(a,b){return a.x-b.x}),i=0;
+    while(i<L.length){var g=[L[i]],j=i+1;while(j<L.length&&Math.abs(L[j].x-L[i].x)<=Math.max(L[i].h,L[j].h)*1.5){g.push(L[j]);j++}
+      if(g.length>=3){var ys=g.map(function(t){return t.y}).sort(function(a,b){return a-b}),gaps=[];for(var q=1;q<ys.length;q++)gaps.push(ys[q]-ys[q-1]);var mean=gaps.reduce(function(a,b){return a+b},0)/gaps.length,sd=Math.sqrt(gaps.reduce(function(a,b){return a+(b-mean)*(b-mean)},0)/gaps.length);if(mean>0&&sd/mean<0.35)g.forEach(function(t){t.sched=true})}
+      i=j}});
+  function count(fn){var o={};tags.forEach(function(t){if(fn(t))o[t.k]=(o[t.k]||0)+1});return o}
+  return {plan:count(function(t){return !t.sched&&(t.st==='plan'||t.st==='roof'||!t.st)}),elev:count(function(t){return !t.sched&&t.st==='elevation'}),sched:count(function(t){return t.sched}),
+    perSheet:Object.keys(bySheet).map(function(k){var o={};bySheet[k].forEach(function(t){if(!t.sched)o[t.k]=(o[t.k]||0)+1});return {sheet:+k,tags:o}}).filter(function(x){return Object.keys(x.tags).length})};
+}
+
+function consistency(x,P,f,stype,sheetName,tags,blocks){
+  var C=[];
+  /* 1) بعد كُتب نصه يدوياً بقيمة تخالف قياسه الحقيقي في الرسم */
+  var ov=P.dims.filter(function(d){return d.ov&&d.m!=null&&!isNaN(d.m)&&!(d.type%32===2||d.type%32===5)}),bad=[];
+  ov.forEach(function(d){var n=numOf(d.t);if(!n)return;var c=[d.m*f,d.m*f*100,d.m*f*1000,d.m],tol=0.6*Math.pow(10,-n.dec);
+    var ok=c.some(function(v){return Math.abs(Math.abs(n.v)-v)<=Math.max(tol,0.003*v)});
+    if(!ok)bad.push(d)});
+  bad.slice(0,25).forEach(function(d){C.push({kind:'in',state:'conflict',what:'بعد مكتوب «'+d.t+'» وقياسه الحقيقي في الرسم '+r2(d.m*f)+' م',where:sheetName(d.x!=null?x._which(d.x,d.y):0)})});
+  if(!bad.length)C.push({kind:'in',state:'ok',what:ov.length?'الأبعاد المعدّل نصها يدوياً ('+ov.length+') تطابق قياسها في الرسم':'كل الأبعاد ('+P.dims.length+') معروضة بقيمتها المحسوبة من الرسم',where:''});
+  else if(bad.length>25)C.push({kind:'in',state:'conflict',what:'و'+(bad.length-25)+' بعداً آخر بالحال نفسها',where:''});
+  /* 2) المناسيب بين القطاعات والواجهات */
+  var lv={section:[],elevation:[],plan:[]};x.levels.forEach(function(l){var t=stype(l.sheet),n=numOf(l.s);if(n&&lv[t])lv[t].push({v:/^\s*-/.test(l.s)?-Math.abs(n.v):n.v,s:l.s,sheet:l.sheet})});
+  if(lv.section.length&&lv.elevation.length){var miss=0;
+    lv.section.forEach(function(a){if(lv.elevation.some(function(b){return Math.abs(b.v-a.v)<0.005}))return;var near=lv.elevation.filter(function(b){return Math.abs(b.v-a.v)<=0.3}).sort(function(p,q){return Math.abs(p.v-a.v)-Math.abs(q.v-a.v)})[0];
+      if(near){miss++;C.push({kind:'in',state:'check',what:'منسوب '+a.s+' في القطاع، وأقرب منسوب له في الواجهات '+near.s,where:sheetName(a.sheet)+' و'+sheetName(near.sheet)})}});
+    if(!miss)C.push({kind:'in',state:'ok',what:'مناسيب القطاعات تطابق مناسيب الواجهات',where:''});
+  }else C.push({kind:'in',state:'unchecked',what:'مقارنة المناسيب بين القطاعات والواجهات',where:'لم تُعرف في الملف لوحات قطاع وواجهة معاً بمناسيب مكتوبة'});
+  /* 3) رموز الفتحات بين المساقط والجدول والواجهات */
+  var PT=Object.keys(tags.plan),ST=Object.keys(tags.sched),ET=Object.keys(tags.elev);
+  if(ST.length){var a1=PT.filter(function(k){return ST.indexOf(k)<0}),a2=ST.filter(function(k){return PT.indexOf(k)<0});
+    a1.forEach(function(k){C.push({kind:'in',state:'conflict',what:'الرمز '+k+' في المساقط ('+tags.plan[k]+') غير موجود في جدول الفتحات',where:''})});
+    a2.forEach(function(k){C.push({kind:'in',state:'check',what:'الرمز '+k+' في جدول الفتحات لا يظهر في المساقط',where:''})});
+    if(!a1.length&&!a2.length)C.push({kind:'in',state:'ok',what:'رموز الفتحات في المساقط ('+PT.length+') كلها في جدول الفتحات',where:''});
+  }else if(PT.length)C.push({kind:'in',state:'unchecked',what:'مطابقة رموز المساقط بجدول الفتحات',where:'لم يُعثر على جدول فتحات في الملف'});
+  if(ET.length&&PT.length){var e1=ET.filter(function(k){return PT.indexOf(k)<0});e1.forEach(function(k){C.push({kind:'in',state:'check',what:'الرمز '+k+' في الواجهات لا يظهر في المساقط',where:''})})}
+  /* 4) عدد كتل الأبواب والنوافذ مقابل رموزها المكتوبة في المساقط */
+  function sumBy(rx){return PT.filter(function(k){return rx.test(k)}).reduce(function(a,k){return a+tags.plan[k]},0)}
+  var dT=sumBy(/^(D|DR|SD|GD)\d/),wT=sumBy(/^(W|WN)\d/);
+  if(blocks.door&&dT&&blocks.door!==dT)C.push({kind:'in',state:'check',what:'في المساقط '+blocks.door+' كتلة باب، و'+dT+' رمز باب مكتوب',where:''});
+  else if(blocks.door&&dT)C.push({kind:'in',state:'ok',what:'عدد كتل الأبواب في المساقط ('+blocks.door+') يساوي رموزها المكتوبة',where:''});
+  if(blocks.window&&wT&&blocks.window!==wT)C.push({kind:'in',state:'check',what:'في المساقط '+blocks.window+' كتلة نافذة، و'+wT+' رمز نافذة مكتوب',where:''});
+  else if(blocks.window&&wT)C.push({kind:'in',state:'ok',what:'عدد كتل النوافذ في المساقط ('+blocks.window+') يساوي رموزها المكتوبة',where:''});
+  return C;
+}
+
 /* 7. نص مختصر يقرؤه الفحص الآلي */
 function summary(x){
   var L=[];
   L.push('ملف DXF: '+x.file+' · نسخة '+(x.version||'غير معروفة')+' · الوحدة: '+x.units.name+(x.units.guessed?' (مستنتجة من حجم الرسم، تحقق منها)':' (من رأس الملف)')+' · امتداد الرسم '+x.extents_m.w+' × '+x.extents_m.h+' م');
-  if(x.sheets.length){L.push('');L.push('اللوحات المرسومة (لكل لوحة صورة معاينة بنفس الرقم):');x.sheets.forEach(function(s){L.push('لوحة '+s.n+': '+s.w+' × '+s.h+' م'+(s.titles.length?' · نصوصها البارزة: '+s.titles.join(' | '):''))})}
-  L.push('');L.push('الفراغات المغلقة (مضلعات مغلقة) بمساحاتها المحسوبة من الملف، م²، مع النصوص الواقعة داخلها:');
-  x.rooms.slice(0,250).forEach(function(r){L.push('- لوحة '+r.sheet+' · '+(r.names.length?r.names.join(' / '):'بلا اسم')+' · '+r.area+' م² · '+(r.rect?'مستطيل ':'الإطار ')+r.w+' × '+r.h+' م · طبقة '+r.layer)});
+  if(x.sheets.length){L.push('');L.push('اللوحات المرسومة (لكل لوحة صورة معاينة بنفس الرقم):');x.sheets.forEach(function(s){var t=(x.sheetTypes||[])[s.n-1];L.push('لوحة '+s.n+(t&&t.label?' · نوعها: '+t.label+' («'+t.title+'»)':' · نوعها غير معروف')+': '+s.w+' × '+s.h+' م'+(s.titles.length?' · نصوصها البارزة: '+s.titles.join(' | '):''))})}
+  if(x.checks&&x.checks.length){L.push('');L.push('فحوص اتساق آلية داخل الملف (حسابية من الرسم نفسه، فاعتمدها كما هي في قسم اتساق المخطط):');
+    var ST={ok:'متسق',conflict:'متعارض',check:'للتحقق',unchecked:'لم يُفحص'};x.checks.forEach(function(c){L.push('- ['+ST[c.state]+'] '+c.what+(c.where?' · '+c.where:''))})}
+  var B=x.blocks;if(B&&(B.door||B.window)){L.push('');L.push('الأبواب والنوافذ معدودة من كتل الرسم في المساقط (عدّ آلي من الملف، أدق من العدّ بالنظر'+(B.doorGuess?'؛ منها '+B.doorGuess+' باباً عُرف من قوس فتحته لا من اسمه':'')+'): أبواب '+B.door+'، نوافذ '+B.window);
+    B.bySheet.forEach(function(b){L.push('- لوحة '+b.sheet+': أبواب '+b.door+'، نوافذ '+b.window)});
+    if(B.names.length)L.push('أسماء الكتل: '+B.names.map(function(n){return n.name+' ('+(n.kind==='door'?'باب':'نافذة')+') ×'+n.n}).join('، '))}
+  var T=x.tags;if(T&&Object.keys(T.plan).length){L.push('');L.push('رموز الفتحات المكتوبة في المساقط (دون صفوف الجداول) وأعدادها: '+Object.keys(T.plan).sort().map(function(k){return k+'×'+T.plan[k]}).join('، '));
+    if(Object.keys(T.sched).length)L.push('رموز جدول الفتحات: '+Object.keys(T.sched).sort().join('، '));
+    T.perSheet.forEach(function(p){L.push('- لوحة '+p.sheet+': '+Object.keys(p.tags).sort().map(function(k){return k+'×'+p.tags[k]}).join('، '))})}
+  var W=x.walls;if(W&&W.total){L.push('');L.push('الجدران من طبقات الجدران: مجموع أطوال خطوطها '+W.total+' م، والمزدوج منها (خطان متوازيان) بطول محوري '+W.paired+' م. سماكاتها المقيسة من المسافة بين الخطين (تقدير هندسي): '+W.byThk.map(function(b){return b.t+' م: '+b.len+' م'}).join('، '));
+    W.bySheet.forEach(function(b){L.push('- لوحة '+b.sheet+': '+b.byThk.map(function(t){return t.t+' م: '+t.len+' م'}).join('، '))})}
+  L.push('');L.push('الفراغات المغلقة (مضلعات مغلقة أو حدود تهشير) بمساحاتها المحسوبة من الملف، م²، مع النصوص الواقعة داخلها:');
+  x.rooms.slice(0,250).forEach(function(r){L.push('- لوحة '+r.sheet+' · '+(r.names.length?r.names.join(' / '):'بلا اسم')+' · '+r.area+' م² · '+(r.rect?'مستطيل ':'الإطار ')+r.w+' × '+r.h+' م · طبقة '+r.layer+(r.src==='hatch'?' · من التهشير':''))});
   if(x.dims.length){L.push('');L.push('الأبعاد المسجلة في الملف (قيمة البعد الفعلية بالمتر، والنص الظاهر إن عُدّل):');
     x.dims.slice(0,400).forEach(function(d){L.push('- لوحة '+d.sheet+' · '+(d.angle?d.v+'°':d.v+' م')+(d.t?' · مكتوب: '+d.t:''))})}
   if(x.levels.length){L.push('');L.push('المناسيب المكتوبة: '+x.levels.map(function(l){return l.s+' (لوحة '+l.sheet+')'}).join('، '))}
@@ -243,14 +446,20 @@ function summary(x){
 }
 
 /* 8. الواجهة */
+function analyse(d,dxf,name){
+  var P=collect(dxf),raw=rawScan(d.text);
+  raw.attribs.forEach(function(a){var str=clean(a.s);if(str)P.texts.push({s:str,x:a.x,y:a.y,h:a.h||1,l:a.l,mt:false,ha:0,va:0,rot:0,top:true,attr:a.tag})});
+  var bb=bboxOf(P);if(!bb)throw new Error('empty');
+  var cls=clusters(P,bb);if(!cls.length)cls=[{box:bb,n:0}];
+  var x=extract(P,dxf,{name:name,version:d.version,encoding:d.encoding},bb,cls,raw);
+  x.text=summary(x);
+  return {P:P,bb:bb,cls:cls,x:x};
+}
 function process(file){
   return file.arrayBuffer().then(function(buf){
     var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);
     if(!dxf)throw new Error('parse_failed');
-    var P=collect(dxf),bb=bboxOf(P);if(!bb)throw new Error('empty');
-    var cls=clusters(P,bb);if(!cls.length)cls=[{box:bb,n:0}];
-    var x=extract(P,dxf,{name:file.name,version:d.version,encoding:d.encoding},bb,cls);
-    x.text=summary(x);
+    var r=analyse(d,dxf,file.name),P=r.P,bb=r.bb,cls=r.cls,x=r.x;
     var jobs=[];
     var boxes=cls.length>1?cls.map(function(c){return c.box}):[bb];
     if(cls.length>1)boxes.unshift(bb);
@@ -258,5 +467,7 @@ function process(file){
     return Promise.all(jobs).then(function(imgs){return {extract:x,images:imgs}});
   });
 }
-window.BBDXF={process:process,_debug:{decode:decode,clean:clean}};
+/* للاختبار في Node: قراءة نص الملف دون رسم */
+function extractText(buf,name){var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);if(!dxf)throw new Error('parse_failed');return analyse(d,dxf,name).x}
+window.BBDXF={process:process,extractText:extractText,_debug:{decode:decode,clean:clean,rawScan:rawScan,nameKind:nameKind}};
 })();

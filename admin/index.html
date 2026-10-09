@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610080106">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610080106">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610090529">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610090529">
 </head>
 <body>
 <header class="top">
@@ -94,6 +94,7 @@
                 <div class="f full"><label for="eSum2">خلاصة فحص جودة التصميم</label><textarea id="eSum2"></textarea></div>
                 <div class="f full"><label for="eAss">افتراضات الفحص <span class="o">كل افتراض في سطر</span></label><textarea id="eAss"></textarea></div>
                 <div class="f full"><label for="eQs">أسئلة لم يجب عنها المخطط <span class="o">كل سؤال في سطر</span></label><textarea id="eQs"></textarea></div>
+                <div class="f full"><label for="eCons">اتساق المخطط <span class="o">كل بند في سطر: الحالة | النوع | البيان | الموضع. الحالة: متسق، متعارض، للتحقق، لم يُفحص. النوع: داخل الملف، بين الملفات</span></label><textarea id="eCons" rows="5"></textarea></div>
               </div>
               <div style="margin-top:18px">
                 <div class="ed-row ed-head"><div>القاعدة</div><div>الحكم</div><div>الدرجة</div><div>في المخطط</div><div>العلاج</div></div>
@@ -202,16 +203,16 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610080106"></script>
-<script src="../assets/js/config.js?v=202610080106"></script>
-<script src="../assets/js/stats.js?v=202610080106"></script>
-<script src="../assets/js/access.js?v=202610080106"></script>
-<script src="../assets/js/session.js?v=202610080106"></script>
-<script src="../assets/js/rules.js?v=202610080106"></script>
-<script src="../assets/js/report.js?v=202610080106"></script>
-<script src="../assets/js/boq.js?v=202610080106"></script>
-<script src="../assets/js/adminstats.js?v=202610080106"></script>
-<script src="../assets/js/adminpush.js?v=202610080106"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610090529"></script>
+<script src="../assets/js/config.js?v=202610090529"></script>
+<script src="../assets/js/stats.js?v=202610090529"></script>
+<script src="../assets/js/access.js?v=202610090529"></script>
+<script src="../assets/js/session.js?v=202610090529"></script>
+<script src="../assets/js/rules.js?v=202610090529"></script>
+<script src="../assets/js/report.js?v=202610090529"></script>
+<script src="../assets/js/boq.js?v=202610090529"></script>
+<script src="../assets/js/adminstats.js?v=202610090529"></script>
+<script src="../assets/js/adminpush.js?v=202610090529"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -435,6 +436,7 @@ function fillEditor(){
   $('eTitle').value=rep.title||'';$('eSub').value=rep.sub||'';$('eVerdict').value=rep.verdict||'fix';
   $('eSum1').value=(rep.summary||[])[0]||'';$('eSum2').value=(rep.summary||[])[1]||'';
   $('eAss').value=(rep.assumptions||[]).join('\n');$('eQs').value=(rep.questions||[]).join('\n');
+  var CSN={ok:'متسق',conflict:'متعارض',check:'للتحقق',unchecked:'لم يُفحص'};$('eCons').value=(rep.consistency||[]).map(function(c){return [CSN[c.state]||'للتحقق',(c.kind||'in')==='cross'?'بين الملفات':'داخل الملف',c.what||'',c.where||''].join(' | ')}).join('\n');
   var box=$('edRules');box.innerHTML='';
   GROUPS.forEach(function(G){box.appendChild(el('div','ed-grp',G.n));
     RULES.filter(function(R){return G.layers.indexOf(R.l)>=0}).forEach(function(R){
@@ -456,6 +458,7 @@ function collect(){
     if(prev.note)o.note=prev.note;if(o.v!=='fail')delete o.sev;if(o.v)res[c]=o});
   rep.title=$('eTitle').value.trim();rep.sub=$('eSub').value.trim();rep.verdict=$('eVerdict').value;
   rep.summary=[$('eSum1').value.trim(),$('eSum2').value.trim()];rep.assumptions=lines($('eAss').value);rep.questions=lines($('eQs').value);
+  var SCN={'متسق':'ok','متعارض':'conflict','للتحقق':'check','لم يُفحص':'unchecked','لم يفحص':'unchecked'};rep.consistency=lines($('eCons').value).map(function(l){var a=l.split('|').map(function(x){return x.trim()});if(a.length<3)return {state:'check',kind:'in',what:l,where:''};return {state:SCN[a[0]]||'check',kind:/بين/.test(a[1])?'cross':'in',what:a[2],where:a[3]||''}});
   rep.results=res;rep.kind='reviewed';rep.date=new Date().toISOString().slice(0,10);rep.foot='فحص على المرجع، راجعه واعتمده المعماري.';
   return rep;
 }

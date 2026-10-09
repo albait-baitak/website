@@ -1,4 +1,6 @@
 var FQ_ASSETS=(document.currentScript&&document.currentScript.src||'').replace(/js\/report\.js.*$/,'');
+/* حالات بنود «اتساق المخطط»، مشتركة بين عرض التقرير وصفحات الـPDF */
+var CSTN={ok:'متسق',conflict:'متعارض',check:'للتحقق',unchecked:'لم يُفحص'},CST_ORD={conflict:1,check:2,unchecked:3,ok:4};
 /* عرض تقرير الفحص الفني وتصديره PDF */
 (function(){
 function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e}
@@ -109,6 +111,14 @@ function render(rep,host,opts){
     box.appendChild(lb);
   });
 
+  if(rep.consistency&&rep.consistency.length){
+    var cb=el('div','blk');var ch=el('h4',null,'اتساق المخطط');ch.appendChild(el('span',null,'المسقط مع الواجهات والقطاعات والجداول، وملف الرسم مع الـPDF'));cb.appendChild(ch);
+    [['in','داخل الملف'],['cross','بين الملفات']].forEach(function(g){var items=rep.consistency.filter(function(c){return (c.kind||'in')===g[0]});if(!items.length)return;
+      cb.appendChild(el('p','cons-g',g[1]));var ul=el('ul','cons-l');
+      items.sort(function(a,b){return (CST_ORD[a.state]||9)-(CST_ORD[b.state]||9)}).forEach(function(c){var li=el('li');li.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var d=el('div');d.appendChild(el('span',null,c.what||''));if(c.where)d.appendChild(el('small',null,c.where));li.appendChild(d);ul.appendChild(li)});
+      cb.appendChild(ul)});
+    box.appendChild(cb);
+  }
   if(rep.extraction&&rep.extraction.length){
     var xb=el('div','blk');var dx=el('details','lay');var sx=el('summary');sx.appendChild(el('span',null,'جدول الاستخراج'));sx.appendChild(el('span','cnts',rep.extraction.length+' فراغاً'));dx.appendChild(sx);
     var wx=el('div','chk-wrap'),tx=el('table','ext-t'),hx=el('thead'),rx=el('tr');['الدور','الفراغ','الأبعاد (م)','المساحة (م²)','الحد النظامي','الحالة'].forEach(function(x){rx.appendChild(el('th',null,x))});hx.appendChild(rx);tx.appendChild(hx);
@@ -225,6 +235,11 @@ window.FQ_pages=function(rep,host,logoSrc){
       });
     });
   });
+
+  // اتساق المخطط
+  (rep.consistency||[]).slice().sort(function(a,b){return ((a.kind||'in')==='in'?0:1)-((b.kind||'in')==='in'?0:1)||(CST_ORD[a.state]||9)-(CST_ORD[b.state]||9)}).forEach(function(c,i){
+    var bb=blk();if(i===0)bb.appendChild(sec('اتساق المخطط',rep.consistency.length+' بنداً: داخل الملف وبين الملفات'));
+    var d=el('div','pp-cons');d.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var t=el('div');t.appendChild(el('b',null,((c.kind||'in')==='in'?'داخل الملف':'بين الملفات')+': '));t.appendChild(document.createTextNode(c.what||''));if(c.where)t.appendChild(el('small',null,' · '+c.where));d.appendChild(t);bb.appendChild(d);add(bb)});
 
   // الاستخراج
   (rep.extraction||[]).forEach(function(row,i){
