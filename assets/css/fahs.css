@@ -579,3 +579,5 @@ details.rsec>summary .cnts{display:flex;gap:10px;font-size:12.5px;font-weight:70
 .pp-find .t .disc-tag{font-size:9px;color:#A65338;border:1px solid #A65338;padding:0 4px;margin-inline-start:6px}
 .pp-top .sv{font-size:9.5px;font-weight:700;color:#FFFFFF;text-align:center;padding:2px 0;align-self:start}
 .pp-top .sv.stop{background:#9B2F22}.pp-top .sv.major{background:#B5652A}.pp-top .sv.minor{background:#5F7044}
+.find dd.src{color:var(--terra);font-size:13.5px;font-weight:700}
+.find dd.src::before{content:"";display:inline-block;width:7px;height:7px;border:2px solid currentColor;border-radius:50% 50% 50% 0;transform:rotate(-45deg);margin-inline-end:7px;vertical-align:1px}

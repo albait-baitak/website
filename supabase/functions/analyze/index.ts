@@ -67,13 +67,14 @@ function buildPrompt(meta: string, g: GroupId, o: Opts): string {
       : g === "eng"
       ? "- التخصصات المرفوعة: " + (o.disc.map((d) => DISCN[d] ?? d).join("، ") || "غير محددة") + "، ومعها السلامة والحريق. افحص كل قاعدة على لوحات تخصصها؛ وإن لم تجد بين المرفقات لوحات تخصص ما فحكم قواعده كلها unk، واكتب سؤالاً واحداً عن نقص لوحاته لا سؤالاً لكل قاعدة.\n- الدرجة: stop لمخالفة صريحة لبند ملزم بنص سعودي غير موسوم بالتحقق، وmajor لما يُتوقع أن تلاحظه الأمانة أو مكتب المراجعة، وminor للتوصيات والستاندرد المهني. والقاعدة الموسومة «بانتظار التحقق» لا تتجاوز major في قيمها، واذكر في f أن القيمة من المرجع المذكور؛ لكن ما تذكر «حدود التحقق» أنه نص سعودي مقروء (مثل منع باب المرآب إلى غرفة النوم) يُحكم عليه كاملاً.\n- كل ملاحظة تستند إلى بند: اذكر في f رقم البند ومرجعه كما في القاعدة، فقيمة التقرير أن كل ملاحظة فيه منسوبة إلى نص.\n- لا تحكم على تصميم إنشائي أو كهربائي بالحساب (كفاية التسليح أو مقطع كابل بالحمل)؛ افحص ما هو مكتوب ومرسوم على اللوحات ومطابقته للقيم المنصوصة فقط.\n"
       : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
+    "- مصدر كل ملاحظة ملزم ليصل إليها المهندس بسرعة: لكل نتيجة حكمها fail أو conflict أو unk أو style، ولكل بند في consistency، اكتب src بهذا الشكل: «اسم الملف كما ورد · صفحة N (عنوان اللوحة إن ظهر) · العنصر (الغرفة أو البُعد أو الرمز)». وفي ملف DXF اكتب اسم اللوحة أو الدور بدل رقم الصفحة. ولا تكتب رقم صفحة أو لوحة لم تتحقق منه؛ وإن لم تُبنَ الملاحظة على موضع محدد فاكتب «عام». وفي ok اكتب src إن كان الموضع واضحاً.\n" +
     "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";
   const shape = g === "comp"
-    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict|style","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"consistency":[{"kind":"in|cross","state":"ok|conflict|check|unchecked","what":"..","where":".."}],"questions":["..."]}'
+    ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict|style","sev":"stop|major|minor","f":"..","fix":"..","src":"الملف · صفحة N (اللوحة) · العنصر"}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"consistency":[{"kind":"in|cross","state":"ok|conflict|check|unchecked","what":"..","where":"..","src":"الملف · صفحة N"}],"questions":["..."]}'
     : g === "eng"
-    ? '{"summary":"خلاصة الفحص الهندسي في سطر","assumptions":["..."],"results":{"STR-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"..","fix":".."}},"questions":["..."]}'
-    : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk|conflict","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
+    ? '{"summary":"خلاصة الفحص الهندسي في سطر","assumptions":["..."],"results":{"STR-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"..","fix":"..","src":"الملف · صفحة N (اللوحة) · العنصر"}},"questions":["..."]}'
+    : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk|conflict","sev":"major|minor","f":"..","fix":"..","src":"الملف · صفحة N (اللوحة) · العنصر"}},"questions":["..."]}';
   return common + "أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n" + shape + "\nضع في results كل الرموز المذكورة أعلاه دون استثناء، ولا رمزاً غيرها.";
 }
 
@@ -212,7 +213,8 @@ Deno.serve(async (req) => {
         const buf = await blob.arrayBuffer();
         budget -= buf.byteLength * 1.37;
         const data = b64(buf);
-        if (f.role === "dxf_view") blocks.push({ type: "text", text: "صورة معاينة مرسومة من ملف DXF: " + f.name });
+        // اسم كل ملف قبل محتواه، ليكتب الفحص مصدر كل ملاحظة: الملف والصفحة
+        blocks.push({ type: "text", text: f.role === "dxf_view" ? "صورة معاينة مرسومة من ملف DXF: «" + (f.of || f.name) + "»" : isPdf ? "الملف «" + f.name + "» (PDF، صفحاته مرقمة من 1 بترتيبها في الملف):" : "الملف «" + f.name + "» (صورة):" });
         blocks.push(isPdf
           ? { type: "document", source: { type: "base64", media_type: "application/pdf", data } }
           : { type: "image", source: { type: "base64", media_type: imgType, data } });

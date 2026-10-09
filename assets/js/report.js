@@ -23,7 +23,7 @@ function FQ_model(rep,only){
       cons.forEach(function(x){if(x.state==='conflict')c.major++;else if(x.state==='check')c.minor++;else if(x.state==='ok')c.ok++;else c.unk++})}
     var sec={id:S.id,n:S.n,sub:S.sub,layers:S.layers,rows:rows,fails:fails,cons:cons,c:c};
     out.push(sec);
-    fails.forEach(function(k){if(k.r.sev==='minor')return;top.push({sev:k.r.sev||'major',sec:sec,code:k.R.c,t:k.R.n,f:k.r.f||'',fix:k.r.fix||''})});
+    fails.forEach(function(k){if(k.r.sev==='minor')return;top.push({sev:k.r.sev||'major',sec:sec,code:k.R.c,t:k.R.n,f:k.r.f||'',fix:k.r.fix||'',src:k.r.src||''})});
     cons.forEach(function(x,i){if(x.state==='conflict')top.push({sev:'major',sec:sec,code:'cons-'+i,t:x.what,f:x.where||'',fix:''})});
   });
   top.sort(function(a,b){return ord[a.sev]-ord[b.sev]});
@@ -145,7 +145,7 @@ function render(rep,host,opts){
       S.fails.forEach(function(k){
         var f=el('div','find');f.id='f-'+k.R.c;f.appendChild(el('span','sevtag '+(k.r.sev||'major'),SEVN[k.r.sev]||'تُعالج قبل الرفع'));
         var dd=el('div');var tt=el('div','t',k.R.n);tt.appendChild(el('code',null,k.R.c));if(k.R.d)tt.appendChild(el('span','disc-tag',DISC[k.R.d]||''));dd.appendChild(tt);
-        var dl=el('dl');[['المطلوب',k.R.r,''],['في المخطط',k.r.f,''],['العلاج',k.r.fix||'','fix']].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',p[2]||null,p[1]))});
+        var dl=el('dl');[['المطلوب',k.R.r,''],['في المخطط',k.r.f,''],['الموضع',k.r.src||'','src'],['العلاج',k.r.fix||'','fix']].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',p[2]||null,p[1]))});
         dd.appendChild(dl);if(k.r.note)dd.appendChild(el('p','note','ملاحظة: '+k.r.note));dd.appendChild(el('p','note',k.R.s||''));
         if(opts.fb)dd.appendChild(fbRow(k.R.c,opts.fb));
         f.appendChild(dd);fb.appendChild(f);
@@ -190,7 +190,7 @@ function consBlock(S,bd){
   if(!S.cons.length)cb.appendChild(el('p','muted','لم يُرصد في هذا الفحص بند اتساق.'));
   [['in','داخل الملف'],['cross','بين الملفات']].forEach(function(g){var items=S.cons.filter(function(c){return (c.kind||'in')===g[0]});if(!items.length)return;
     cb.appendChild(el('p','cons-g',g[1]));var ul=el('ul','cons-l');
-    items.forEach(function(c){var li=el('li');li.id='f-cons-'+S.cons.indexOf(c);li.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var d=el('div');d.appendChild(el('span',null,c.what||''));if(c.where)d.appendChild(el('small',null,c.where));li.appendChild(d);ul.appendChild(li)});
+    items.forEach(function(c){var li=el('li');li.id='f-cons-'+S.cons.indexOf(c);li.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var d=el('div');d.appendChild(el('span',null,c.what||''));var wh=[c.where,c.src].filter(Boolean).join(' · ');if(wh)d.appendChild(el('small',null,wh));li.appendChild(d);ul.appendChild(li)});
     cb.appendChild(ul)});
   bd.appendChild(cb);
 }
@@ -275,7 +275,7 @@ window.FQ_pages=function(rep,host,logoSrc,only){
     var first=true;function head(bb){if(first){bb.appendChild(gh);first=false}}
     if(S.id==='cons'){
       if(!S.cons.length){var e0=blk();head(e0);e0.appendChild(el('p','pp-nt','لم يُرصد في هذا الفحص بند اتساق.'));add(e0)}
-      S.cons.forEach(function(c){var bb=blk();head(bb);var d=el('div','pp-cons');d.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var t=el('div');t.appendChild(el('b',null,((c.kind||'in')==='in'?'داخل الملف':'بين الملفات')+': '));t.appendChild(document.createTextNode(c.what||''));if(c.where)t.appendChild(el('small',null,' · '+c.where));d.appendChild(t);bb.appendChild(d);add(bb)});
+      S.cons.forEach(function(c){var bb=blk();head(bb);var d=el('div','pp-cons');d.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var t=el('div');t.appendChild(el('b',null,((c.kind||'in')==='in'?'داخل الملف':'بين الملفات')+': '));t.appendChild(document.createTextNode(c.what||''));var wh=[c.where,c.src].filter(Boolean).join(' · ');if(wh)t.appendChild(el('small',null,' · '+wh));d.appendChild(t);bb.appendChild(d);add(bb)});
       return;
     }
     if(!S.fails.length){var e1=blk();head(e1);e1.appendChild(sec(S.id==='reg'?'المخالفات وعلاجاتها':'الملاحظات وعلاجاتها','لا شيء'));add(e1)}
@@ -283,7 +283,7 @@ window.FQ_pages=function(rep,host,logoSrc,only){
       var bb=blk();head(bb);if(i===0)bb.appendChild(sec(S.id==='reg'?'المخالفات وعلاجاتها':'الملاحظات وعلاجاتها',S.fails.length+' مرتبة بالدرجة'));
       var f=el('div','pp-find');f.appendChild(el('span','sv '+(k.r.sev||'major'),SEVN[k.r.sev]||'تُعالج قبل الرفع'));
       var d=el('div');var t=el('div','t',k.R.n);t.appendChild(el('code',null,k.R.c));if(k.R.d)t.appendChild(el('span','disc-tag',DISC[k.R.d]||''));d.appendChild(t);
-      var dl=el('dl');[['المطلوب',k.R.r],['في المخطط',k.r.f],['العلاج',k.r.fix]].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',null,p[1]))});d.appendChild(dl);
+      var dl=el('dl');[['المطلوب',k.R.r],['في المخطط',k.r.f],['الموضع',k.r.src],['العلاج',k.r.fix]].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',null,p[1]))});d.appendChild(dl);
       if(k.r.note)d.appendChild(el('p','nt','ملاحظة: '+k.r.note));d.appendChild(el('p','nt',k.R.s||''));
       f.appendChild(d);bb.appendChild(f);add(bb);
     });

@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092258">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610092258">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092307">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610092307">
 </head>
 <body>
 <header class="top">
@@ -204,16 +204,16 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092258"></script>
-<script src="../assets/js/config.js?v=202610092258"></script>
-<script src="../assets/js/stats.js?v=202610092258"></script>
-<script src="../assets/js/access.js?v=202610092258"></script>
-<script src="../assets/js/session.js?v=202610092258"></script>
-<script src="../assets/js/rules.js?v=202610092258"></script>
-<script src="../assets/js/report.js?v=202610092258"></script>
-<script src="../assets/js/boq.js?v=202610092258"></script>
-<script src="../assets/js/adminstats.js?v=202610092258"></script>
-<script src="../assets/js/adminpush.js?v=202610092258"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092307"></script>
+<script src="../assets/js/config.js?v=202610092307"></script>
+<script src="../assets/js/stats.js?v=202610092307"></script>
+<script src="../assets/js/access.js?v=202610092307"></script>
+<script src="../assets/js/session.js?v=202610092307"></script>
+<script src="../assets/js/rules.js?v=202610092307"></script>
+<script src="../assets/js/report.js?v=202610092307"></script>
+<script src="../assets/js/boq.js?v=202610092307"></script>
+<script src="../assets/js/adminstats.js?v=202610092307"></script>
+<script src="../assets/js/adminpush.js?v=202610092307"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -446,7 +446,8 @@ function fillEditor(){
       var c1=el('div');c1.appendChild(document.createTextNode(R.n));c1.appendChild(el('span','code',R.c));c1.title=R.r;row.appendChild(c1);
       var v=el('select');[['','·'],['ok','مطابق'],['fail','مخالف'],['na','لا يخص هذا المشروع'],['unk','غير موضّح في المخطط'],['conflict','تعارض في المرجع'],['style','معلّق على نمط الطراز']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];v.appendChild(op)});v.value=r.v||'';v.dataset.k='v';v.setAttribute('aria-label','الحكم '+R.c);row.appendChild(v);
       var s=el('select');[['',''],['stop','تمنع الرفع'],['major','تُعالج قبل الرفع'],['minor','تحسين مقترح']].forEach(function(o){if(o[0]==='stop'&&G.id==='qual')return;var op=el('option',null,o[1]);op.value=o[0];s.appendChild(op)});s.value=r.sev||'';s.dataset.k='sev';s.setAttribute('aria-label','الدرجة '+R.c);row.appendChild(s);
-      var f=el('textarea');f.value=r.f||'';f.dataset.k='f';f.setAttribute('aria-label','في المخطط '+R.c);row.appendChild(f);
+      var fw=el('div','ed-fw'),f=el('textarea');f.value=r.f||'';f.dataset.k='f';f.setAttribute('aria-label','في المخطط '+R.c);fw.appendChild(f);
+      var sr=el('input','ed-src');sr.value=r.src||'';sr.dataset.k='src';sr.placeholder='الموضع: الملف · صفحة · العنصر';sr.setAttribute('aria-label','موضع الملاحظة '+R.c);fw.appendChild(sr);row.appendChild(fw);
       var x=el('textarea');x.value=r.fix||'';x.dataset.k='fix';x.setAttribute('aria-label','العلاج '+R.c);row.appendChild(x);
       box.appendChild(row);
     });

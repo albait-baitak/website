@@ -459,3 +459,4 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 @media (prefers-reduced-motion:reduce){.auth-shell,.auth-pane{animation:none}}
 @media (max-width:860px){.auth-shell{border-radius:20px}}
 .flist .from{display:block;font-size:12px;color:var(--ink-2)}
+.ed-fw{display:flex;flex-direction:column;gap:4px}.ed-row .ed-src{font:inherit;font-size:12px;color:var(--ink-2);background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-ctl);padding:4px 7px;width:100%}
