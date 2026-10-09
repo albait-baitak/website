@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>للمكاتب والمصممين · البيت بيتك</title>
+<meta name="description" content="منصة للمكاتب الهندسية ومصممي المساكن: فحص فني لمخطط المسكن قبل رفعه للأمانة بمراجع كل ملاحظة، وجدول كميات مسعّر من المخطط، وحساب واحد لفريق المكتب.">
+<link rel="icon" href="../assets/img/favicon.svg?v=202610072210" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png?v=202610072210">
+<link rel="manifest" href="../manifest.webmanifest?v=202610072210">
+<meta name="theme-color" content="#F6F5F1">
+<meta property="og:title" content="للمكاتب الهندسية ومصممي المساكن · البيت بيتك">
+<meta property="og:description" content="مخططك يمر علينا قبل أن يمر على الأمانة: فحص فني بمراجع كل ملاحظة، وجدول كميات، وحساب لفريق المكتب.">
+<meta property="og:locale" content="ar_SA">
+<link rel="canonical" href="https://albait-baitak.com/pro/">
+<meta property="og:url" content="https://albait-baitak.com/pro/">
+<meta property="og:site_name" content="البيت بيتك">
+<meta property="og:image" content="https://albait-baitak.com/assets/img/og-fahs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://albait-baitak.com/assets/img/og-fahs.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092216">
+<style>
+/* صفحة المكاتب: الصفحة مجموعة لوحات. الغلاف وفهرس اللوحات في الأعلى، وكل قسم لوحة برقمها وختمها */
+.px-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,64px)}
+.px-hero h1{font-size:clamp(32px,5vw,54px);line-height:1.25;letter-spacing:-.01em;max-width:14ch}
+.px-lead{font-size:clamp(16.5px,1.6vw,18.5px);color:var(--ink-2);max-width:56ch;margin-top:20px;line-height:1.95}
+.px-who{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.px-who span{font-size:13.5px;border:1px solid var(--line-2);border-radius:var(--r-tag);padding:2px 10px;background:var(--sheet)}
+.px-act{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;align-items:center}
+.px-act .linkish{font-size:15px;color:var(--ink);text-underline-offset:5px}
+
+/* فهرس اللوحات: يعمل فهرساً للصفحة */
+.px-index{background:var(--sheet);border:1px solid var(--ink);box-shadow:6px 6px 0 var(--line)}
+.px-index h2{font-size:15px;padding:12px 16px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline}
+.px-index h2 small{font-size:12px;font-weight:400;color:var(--ink-2)}
+.px-index ol{list-style:none;margin:0;padding:0}
+.px-index li a{display:grid;grid-template-columns:64px 1fr;align-items:baseline;padding:11px 16px;border-bottom:1px solid var(--line);text-decoration:none}
+.px-index li a:hover,.px-index li a:focus-visible{background:var(--paper)}
+.px-index li a:hover b{color:var(--terra)}
+.px-index .no{font-family:var(--mono);font-size:12.5px;color:var(--terra);direction:ltr;text-align:right}
+.px-index b{font-size:15.5px;display:block}
+.px-index em{font-style:normal;font-size:13px;color:var(--ink-2);display:block;line-height:1.6}
+.px-tb{display:grid;grid-template-columns:1fr 1fr;font-size:12.5px}
+.px-tb div{padding:9px 16px;border-top:1px solid var(--line)}
+.px-tb div+div{border-right:1px solid var(--line)}
+.px-tb span{display:block;color:var(--ink-2)}
+.px-tb strong{font-size:13.5px}
+
+/* اللوحة */
+.px-sheet{border-top:2px solid var(--ink);padding-block:clamp(36px,5vw,56px) clamp(40px,5vw,60px);scroll-margin-top:72px}
+.px-sh{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 28px;margin-bottom:clamp(22px,3vw,32px)}
+.px-sh .no{font-family:var(--mono);font-size:13px;color:var(--terra);direction:ltr;text-align:right;padding-top:9px}
+.px-sh h2{font-size:clamp(24px,3vw,34px)}
+.px-sh p{color:var(--ink-2);max-width:62ch;margin-top:8px}
+.px-body{margin-inline-start:148px}
+
+/* اليوم ومعنا */
+.px-diff{width:100%;border-collapse:collapse;background:var(--sheet);border:1px solid var(--line-2)}
+.px-diff th{font-size:13px;text-align:right;color:var(--ink-2);font-weight:400;padding:10px 18px;border-bottom:1px solid var(--line-2);background:var(--paper)}
+.px-diff th+th{color:var(--terra);font-weight:700}
+.px-diff td{padding:16px 18px;border-bottom:1px solid var(--line);vertical-align:top;width:50%;line-height:1.85}
+.px-diff td:first-child{color:var(--ink-2)}
+.px-diff td+td{border-right:1px solid var(--line);font-weight:700}
+.px-diff td+td span{display:block;font-weight:400;color:var(--ink-2);font-size:14.5px;margin-top:4px}
+
+/* أقسام الفحص */
+.px-secs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line-2);background:var(--sheet)}
+.px-secs>div{padding:18px 20px 20px;min-width:0}
+.px-secs>div+div{border-right:1px solid var(--line)}
+.px-secs .cnt{font-family:var(--mono);font-size:30px;line-height:1;color:var(--ink);direction:ltr;text-align:right;display:block}
+.px-secs .cnt small{font-family:var(--font);font-size:13px;color:var(--ink-2);margin-inline-start:6px}
+.px-secs h3{font-size:17px;margin:12px 0 4px}
+.px-secs p{font-size:14.5px;color:var(--ink-2);line-height:1.8}
+.px-secs .src{font-size:12.5px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.px-verdict{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-top:22px;padding:16px 20px;border:1px solid var(--line-2);background:var(--paper)}
+.px-verdict .v{display:flex;gap:8px;flex-wrap:wrap}
+.px-verdict .v span{font-size:13.5px;font-weight:700;border:1.5px solid currentColor;padding:3px 12px;border-radius:var(--r-tag)}
+.px-verdict .v .a{color:var(--ok)} .px-verdict .v .b{color:var(--major)} .px-verdict .v .c{color:var(--stop)}
+.px-verdict p{font-size:14.5px;color:var(--ink-2)}
+
+/* قوائم بندية */
+.px-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,3vw,40px)}
+.px-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.px-list li{padding:13px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:4px 20px}
+.px-list li b{font-size:15.5px}
+.px-list li span{color:var(--ink-2);font-size:15px;line-height:1.8}
+.px-list.one li{grid-template-columns:1fr}
+.px-h3{font-size:16px;margin:0 0 10px}
+.px-note{font-size:14px;color:var(--ink-2);margin-top:14px}
+.px-link{color:var(--terra);font-weight:700;text-underline-offset:5px}
+
+/* فريق المكتب: مخطط الأدوار */
+.px-team{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.px-org{border:1px solid var(--line-2);background:var(--sheet);padding:20px}
+.px-org .node{border:1.5px solid var(--ink);padding:10px 14px;background:var(--sheet)}
+.px-org .node b{display:block;font-size:15.5px}
+.px-org .node span{font-size:13px;color:var(--ink-2)}
+.px-org .mgr{border-color:var(--terra)}
+.px-org .mgr b{color:var(--terra)}
+.px-org .stem{width:1.5px;height:22px;background:var(--ink);margin-inline-start:28px}
+.px-org .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1.5px solid var(--ink);padding-top:14px;margin-inline-start:28px}
+.px-org .row3 .node{padding:8px 10px}
+.px-org .proj{margin-top:16px;padding:10px 14px;border:1px dashed var(--line-2);font-size:13.5px;color:var(--ink-2);background:var(--paper)}
+
+/* البداية */
+.px-launch{margin-top:22px;padding:14px 18px;border-inline-start:3px solid var(--terra);background:var(--sheet);font-size:15px;color:var(--ink-2)}
+.px-launch b{color:var(--ink)}
+.cta-band .btn.line{background:transparent;border-color:rgba(255,255,255,.35)}
+.cta-band .btn.line:hover{border-color:var(--paper)}
+.px-home{border-top:1px solid var(--line-2);padding-block:22px;font-size:15px;color:var(--ink-2)}
+.px-home a{color:var(--ink);font-weight:700;text-underline-offset:5px}
+
+@media (max-width:900px){
+  .px-hero{grid-template-columns:1fr}
+  .px-body{margin-inline-start:0}
+  .px-sh{grid-template-columns:1fr;gap:2px}
+  .px-sh .no{padding-top:0}
+  .px-secs{grid-template-columns:1fr}
+  .px-secs>div+div{border-right:0;border-top:1px solid var(--line)}
+  .px-two,.px-team{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .px-diff,.px-diff tbody,.px-diff tr,.px-diff td{display:block;width:100%}
+  .px-diff thead{display:none}
+  .px-diff td{border-bottom:0;padding:14px 16px 4px}
+  .px-diff td+td{border-right:0;padding:4px 16px 16px;border-bottom:1px solid var(--line-2)}
+  .px-diff td:first-child::before{content:"اليوم: ";font-weight:700}
+  .px-diff td+td::before{content:"معنا: ";color:var(--terra)}
+  .px-list li{grid-template-columns:1fr}
+  .px-verdict{grid-template-columns:1fr}
+  .px-org .row3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="bn">البيت بيتك</span><b>للمكاتب والمصممين</b></a>
+    <nav aria-label="أقسام الصفحة">
+      <a href="#fahs">الفحص الفني</a><a href="#boq">جداول الكميات</a><a href="#team">فريق المكتب</a><a href="#start">كيف تبدأ</a>
+    </nav>
+    <div class="auth" data-auth><a class="btn sm" href="../account/?next=..%2Ffahs%2Fapp.html">الدخول</a></div>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+  <div class="px-hero">
+    <div>
+      <h1>مخططك يمر علينا قبل أن يمر على الأمانة</h1>
+      <p class="px-lead">منصة للمكاتب الهندسية ومصممي المساكن. ترفع مخطط الفيلا أو الدبلكس، فيصلك فحص فني يقيسه على اشتراطات البلدية والكود وموجهات العمارة السعودية ويسمّي لكل ملاحظة بندها ومرجعها، وجدول كميات مسعّر من المخطط نفسه، وكل ذلك في حساب واحد يجمع فريق المكتب.</p>
+      <div class="px-who"><span>مكاتب هندسية</span><span>مصممو مساكن</span><span>استوديوهات تصميم</span></div>
+      <div class="px-act">
+        <a class="btn" href="../account/?new=office">سجّل حساب المكتب</a>
+        <a class="btn line" href="../account/?new=designer">سجّل مصمماً</a>
+        <a class="linkish" href="../fahs/#try">اطلع على تقرير عينة</a>
+      </div>
+    </div>
+
+    <nav class="px-index" aria-label="فهرس اللوحات">
+      <h2>فهرس اللوحات <small>ست لوحات</small></h2>
+      <ol>
+        <li><a href="#change"><span class="no">P-01</span><span><b>ما الذي يتغير في عملك</b><em>من الرفض وإعادة الرفع إلى رفع مرة واحدة</em></span></a></li>
+        <li><a href="#fahs"><span class="no">P-02</span><span><b>الفحص الفني</b><em>تختار أقسامه قبل كل طلب، وكل ملاحظة ببندها</em></span></a></li>
+        <li><a href="#boq"><span class="no">P-03</span><span><b>جداول الكميات</b><em>مسعّرة من المخطط، وتُنزّل إكسل</em></span></a></li>
+        <li><a href="#team"><span class="no">P-04</span><span><b>فريق المكتب</b><em>مدير ومهندسون في حساب واحد</em></span></a></li>
+        <li><a href="#trust"><span class="no">P-05</span><span><b>لماذا تثق بالتقرير</b><em>المرجع، والمراجعة، والسرية</em></span></a></li>
+        <li><a href="#start"><span class="no">P-06</span><span><b>كيف تبدأ</b><em>من التسجيل إلى أول تقرير</em></span></a></li>
+      </ol>
+      <div class="px-tb">
+        <div><span>الحالة</span><strong>مرحلة الإطلاق</strong></div>
+        <div><span>التكلفة الآن</span><strong>مجاني لعدد محدود</strong></div>
+      </div>
+    </nav>
+  </div>
+
+  <section class="px-sheet" id="change" aria-labelledby="change-h">
+    <div class="px-sh"><span class="no">P-01</span><div><h2 id="change-h">ما الذي يتغير في عملك</h2><p>أربعة مواضع يضيع فيها وقت المكتب اليوم، وما نقدمه في كل واحد منها.</p></div></div>
+    <div class="px-body">
+      <table class="px-diff">
+        <thead><tr><th scope="col">اليوم</th><th scope="col">معنا</th></tr></thead>
+        <tbody>
+          <tr><td>يعود المخطط من الأمانة بملاحظات لم تكن في الحسبان، ويضيع أسبوع في التعديل وإعادة الرفع.</td><td>تعرف الملاحظات قبل الرفع<span>كل ملاحظة ببندها ومرجعها ودرجتها وعلاجها، فترفع المخطط مرة واحدة.</span></td></tr>
+          <tr><td>يُحصر جدول الكميات يدوياً من اللوحات في أيام، ويختلف من مهندس لآخر.</td><td>جدول كميات مسعّر من المخطط نفسه<span>تطلبه من أي إصدار، وما يُقدَّر بالمتر المربع يُوسم في الجدول بأنه تقديري.</span></td></tr>
+          <tr><td>ملفات المشاريع وتقاريرها موزعة بين أجهزة المهندسين ومحادثات واتساب.</td><td>حساب واحد للمكتب<span>كل المشاريع وإصداراتها وتقاريرها أمام الفريق، ومن أنشأ كل مشروع ومن رفع كل إصدار.</span></td></tr>
+          <tr><td>يسأل العميل: هل التصميم جيد، أم مقبول للأمانة فقط؟</td><td>فحص لجودة التصميم مع المطابقة<span>صلاحية الفراغات للعيش وقواعد البيت السعودي، بملاحظات تشرحها لعميلك.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="px-sheet" id="fahs" aria-labelledby="fahs-h">
+    <div class="px-sh"><span class="no">P-02</span><div><h2 id="fahs-h">الفحص الفني</h2><p>قبل كل طلب تختار الأقسام التي تريد فحصها، أو تختارها كلها. والتقرير يصلك بأقسامه واضحة، يُطوى كل قسم ويُفتح، ويُصدَّر PDF كاملاً أو قسماً واحداً.</p></div></div>
+    <div class="px-body">
+      <div class="px-secs">
+        <div><span class="cnt">56<small>قاعدة</small></span><h3>الاشتراطات النظامية</h3><p>الارتدادات ونسب البناء والارتفاعات والمواقف والملاحق والبروزات والحدود الدنيا للفراغات والمناور والدرج.</p><p class="src">اشتراطات إنشاء المباني السكنية، والكود السعودي، ودليل تصميم المواقف</p></div>
+        <div><span class="cnt">32<small>قاعدة</small></span><h3>الموجهات التصميمية</h3><p>طراز الموقع ونمطه، ونسب الفتحات، والدروة وخط السقف، والمدخل والسور، والمواد والألوان.</p><p class="src">موجهات عمارة واحات الأحساء ودليلها التطبيقي للفلل</p></div>
+        <div><span class="cnt">19<small>قاعدة</small></span><h3>جودة التصميم المعماري</h3><p>مساحات الغرف الصالحة للعيش، والمطبخ، والممرات والأبواب، والدرج، والمجلس والمدخل، وخصوصية الجار.</p><p class="src">ستاندرد مهني من خبرة التصميم والتنفيذ، وقواعد البيت السعودي</p></div>
+      </div>
+      <div class="px-verdict">
+        <div class="v"><span class="a">جاهز للرفع</span><span class="b">يُرفع بعد العلاج</span><span class="c">يعاد للتصميم</span></div>
+        <p>حكم الجاهزية يُبنى من الاشتراطات النظامية وحدها. وملاحظات جودة التصميم نصائح تحسّن المسكن ولا تغيّر الحكم.</p>
+      </div>
+      <div class="px-two" style="margin-top:28px">
+        <div>
+          <h3 class="px-h3">ما في التقرير</h3>
+          <ul class="px-list one">
+            <li><span><b>مختصر تنفيذي في أوله:</b> الحكم، ورسم لملاحظات كل قسم بدرجاتها، وأخطر الملاحظات بروابط إلى مواضعها.</span></li>
+            <li><span><b>كل ملاحظة:</b> ما وجدناه في المخطط بالأرقام، والمطلوب، والبند ومرجعه، والعلاج.</span></li>
+            <li><span><b>أسئلة:</b> ما لم يجب عنه المخطط يتحول إلى سؤال لا إلى حكم.</span></li>
+            <li><span><b>مقارنة الإصدارات:</b> بعد التعديل ترفع إصداراً جديداً، ويُبيَّن لك ما عولج وما بقي.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="px-h3">ما ترفعه</h3>
+          <ul class="px-list">
+            <li><b>DXF</b><span>الأدق: الأبعاد والمساحات والمناسيب تُقرأ أرقاماً من الملف نفسه.</span></li>
+            <li><b>PDF مصدّر</b><span>من برنامج الرسم مباشرة، فتُقرأ نصوصه وأبعاده.</span></li>
+            <li><b>صور ومسح</b><span>تُقرأ بالنظر، وما لا يُقرأ بثقة يُسأل عنه.</span></li>
+          </ul>
+          <p class="px-note">التقرير الكامل على مخطط حقيقي: <a class="px-link" href="../fahs/#try">تقرير العينة</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-sheet" id="boq" aria-labelledby="boq-h">
+    <div class="px-sh"><span class="no">P-03</span><div><h2 id="boq-h">جداول الكميات</h2><p>من أي إصدار في المشروع تطلب جدول كميات مسعّراً بالمواصفات والأسعار التقديرية، فتعطي عميلك رقماً مبنياً على المخطط لا على تقدير عام.</p></div></div>
+    <div class="px-body">
+      <ul class="px-list">
+        <li><b>التخصصات</b><span>المعماري أساساً، ويُضاف الإنشائي والكهربائي والصحي والتكييف حين تُرفع مخططاتها.</span></li>
+        <li><b>ما لم يُرفع</b><span>يُقدَّر بالمتر المربع ويُوسم في الجدول بأنه تقديري، فلا يختلط المحسوب بالمقدَّر.</span></li>
+        <li><b>الاستلام</b><span>في صفحة المشروع بعد المراجعة، ويُنزّل ملف إكسل أو CSV تعدّل عليه وتسلّمه.</span></li>
+        <li><b>مع الفحص</b><span>إن اخترت قسم الكميات عند رفع الإصدار، يُطلب الجدول معه تلقائياً.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-sheet" id="team" aria-labelledby="team-h">
+    <div class="px-sh"><span class="no">P-04</span><div><h2 id="team-h">فريق المكتب</h2><p>المكتب حساب واحد يملك مشاريعه وتقاريرها. يدعو المدير مهندسيه برابط، فيعمل الفريق كله على المشاريع نفسها.</p></div></div>
+    <div class="px-body px-team">
+      <div class="px-org" aria-hidden="true">
+        <div class="node mgr"><b>مدير المكتب</b><span>يدعو ويوقف ويغيّر الأدوار</span></div>
+        <div class="stem"></div>
+        <div class="row3">
+          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
+          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
+          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
+        </div>
+        <div class="proj">مشاريع المكتب وتقاريرها: يراها الفريق كله</div>
+      </div>
+      <ul class="px-list">
+        <li><b>الدعوة</b><span>يكتب المدير بريد المهندس، فيظهر رابط يرسله بواتساب. يدخل المهندس به فينضم مباشرة.</span></li>
+        <li><b>العمل المشترك</b><span>كل عضو يرى مشاريع المكتب كلها، ويظهر من أنشأ كل مشروع ومن رفع كل إصدار.</span></li>
+        <li><b>المغادرة</b><span>يوقف المدير حساب من غادر، وتبقى مشاريعه وتقاريره للمكتب.</span></li>
+        <li><b>الاستخدام</b><span>حد الاستخدام الشهري للمكتب كله، لا لكل مهندس.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-sheet" id="trust" aria-labelledby="trust-h">
+    <div class="px-sh"><span class="no">P-05</span><div><h2 id="trust-h">لماذا تثق بالتقرير</h2><p>قيمة التقرير أن كل ما فيه منسوب إلى نص، لا رأي يُجادَل فيه.</p></div></div>
+    <div class="px-body px-two">
+      <ul class="px-list one">
+        <li><span><b>المرجع:</b> كل ملاحظة باسم الاشتراط أو الكود أو الموجه ورقم بنده، ونص البند حين يلزم.</span></li>
+        <li><span><b>الأرقام:</b> لا يُخترع رقم. ما يُقرأ من الملف يُذكر بأنه من ملف الرسم، وما يُقاس من الصورة يُذكر بأنه بالقياس.</span></li>
+        <li><span><b>حدود الثقة:</b> ما لم يُثبَّت رقمه من النص الأصلي يُوسم «للتحقق» ولا يُحكم به بمخالفة صريحة.</span></li>
+      </ul>
+      <ul class="px-list one">
+        <li><span><b>المراجعة:</b> في مرحلة الإطلاق يراجع معماري كل تقرير قبل أن يصلك.</span></li>
+        <li><span><b>السرية:</b> المخططات لإعداد التقرير فقط، لا تُشارك ولا تُنشر، وتُحذف عند طلبك.</span></li>
+        <li><span><b>المسؤولية:</b> التقرير فحص سابق للرفع، والاعتماد للأمانة، والمسؤولية المهنية على المكتب المصمم.</span></li>
+        <li><span><b>التعلم:</b> ملاحظات الأمانة التي تشاركنا إياها بعد الرفع تصير قواعد جديدة يُفحص بها كل مخطط بعد مخططك.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="px-sheet" id="start" aria-labelledby="start-h">
+    <div class="px-sh"><span class="no">P-06</span><div><h2 id="start-h">كيف تبدأ</h2><p>من التسجيل إلى أول تقرير في خطوات قليلة، ويصلك تنبيه على جهازك حين يصدر.</p></div></div>
+    <div class="px-body">
+      <ol class="steps">
+        <li><span class="k">01</span><h3>سجّل الحساب</h3><p>حساب المكتب أو المصمم بالبريد وكلمة المرور.</p></li>
+        <li><span class="k">02</span><h3>التفعيل</h3><p>يُراجع الطلب ويُفعَّل الحساب للفحص الفني والكميات.</p></li>
+        <li><span class="k">03</span><h3>ارفع المشروع</h3><p>بيانات الأرض والشوارع، والملفات، والأقسام التي تختارها.</p></li>
+        <li><span class="k">04</span><h3>استلم التقرير</h3><p>في صفحة المشروع، ويُنزّل PDF.</p></li>
+        <li class="loop"><span class="k">05</span><h3>ادعُ فريقك</h3><p>مهندسو المكتب برابط دعوة من صفحة المشاريع.</p></li>
+      </ol>
+      <p class="px-launch"><b>مرحلة الإطلاق:</b> الفحص الفني وجداول الكميات متاحة الآن مجاناً لعدد محدود من المكاتب الهندسية والمصممين، مقابل أن تشاركنا ملاحظات الأمانة بعد الرفع.</p>
+      <div class="cta-band"><div><b>ابدأ بأول مشروع</b><span>سجّل الحساب، وارفع المخطط بعد التفعيل.</span></div><div class="row"><a class="btn" href="../account/?new=office">سجّل حساب المكتب</a><a class="btn line on-ink" href="../account/?new=designer">سجّل مصمماً</a><a class="btn line on-ink" href="../account/?next=..%2Ffahs%2Fapp.html">الدخول</a></div></div>
+    </div>
+  </section>
+
+  <p class="px-home">تبني بيتك أو تخطط له؟ <a href="../">أدوات الأفراد في الصفحة الرئيسية</a></p>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>للمكاتب والمصممين · الأحساء</span>
+    <span><a href="../">البيت بيتك</a> · <a href="../fahs/">الفحص الفني</a> · <a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div>
+  </div>
+</footer>
+
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092216"></script>
+<script src="../assets/js/config.js?v=202610092216"></script>
+<script src="../assets/js/stats.js?v=202610092216"></script>
+<script src="../assets/js/session.js?v=202610092216"></script>
+</body>
+</html>

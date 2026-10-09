@@ -23,7 +23,7 @@
 <link rel="manifest" href="manifest.webmanifest?v=202610072210">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="assets/css/fahs.css?v=202610092206">
+<link rel="stylesheet" href="assets/css/fahs.css?v=202610092216">
 <style>
 .home-hero{padding-block:clamp(56px,9vw,104px) clamp(36px,5vw,56px);max-width:44em}
 .home-hero h1{font-size:clamp(38px,5.6vw,62px)}
@@ -66,6 +66,10 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
 .off-cols b{opacity:1;color:#F6F5F1}
 .off-cols ol{margin:0;padding-inline-start:20px}
 .off-cta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.pro-strip{display:flex;justify-content:space-between;align-items:center;gap:18px 28px;flex-wrap:wrap}
+.pro-strip h2{font-size:clamp(19px,2.2vw,23px)}
+.pro-strip p{font-size:15px;opacity:.85;margin-top:6px;max-width:64ch}
+.pro-strip .btn.line.on-ink{color:#F6F5F1;border-color:rgba(246,245,241,.4);background:transparent}
 @media (max-width:860px){.off-cols{grid-template-columns:1fr}.off-cols>div+div{border-right:0;border-top:1px solid rgba(246,245,241,.22);padding-inline-start:0}}
 .offices>*{min-width:0}
 .offices .k{font-size:13px;font-weight:700;color:#E2B9A2}
@@ -82,7 +86,7 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./"><span class="bn">البيت بيتك</span></a>
-    <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="#offices">للمكاتب الهندسية</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <nav aria-label="روابط الموقع"><a href="#journey">مراحل الرحلة</a><a href="pro/">للمكاتب والمصممين</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="account/">الدخول</a></div>
   </div>
 </header>
@@ -152,18 +156,9 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
     </div>
   </div>
 
-  <section class="offices" id="offices" aria-labelledby="off-h" data-rv>
-    <div class="off-head">
-      <span class="k">للمكاتب الهندسية والمصممين</span>
-      <h2 id="off-h">الفحص الفني.. افحص المخطط قبل أن تفحصه الأمانة</h2>
-      <p>خدمة مستقلة عن أدوات الأفراد، خاصة بالمكاتب الهندسية ومصممي المساكن. ترفع المخطط قبل تقديمه على بلدي، فيصلك تقرير يحدد كل ملاحظة بمرجعها ودرجتها وعلاجها.</p>
-    </div>
-    <div class="off-cols">
-      <div><h3>ما الذي يُفحص</h3><p><b>فحص المطابقة:</b> الاشتراطات البلدية وكود البناء وموجهات العمارة السعودية، ومنه وحده يُبنى حكم المطابقة.</p><p><b>فحص جودة التصميم:</b> صلاحية الفراغات للعيش وقواعد البيت السعودي، ولا يدخل في الحكم.</p></div>
-      <div><h3>ما تستلمه</h3><p>تقرير الفحص الفني: حكم المطابقة (جاهز للرفع، أو يُرفع بعد العلاج، أو يعاد للتصميم)، وكل ملاحظة بمرجعها ودرجتها وعلاجها، وأسئلة لم يجب عنها المخطط. يصلك في حسابك ويُنزّل PDF.</p></div>
-      <div><h3>كيف تطلبه</h3><ol><li>سجّل حساب المكتب.</li><li>يُفعَّل الحساب بعد المراجعة.</li><li>ارفع المخطط: DXF أو PDF أو صور.</li><li>يصلك التقرير في حسابك بعد مراجعة مختص.</li></ol></div>
-    </div>
-    <div class="row off-cta"><a class="btn" href="fahs/">التفاصيل وتقرير العينة</a><a class="btn line on-ink" href="account/?new=office">سجّل حساب المكتب أو المصمم</a></div>
+  <section class="offices pro-strip" id="offices" aria-labelledby="off-h">
+    <div><h2 id="off-h">مكتب هندسي أو مصمم مساكن؟</h2><p>للمكاتب والمصممين صفحتهم وخدماتهم: فحص فني للمخطط قبل رفعه للأمانة، وجداول كميات، وحساب لفريق المكتب.</p></div>
+    <a class="btn line on-ink" href="pro/">صفحة المكاتب والمصممين</a>
   </section>
 </div>
 </main>
@@ -174,10 +169,10 @@ a.svc:hover::after{left:14px;border-color:var(--terra)}
     <span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a> · مقال كل أسبوع عن قرارات بيت العمر</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="assets/img/sayah.png"></a></div>
   </div>
 </footer>
-<script src="assets/vendor/supabase-2.117.2.js?v=202610092206"></script>
-<script src="assets/js/config.js?v=202610092206"></script>
-<script src="assets/js/stats.js?v=202610092206"></script>
-<script src="assets/js/session.js?v=202610092206"></script>
-<script src="assets/js/motion.js?v=202610092206"></script>
+<script src="assets/vendor/supabase-2.117.2.js?v=202610092216"></script>
+<script src="assets/js/config.js?v=202610092216"></script>
+<script src="assets/js/stats.js?v=202610092216"></script>
+<script src="assets/js/session.js?v=202610092216"></script>
+<script src="assets/js/motion.js?v=202610092216"></script>
 </body>
 </html>

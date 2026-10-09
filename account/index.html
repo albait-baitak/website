@@ -23,14 +23,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092206">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610092206">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092216">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610092216">
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="../"><span class="bn">البيت بيتك</span></a>
-    <nav aria-label="روابط"><a href="../">الرئيسية</a><a href="../fahs/">الفحص الفني</a></nav>
+    <nav aria-label="روابط"><a href="../">الرئيسية</a><a href="../pro/">للمكاتب والمصممين</a></nav>
     <div class="auth" data-auth><a class="btn sm" href="../account/">الدخول</a></div>
   </div>
 </header>
@@ -39,26 +39,43 @@
   <div class="wrap">
     <p class="msg" id="loading" style="text-align:center;margin-top:40px">جارٍ التحميل..</p>
 
-    <!-- دعوة الانضمام إلى فريق مكتب -->
-    <section class="card inv-card" id="vInv" hidden><div class="card-b"><h2 id="invT"></h2><p id="invP"></p></div></section>
+
+    <!-- واجهة الدخول: لوحة السياق، ونموذج الدخول أو الحساب الجديد -->
+    <div class="auth-shell" id="vAuth" hidden>
+      <aside class="auth-side" id="authSide" aria-live="polite">
+        <svg class="as-draw" viewBox="0 0 240 230" aria-hidden="true">
+          <g class="as-dim"><path d="M30 214H210"/><path d="M30 208V220M210 208V220"/><path d="M226 22V196"/><path d="M220 22H232M220 196H232"/></g>
+          <path class="as-arch" d="M48 196V100C48 52 78 24 120 24C162 24 192 52 192 100V168H164V100C164 70 148 52 120 52C92 52 76 70 76 100V196Z"/>
+          <path class="as-sill" d="M164 182H192V196H164Z"/>
+        </svg>
+        <div class="as-txt">
+          <h2 id="asT">حساب واحد لكل رحلة البيت</h2>
+          <p id="asP">الأفراد يجدون أدوات بيتهم ولوحتهم، والمكاتب والمصممون يجدون مشاريعهم وتقاريرها.</p>
+          <ul class="as-l" id="asL"></ul>
+          <a class="as-link" id="asLink" href="../pro/" hidden>خدمات المكاتب والمصممين</a>
+        </div>
+        <span id="vInv" hidden><b id="invT"></b><span id="invP"></span></span>
+      </aside>
+      <div class="auth-main">
+        <div class="auth-tabs" role="tablist" aria-label="الدخول أو حساب جديد"><button type="button" role="tab" data-go="vLogin" id="tabIn">الدخول</button><button type="button" role="tab" data-go="vSignup" id="tabUp">حساب جديد</button></div>
 
     <!-- الدخول -->
-    <section class="card login" id="vLogin" hidden>
-      <div class="card-h"><h2>الدخول</h2><button class="linkbtn" type="button" data-go="vSignup">حساب جديد</button></div>
-      <div class="card-b">
+    <section class="auth-pane" id="vLogin" hidden>
+      <h1 class="ap-h">أهلاً بعودتك</h1>
+      <div>
         <form id="fLogin" novalidate style="display:flex;flex-direction:column;gap:14px">
           <div class="f"><label for="lEmail">البريد الإلكتروني</label><input id="lEmail" type="email" autocomplete="email" dir="ltr"></div>
-          <div class="f"><label for="lPass">كلمة المرور</label><input id="lPass" type="password" autocomplete="current-password" dir="ltr"></div>
-          <div class="row" style="justify-content:space-between"><button class="btn" type="submit" id="lBtn">دخول</button><button class="linkbtn" type="button" id="btnForgot">نسيت كلمة المرور</button></div>
+          <div class="f"><label for="lPass" class="lbl-row"><span>كلمة المرور</span><button class="linkbtn" type="button" id="btnForgot">نسيتها؟</button></label><div class="pw"><input id="lPass" type="password" autocomplete="current-password" dir="ltr"><button class="linkbtn" type="button" id="lShow">إظهار</button></div></div>
+          <button class="btn wide" type="submit" id="lBtn">دخول</button>
           <p class="msg" id="lMsg" role="status"></p>
         </form>
       </div>
     </section>
 
     <!-- حساب جديد -->
-    <section class="card" id="vSignup" hidden style="max-width:720px;margin-inline:auto;width:100%">
-      <div class="card-h"><h2>حساب جديد</h2><button class="linkbtn" type="button" data-go="vLogin">عندي حساب</button></div>
-      <div class="card-b">
+    <section class="auth-pane" id="vSignup" hidden>
+      <h1 class="ap-h">حساب جديد</h1>
+      <div>
         <form id="fSignup" class="grid2" novalidate>
           <fieldset class="full" style="border:0;padding:0;margin:0">
             <legend class="f" style="padding:0;margin-bottom:8px"><label>من أنت؟</label></legend>
@@ -86,23 +103,25 @@
           <div class="f"><label for="sEmail">البريد الإلكتروني</label><input id="sEmail" type="email" autocomplete="email" dir="ltr"></div>
           <div class="f"><label for="sPass">كلمة المرور <span class="o">8 أحرف على الأقل</span></label><div class="pw"><input id="sPass" type="password" autocomplete="new-password" dir="ltr"><button class="linkbtn" type="button" id="sShow">إظهار</button></div></div>
           <p class="full muted privacy" id="sNote">نحفظ ما تكتبه في الأدوات في حسابك، لتجده في أي جهاز تدخل منه، ولا نشاركه مع أي جهة. ونسجّل إحصاءات استخدام داخلية لتحسين الموقع، بلا كوكيز إعلانية ولا طرف خارجي.</p>
-          <div class="row full"><button class="btn" type="submit" id="sBtn">إنشاء الحساب</button><span class="msg" id="sMsg" role="status"></span></div>
+          <div class="full"><button class="btn wide" type="submit" id="sBtn">إنشاء الحساب</button><p class="msg" id="sMsg" role="status"></p></div>
         </form>
       </div>
     </section>
 
     <!-- كلمة مرور جديدة -->
-    <section class="card login" id="vReset" hidden>
-      <div class="card-h"><h2>كلمة مرور جديدة</h2></div>
-      <div class="card-b">
+    <section class="auth-pane" id="vReset" hidden>
+      <h1 class="ap-h">كلمة مرور جديدة</h1>
+      <div>
         <form id="fReset" novalidate style="display:flex;flex-direction:column;gap:14px">
           <div class="f"><label for="nPass">كلمة المرور الجديدة <span class="o">8 أحرف على الأقل</span></label><input id="nPass" type="password" autocomplete="new-password" dir="ltr"></div>
           <div class="f"><label for="nPass2">تأكيدها</label><input id="nPass2" type="password" autocomplete="new-password" dir="ltr"></div>
-          <div class="row"><button class="btn" type="submit" id="nBtn">حفظ</button></div>
+          <button class="btn wide" type="submit" id="nBtn">حفظ كلمة المرور</button>
           <p class="msg" id="nMsg" role="status"></p>
         </form>
       </div>
     </section>
+      </div>
+    </div>
 
     <!-- إكمال بيانات حساب قديم -->
     <section class="card" id="vReg" hidden style="max-width:720px;margin-inline:auto;width:100%">
@@ -144,16 +163,16 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092206"></script>
-<script src="../assets/js/config.js?v=202610092206"></script>
-<script src="../assets/js/stats.js?v=202610092206"></script>
-<script src="../assets/js/access.js?v=202610092206"></script>
-<script src="../assets/js/session.js?v=202610092206"></script>
-<script src="../assets/js/userpush.js?v=202610092206"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092216"></script>
+<script src="../assets/js/config.js?v=202610092216"></script>
+<script src="../assets/js/stats.js?v=202610092216"></script>
+<script src="../assets/js/access.js?v=202610092216"></script>
+<script src="../assets/js/session.js?v=202610092216"></script>
+<script src="../assets/js/userpush.js?v=202610092216"></script>
 <script src="../assets/js/dash/sum-a.js?v=202610072227"></script>
 <script src="../assets/js/dash/sum-b.js?v=202610072227"></script>
 <script src="../assets/js/dash/sum-c.js?v=202610072227"></script>
-<script src="../assets/js/dash.js?v=202610092206"></script>
+<script src="../assets/js/dash.js?v=202610092216"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -162,7 +181,21 @@ var user=null,profile=null,recovering=false;
 var HERE=location.origin+location.pathname;
 var ORG={office:'اسم المكتب',contractor:'اسم المؤسسة',designer:'اسم المكتب أو الاستوديو'};
 function msg(id,t,cls){var m=$(id);m.textContent=t||'';m.className='msg'+(cls?' '+cls:'')}
-function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true}
+function only(id){['vLogin','vSignup','vReset','vReg','vState','vHome'].forEach(function(v){var e=$(v);e.hidden=v!==id;if(v==='vHome')e.style.display=v===id?'contents':'none'});$('loading').hidden=true;
+  var auth=id==='vLogin'||id==='vSignup'||id==='vReset';$('vAuth').hidden=!auth;
+  $('tabIn').setAttribute('aria-selected',id==='vLogin');$('tabUp').setAttribute('aria-selected',id==='vSignup');$('vAuth').querySelector('.auth-tabs').hidden=id==='vReset';
+  if(auth)side(id==='vSignup'?sRole():null)}
+/* لوحة السياق بجانب النموذج: تتغير بنوع الزائر */
+var SIDE={
+  all:['حساب واحد لكل رحلة البيت','الأفراد يجدون أدوات بيتهم ولوحتهم، والمكاتب والمصممون يجدون مشاريعهم وتقاريرها.',['لوحة تريك آخر ما وصلت إليه وخطوتك التالية','الفحص الفني وجداول الكميات للمكاتب والمصممين','كل ما تكتبه محفوظ، وتجده في أي جهاز']],
+  owner:['بيتك في ملف واحد','من قرار البناء إلى السكن، أدوات تشتغل على بيتك أنت لا على بيت افتراضي.',['لوحة تريك آخر ما وصلت إليه وخطوتك التالية','كل ما تكتبه محفوظ في حسابك، وتجده في أي جهاز','مواعيد بيتك القادمة في مكان واحد']],
+  pro:['بوابة المكاتب والمصممين','مخططك يمر علينا قبل أن يمر على الأمانة.',['فحص فني يسمّي لكل ملاحظة بندها ومرجعها','جدول كميات مسعّر من المخطط نفسه','حساب واحد يجمع فريق المكتب']]};
+var SIDE_KIND=null;
+function side(role){if(INV&&INV.office)return;
+  var k=role?(role==='office'||role==='designer'?'pro':'owner'):(/[?&](new=(office|designer)|next=[^&]*fahs)/.test(location.search)?'pro':'all');
+  if(k===SIDE_KIND)return;SIDE_KIND=k;var d=SIDE[k];
+  $('asT').textContent=d[0];$('asP').textContent=d[1];var ul=$('asL');ul.innerHTML='';d[2].forEach(function(t){ul.appendChild(el('li',null,t))});
+  $('asLink').hidden=k!=='pro';$('authSide').className='auth-side'+(k==='pro'?' is-pro':'')}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function normPhone(s){return String(s||'').replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c)}).replace(/[۰-۹]/g,function(c){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)}).replace(/[\s-]/g,'').replace(/^00966/,'+966').replace(/^9665/,'+9665')}
 function okEmail(s){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)}
@@ -207,14 +240,15 @@ function invClear(){INV=null;try{localStorage.removeItem('bb_invite')}catch(x){}
   if(!t||!/^[0-9a-f]{64}$/.test(t))return;INV={token:t};
   BB.rpc('invite_info',{p_token:t}).then(function(r){var d=r.data;
     if(!d||!d.valid){var fresh=/[?&]invite=/.test(location.search);invClear();
-      if(fresh){$('vInv').hidden=false;$('invT').textContent='رابط الدعوة غير صالح';$('invP').textContent=d&&d.used?'استُخدم هذا الرابط من قبل. إن كان لك حساب فادخل به.':'انتهت صلاحية الرابط أو أُلغي. اطلب من مدير المكتب دعوة جديدة.'}return}
+      if(fresh){SIDE_KIND='invite';$('asT').textContent='رابط الدعوة غير صالح';$('asP').textContent=d&&d.used?'استُخدم هذا الرابط من قبل. إن كان لك حساب فادخل به.':'انتهت صلاحية الرابط أو أُلغي. اطلب من مدير المكتب دعوة جديدة.';$('asL').innerHTML='';$('asLink').hidden=true}return}
     INV.office=d.office;INV.email=d.email;
-    $('invT').textContent='دعوة للانضمام إلى فريق '+d.office;
-    $('invP').textContent='دعاك المكتب للانضمام إلى فريقه في الفحص الفني بالبريد '+d.email+'. إن كان لك حساب بهذا البريد فادخل به، وإلا فأنشئ حساباً به، وتنضم إلى الفريق مباشرة بلا انتظار مراجعة.';
+    $('asT').textContent='دعوة إلى فريق '+d.office;
+    $('asP').textContent='دعاك المكتب للانضمام إلى فريقه بالبريد '+d.email+'. إن كان لك حساب بهذا البريد فادخل به، وإلا فأنشئ حساباً به، وتنضم إلى الفريق مباشرة بلا انتظار مراجعة.';
+    var ul=$('asL');ul.innerHTML='';['مشاريع المكتب كلها أمامك','ما ترفعه يراه الفريق','تقارير الفحص وجداول الكميات في صفحة كل مشروع'].forEach(function(t){ul.appendChild(el('li',null,t))});$('asLink').hidden=true;$('authSide').className='auth-side is-pro';SIDE_KIND='invite';
     var rr=document.querySelector('input[name=rr][value=office]');if(rr){rr.checked=true;sLayout()}
     $('sEmail').value=d.email;$('lEmail').value=d.email;$('sOrg').value=d.office;$('sOrg').readOnly=true;
     $('sNote').textContent='تنضم إلى فريق '+d.office+' فور إنشاء الحساب وتأكيد بريدك.';$('sNameL').textContent='اسمك';
-    if(user)joinInvite();else $('vInv').hidden=false;
+    if(user)joinInvite();else if(!$('vLogin').hidden)only('vSignup');
   });
 })();
 function joinInvite(){if(!INV||!INV.office||!user||joining)return false;joining=true;$('vInv').hidden=true;$('loading').hidden=false;
@@ -254,7 +288,7 @@ function sLayout(){var r=sRole();
   var sp=$('sSpec');if(SPEC[r]){var cur=sp.value;sp.innerHTML='';var o0=document.createElement('option');o0.value='';o0.textContent='اختر';sp.appendChild(o0);SPEC[r].forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sp.appendChild(o)});if(SPEC[r].indexOf(cur)>=0)sp.value=cur}
   $('sNote').textContent=NOTE[r];
 }
-document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',sLayout)});
+document.querySelectorAll('input[name=rr]').forEach(function(r){r.addEventListener('change',function(){sLayout();side(sRole())})});
 (function(){var m=/[?&]new=(office|designer|contractor|owner)\b/.exec(location.search);if(m){var r=document.querySelector('input[name=rr][value='+m[1]+']');if(r)r.checked=true}})();
 sLayout();
 /* المرحلة اختيارية: الضغط على المختارة يلغيها */
@@ -262,6 +296,7 @@ document.querySelectorAll('input[name=st]').forEach(function(r){var was=false;
   r.parentNode.addEventListener('pointerdown',function(){was=r.checked});
   r.addEventListener('click',function(){if(was){r.checked=false;was=false}})});
 $('sShow').addEventListener('click',function(){var i=$('sPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'إظهار':'إخفاء'});
+$('lShow').addEventListener('click',function(){var i=$('lPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'إظهار':'إخفاء'});
 $('fSignup').addEventListener('submit',function(e){
   e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
   if(INV&&INV.email&&em.toLowerCase()!==INV.email.toLowerCase()){msg('sMsg','الدعوة للبريد '+INV.email+'؛ أنشئ الحساب به لتنضم إلى الفريق.','bad');return}

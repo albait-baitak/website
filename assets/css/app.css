@@ -399,3 +399,47 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 #cTeam small.sub,.inv-row small.sub{color:var(--ink-2);font-size:12.5px}
 .inv-card{max-width:720px;margin:0 auto 18px;width:100%;border-color:var(--terra)}
 .inv-card h2{font-size:18px;margin:0 0 6px}.inv-card p{margin:0;color:var(--ink-2)}
+
+/* واجهة الدخول: لوحة سياق داكنة فيها رسم العتبة، ونموذج على ورقة بيضاء */
+.auth-shell{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);max-width:1040px;margin:clamp(20px,4vw,48px) auto;background:var(--sheet);border:1px solid var(--ink);box-shadow:8px 8px 0 var(--line)}
+.auth-side{position:relative;background:#1F1A17;color:#F6F5F1;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;gap:22px;overflow:hidden;
+  background-image:linear-gradient(rgba(246,245,241,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(246,245,241,.045) 1px,transparent 1px);background-size:12px 12px}
+.as-draw{width:min(210px,58%);height:auto;align-self:flex-start;overflow:visible}
+.as-arch{fill:none;stroke:#F6F5F1;stroke-width:1.6;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:as-line 1.6s cubic-bezier(.6,.1,.2,1) .15s forwards}
+.as-sill{fill:#D47B58;opacity:0;animation:as-in .5s ease 1.5s forwards}
+.as-dim path{fill:none;stroke:rgba(246,245,241,.38);stroke-width:1}
+@keyframes as-line{to{stroke-dashoffset:0}}
+@keyframes as-in{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.as-arch{animation:none;stroke-dashoffset:0}.as-sill{animation:none;opacity:1}}
+.as-txt h2{font-size:clamp(22px,2.6vw,28px);line-height:1.35;color:#F6F5F1}
+.as-txt p{margin-top:10px;font-size:15.5px;line-height:1.9;color:rgba(246,245,241,.78)}
+.as-l{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid rgba(246,245,241,.18)}
+.as-l li{padding:10px 0 10px;border-bottom:1px solid rgba(246,245,241,.12);font-size:14.5px;display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:baseline}
+.as-l li::before{content:"";width:8px;height:8px;background:#D47B58;transform:translateY(-1px)}
+.as-link{display:inline-block;margin-top:16px;color:#F6F5F1;font-weight:700;font-size:14.5px;text-underline-offset:5px}
+.auth-main{padding:clamp(22px,3.4vw,40px);display:flex;flex-direction:column;gap:20px;min-width:0}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-2);border-radius:var(--r-ctl);padding:3px;background:var(--paper)}
+.auth-tabs button{font:inherit;font-size:15px;font-weight:700;border:0;background:transparent;color:var(--ink-2);padding:9px 10px;border-radius:calc(var(--r-ctl) - 2px);cursor:pointer}
+.auth-tabs button[aria-selected="true"]{background:var(--sheet);color:var(--ink);box-shadow:0 1px 0 var(--line-2),0 0 0 1px var(--line-2)}
+.auth-pane .ap-h{font-size:clamp(22px,2.4vw,27px);margin-bottom:18px}
+.auth-pane .f input,.auth-pane .f select{min-height:46px;font-size:16px;background:var(--sheet)}
+.auth-pane .f input:focus,.auth-pane .f select:focus{border-color:var(--ink);outline:none;box-shadow:0 0 0 3px rgba(166,83,56,.18)}
+.auth-pane .f label{font-size:14px}
+.auth-pane #fLogin,.auth-pane #fReset{gap:16px!important}
+.lbl-row{display:flex;justify-content:space-between;align-items:baseline}
+.lbl-row .linkbtn{font-size:13px;font-weight:400}
+.btn.wide{width:100%;min-height:48px;font-size:16px;margin-top:4px}
+.auth-pane .msg{margin-top:8px}
+.auth-pane .choice label{background:var(--sheet)}
+.auth-pane .choice label:has(input:checked){background:var(--paper)}
+.auth-pane .privacy{padding:10px 12px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-ctl)}
+@media (max-width:860px){
+  .auth-shell{grid-template-columns:1fr;box-shadow:none;margin-top:16px}
+  .auth-side{flex-direction:row;align-items:center;gap:18px;padding:20px}
+  .as-draw{width:74px;flex:none}
+  .as-dim{display:none}
+  .as-l,.as-link{display:none}
+  .as-txt h2{font-size:19px}.as-txt p{font-size:14px;margin-top:4px;line-height:1.75}
+}
+.auth-pane .choice.four{grid-template-columns:1fr 1fr}
+.auth-pane .choice.four label{padding:12px 14px}
