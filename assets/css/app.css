@@ -458,3 +458,4 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 @keyframes pane-in{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.auth-shell,.auth-pane{animation:none}}
 @media (max-width:860px){.auth-shell{border-radius:20px}}
+.flist .from{display:block;font-size:12px;color:var(--ink-2)}

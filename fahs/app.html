@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092245">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610092245">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092256">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610092256">
 </head>
 <body>
 <header class="top">
@@ -90,9 +90,9 @@
             <div class="f"><label for="nPrev">ملاحظات سابقة من الأمانة <span class="o">إن وُجدت</span></label><input id="nPrev"></div>
             <div class="full">
               <label class="drop2" id="nDrop" for="nFiles">
-                <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
+                <input type="file" id="nFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp,.zip">
                 <b>اسحب ملفات المخطط هنا</b>
-                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · أو ملف مضغوط ZIP فيه كل اللوحات · حتى 50MB للوحة</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
               </label>
               <ul class="flist" id="nList"></ul>
             </div>
@@ -131,9 +131,9 @@
             <form id="fRev" class="grid2" novalidate>
               <div class="full">
               <label class="drop2" id="rDrop" for="rFiles">
-                <input type="file" id="rFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp">
+                <input type="file" id="rFiles" multiple accept=".pdf,.dwg,.dxf,.png,.jpg,.jpeg,.webp,.zip">
                 <b>اسحب ملفات المخطط هنا</b>
-                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · حتى 50MB للملف</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
+                <small>أو اضغط للاختيار · DXF · PDF · PNG · JPG · DWG · أو ملف مضغوط ZIP فيه كل اللوحات · حتى 50MB للوحة</small><small>الأدق: DXF، أو PDF مصدّر مباشرة من برنامج الرسم بدقته الأصلية، فأبعاده وأسماؤه تُقرأ أرقاماً. الملف الممسوح أو المضغوط يُقرأ بالنظر فقط ويكثر فيه «غير موضّح». وDWG يُرفق معه DXF أو PDF.</small>
               </label>
               <ul class="flist" id="rList"></ul>
             </div>
@@ -198,18 +198,18 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092245"></script>
-<script src="../assets/js/config.js?v=202610092245"></script>
-<script src="../assets/js/stats.js?v=202610092245"></script>
-<script src="../assets/js/access.js?v=202610092245"></script>
-<script src="../assets/js/session.js?v=202610092245"></script>
-<script src="../assets/js/rules.js?v=202610092245"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610092245"></script>
-<script src="../assets/js/dxf.js?v=202610092245"></script>
-<script src="../assets/js/pdfx.js?v=202610092245"></script>
-<script src="../assets/js/report.js?v=202610092245"></script>
-<script src="../assets/js/boq.js?v=202610092245"></script>
-<script src="../assets/js/userpush.js?v=202610092245"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092256"></script>
+<script src="../assets/js/config.js?v=202610092256"></script>
+<script src="../assets/js/stats.js?v=202610092256"></script>
+<script src="../assets/js/access.js?v=202610092256"></script>
+<script src="../assets/js/session.js?v=202610092256"></script>
+<script src="../assets/js/rules.js?v=202610092256"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610092256"></script>
+<script src="../assets/js/dxf.js?v=202610092256"></script>
+<script src="../assets/js/pdfx.js?v=202610092256"></script>
+<script src="../assets/js/report.js?v=202610092256"></script>
+<script src="../assets/js/boq.js?v=202610092256"></script>
+<script src="../assets/js/userpush.js?v=202610092256"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -335,20 +335,76 @@ function quotaOk(kind,m){return BB.rpc('under_quota',{kind:kind}).then(function(
 /* اختيار الملفات: نسخة لكل نموذج */
 var OK_EXT=['pdf','dwg','dxf','png','jpg','jpeg','webp'],READABLE=['pdf','png','jpg','jpeg','webp','dxf'];
 function ext(n){return (n.split('.').pop()||'').toLowerCase()}
+/* الملف المضغوط: يُفك في متصفح المكتب، وتُعامل كل لوحة فيه كأنها رُفعت منفردة */
+var BBZip=(function(){
+  var LIB='../assets/vendor/jszip-3.10.1.min.js',loading=null;
+  function load(){if(window.JSZip)return Promise.resolve(window.JSZip);if(loading)return loading;
+    loading=new Promise(function(res,rej){var sc=document.createElement('script');sc.src=LIB;sc.onload=function(){res(window.JSZip)};sc.onerror=function(){loading=null;rej(new Error('lib'))};document.head.appendChild(sc)});return loading}
+  /* أسماء الملفات العربية: ZIP من ويندوز يكتبها بترميز 1256، ومن الماك وغيره بـUTF-8 */
+  function decodeName(b){b=b instanceof Uint8Array?b:new Uint8Array(b);try{return new TextDecoder('utf-8',{fatal:true}).decode(b)}catch(e){try{return new TextDecoder('windows-1256').decode(b)}catch(x){return String.fromCharCode.apply(null,b)}}}
+  var TYPE={pdf:'application/pdf',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',webp:'image/webp',dxf:'application/dxf',dwg:'application/acad'};
+  var JUNK=/(^|\/)(__MACOSX|\.)|(^|\/)(thumbs\.db|desktop\.ini)$|\.(bak|dwl2?|sv\$|ac\$|tmp|lck|log|err)$/i;
+  var MAXN=300,MAXU=600*1048576;
+  function expand(zf,status,depth){depth=depth||0;
+    return load().then(function(JSZip){status('فك الملف المضغوط «'+zf.name+'»..');return JSZip.loadAsync(zf,{decodeFileName:decodeName})})
+    .then(function(z){
+      var ents=[],skipped=[],files=[],total=0;
+      z.forEach(function(path,e){if(!e.dir)ents.push(e)});
+      if(ents.length>MAXN)throw new Error('too_many');
+      var chain=Promise.resolve();
+      ents.forEach(function(e,i){chain=chain.then(function(){
+        var path=e.name.replace(/\\/g,'/'),base=path.split('/').pop(),x=(base.split('.').pop()||'').toLowerCase(),dir=path.split('/').slice(-2,-1)[0]||'';
+        if(JUNK.test(path)||!base)return;
+        if(x==='zip'){if(depth>=1){skipped.push(base);return}
+          return e.async('blob').then(function(b){return expand(new File([b],base,{type:'application/zip'}),status,depth+1)}).then(function(r){r.files.forEach(function(f){f._from=zf.name;files.push(f)});skipped=skipped.concat(r.skipped)})}
+        if(!TYPE[x]){skipped.push(base);return}
+        status('فك «'+zf.name+'»: '+(i+1)+' من '+ents.length+'..');
+        return e.async('blob').then(function(b){total+=b.size;if(total>MAXU)throw new Error('too_big');
+          var f=new File([b],base,{type:TYPE[x],lastModified:e.date?e.date.getTime():Date.now()});f._from=zf.name;f._dir=dir;files.push(f)});
+      })});
+      return chain.then(function(){if(!files.length&&!skipped.length)throw new Error('empty');return {files:files,skipped:skipped}});
+    })}
+  function why(e){var m=String(e&&e.message||e);
+    if(/encrypt/i.test(m))return 'محمي بكلمة مرور: فك الحماية ثم ارفعه';
+    if(/too_many/.test(m))return 'فيه أكثر من '+MAXN+' ملف';
+    if(/too_big/.test(m))return 'حجمه بعد الفك أكبر من 600MB';
+    if(/empty/.test(m))return 'فارغ';
+    if(/lib/.test(m))return 'تعذر تحميل أداة الفك، أعد المحاولة';
+    if(/end of central directory|Corrupted|signature/i.test(m))return 'ليس ملف ZIP سليماً';
+    return 'تعذر فكه'}
+  return {expand:expand,why:why};
+})();
 function picker(p){
   var P={files:[]};
   function draw(){var ul=$(p+'List');ul.innerHTML='';
     P.files.forEach(function(f,i){
-      var li=el('li');li.appendChild(el('span','ext',ext(f.name).toUpperCase()));li.appendChild(el('span','nm',f.name));
+      var li=el('li');li.appendChild(el('span','ext',ext(f.name).toUpperCase()));var nm=el('span','nm',f.name);if(f._from)nm.appendChild(el('small','from',' من '+f._from));li.appendChild(nm);
       var end=el('span','row');end.appendChild(el('span','sz',size(f.size)));
       var rm=el('button','linkbtn','حذف');rm.type='button';rm.addEventListener('click',function(){P.files.splice(i,1);draw()});end.appendChild(rm);
       li.appendChild(end);var pg=el('div','prog');pg.appendChild(el('i'));li.appendChild(pg);ul.appendChild(li)})}
-  function add(fl){var bad=[];
-    for(var i=0;i<fl.length;i++){var f=fl[i];
-      if(OK_EXT.indexOf(ext(f.name))<0){bad.push(f.name);continue}
-      if(f.size>50*1048576){bad.push(f.name+' (أكبر من 50MB)');continue}
-      if(!P.files.some(function(x){return x.name===f.name&&x.size===f.size}))P.files.push(f)}
-    draw();msg(p+'Msg',bad.length?'لم تُضف: '+bad.join('، '):'',bad.length?'bad':'')}
+  function push(f,bad){
+    if(OK_EXT.indexOf(ext(f.name))<0){bad.push(f.name);return 0}
+    if(f.size>50*1048576){bad.push(f.name+' (أكبر من 50MB)');return 0}
+    /* لوحتان بالاسم نفسه من مجلدين مختلفين في الملف المضغوط: تُميَّز كل واحدة باسم مجلدها */
+    if(f._dir!=null&&P.files.some(function(x){return x.name===f.name&&x._dir!==f._dir})){try{var src=f._from,dir=f._dir;f=new File([f],(dir||'الجذر')+' - '+f.name,{type:f.type});f._from=src;f._dir=dir}catch(e){}}
+    if(P.files.some(function(x){return x.name===f.name&&x.size===f.size}))return 0;
+    P.files.push(f);return 1}
+  function add(fl){var bad=[],zips=[],arr=[].slice.call(fl);
+    arr.forEach(function(f){var x=ext(f.name);
+      if(x==='zip')zips.push(f);
+      else if(x==='rar'||x==='7z')bad.push(f.name+' (يُقبل الضغط بصيغة ZIP فقط)');
+      else push(f,bad)});
+    draw();
+    if(!zips.length){msg(p+'Msg',bad.length?'لم تُضف: '+bad.join('، '):'',bad.length?'bad':'');return}
+    P.busy=true;var notes=[],chain=Promise.resolve();
+    zips.forEach(function(z){chain=chain.then(function(){return BBZip.expand(z,function(t){msg(p+'Msg',t)}).then(function(r){
+      var n=0;r.files.forEach(function(f){n+=push(f,bad)});draw();
+      notes.push('«'+z.name+'»: أُضيف منه '+(n===1?'ملف واحد':n===2?'ملفان':n<=10?n+' ملفات':n+' ملفاً')+(r.skipped.length?'، وتُرك '+r.skipped.length+' ليس من ملفات المخطط ('+r.skipped.slice(0,4).join('، ')+(r.skipped.length>4?'..':'')+')':''));
+    }).catch(function(e){bad.push(z.name+' ('+BBZip.why(e)+')')})})});
+    chain.then(function(){P.busy=false;
+      var t=notes.join(' · ');if(bad.length)t+=(t?' · ':'')+'لم تُضف: '+bad.join('، ');
+      msg(p+'Msg',t,bad.length?'bad':'good')});
+  }
   $(p+'Files').addEventListener('change',function(){add(this.files);this.value=''});
   var dz=$(p+'Drop');
   ['dragenter','dragover'].forEach(function(t){dz.addEventListener(t,function(e){e.preventDefault();dz.classList.add('over')})});
@@ -356,6 +412,7 @@ function picker(p){
   dz.addEventListener('drop',function(e){if(e.dataTransfer.files.length)add(e.dataTransfer.files)});
   P.reset=function(){P.files=[];draw()};P.bars=function(){return $(p+'List').querySelectorAll('.prog i')};
   P.check=function(m){
+    if(P.busy){msg(m,'انتظر حتى يكتمل فك الملف المضغوط.','bad');return false}
     if(!P.files.length){msg(m,'أرفق ملفات المخطط.','bad');return false}
     if(!P.files.some(function(f){return READABLE.indexOf(ext(f.name))>=0})){msg(m,'الفحص الآلي لا يقرأ DWG. أرفق معه نسخة DXF أو PDF من المخطط.','bad');return false}
     return true};
