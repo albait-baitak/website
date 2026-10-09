@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092216">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092221">
 </head>
 <body>
 
@@ -50,8 +50,8 @@
         <a class="btn line" href="#report">تقرير العينة</a>
       </div>
       <div class="facts">
-        <div><b>107</b><span>قاعدة مكوَّدة بمصادرها</span></div>
-        <div><b>2</b><span>فحصان: المطابقة وجودة التصميم</span></div>
+        <div><b>196</b><span>قاعدة مكوَّدة بمصادرها</span></div>
+        <div><b>6</b><span>تخصصات: المعماري والإنشائي والكهربائي والصحي والتكييف والحريق</span></div>
         <div><b>1</b><span>طراز مشمول بالفحص: عمارة واحات الأحساء</span></div>
         <div><b>3</b><span>أنماط تطبيق: تقليدي وانتقالي ومعاصر</span></div>
       </div>
@@ -102,7 +102,7 @@
   <div class="wrap">
     <div class="sh">
       <span class="ref">القسم 01 · ما يُفحص</span>
-      <div><h2>ما الذي يُفحص</h2><p>الفحص الفني قسمان. فحص المطابقة يقيس المخطط بما تقيسه به الأمانة، ومنه وحده يُبنى الحكم. وفحص جودة التصميم يقيسه بما يحتاجه ساكنه، ولا يغير الحكم.</p></div>
+      <div><h2>ما الذي يُفحص</h2><p>فحص المطابقة يقيس المخطط بما تقيسه به الأمانة، ومنه وحده يُبنى الحكم. والفحص الهندسي يقيس لوحات التخصصات على الكود، واتساق المخطط يطابق لوحاته وملفاته ببعضها. وفحص جودة التصميم يقيسه بما يحتاجه ساكنه، ولا يغير الحكم.</p></div>
     </div>
     <div class="matrix-wrap">
       <table class="matrix">
@@ -113,7 +113,7 @@
             <td class="n">م1</td>
             <td><h3>النظامية</h3><p class="src">اشتراطات إنشاء المباني السكنية 1446هـ (النسخة السارية) · دليل تصميم مواقف السيارات</p></td>
             <td>الارتدادات، نسب البناء، الارتفاعات والمناسيب، المواقف ومداخلها، الملاحق، البروزات والشطفات، الحدود الدنيا للفراغات، الإضاءة والتهوية، المناور، الدرج والدرابزين.</td>
-            <td class="cnt">50</td>
+            <td class="cnt">56</td>
             <td><div class="codes"><span>SETBACK-01</span><span>COVER-01</span><span>PARK-01</span><span>SHAFT-01</span></div></td>
           </tr>
 <tr>
@@ -122,6 +122,21 @@
             <td>الطراز الملزم للموقع ونمطه، نسب الفتحات وتدرجها، الدروة وخط السقف، المدخل والسور، المواد والألوان، الممنوعات.</td>
             <td class="cnt">32</td>
             <td><div class="codes"><span>GUIDE-01</span><span>GUIDE-04</span><span>GUIDE-10</span></div></td>
+          </tr>
+<tr class="mg"><td colspan="5"><b>الفحص الهندسي واتساق المخطط</b><span>يُختاران قبل الطلب</span></td></tr>
+<tr>
+            <td class="n">ه</td>
+            <td><h3>الهندسية</h3><p class="src">الكود السعودي SBC 1101 و1102 و701 و702 و501 و801 (2024)، والدفاع المدني، وشركة الكهرباء</p></td>
+            <td>الإنشائي والكهربائي والصحي والتكييف والسلامة من الحريق: اكتمال اللوحات، ومطابقتها للقيم المنصوصة، وتنسيقها مع المعماري. لا يشمل الحسابات التصميمية.</td>
+            <td class="cnt">89</td>
+            <td><div class="codes"><span>STR-12</span><span>ELE-09</span><span>FIRE-08</span></div></td>
+          </tr>
+<tr>
+            <td class="n">ت</td>
+            <td><h3>اتساق المخطط</h3><p class="src">مطابقة حسابية من الملفات نفسها</p></td>
+            <td>المسقط مع الواجهات والقطاعات والجداول داخل المخطط، وملف الأوتوكاد مع ملف الـPDF: رموز الفتحات والمناسيب وعناوين اللوحات.</td>
+            <td class="cnt">·</td>
+            <td><div class="codes"><span>داخل الملف</span><span>بين الملفات</span></div></td>
           </tr>
 <tr class="mg"><td colspan="5"><b>فحص جودة التصميم</b><span>لا يدخل في الحكم</span></td></tr>
 <tr>
@@ -243,13 +258,13 @@
 </footer>
 
 
-<script src="../assets/js/rules.js?v=202610092216"></script>
-<script src="../assets/js/report.js?v=202610092216"></script>
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092216"></script>
-<script src="../assets/js/config.js?v=202610092216"></script>
-<script src="../assets/js/stats.js?v=202610092216"></script>
-<script src="../assets/js/session.js?v=202610092216"></script>
-<script src="../assets/js/motion.js?v=202610092216"></script>
+<script src="../assets/js/rules.js?v=202610092221"></script>
+<script src="../assets/js/report.js?v=202610092221"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092221"></script>
+<script src="../assets/js/config.js?v=202610092221"></script>
+<script src="../assets/js/stats.js?v=202610092221"></script>
+<script src="../assets/js/session.js?v=202610092221"></script>
+<script src="../assets/js/motion.js?v=202610092221"></script>
 <script>window.FQ_LOGO='../assets/img/sayah.png';FQ.render(SAMPLE,document.getElementById('report'));</script>
 </body>
 </html>

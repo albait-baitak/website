@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://albait-baitak.com/assets/img/og-fahs.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092216">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092221">
 <style>
 /* صفحة المكاتب: الصفحة مجموعة لوحات. الغلاف وفهرس اللوحات في الأعلى، وكل قسم لوحة برقمها وختمها */
 .px-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,64px)}
@@ -76,6 +76,7 @@
 .px-secs h3{font-size:17px;margin:12px 0 4px}
 .px-secs p{font-size:14.5px;color:var(--ink-2);line-height:1.8}
 .px-secs .src{font-size:12.5px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.px-secs2{grid-template-columns:repeat(2,minmax(0,1fr));border-top:0}
 .px-verdict{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-top:22px;padding:16px 20px;border:1px solid var(--line-2);background:var(--paper)}
 .px-verdict .v{display:flex;gap:8px;flex-wrap:wrap}
 .px-verdict .v span{font-size:13.5px;font-weight:700;border:1.5px solid currentColor;padding:3px 12px;border-radius:var(--r-tag)}
@@ -121,6 +122,7 @@
   .px-sh .no{padding-top:0}
   .px-secs{grid-template-columns:1fr}
   .px-secs>div+div{border-right:0;border-top:1px solid var(--line)}
+  .px-secs2{grid-template-columns:1fr}
   .px-two,.px-team{grid-template-columns:1fr}
 }
 @media (max-width:600px){
@@ -154,7 +156,7 @@
   <div class="px-hero">
     <div>
       <h1>مخططك يمر علينا قبل أن يمر على الأمانة</h1>
-      <p class="px-lead">منصة للمكاتب الهندسية ومصممي المساكن. ترفع مخطط الفيلا أو الدبلكس، فيصلك فحص فني يقيسه على اشتراطات البلدية والكود وموجهات العمارة السعودية ويسمّي لكل ملاحظة بندها ومرجعها، وجدول كميات مسعّر من المخطط نفسه، وكل ذلك في حساب واحد يجمع فريق المكتب.</p>
+      <p class="px-lead">منصة للمكاتب الهندسية ومصممي المساكن. ترفع مخطط الفيلا أو الدبلكس بتخصصاته، فيصلك فحص فني يقيسه على اشتراطات البلدية والكود السعودي وموجهات العمارة، ويطابق لوحاته ببعضها، ويسمّي لكل ملاحظة بندها ومرجعها، وجدول كميات مسعّر من المخطط نفسه، وكل ذلك في حساب واحد يجمع فريق المكتب.</p>
       <div class="px-who"><span>مكاتب هندسية</span><span>مصممو مساكن</span><span>استوديوهات تصميم</span></div>
       <div class="px-act">
         <a class="btn" href="../account/?new=office">سجّل حساب المكتب</a>
@@ -167,7 +169,7 @@
       <h2>فهرس اللوحات <small>ست لوحات</small></h2>
       <ol>
         <li><a href="#change"><span class="no">P-01</span><span><b>ما الذي يتغير في عملك</b><em>من الرفض وإعادة الرفع إلى رفع مرة واحدة</em></span></a></li>
-        <li><a href="#fahs"><span class="no">P-02</span><span><b>الفحص الفني</b><em>تختار أقسامه قبل كل طلب، وكل ملاحظة ببندها</em></span></a></li>
+        <li><a href="#fahs"><span class="no">P-02</span><span><b>الفحص الفني</b><em>المعماري والتخصصات واتساق المخطط</em></span></a></li>
         <li><a href="#boq"><span class="no">P-03</span><span><b>جداول الكميات</b><em>مسعّرة من المخطط، وتُنزّل إكسل</em></span></a></li>
         <li><a href="#team"><span class="no">P-04</span><span><b>فريق المكتب</b><em>مدير ومهندسون في حساب واحد</em></span></a></li>
         <li><a href="#trust"><span class="no">P-05</span><span><b>لماذا تثق بالتقرير</b><em>المرجع، والمراجعة، والسرية</em></span></a></li>
@@ -181,7 +183,7 @@
   </div>
 
   <section class="px-sheet" id="change" aria-labelledby="change-h">
-    <div class="px-sh"><span class="no">P-01</span><div><h2 id="change-h">ما الذي يتغير في عملك</h2><p>أربعة مواضع يضيع فيها وقت المكتب اليوم، وما نقدمه في كل واحد منها.</p></div></div>
+    <div class="px-sh"><span class="no">P-01</span><div><h2 id="change-h">ما الذي يتغير في عملك</h2><p>ستة مواضع يضيع فيها وقت المكتب اليوم، وما نقدمه في كل واحد منها.</p></div></div>
     <div class="px-body">
       <table class="px-diff">
         <thead><tr><th scope="col">اليوم</th><th scope="col">معنا</th></tr></thead>
@@ -189,6 +191,8 @@
           <tr><td>يعود المخطط من الأمانة بملاحظات لم تكن في الحسبان، ويضيع أسبوع في التعديل وإعادة الرفع.</td><td>تعرف الملاحظات قبل الرفع<span>كل ملاحظة ببندها ومرجعها ودرجتها وعلاجها، فترفع المخطط مرة واحدة.</span></td></tr>
           <tr><td>يُحصر جدول الكميات يدوياً من اللوحات في أيام، ويختلف من مهندس لآخر.</td><td>جدول كميات مسعّر من المخطط نفسه<span>تطلبه من أي إصدار، وما يُقدَّر بالمتر المربع يُوسم في الجدول بأنه تقديري.</span></td></tr>
           <tr><td>ملفات المشاريع وتقاريرها موزعة بين أجهزة المهندسين ومحادثات واتساب.</td><td>حساب واحد للمكتب<span>كل المشاريع وإصداراتها وتقاريرها أمام الفريق، ومن أنشأ كل مشروع ومن رفع كل إصدار.</span></td></tr>
+          <tr><td>يتعارض المسقط مع الواجهة أو القطاع، أو ملف الأوتوكاد مع الـPDF المرفوع، ولا يُكتشف إلا عند المراجع أو في الموقع.</td><td>فحص اتساق المخطط<span>نطابق المسقط بالواجهات والقطاعات والجداول، وملف الرسم بملف الـPDF، وننبهك بكل تعارض وموضعه.</span></td></tr>
+          <tr><td>تُرفع مخططات الإنشائي والكهرباء والصحي والتكييف دون أن يراجعها أحد على الكود قبل الرفع.</td><td>فحص هندسي للتخصصات<span>كل تخصص يُفحص على الكود السعودي واشتراطات البلدية والدفاع المدني، وعلى تنسيقه مع المعماري.</span></td></tr>
           <tr><td>يسأل العميل: هل التصميم جيد، أم مقبول للأمانة فقط؟</td><td>فحص لجودة التصميم مع المطابقة<span>صلاحية الفراغات للعيش وقواعد البيت السعودي، بملاحظات تشرحها لعميلك.</span></td></tr>
         </tbody>
       </table>
@@ -202,6 +206,10 @@
         <div><span class="cnt">56<small>قاعدة</small></span><h3>الاشتراطات النظامية</h3><p>الارتدادات ونسب البناء والارتفاعات والمواقف والملاحق والبروزات والحدود الدنيا للفراغات والمناور والدرج.</p><p class="src">اشتراطات إنشاء المباني السكنية، والكود السعودي، ودليل تصميم المواقف</p></div>
         <div><span class="cnt">32<small>قاعدة</small></span><h3>الموجهات التصميمية</h3><p>طراز الموقع ونمطه، ونسب الفتحات، والدروة وخط السقف، والمدخل والسور، والمواد والألوان.</p><p class="src">موجهات عمارة واحات الأحساء ودليلها التطبيقي للفلل</p></div>
         <div><span class="cnt">19<small>قاعدة</small></span><h3>جودة التصميم المعماري</h3><p>مساحات الغرف الصالحة للعيش، والمطبخ، والممرات والأبواب، والدرج، والمجلس والمدخل، وخصوصية الجار.</p><p class="src">ستاندرد مهني من خبرة التصميم والتنفيذ، وقواعد البيت السعودي</p></div>
+      </div>
+      <div class="px-secs px-secs2">
+        <div><span class="cnt">89<small>قاعدة</small></span><h3>الفحص الهندسي</h3><p>الإنشائي والكهربائي والصحي والتكييف والتهوية والسلامة من الحريق: اكتمال لوحات كل تخصص، ومطابقتها للقيم المنصوصة، وتنسيقها مع المعماري. ويُفحص ما هو مكتوب ومرسوم، لا الحسابات التصميمية.</p><p class="src">الكود السعودي SBC 1101 و1102 و701 و702 و501 و801 (إصدار 2024)، واشتراطات الدفاع المدني وشركة الكهرباء</p></div>
+        <div><span class="cnt">2<small>مستويان</small></span><h3>اتساق المخطط وتنسيق اللوحات</h3><p>داخل المخطط: عدد الفتحات في الواجهة مقابل جدارها في المسقط، والمداخل، والمناسيب بين القطاع والواجهة، ودرجات الدرج، وجدول المساحات. وبين الملفات: رموز الفتحات والمناسيب وعناوين اللوحات بين ملف الأوتوكاد وملف الـPDF.</p><p class="src">مطابقة حسابية من الملفات نفسها، وما يُلاحَظ بالنظر يُوسم «للتحقق»</p></div>
       </div>
       <div class="px-verdict">
         <div class="v"><span class="a">جاهز للرفع</span><span class="b">يُرفع بعد العلاج</span><span class="c">يعاد للتصميم</span></div>
@@ -270,7 +278,7 @@
       <ul class="px-list one">
         <li><span><b>المرجع:</b> كل ملاحظة باسم الاشتراط أو الكود أو الموجه ورقم بنده، ونص البند حين يلزم.</span></li>
         <li><span><b>الأرقام:</b> لا يُخترع رقم. ما يُقرأ من الملف يُذكر بأنه من ملف الرسم، وما يُقاس من الصورة يُذكر بأنه بالقياس.</span></li>
-        <li><span><b>حدود الثقة:</b> ما لم يُثبَّت رقمه من النص الأصلي يُوسم «للتحقق» ولا يُحكم به بمخالفة صريحة.</span></li>
+        <li><span><b>حدود الثقة:</b> ما لم يُثبَّت رقمه من النص السعودي الأصلي يُوسم «للتحقق» ولا يُحكم به بمخالفة صريحة. ولا يحكم الفحص الهندسي على الحسابات التصميمية، فهي مسؤولية المهندس المصمم.</span></li>
       </ul>
       <ul class="px-list one">
         <li><span><b>المراجعة:</b> في مرحلة الإطلاق يراجع معماري كل تقرير قبل أن يصلك.</span></li>
@@ -307,9 +315,9 @@
   </div>
 </footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092216"></script>
-<script src="../assets/js/config.js?v=202610092216"></script>
-<script src="../assets/js/stats.js?v=202610092216"></script>
-<script src="../assets/js/session.js?v=202610092216"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092221"></script>
+<script src="../assets/js/config.js?v=202610092221"></script>
+<script src="../assets/js/stats.js?v=202610092221"></script>
+<script src="../assets/js/session.js?v=202610092221"></script>
 </body>
 </html>
