@@ -32,7 +32,7 @@
 .flist{list-style:none;margin:10px 0 0;padding:0}
 .flist li{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
 .flist li>*{min-width:0}
-.flist .ext{font-family:var(--mono);font-size:11px;text-align:center;border:1px solid var(--line-2);padding:3px 0}
+.flist .ext{font-family:var(--mono);font-size:11.5px;text-align:center;border:1px solid var(--line-2);padding:3px 0}
 .flist .nm{overflow-wrap:anywhere}
 .flist .sz{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
 .prog{height:3px;background:var(--line);margin-top:6px;grid-column:1/-1}
@@ -59,7 +59,7 @@
 .files-links a{color:var(--terra)}
 .ed-row{display:grid;grid-template-columns:150px 92px 92px 1fr 1fr;gap:6px;align-items:start;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
 .ed-row>*{min-width:0}
-.ed-row .code{font-family:var(--mono);font-size:11px;color:var(--terra);direction:ltr;text-align:right;display:block}
+.ed-row .code{font-family:var(--mono);font-size:11.5px;color:var(--terra);direction:ltr;text-align:right;display:block}
 .ed-row select,.ed-row textarea{font:inherit;font-size:13px;color:var(--ink);background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-ctl);padding:5px 7px;width:100%}
 .ed-row textarea{min-height:52px;resize:vertical;line-height:1.6}
 .ed-head{font-size:12px;color:var(--ink-2);font-weight:700;border-bottom:1.5px solid var(--ink)}
@@ -88,7 +88,7 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .state .card-b{display:flex;flex-direction:column;gap:12px;align-items:center}
 .state h2{font-size:22px}
 .state p{color:var(--ink-2);font-size:15px}
-.badge{display:inline-block;min-width:20px;padding:0 6px;margin-inline-start:6px;font-size:11px;line-height:18px;text-align:center;background:var(--terra);color:var(--on-terra);border-radius:9px}
+.badge{display:inline-block;min-width:20px;padding:0 6px;margin-inline-start:6px;font-size:12px;line-height:18px;text-align:center;background:var(--terra);color:var(--on-terra);border-radius:9px}
 .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .acts select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line-2);background:var(--paper);color:var(--ink)}
 @media (max-width:560px){.choice{grid-template-columns:1fr}}
@@ -115,7 +115,7 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .cmpcol ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14px}
 .cmpcol li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding-bottom:5px}
 .cmpcol li.none{color:var(--ink-2);border:0}
-.cmpcol small{font-size:11.5px;font-weight:700;white-space:nowrap}
+.cmpcol small{font-size:12px;font-weight:700;white-space:nowrap}
 .sev-stop{color:var(--stop)} .sev-major{color:var(--major)} .sev-minor{color:var(--minor)}
 .boq-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line-2);border-radius:var(--r-card);overflow:hidden;background:var(--sheet)}
 .boq-kpis>div{padding:12px 14px;min-width:0}
@@ -131,7 +131,7 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .boq-d details summary{font-size:12.5px;color:var(--terra);cursor:pointer}
 .boq-d details p{font-size:13px;color:var(--ink-2);margin-top:4px;max-width:60ch}
 .boq-d small{display:block;font-size:12.5px;color:var(--ink-2)}
-.boq-d em.est{font-style:normal;font-size:11.5px;font-weight:700;color:var(--major)}
+.boq-d em.est{font-style:normal;font-size:12px;font-weight:700;color:var(--major)}
 .boq-tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:10px;border-top:2px solid var(--ink);font-weight:700}
 .boq-tot b{font-family:var(--mono);font-size:20px}
 .boq-notes{margin-top:16px}
@@ -182,7 +182,7 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .q-top{margin:0;padding-inline-start:20px}
 .q-top li{display:flex;gap:10px;align-items:baseline;padding:4px 0;border-bottom:1px dashed var(--line)}
 .q-top li b{margin-inline-start:auto;font-size:13px}
-.q-top code,#vQ td code{font-size:11.5px;color:var(--ink-2);margin-inline-start:6px}
+.q-top code,#vQ td code{font-size:12px;color:var(--ink-2);margin-inline-start:6px}
 #vQ .tbl td small.sub{display:block;color:var(--ink-2);font-size:12.5px}
 #vQ .tbl tr.pend td{background:color-mix(in srgb,var(--stop) 6%,transparent)}
 /* جداول الكميات: فحوص المعقولية وسطر الحساب */
@@ -196,9 +196,9 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 .boq-checks li.warn .ic{background:var(--major)}
 .boq-checks li.warn b{color:var(--major)}
 .boq-d small.calc{font-family:inherit;color:var(--ink-2);margin-top:2px}
-.boq-d em.inf{font-style:normal;font-size:11.5px;font-weight:700;color:var(--ink-2);margin-inline-start:6px}
+.boq-d em.inf{font-style:normal;font-size:12px;font-weight:700;color:var(--ink-2);margin-inline-start:6px}
 .boq-d em.est{margin-inline-start:6px}
-.boq-t td small.rng{display:block;font-size:11px;color:var(--ink-2);font-family:var(--mono)}
+.boq-t td small.rng{display:block;font-size:11.5px;color:var(--ink-2);font-family:var(--mono)}
 .boq-t tr.info td{color:var(--ink-2)}
 .boq-t tr.info .boq-d b{font-weight:400}
 .boq-kpis{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line)}

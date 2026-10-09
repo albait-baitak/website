@@ -22,8 +22,8 @@
 <link rel="manifest" href="../../manifest.webmanifest?v=202610072210">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610092325">
-<link rel="stylesheet" href="../../assets/css/tools.css?v=202610092325">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610092349">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610092349">
 </head>
 <body>
 <header class="top">
@@ -84,11 +84,11 @@
 
 <footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../../assets/vendor/supabase-2.117.2.js?v=202610092325"></script>
-<script src="../../assets/js/config.js?v=202610092325"></script>
-<script src="../../assets/js/stats.js?v=202610092325"></script>
-<script src="../../assets/js/session.js?v=202610092325"></script>
-<script src="../../assets/js/toolkit.js?v=202610092325"></script>
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610092349"></script>
+<script src="../../assets/js/config.js?v=202610092349"></script>
+<script src="../../assets/js/stats.js?v=202610092349"></script>
+<script src="../../assets/js/session.js?v=202610092349"></script>
+<script src="../../assets/js/toolkit.js?v=202610092349"></script>
 <script>
 TK.ready(function(){
 var ar=TK.ar,el=TK.el,$=TK.$;
@@ -208,14 +208,14 @@ function drawBoard(){
   var tb=el('tbody'),all=0,rec=0;
   STN.forEach(function(stn,k){var s=S.s[k],tr=el('tr');var td=el('td');var a=el('a',null,ar(k+1)+'. '+stn.t);a.href='#st'+(k+1);
       a.addEventListener('click',function(){refs[k].D.open=true});td.appendChild(a);tr.appendChild(td);
-    var t2=el('td','c'),i2=el('input','dt');i2.type='date';i2.value=s.start||'';i2.setAttribute('aria-label','بدأت في · '+stn.t);
+    var t2=el('td','c'),i2=el('input','dt');t2.setAttribute('data-l','بدأت في');i2.type='date';i2.value=s.start||'';i2.setAttribute('aria-label','بدأت في · '+stn.t);
       i2.addEventListener('change',function(){s.start=i2.value;ST.save();upd(k);drawBoard()});t2.appendChild(i2);tr.appendChild(t2);
-    var t3=el('td','c'),i3=el('input','dt');i3.type='date';i3.value=s.recv||'';i3.setAttribute('aria-label','استُلمت في · '+stn.t);
+    var t3=el('td','c'),i3=el('input','dt');t3.setAttribute('data-l','استُلمت في');i3.type='date';i3.value=s.recv||'';i3.setAttribute('aria-label','استُلمت في · '+stn.t);
       i3.addEventListener('change',function(){s.recv=i3.value;ST.save();upd(k);if(k<9)upd(k+1);drawBoard()});t3.appendChild(i3);
       if(s.start&&s.recv&&s.recv<s.start)t3.appendChild(el('div','lock','تاريخ الاستلام قبل البدء؟'));tr.appendChild(t3);
     var dn=done(k);all+=dn;if(s.recv)rec++;
-    var t4=el('td','c');var stt=status(k);t4.appendChild(el('span','pill '+(stt==='done'?'g':stt==='go'?'y':''),dn?ar(dn)+' / '+ar(STN[k].i.length):ar(STN[k].i.length)+' بنود'));tr.appendChild(t4);
-    tr.appendChild(el('td',null,s.note?s.note.slice(0,60)+(s.note.length>60?'..':''):''));
+    var t4=el('td','c');t4.setAttribute('data-l','البنود');var stt=status(k);t4.appendChild(el('span','pill '+(stt==='done'?'g':stt==='go'?'y':''),dn?ar(dn)+' / '+ar(STN[k].i.length):ar(STN[k].i.length)+' بنود'));tr.appendChild(t4);
+    var t5=el('td','nt',s.note?s.note.slice(0,60)+(s.note.length>60?'..':''):'');if(!s.note)t5.classList.add('empty');tr.appendChild(t5);
     tb.appendChild(tr)});
   T.appendChild(tb);
   $('pbar').style.width=(all/TOTAL*100)+'%';

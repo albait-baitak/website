@@ -30,20 +30,21 @@ function FQ_model(rep,only){
   return {sel:sel,secs:out,top:top,verdict:sel.indexOf('reg')>=0&&(!only||only==='reg')};
 }
 /* رسم أفقي مكدّس لكل قسم: ما يمنع الرفع، وما يُعالج قبله، والتحسين المقترح */
-function FQ_chart(secs,hex){
-  var NS='http://www.w3.org/2000/svg',W=640,RH=34,LW=200,BW=W-LW-70,H=secs.length*RH+30;
+function FQ_chart(secs,hex,nar){
+  /* nar: الجوال، اسم القسم فوق شريطه حتى تبقى الكتابة مقروءة */
+  var NS='http://www.w3.org/2000/svg',W=nar?360:640,RH=nar?48:34,LW=200,BW=nar?W-44:W-LW-70,BX=nar?40:70,H=secs.length*RH+30;
   var max=1;secs.forEach(function(s){max=Math.max(max,s.c.stop+s.c.major+s.c.minor)});
-  var col=hex?{stop:'#9B2F22',major:'#B5652A',minor:'#5F7044',ink:'#1F1A17',mute:'#5E554E',line:'#D9D3CB'}:{stop:'var(--stop)',major:'var(--major)',minor:'var(--minor)',ink:'var(--ink)',mute:'var(--ink-2)',line:'var(--line)'};
+  var col=hex?{stop:'#9B2F22',major:'#A85C24',minor:'#5F7044',ink:'#1F1A17',mute:'#5E554E',line:'#D9D3CB'}:{stop:'var(--stop)',major:'var(--major)',minor:'var(--minor)',ink:'var(--ink)',mute:'var(--ink-2)',line:'var(--line)'};
   var svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('width','100%');svg.setAttribute('role','img');
   svg.setAttribute('aria-label','عدد الملاحظات في كل قسم بحسب درجتها');svg.setAttribute('direction','ltr');svg.style.direction='ltr';
   function t(x,y,s,a,c,sz,w){var e=document.createElementNS(NS,'text');e.setAttribute('x',x);e.setAttribute('y',y);e.setAttribute('text-anchor',a);e.setAttribute('fill',c);e.setAttribute('font-size',sz||13);if(w)e.setAttribute('font-weight',w);e.setAttribute('font-family','Janna, Tahoma, sans-serif');e.textContent=s;svg.appendChild(e)}
-  secs.forEach(function(s,i){var y=i*RH+6,x=W-LW;
-    t(W-4,y+17,s.n,'end',col.ink,13,700);
-    var bg=document.createElementNS(NS,'rect');bg.setAttribute('x',70);bg.setAttribute('y',y+6);bg.setAttribute('width',BW);bg.setAttribute('height',16);bg.setAttribute('rx',3);bg.setAttribute('fill',col.line);bg.setAttribute('opacity','.45');svg.appendChild(bg);
-    var cx=70+BW;['stop','major','minor'].forEach(function(k){var n=s.c[k];if(!n)return;var w=Math.max(3,BW*n/max);cx-=w;var r=document.createElementNS(NS,'rect');r.setAttribute('x',cx);r.setAttribute('y',y+6);r.setAttribute('width',w-1);r.setAttribute('height',16);r.setAttribute('rx',2);r.setAttribute('fill',col[k]);svg.appendChild(r)});
-    var tot=s.c.stop+s.c.major+s.c.minor;t(62,y+19,tot?String(tot):'لا ملاحظات','end',tot?col.ink:col.mute,12,tot?700:400);
+  secs.forEach(function(s,i){var y=i*RH+6,x=W-LW,by=nar?y+20:y+6;
+    t(W-4,nar?y+12:y+17,s.n,'end',col.ink,13,700);
+    var bg=document.createElementNS(NS,'rect');bg.setAttribute('x',BX);bg.setAttribute('y',by);bg.setAttribute('width',BW);bg.setAttribute('height',16);bg.setAttribute('rx',3);bg.setAttribute('fill',col.line);bg.setAttribute('opacity','.45');svg.appendChild(bg);
+    var cx=BX+BW;['stop','major','minor'].forEach(function(k){var n=s.c[k];if(!n)return;var w=Math.max(3,BW*n/max);cx-=w;var r=document.createElementNS(NS,'rect');r.setAttribute('x',cx);r.setAttribute('y',by);r.setAttribute('width',w-1);r.setAttribute('height',16);r.setAttribute('rx',2);r.setAttribute('fill',col[k]);svg.appendChild(r)});
+    var tot=s.c.stop+s.c.major+s.c.minor;t(BX-8,by+13,tot?String(tot):(nar?'0':'لا ملاحظات'),'end',tot?col.ink:col.mute,12,tot?700:400);
   });
-  var ly=secs.length*RH+22,lx=W-4;[['stop','تمنع الرفع'],['major','تُعالج قبل الرفع'],['minor','تحسين مقترح']].forEach(function(p){var r=document.createElementNS(NS,'rect');r.setAttribute('x',lx-10);r.setAttribute('y',ly-9);r.setAttribute('width',10);r.setAttribute('height',10);r.setAttribute('rx',2);r.setAttribute('fill',col[p[0]]);svg.appendChild(r);t(lx-16,ly,p[1],'end',col.mute,11.5);lx-=p[1].length*7.5+34});
+  var ly=secs.length*RH+22,lx=W-4;[['stop','تمنع الرفع'],['major','تُعالج قبل الرفع'],['minor','تحسين مقترح']].forEach(function(p){var r=document.createElementNS(NS,'rect');r.setAttribute('x',lx-10);r.setAttribute('y',ly-9);r.setAttribute('width',10);r.setAttribute('height',10);r.setAttribute('rx',2);r.setAttribute('fill',col[p[0]]);svg.appendChild(r);t(lx-16,ly,p[1],'end',col.mute,11.5);lx-=p[1].length*(nar?6.6:7.5)+(nar?26:34)});
   return svg;
 }
 /* عرض تقرير الفحص الفني وتصديره PDF */
@@ -164,7 +165,7 @@ function render(rep,host,opts){
   [['المطابقة',0],['جودة التصميم',1],['الفحص الهندسي',2]].forEach(function(p){var x=rep.summary&&rep.summary[p[1]];if(!x)return;var q=el('p');q.appendChild(el('b',null,p[0]+': '));q.appendChild(document.createTextNode(x));sm.appendChild(q)});
   if(rep.assumptions&&rep.assumptions.length){var as=el('p','assume');as.appendChild(el('b',null,'افتراضات الفحص: '));as.appendChild(document.createTextNode(rep.assumptions.join(' · ')));sm.appendChild(as)}
   ex.appendChild(sm);
-  var cw=el('div','exec-chart');cw.appendChild(el('p','exec-sub','الملاحظات في كل قسم بحسب درجتها'));cw.appendChild(FQ_chart(M.secs,false));ex.appendChild(cw);
+  var cw=el('div','exec-chart');cw.appendChild(el('p','exec-sub','الملاحظات في كل قسم بحسب درجتها'));cw.appendChild(FQ_chart(M.secs,false,host.clientWidth>0&&host.clientWidth<560));ex.appendChild(cw);
   if(M.top.length){
     var tw=el('div','exec-top');tw.appendChild(el('p','exec-sub','أهم ما يُعالج أولاً'));var ol=el('ol','top-l');
     M.top.slice(0,8).forEach(function(x){var li=el('li');li.appendChild(el('span','sevtag '+x.sev,FQ_SEVN[x.sev]));
@@ -211,7 +212,7 @@ function render(rep,host,opts){
         ['القاعدة','المطلوب','في المخطط','الحكم'].forEach(function(x){hr2.appendChild(el('th',null,x))});hd.appendChild(hr2);tb2.appendChild(hd);
         var tb=el('tbody');
         lr.forEach(function(k){var r=el('tr');var c1=el('td');c1.appendChild(document.createTextNode(k.R.n));c1.appendChild(el('code',null,k.R.c));r.appendChild(c1);
-          r.appendChild(el('td',null,k.R.r));r.appendChild(el('td',null,k.r?k.r.f:'·'));var s2=stLabel(k.r);r.appendChild(el('td','st '+s2[0],s2[1]));tb.appendChild(r)});
+          var c2=el('td',null,k.R.r);c2.setAttribute('data-l','المطلوب');r.appendChild(c2);var c3=el('td',null,k.r?k.r.f:'·');c3.setAttribute('data-l','في المخطط');r.appendChild(c3);var s2=stLabel(k.r);r.appendChild(el('td','st '+s2[0],s2[1]));tb.appendChild(r)});
         tb2.appendChild(tb);w.appendChild(tb2);dt.appendChild(w);lb.appendChild(dt);
       });
       bd.appendChild(lb);
