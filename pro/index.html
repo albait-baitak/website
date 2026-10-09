@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://albait-baitak.com/assets/img/og-fahs.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092238">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092242">
 <style>
 /* صفحة المكاتب: الصفحة مجموعة لوحات. الغلاف وفهرس اللوحات في الأعلى، وكل قسم لوحة برقمها وختمها */
 .px-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,64px)}
@@ -96,17 +96,38 @@
 
 /* فريق المكتب: مخطط الأدوار */
 .px-team{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,48px);align-items:start}
-.px-org{border:1px solid var(--line-2);background:var(--sheet);padding:20px}
-.px-org .node{border:1.5px solid var(--ink);padding:10px 14px;background:var(--sheet)}
-.px-org .node b{display:block;font-size:15.5px}
-.px-org .node span{font-size:13px;color:var(--ink-2)}
-.px-org .mgr{border-color:var(--terra)}
-.px-org .mgr b{color:var(--terra)}
-.px-org .stem{width:1.5px;height:22px;background:var(--ink);margin-inline-start:28px}
-.px-org .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border-top:1.5px solid var(--ink);padding-top:14px;margin-inline-start:28px}
-.px-org .row3 .node{padding:8px 10px}
-.px-org .proj{margin-top:16px;padding:10px 14px;border:1px dashed var(--line-2);font-size:13.5px;color:var(--ink-2);background:var(--paper)}
 
+.px-org{border:1px solid var(--line-2);border-radius:var(--r-xl);background:var(--sheet);box-shadow:var(--soft);padding:18px 18px 20px}
+.og-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.og-logo{width:38px;height:38px;border-radius:11px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-weight:700;font-size:18px;flex:none}
+.og-head b{display:block;font-size:15px;line-height:1.4}.og-head span{font-size:12.5px;color:var(--ink-2)}
+.og-mgr{display:flex;justify-content:center}
+.og-card{display:flex;align-items:center;gap:10px;background:var(--sheet);border:1px solid var(--line-2);border-radius:14px;padding:9px 12px;min-width:0;position:relative;box-shadow:0 1px 2px rgba(31,26,23,.05)}
+.og-card div{min-width:0}.og-card b{display:block;font-size:14px;line-height:1.35;white-space:nowrap}.og-card span:not(.av){font-size:12px;color:var(--ink-2);white-space:nowrap}
+.og-card.mgr{border-color:var(--terra);box-shadow:0 0 0 3px color-mix(in srgb,var(--terra) 12%,transparent);padding-inline-end:14px}
+.og-role{font-style:normal;font-size:11px;font-weight:700;color:var(--terra);background:color-mix(in srgb,var(--terra) 12%,transparent);border-radius:999px;padding:1px 9px;margin-inline-start:4px}
+.og-card.inv{border-style:dashed;background:var(--paper)}.og-card.inv .av{opacity:.55}
+.av{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#fff;flex:none}
+.a1{background:#5A3420}.a2{background:#A65338}.a3{background:#5F7044}.a4{background:#8f857b}
+.og-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.og-row .og-card{flex-direction:column;text-align:center;gap:6px;padding:12px 8px}
+.og-lines{display:block;width:100%;height:30px;overflow:visible}
+.og-lines path{fill:none;stroke:var(--line-2);stroke-width:1.5;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s var(--ease-out)}
+.og-l2{height:24px}
+.px-org.in .og-lines path{stroke-dashoffset:0}.px-org.in .og-l2 path{transition-delay:.9s}
+.og-row .og-card,.og-proj{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+.px-org.in .og-row .og-card{opacity:1;transform:none}
+.px-org.in .og-row .og-card:nth-child(1){transition-delay:.5s}.px-org.in .og-row .og-card:nth-child(2){transition-delay:.6s}.px-org.in .og-row .og-card:nth-child(3){transition-delay:.7s}
+.px-org.in .og-proj{opacity:1;transform:none;transition-delay:1.3s}
+.og-proj{border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:10px 12px;display:grid;gap:6px}
+.og-ph{font-size:12.5px;color:var(--ink-2)}
+.og-pr{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:10px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:13.5px}
+.og-pr code{font-family:var(--mono);font-size:11px;color:var(--ink-2);direction:ltr}
+.og-pr .st{font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 9px}
+.og-pr .st.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}.og-pr .st.wait{color:var(--major);background:color-mix(in srgb,var(--major) 12%,transparent)}
+.stk{display:flex}.stk i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:10.5px;font-weight:700;color:#fff;border:2px solid var(--sheet);margin-inline-start:-6px}
+@media (max-width:600px){.og-row .og-card span:not(.av){display:none}.og-pr{grid-template-columns:1fr auto}.og-pr code,.og-pr .stk{display:none}}
+@media (prefers-reduced-motion:reduce){.og-lines path{stroke-dashoffset:0}.og-row .og-card,.og-proj{opacity:1;transform:none}}
 /* البداية */
 .px-launch{margin-top:22px;padding:14px 18px;border-inline-start:3px solid var(--terra);background:var(--sheet);font-size:15px;color:var(--ink-2)}
 .px-launch b{color:var(--ink)}
@@ -134,7 +155,6 @@
   .px-diff td+td::before{content:"معنا: ";color:var(--terra)}
   .px-list li{grid-template-columns:1fr}
   .px-verdict{grid-template-columns:1fr}
-  .px-org .row3{grid-template-columns:1fr}
 }
 </style>
 <style>
@@ -253,16 +273,6 @@
 .px-verdict{border-radius:var(--r-lg)}
 .px-verdict .v span{border-radius:999px}
 .px-list{border-top-color:var(--line-2)}
-.px-org{border-radius:var(--r-xl);box-shadow:var(--soft)}
-.px-org .node{border-radius:12px}
-.px-org .proj{border-radius:12px}
-.px-org .stem{transform-origin:top;transform:scaleY(0);transition:transform .5s var(--ease-out) .2s}
-.px-org .row3{position:relative;border-top-color:transparent}
-.px-org .row3::before{content:"";position:absolute;top:-1.5px;inset-inline:0;height:1.5px;background:var(--ink);transform:scaleX(0);transition:transform .6s var(--ease-out) .55s}
-.px-org .row3 .node{opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
-.px-org.in .stem{transform:none}.px-org.in .row3::before{transform:none}
-.px-org.in .row3 .node{opacity:1;transform:none}
-.px-org.in .row3 .node:nth-child(1){transition-delay:.9s}.px-org.in .row3 .node:nth-child(2){transition-delay:1s}.px-org.in .row3 .node:nth-child(3){transition-delay:1.1s}
 .px-body .steps{border:1px solid var(--line-2);border-top:1px solid var(--line-2);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--soft)}
 .px-launch{border-radius:var(--r-lg);border:1px solid var(--line);border-inline-start:4px solid var(--terra)}
 .cta-band{border-radius:var(--r-xl);padding:24px 28px;background:linear-gradient(120deg,#1F1A17 0%,#3a2a20 100%);position:relative;overflow:hidden}
@@ -412,14 +422,20 @@
     <div class="px-sh"><span class="no">P-04</span><div><h2 id="team-h">فريق المكتب</h2><p>المكتب حساب واحد يملك مشاريعه وتقاريرها. يدعو المدير مهندسيه برابط، فيعمل الفريق كله على المشاريع نفسها.</p></div></div>
     <div class="px-body px-team">
       <div class="px-org" aria-hidden="true">
-        <div class="node mgr"><b>مدير المكتب</b><span>يدعو ويوقف ويغيّر الأدوار</span></div>
-        <div class="stem"></div>
-        <div class="row3">
-          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
-          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
-          <div class="node"><b>مهندس</b><span>يرفع ويتابع</span></div>
+        <div class="og-head"><span class="og-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M3 20h18"/></svg></span><div><b>مكتب الواحة للاستشارات الهندسية</b><span>حساب المكتب · 3 أعضاء ودعوة</span></div></div>
+        <div class="og-mgr"><div class="og-card mgr"><span class="av a1">س</span><div><b>م. سعد</b><span>مدير المكتب</span></div><em class="og-role">مدير</em></div></div>
+        <svg class="og-lines" viewBox="0 0 300 36" preserveAspectRatio="none"><path pathLength="1" d="M150 0V18M50 18H250M50 18V36M150 18V36M250 18V36"/></svg>
+        <div class="og-row">
+          <div class="og-card"><span class="av a2">ر</span><div><b>م. ريم</b><span>5 إصدارات</span></div></div>
+          <div class="og-card"><span class="av a3">ف</span><div><b>م. فهد</b><span>3 إصدارات</span></div></div>
+          <div class="og-card inv"><span class="av a4">ن</span><div><b>م. نورة</b><span>دعوة مرسلة</span></div></div>
         </div>
-        <div class="proj">مشاريع المكتب وتقاريرها: يراها الفريق كله</div>
+        <svg class="og-lines og-l2" viewBox="0 0 300 30" preserveAspectRatio="none"><path pathLength="1" d="M50 0V14M150 0V14M250 0V14M50 14H250M150 14V30"/></svg>
+        <div class="og-proj">
+          <span class="og-ph">مشاريع المكتب: يراها الفريق كله</span>
+          <div class="og-pr"><code>FP-12</code><b>فيلا آل محمد</b><span class="st ok">التقرير جاهز</span><span class="stk"><i class="a2">ر</i><i class="a1">س</i></span></div>
+          <div class="og-pr"><code>FP-11</code><b>دبلكس السلام</b><span class="st wait">قيد الفحص</span><span class="stk"><i class="a3">ف</i></span></div>
+        </div>
       </div>
       <ul class="px-list">
         <li><b>الدعوة</b><span>يكتب المدير بريد المهندس، فيظهر رابط يرسله بواتساب. يدخل المهندس به فينضم مباشرة.</span></li>
@@ -473,10 +489,10 @@
   </div>
 </footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092238"></script>
-<script src="../assets/js/config.js?v=202610092238"></script>
-<script src="../assets/js/stats.js?v=202610092238"></script>
-<script src="../assets/js/session.js?v=202610092238"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092242"></script>
+<script src="../assets/js/config.js?v=202610092242"></script>
+<script src="../assets/js/stats.js?v=202610092242"></script>
+<script src="../assets/js/session.js?v=202610092242"></script>
 <script>
 (function(){
 var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
