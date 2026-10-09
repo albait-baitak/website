@@ -90,6 +90,55 @@ function rateBlock(rt){
   sv.addEventListener('click',function(){if(!v){st.textContent='اختر عدد النجوم أولاً';return}st.textContent='..';Promise.resolve(rt.onSave(v,ta.value.trim()||null)).then(function(){st.textContent='شكراً، وصل تقييمك'},function(){st.textContent='تعذر الإرسال'})});
   var r=el('div','row');r.appendChild(sv);r.appendChild(st);b.appendChild(r);return b;
 }
+
+/* التقرير التفاعلي للفريق: حالة مشتركة لكل ملاحظة، وعدّاد، وتصفية، وتنبيه بما عُلّم معالجاً في الإصدار السابق وبقي قائماً */
+var TST=[['open','مفتوحة'],['doing','قيد العمل'],['fixed','عولجت'],['disputed','معترض عليها']],TSTN={open:'مفتوحة',doing:'قيد العمل',fixed:'عولجت',disputed:'معترض عليها'};
+function ago(t){var d=(Date.now()-new Date(t).getTime())/60000;if(!(d>=0))return '';if(d<1)return 'الآن';
+  function u(n,a,b,c){return n===1?a:n===2?b:(n>=3&&n<=10)?n+' '+c:n+' '+a}
+  if(d<60){var m=Math.floor(d);return 'قبل '+u(m,'دقيقة','دقيقتين','دقائق')}if(d<1440){var h=Math.floor(d/60);return 'قبل '+u(h,'ساعة','ساعتين','ساعات')}return new Date(t).toISOString().slice(0,10)}
+function teamItems(M){var out=[];M.secs.forEach(function(S){
+  if(S.id==='cons')S.cons.forEach(function(c,i){if(c.state==='conflict'||c.state==='check')out.push({item:'cons-'+i,sec:S.id,cons:true})});
+  else S.fails.forEach(function(k){out.push({item:k.R.c,sec:S.id})})});return out}
+function teamCtl(T,box,items){
+  var rows={},state=T.state||{},prev=T.prev||{};
+  var bar=el('section','tm-bar');var hh=el('div','tm-h');var ht=el('div');ht.appendChild(el('b',null,'عمل الفريق على الملاحظات'));ht.appendChild(el('span',null,'حالة كل ملاحظة يراها كل من في المكتب، وتتحدث وحدها'));hh.appendChild(ht);
+  var big=el('div','tm-big');hh.appendChild(big);bar.appendChild(hh);
+  var pr=el('div','tm-prog');var seg={};['fixed','doing','disputed'].forEach(function(k){seg[k]=el('i','p-'+k);pr.appendChild(seg[k])});bar.appendChild(pr);
+  var chips=el('div','tm-chips');var cb={};var flt='all';
+  [['all','الكل']].concat(TST).forEach(function(x){var b=el('button','tm-chip c-'+x[0]+(x[0]==='all'?' on':''));b.type='button';b.appendChild(el('span',null,x[1]));var n=el('b');b.appendChild(n);cb[x[0]]={b:b,n:n};
+    b.addEventListener('click',function(){flt=x[0];box.setAttribute('data-flt',flt);Object.keys(cb).forEach(function(k){cb[k].b.classList.toggle('on',k===flt)});
+      if(flt!=='all')box.querySelectorAll('details.rsec').forEach(function(d){if(d.querySelector('[data-st="'+flt+'"]'))d.open=true})});chips.appendChild(b)});
+  bar.appendChild(chips);var warn=el('p','tm-warn');warn.hidden=true;bar.appendChild(warn);
+  function st(it){return (state[it]&&state[it].s)||'open'}
+  function count(){var c={open:0,doing:0,fixed:0,disputed:0},N=items.length,re=0;items.forEach(function(x){c[st(x.item)]++;if(!x.cons&&prev[x.item]&&prev[x.item].s==='fixed')re++});
+    big.innerHTML='';big.appendChild(el('b',null,String(c.fixed)));big.appendChild(el('span',null,'عولجت من '+N));
+    ['fixed','doing','disputed'].forEach(function(k){seg[k].style.width=(N?c[k]/N*100:0)+'%'});
+    cb.all.n.textContent=N;TST.forEach(function(x){cb[x[0]].n.textContent=c[x[0]]});
+    warn.hidden=!re;warn.textContent=re?re+' من ملاحظات هذا الإصدار عُلّمت «عولجت» في الإصدار '+T.prevRev+' ووجدها الفحص قائمة':''}
+  function row(it,host){
+    var w=el('div','tm-row');var lab=el('span','tm-l','الحالة');w.appendChild(lab);var seg2=el('div','tm-seg');var bs={};
+    TST.forEach(function(x){var b=el('button','tm-s s-'+x[0],x[1]);b.type='button';bs[x[0]]=b;seg2.appendChild(b)});w.appendChild(seg2);
+    var meta=el('span','tm-meta');w.appendChild(meta);
+    var ta=el('textarea','fb-note');ta.rows=2;ta.placeholder='سبب الاعتراض (مثال: البعد مكتوب في لوحة كذا)، ويصلنا لنراجع الحكم';ta.hidden=true;
+    var sv=el('button','btn sm line','احفظ الاعتراض');sv.type='button';sv.hidden=true;var ms=el('span','fb-st');
+    w.appendChild(ta);w.appendChild(sv);w.appendChild(ms);
+    if(!/^cons-/.test(it)&&prev[it]){var p=prev[it],ph=null;
+      if(p.s==='fixed')ph=el('p','tm-prev bad','علّمها '+(p.by||'الفريق')+' «عولجت» في الإصدار '+T.prevRev+'، والفحص وجدها قائمة في هذا الإصدار.');
+      else if(p.s==='disputed')ph=el('p','tm-prev','اعتُرض عليها في الإصدار '+T.prevRev+(p.note?': '+p.note:''));
+      if(ph)w.appendChild(ph)}
+    function ui(){var s=st(it),r=state[it];Object.keys(bs).forEach(function(k){bs[k].classList.toggle('on',k===s)});host.setAttribute('data-st',s);
+      meta.textContent=r&&r.at?(r.by||'')+' · '+ago(r.at):'';
+      if(s==='disputed'&&r&&r.note&&ta.hidden){meta.textContent+=' · '+r.note}}
+    function put(s,note){ms.textContent='..';Object.keys(bs).forEach(function(k){bs[k].disabled=true});
+      Promise.resolve(T.onSet(it,s,note)).then(function(r){state[it]=r;ms.textContent='';ta.hidden=true;sv.hidden=true;ui();count()},function(e){ms.textContent=e&&/note_required/.test(e.message||'')?'اكتب سبب الاعتراض':'تعذر الحفظ'})
+      .then(function(){Object.keys(bs).forEach(function(k){bs[k].disabled=false})})}
+    TST.forEach(function(x){bs[x[0]].addEventListener('click',function(){if(x[0]==='disputed'){ta.hidden=false;sv.hidden=false;ta.value=(state[it]&&state[it].note)||'';ta.focus();return}if(st(it)===x[0])return;put(x[0],null)})});
+    sv.addEventListener('click',function(){var v=ta.value.trim();if(!v){ms.textContent='اكتب سبب الاعتراض';ta.focus();return}put('disputed',v)});
+    rows[it]=ui;ui();return w;
+  }
+  T.apply=function(ns){state=ns||{};T.state=state;Object.keys(rows).forEach(function(k){rows[k]()});count()};
+  return {bar:bar,row:row,count:count};
+}
 function render(rep,host,opts){
   opts=opts||{};host.innerHTML='';
   var M=FQ_model(rep);
@@ -125,6 +174,7 @@ function render(rep,host,opts){
     tw.appendChild(ol);ex.appendChild(tw);
   }else ex.appendChild(el('p','exec-ok','لا ملاحظات تمنع الرفع أو تُعالج قبله في الأقسام المفحوصة.'));
   box.appendChild(ex);
+  var TM=opts.team?teamCtl(opts.team,box,teamItems(M)):null;if(TM){box.classList.add('has-team');box.setAttribute('data-flt','all');box.appendChild(TM.bar)}
 
   /* الأقسام: كل قسم يُطوى ويُفتح، والقسم الذي فيه ما يمنع الرفع يبدأ مفتوحاً */
   var ctl=el('div','sec-ctl');var oa=el('button','linkbtn','افتح كل الأقسام');oa.type='button';var ca=el('button','linkbtn','اطوِ الكل');ca.type='button';
@@ -138,7 +188,7 @@ function render(rep,host,opts){
     if(!S.c.stop&&!S.c.major&&!S.c.minor)cn.appendChild(el('span','c-ok','✓ لا ملاحظات'));su.appendChild(cn);d.appendChild(su);
     var bd=el('div','rs-b');
     var tl=el('div','rs-tools');var spb=el('button','btn sm line','PDF لهذا القسم');spb.type='button';var sps=el('span','status pdfst');spb.addEventListener('click',function(){exportPdf(rep,spb,sps,S.id)});tl.appendChild(spb);tl.appendChild(sps);bd.appendChild(tl);
-    if(S.id==='cons')consBlock(S,bd);
+    if(S.id==='cons')consBlock(S,bd,TM);
     else{
       var fb=el('div','blk');var fh=el('h4',null,S.id==='reg'?'المخالفات وعلاجاتها':'الملاحظات وعلاجاتها');fh.appendChild(el('span',null,S.fails.length?S.fails.length+' مرتبة بالدرجة':''));fb.appendChild(fh);
       if(!S.fails.length)fb.appendChild(el('p','muted','لا شيء.'));
@@ -147,7 +197,7 @@ function render(rep,host,opts){
         var dd=el('div');var tt=el('div','t',k.R.n);tt.appendChild(el('code',null,k.R.c));if(k.R.d)tt.appendChild(el('span','disc-tag',DISC[k.R.d]||''));dd.appendChild(tt);
         var dl=el('dl');[['المطلوب',k.R.r,''],['في المخطط',k.r.f,''],['الموضع',k.r.src||'','src'],['العلاج',k.r.fix||'','fix']].forEach(function(p){if(!p[1])return;dl.appendChild(el('dt',null,p[0]));dl.appendChild(el('dd',p[2]||null,p[1]))});
         dd.appendChild(dl);if(k.r.note)dd.appendChild(el('p','note','ملاحظة: '+k.r.note));dd.appendChild(el('p','note',k.R.s||''));
-        if(opts.fb)dd.appendChild(fbRow(k.R.c,opts.fb));
+        if(TM)dd.appendChild(TM.row(k.R.c,f));else if(opts.fb)dd.appendChild(fbRow(k.R.c,opts.fb));
         f.appendChild(dd);fb.appendChild(f);
       });
       bd.appendChild(fb);
@@ -179,18 +229,19 @@ function render(rep,host,opts){
   var ft=el('div','rep-f');ft.appendChild(el('span',null,rep.foot||'التقرير فحص سابق للرفع، والمراجعة والاعتماد للأمانة.'));
   var lia=el('p','rep-liab','تقرير الفحص الفني أداة مساعدة سابقة للرفع، لا تحل محل المراجعة الهندسية ولا اعتماد الأمانة، والمسؤولية الهندسية والنظامية عن المخطط على المكتب أو المصمم المعدّ له.');box.appendChild(lia);ft.appendChild(el('span',null,'الملفات: '+(rep.files||'')));box.appendChild(ft);
   host.appendChild(box);
+  if(TM)TM.count();
 }
 /* مجموعات سجل الفحص داخل القسم: بالطبقة، أو بالتخصص في الفحص الهندسي */
 function groupsOf(S){
   if(S.id==='eng')return Object.keys(DISC).map(function(k){return {n:'التخصص '+DISC[k],rows:S.rows.filter(function(r){return r.R.d===k})}});
   return S.layers.map(function(id){return {n:'الطبقة '+lname(id),rows:S.rows.filter(function(r){return r.R.l===id})}});
 }
-function consBlock(S,bd){
+function consBlock(S,bd,TM){
   var cb=el('div','blk');
   if(!S.cons.length)cb.appendChild(el('p','muted','لم يُرصد في هذا الفحص بند اتساق.'));
   [['in','داخل الملف'],['cross','بين الملفات']].forEach(function(g){var items=S.cons.filter(function(c){return (c.kind||'in')===g[0]});if(!items.length)return;
     cb.appendChild(el('p','cons-g',g[1]));var ul=el('ul','cons-l');
-    items.forEach(function(c){var li=el('li');li.id='f-cons-'+S.cons.indexOf(c);li.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var d=el('div');d.appendChild(el('span',null,c.what||''));var wh=[c.where,c.src].filter(Boolean).join(' · ');if(wh)d.appendChild(el('small',null,wh));li.appendChild(d);ul.appendChild(li)});
+    items.forEach(function(c){var li=el('li');li.id='f-cons-'+S.cons.indexOf(c);li.appendChild(el('span','cst cst-'+(c.state||'check'),CSTN[c.state]||'للتحقق'));var d=el('div');d.appendChild(el('span',null,c.what||''));var wh=[c.where,c.src].filter(Boolean).join(' · ');if(wh)d.appendChild(el('small',null,wh));var ix=S.cons.indexOf(c);if(TM&&(c.state==='conflict'||c.state==='check'))d.appendChild(TM.row('cons-'+ix,li));li.appendChild(d);ul.appendChild(li)});
     cb.appendChild(ul)});
   bd.appendChild(cb);
 }

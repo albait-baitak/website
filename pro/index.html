@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://albait-baitak.com/assets/img/og-fahs.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092307">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092325">
 <style>
 /* صفحة المكاتب: الصفحة مجموعة لوحات. الغلاف وفهرس اللوحات في الأعلى، وكل قسم لوحة برقمها وختمها */
 .px-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:start;padding-block:clamp(36px,6vw,72px) clamp(40px,6vw,64px)}
@@ -294,6 +294,51 @@
   .dm-walls,.dm-win{clip-path:none}.dm-doors,.dm-stair,.dm-fur,.dm-lbl,.dm-dim,.dm-ent,.north{opacity:1;animation:none!important}
   .px-hero::before,.px-badge .dot{animation:none}
 }
+
+/* P-03 التقرير التفاعلي للفريق */
+.px-ir>div{min-width:0}.px-ir{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(20px,4vw,48px);align-items:start}
+.ir-win{margin:0;background:var(--sheet);border:1px solid var(--line-2);border-radius:var(--r-xl);box-shadow:0 2px 4px rgba(31,26,23,.04),0 40px 80px -40px rgba(31,26,23,.45);overflow:hidden;position:relative}
+.ir-top{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--paper)}
+.ir-top>b{font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ir-live{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.ir-live .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:ping 2.2s infinite}
+.ir-body{padding:16px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ir-bar{border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.ir-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ir-h>b{font-size:14px}
+.ir-big{display:flex;align-items:baseline;gap:6px;white-space:nowrap}.ir-big b{font-family:var(--mono);font-size:28px;line-height:1;color:var(--ok);display:inline-block;transition:transform .35s var(--ease-out)}.ir-big b.bump{transform:scale(1.35)}.ir-big span{font-size:12px;color:var(--ink-2)}
+.ir-prog{display:flex;height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:10px 0 9px}
+.ir-prog i{display:block;height:100%;transition:width .7s var(--ease-out)}.ir-prog .pf{background:var(--ok)}.ir-prog .pd{background:var(--major)}.ir-prog .px{background:var(--terra);opacity:.55}
+.ir-chips{display:flex;flex-wrap:wrap;gap:5px}.ir-chips span{font-size:11.5px;border:1px solid var(--line-2);border-radius:99px;padding:2px 9px;color:var(--ink-2);background:var(--paper)}.ir-chips span.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}.ir-chips b{font-family:var(--mono);font-weight:500;margin-inline-start:4px}
+.ir-sec{border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.ir-sh{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--paper)}
+.ir-sh>b{font-size:13.5px;flex:1}.ir-sh .c{font-size:11.5px;color:var(--ink-2)}
+.ir-sh .chev{width:8px;height:8px;border-inline-start:2px solid var(--ink-2);border-bottom:2px solid var(--ink-2);transform:rotate(-45deg);transition:transform .4s var(--ease-out)}
+.ir-sec.open .chev{transform:rotate(135deg)}
+.ir-sb{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease-out)}
+.ir-sec.open .ir-sb{grid-template-rows:1fr}
+.ir-sb>div{overflow:hidden;min-height:0}
+.ir-f{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:11px 14px;border-top:1px solid var(--line);position:relative;transition:background .4s}
+.ir-f.hl{background:color-mix(in srgb,var(--terra) 6%,var(--sheet))}
+.ir-f .sev{font-size:11px;font-weight:700;color:#fff;text-align:center;border-radius:999px;padding:2px 0;align-self:start}.sev.stop{background:var(--stop)}.sev.major{background:var(--major)}
+.ir-f .t{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-size:13.5px;font-weight:700}
+.ir-f .t span{background:linear-gradient(currentColor,currentColor) 100% 55%/0 2px no-repeat;transition:background-size .6s var(--ease-out),color .4s}
+.ir-f.fx .t span{background-size:100% 2px;color:var(--ink-2)}
+.ir-f code{font-family:var(--mono);font-size:10.5px;color:var(--terra);font-weight:400;direction:ltr}
+.ir-f .src{display:block;font-size:11.5px;color:var(--terra);margin-top:2px}
+.ir-seg{display:inline-flex;border:1px solid var(--line-2);border-radius:99px;overflow:hidden;margin-top:8px;font-size:11px;background:var(--paper)}
+.ir-seg span{padding:3px 9px;color:var(--ink-2);transition:background .35s,color .35s}.ir-seg span+span{border-inline-start:1px solid var(--line)}
+.ir-seg span.on{color:#fff;font-weight:700}.ir-seg .s-o.on{background:var(--ink-2)}.ir-seg .s-d.on{background:var(--major)}.ir-seg .s-f.on{background:var(--ok)}.ir-seg .s-x.on{background:var(--terra)}
+.ir-f .meta{display:block;font-size:11px;color:var(--ink-2);margin-top:5px;min-height:1.4em;opacity:0;transform:translateY(-3px);transition:opacity .4s,transform .4s}
+.ir-f .meta.on{opacity:1;transform:none}
+.ir-cur{position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50% 50% 50% 4px;display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;box-shadow:0 6px 14px -4px rgba(31,26,23,.45);opacity:0;transform:translate(0,0) scale(.6);transition:transform .9s var(--ease-out),opacity .3s;pointer-events:none;z-index:3}
+.ir-cur.on{opacity:1}
+.ir-toastw{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease-out);margin-top:-12px}.ir-win.toast .ir-toastw{grid-template-rows:1fr;margin-top:0}.ir-toastw>div{overflow:hidden;min-height:0}.ir-toast{background:#1F1A17;color:#F6F5F1;border-radius:16px;padding:12px 16px;display:flex;flex-direction:column;gap:3px;opacity:0;transform:translateY(10px);transition:opacity .5s .15s,transform .6s .15s var(--ease-out)}.ir-toast b{font-size:13.5px}.ir-toast em{font-style:normal}.ir-toast span{font-size:12px;opacity:.9}.ir-toast .ok{color:#9fd1ae}.ir-toast .no{color:#f0a493}.ir-win.toast .ir-toast{opacity:1;transform:none}
+.ir-win .dm-replay{opacity:0}.ir-win.done .dm-replay{opacity:1}
+.ir-cap{font-size:12px;color:var(--ink-2);margin:10px 4px 0}
+@media (max-width:900px){.px-ir{grid-template-columns:1fr}}
+@media (max-width:600px){.ir-live .lbl{display:none}.ir-f{grid-template-columns:1fr;gap:6px}.ir-f .sev{justify-self:start;padding:2px 10px}.ir-seg{display:flex}.ir-seg span{flex:1;text-align:center;padding:4px 2px;white-space:nowrap}.ir-chips span:nth-child(n+4){display:none}.ir-h>b{font-size:13px}}
+@media (prefers-reduced-motion:reduce){.ir-cur{display:none}.ir-sb,.ir-prog i,.ir-f .t span,.ir-toast{transition:none}}
 </style>
 </head>
 <body>
@@ -302,7 +347,7 @@
   <div class="wrap">
     <a class="brand" href="../" aria-label="البيت بيتك: الصفحة الرئيسية"><span class="bn">البيت بيتك</span><b>للمكاتب والمصممين</b></a>
     <nav aria-label="أقسام الصفحة">
-      <a href="#fahs">الفحص الفني</a><a href="#boq">جداول الكميات</a><a href="#team">فريق المكتب</a><a href="#start">كيف تبدأ</a>
+      <a href="#fahs">الفحص الفني</a><a href="#live">التقرير التفاعلي</a><a href="#boq">جداول الكميات</a><a href="#team">فريق المكتب</a><a href="#start">كيف تبدأ</a>
     </nav>
     <div class="auth" data-auth><a class="btn sm" href="../account/?next=..%2Ffahs%2Fapp.html">الدخول</a></div>
   </div>
@@ -343,16 +388,17 @@
   <div class="wrap"><div class="px-bar-in">
     <a href="#change"><span class="no">P-01</span>ما يتغير في عملك</a>
     <a href="#fahs"><span class="no">P-02</span>الفحص الفني</a>
-    <a href="#boq"><span class="no">P-03</span>جداول الكميات</a>
-    <a href="#team"><span class="no">P-04</span>فريق المكتب</a>
-    <a href="#trust"><span class="no">P-05</span>لماذا تثق</a>
-    <a href="#start"><span class="no">P-06</span>كيف تبدأ</a>
+    <a href="#live"><span class="no">P-03</span>التقرير التفاعلي</a>
+    <a href="#boq"><span class="no">P-04</span>جداول الكميات</a>
+    <a href="#team"><span class="no">P-05</span>فريق المكتب</a>
+    <a href="#trust"><span class="no">P-06</span>لماذا تثق</a>
+    <a href="#start"><span class="no">P-07</span>كيف تبدأ</a>
   </div></div>
 </nav>
 
 <div class="wrap">
   <section class="px-sheet" id="change" aria-labelledby="change-h">
-    <div class="px-sh"><span class="no">P-01</span><div><h2 id="change-h">ما الذي يتغير في عملك</h2><p>سبعة مواضع يضيع فيها وقت المكتب اليوم، وما نقدمه في كل واحد منها.</p></div></div>
+    <div class="px-sh"><span class="no">P-01</span><div><h2 id="change-h">ما الذي يتغير في عملك</h2><p>ثمانية مواضع يضيع فيها وقت المكتب اليوم، وما نقدمه في كل واحد منها.</p></div></div>
     <div class="px-body">
       <div class="px-dwrap"><table class="px-diff">
         <thead><tr><th scope="col">اليوم</th><th scope="col">معنا</th></tr></thead>
@@ -360,6 +406,7 @@
           <tr><td>يعود المخطط من الأمانة بملاحظات لم تكن في الحسبان، ويضيع أسبوع في التعديل وإعادة الرفع.</td><td>تعرف الملاحظات قبل الرفع<span>كل ملاحظة ببندها ومرجعها ودرجتها وعلاجها، فترفع المخطط مرة واحدة.</span></td></tr>
           <tr><td>تُرسل اللوحات ملفاً ملفاً، ويُعاد تصدير كل لوحة وتسميتها قبل أي مراجعة.</td><td>ملف مضغوط واحد للمشروع كله<span>ترفع مجلد المشروع في ملف ZIP كما هو، فتُقرأ لوحاته كلها، ويُترك ما ليس مخططاً كملفات النسخ الاحتياطي.</span></td></tr>
           <tr><td>يُحصر جدول الكميات يدوياً من اللوحات في أيام، ويختلف من مهندس لآخر.</td><td>جدول كميات مسعّر من المخطط نفسه<span>تطلبه من أي إصدار، وما يُقدَّر بالمتر المربع يُوسم في الجدول بأنه تقديري.</span></td></tr>
+          <tr><td>يُصدَّر التقرير PDF ويتنقل بين المهندسين في المحادثات، ولا يُعرف ما عولج منه وما بقي.</td><td>تقرير تفاعلي يعمل عليه الفريق<span>لكل ملاحظة حالة يراها المكتب كله، وعدّاد لما عولج، والفحص يتحقق في الإصدار التالي مما عُلّم معالجاً.</span></td></tr>
           <tr><td>ملفات المشاريع وتقاريرها موزعة بين أجهزة المهندسين ومحادثات واتساب.</td><td>حساب واحد للمكتب<span>كل المشاريع وإصداراتها وتقاريرها أمام الفريق، ومن أنشأ كل مشروع ومن رفع كل إصدار.</span></td></tr>
           <tr><td>يتعارض المسقط مع الواجهة أو القطاع، أو ملف الأوتوكاد مع الـPDF المرفوع، ولا يُكتشف إلا عند المراجع أو في الموقع.</td><td>فحص اتساق المخطط<span>نطابق المسقط بالواجهات والقطاعات والجداول، وملف الرسم بملف الـPDF، وننبهك بكل تعارض وموضعه.</span></td></tr>
           <tr><td>تُرفع مخططات الإنشائي والكهرباء والصحي والتكييف دون أن يراجعها أحد على الكود قبل الرفع.</td><td>فحص هندسي للتخصصات<span>كل تخصص يُفحص على الكود السعودي واشتراطات البلدية والدفاع المدني، وعلى تنسيقه مع المعماري.</span></td></tr>
@@ -409,8 +456,46 @@
     </div>
   </section>
 
+  <section class="px-sheet" id="live" aria-labelledby="live-h">
+    <div class="px-sh"><span class="no">P-03</span><div><h2 id="live-h">التقرير التفاعلي للفريق</h2><p>لا يحتاج المكتب أن يصدّر التقرير ويتداوله بين المهندسين. التقرير نفسه في الموقع مساحة عمل للفريق: لكل ملاحظة حالة يراها الجميع، وعدّاد لما عولج، والفحص يتحقق منه في الإصدار التالي.</p></div></div>
+    <div class="px-body px-ir">
+      <div>
+      <figure class="ir-win" id="irWin" aria-hidden="true">
+        <div class="ir-top"><span class="dm-dots"><i></i><i></i><i></i></span><b>تقرير FP-12 · فيلا آل محمد · الإصدار 2</b><span class="ir-live"><i class="dot"></i><span class="lbl">الفريق الآن</span><span class="stk"><i class="a1">س</i><i class="a2">ر</i><i class="a3">ف</i></span></span><button type="button" class="dm-replay" id="irReplay" tabindex="-1">أعد العرض</button></div>
+        <div class="ir-body">
+          <div class="ir-bar">
+            <div class="ir-h"><b>عمل الفريق على الملاحظات</b><div class="ir-big"><b id="irN">3</b><span>عولجت من 12</span></div></div>
+            <div class="ir-prog"><i class="pf" id="irPf"></i><i class="pd" id="irPd"></i><i class="px" id="irPx"></i></div>
+            <div class="ir-chips"><span class="on">الكل<b>12</b></span><span>مفتوحة<b id="irO">8</b></span><span>قيد العمل<b id="irD">1</b></span><span>عولجت<b id="irF">3</b></span><span>معترض عليها<b id="irX">0</b></span></div>
+          </div>
+          <div class="ir-sec open" id="irS1"><div class="ir-sh"><b>الاشتراطات النظامية</b><span class="c">1 تمنع · 2 تُعالج</span><i class="chev"></i></div>
+            <div class="ir-sb"><div>
+              <div class="ir-f" data-a="a2" data-s="f" data-m="م. ريم · الآن"><span class="sev stop">تمنع الرفع</span><div><div class="t"><span>الارتداد جهة الجار</span><code>SETBACK-03</code></div><small class="src">معماري.pdf · صفحة 2 (المسقط الأرضي) · الجدار الشمالي</small><div class="ir-seg"><span class="s-o on">مفتوحة</span><span class="s-d">قيد العمل</span><span class="s-f">عولجت</span><span class="s-x">معترض عليها</span></div><small class="meta"></small></div></div>
+              <div class="ir-f" data-a="a3" data-s="d" data-m="م. فهد · الآن"><span class="sev major">تُعالج قبل الرفع</span><div><div class="t"><span>عدد المواقف</span><code>PARK-01</code></div><small class="src">معماري.pdf · صفحة 1 (الموقع العام) · مدخل السيارات</small><div class="ir-seg"><span class="s-o on">مفتوحة</span><span class="s-d">قيد العمل</span><span class="s-f">عولجت</span><span class="s-x">معترض عليها</span></div><small class="meta"></small></div></div>
+              <div class="ir-f" data-a="a1" data-s="x" data-m="م. سعد · الآن · البسطة 1.20 م مكتوبة في القطاع أ-أ"><span class="sev major">تُعالج قبل الرفع</span><div><div class="t"><span>الدرج والبسطة</span><code>STAIR-01</code></div><small class="src">معماري.pdf · صفحة 4 (القطاع أ-أ) · الدرج الرئيسي</small><div class="ir-seg"><span class="s-o on">مفتوحة</span><span class="s-d">قيد العمل</span><span class="s-f">عولجت</span><span class="s-x">معترض عليها</span></div><small class="meta"></small></div></div>
+            </div></div></div>
+          <div class="ir-sec" id="irS2"><div class="ir-sh"><b>الفحص الهندسي للتخصصات</b><span class="c">1 تمنع</span><i class="chev"></i></div>
+            <div class="ir-sb"><div>
+              <div class="ir-f" data-a="a2" data-s="f" data-m="م. ريم · الآن"><span class="sev stop">تمنع الرفع</span><div><div class="t"><span>حماية التسرب الأرضي RCD</span><code>ELE-08</code></div><small class="src">كهرباء.pdf · صفحة 3 (جدول اللوحة) · دوائر الحمامات</small><div class="ir-seg"><span class="s-o on">مفتوحة</span><span class="s-d">قيد العمل</span><span class="s-f">عولجت</span><span class="s-x">معترض عليها</span></div><small class="meta"></small></div></div>
+            </div></div></div>
+          <span class="ir-cur" id="irCur"></span>
+          <div class="ir-toastw"><div><div class="ir-toast"><b>رُفع الإصدار 3 وفُحص</b><span>علّم الفريق 5 ملاحظات «عولجت»: <em class="ok">تأكد الفحص من 4</em> · <em class="no">وبقيت 1 قائمة</em></span></div></div></div>
+        </div>
+      </figure>
+      <p class="ir-cap">مثال توضيحي لشاشة التقرير في حساب المكتب.</p>
+      </div>
+      <ul class="px-list">
+        <li><b>حالة مشتركة</b><span>لكل ملاحظة أربع حالات: مفتوحة، قيد العمل، عولجت، معترض عليها. يغيرها أي مهندس في المكتب، فيراها الفريق كله ومعها اسم من غيّرها ومتى.</span></li>
+        <li><b>عدّاد وتصفية</b><span>أعلى التقرير «عولجت 5 من 12»، وتصفية بالحالة تُظهر المفتوح وحده لمن يريد أن يعمل، والقسم يُطوى ويُفتح.</span></li>
+        <li><b>تحقق في الإصدار التالي</b><span>حين يُرفع الإصدار التالي يقارن الفحص كل ما علّمه الفريق «عولجت»، فيؤكد ما عولج فعلاً، وينبّه بما بقي قائماً قبل أن يصل إلى الأمانة.</span></li>
+        <li><b>اعتراض مسبَّب</b><span>من يعترض على حكم يكتب سببه، فيبقى أمام الفريق، ويصلنا لنراجع الحكم.</span></li>
+        <li><b>الـPDF في مكانه</b><span>يبقى للعميل وللأمانة، أما عمل الفريق فعلى التقرير في الموقع، وكل الإصدارات وتقاريرها محفوظة في المشروع.</span></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="px-sheet" id="boq" aria-labelledby="boq-h">
-    <div class="px-sh"><span class="no">P-03</span><div><h2 id="boq-h">جداول الكميات</h2><p>من أي إصدار في المشروع تطلب جدول كميات مسعّراً بالمواصفات والأسعار التقديرية، فتعطي عميلك رقماً مبنياً على المخطط لا على تقدير عام.</p></div></div>
+    <div class="px-sh"><span class="no">P-04</span><div><h2 id="boq-h">جداول الكميات</h2><p>من أي إصدار في المشروع تطلب جدول كميات مسعّراً بالمواصفات والأسعار التقديرية، فتعطي عميلك رقماً مبنياً على المخطط لا على تقدير عام.</p></div></div>
     <div class="px-body">
       <ul class="px-list">
         <li><b>التخصصات</b><span>المعماري أساساً، ويُضاف الإنشائي والكهربائي والصحي والتكييف حين تُرفع مخططاتها.</span></li>
@@ -422,7 +507,7 @@
   </section>
 
   <section class="px-sheet" id="team" aria-labelledby="team-h">
-    <div class="px-sh"><span class="no">P-04</span><div><h2 id="team-h">فريق المكتب</h2><p>المكتب حساب واحد يملك مشاريعه وتقاريرها. يدعو المدير مهندسيه برابط، فيعمل الفريق كله على المشاريع نفسها.</p></div></div>
+    <div class="px-sh"><span class="no">P-05</span><div><h2 id="team-h">فريق المكتب</h2><p>المكتب حساب واحد يملك مشاريعه وتقاريرها. يدعو المدير مهندسيه برابط، فيعمل الفريق كله على المشاريع نفسها.</p></div></div>
     <div class="px-body px-team">
       <div class="px-org" aria-hidden="true">
         <div class="og-head"><span class="og-logo"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/><path d="M3 20h18"/></svg></span><div><b>مكتب الواحة للاستشارات الهندسية</b><span>حساب المكتب · 3 أعضاء ودعوة</span></div></div>
@@ -450,7 +535,7 @@
   </section>
 
   <section class="px-sheet" id="trust" aria-labelledby="trust-h">
-    <div class="px-sh"><span class="no">P-05</span><div><h2 id="trust-h">لماذا تثق بالتقرير</h2><p>قيمة التقرير أن كل ما فيه منسوب إلى نص، لا رأي يُجادَل فيه.</p></div></div>
+    <div class="px-sh"><span class="no">P-06</span><div><h2 id="trust-h">لماذا تثق بالتقرير</h2><p>قيمة التقرير أن كل ما فيه منسوب إلى نص، لا رأي يُجادَل فيه.</p></div></div>
     <div class="px-body px-two">
       <ul class="px-list one">
         <li><span><b>المرجع:</b> كل ملاحظة باسم الاشتراط أو الكود أو الموجه ورقم بنده، ونص البند حين يلزم.</span></li>
@@ -467,7 +552,7 @@
   </section>
 
   <section class="px-sheet" id="start" aria-labelledby="start-h">
-    <div class="px-sh"><span class="no">P-06</span><div><h2 id="start-h">كيف تبدأ</h2><p>من التسجيل إلى أول تقرير في خطوات قليلة، ويصلك تنبيه على جهازك حين يصدر.</p></div></div>
+    <div class="px-sh"><span class="no">P-07</span><div><h2 id="start-h">كيف تبدأ</h2><p>من التسجيل إلى أول تقرير في خطوات قليلة، ويصلك تنبيه على جهازك حين يصدر.</p></div></div>
     <div class="px-body">
       <ol class="steps">
         <li><span class="k">01</span><h3>سجّل الحساب</h3><p>حساب المكتب أو المصمم بالبريد وكلمة المرور.</p></li>
@@ -492,10 +577,10 @@
   </div>
 </footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610092307"></script>
-<script src="../assets/js/config.js?v=202610092307"></script>
-<script src="../assets/js/stats.js?v=202610092307"></script>
-<script src="../assets/js/session.js?v=202610092307"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092325"></script>
+<script src="../assets/js/config.js?v=202610092325"></script>
+<script src="../assets/js/stats.js?v=202610092325"></script>
+<script src="../assets/js/session.js?v=202610092325"></script>
 <script>
 (function(){
 var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -517,8 +602,37 @@ document.getElementById('dmReplay').addEventListener('click',play);
 /* يبدأ العرض حين يظهر للزائر، لا قبله */
 if('IntersectionObserver' in window&&!RM){var dio=new IntersectionObserver(function(es){if(es[0].isIntersecting){dio.disconnect();play()}},{threshold:.35});dio.observe(D)}else play();
 
+/* التقرير التفاعلي: الفريق يغير حالات الملاحظات، فيرتفع العدّاد، ثم يتحقق الفحص في الإصدار التالي */
+(function(){var W=document.getElementById('irWin');if(!W)return;var B=W.querySelector('.ir-body'),C=document.getElementById('irCur'),F=[].slice.call(W.querySelectorAll('.ir-f')),S1=document.getElementById('irS1'),S2=document.getElementById('irS2'),T=[],N=12,st;
+  function $(i){return document.getElementById(i)}
+  function later(f,ms){T.push(setTimeout(f,ms))}
+  function paint(bump){$('irN').textContent=st.f;$('irF').textContent=st.f;$('irD').textContent=st.d;$('irX').textContent=st.x;$('irO').textContent=N-st.f-st.d-st.x;
+    $('irPf').style.width=st.f/N*100+'%';$('irPd').style.width=st.d/N*100+'%';$('irPx').style.width=st.x/N*100+'%';
+    if(bump){var b=$('irN');b.classList.add('bump');later(function(){b.classList.remove('bump')},380)}}
+  function reset(){T.forEach(clearTimeout);T=[];st={f:3,d:1,x:0};W.classList.remove('toast','done');C.classList.remove('on');S1.classList.add('open');S2.classList.remove('open');
+    F.forEach(function(f){f.classList.remove('fx','hl');f.querySelectorAll('.ir-seg span').forEach(function(x){x.classList.toggle('on',x.classList.contains('s-o'))});var m=f.querySelector('.meta');m.classList.remove('on');m.textContent=''});paint()}
+  function apply(f){var k=f.getAttribute('data-s');f.querySelectorAll('.ir-seg span').forEach(function(x){x.classList.toggle('on',x.classList.contains('s-'+k))});
+    if(k==='f'){f.classList.add('fx');st.f++}else if(k==='d')st.d++;else st.x++;var m=f.querySelector('.meta');m.textContent=f.getAttribute('data-m');m.classList.add('on');paint(k==='f')}
+  function go(f){var t=f.querySelector('.ir-seg .s-'+f.getAttribute('data-s')),r=t.getBoundingClientRect(),o=B.getBoundingClientRect();
+    C.className='ir-cur on '+f.getAttribute('data-a');C.textContent=f.querySelector('.ir-seg')&&{a1:'س',a2:'ر',a3:'ف'}[f.getAttribute('data-a')];
+    C.style.transform='translate('+(r.left-o.left+r.width/2-4)+'px,'+(r.top-o.top+r.height/2-4)+'px)';f.classList.add('hl')}
+  function step(f,at){later(function(){go(f)},at);later(function(){apply(f);f.classList.remove('hl')},at+950)}
+  function play(){reset();
+    if(RM2){F.forEach(apply);S1.classList.remove('open');S2.classList.add('open');W.classList.add('toast','done');return}
+    C.style.transform='translate('+(B.clientWidth/2)+'px,'+(B.clientHeight-30)+'px)';
+    step(F[0],700);step(F[1],2700);step(F[2],4700);
+    later(function(){C.classList.remove('on');S1.classList.remove('open');S2.classList.add('open')},6600);
+    step(F[3],7500);
+    later(function(){C.classList.remove('on');W.classList.add('toast')},9300);
+    later(function(){W.classList.add('done')},10200)}
+  var RM2=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('irReplay').addEventListener('click',play);
+  reset();
+  if('IntersectionObserver' in window&&!RM2){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();play()}},{threshold:.4});io.observe(W)}else play();
+})();
+
 /* ظهور الأقسام */
-var items=[];document.querySelectorAll('.px-sh,.px-dwrap,.px-secs,.px-verdict,.px-two,.px-list,.px-team,.px-body .steps,.px-launch,.cta-band').forEach(function(e){if(!e.closest('.px-two')||e.classList.contains('px-two')){e.classList.add('rv');items.push(e)}});
+var items=[];document.querySelectorAll('.px-sh,.ir-win,.px-dwrap,.px-secs,.px-verdict,.px-two,.px-list,.px-team,.px-body .steps,.px-launch,.cta-band').forEach(function(e){if(!e.closest('.px-two')||e.classList.contains('px-two')){e.classList.add('rv');items.push(e)}});
 var org=document.querySelector('.px-org');
 if('IntersectionObserver' in window&&!RM){
   var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);if(x.target.querySelector)count(x.target)}})},{rootMargin:'0px 0px -12% 0px',threshold:.08});

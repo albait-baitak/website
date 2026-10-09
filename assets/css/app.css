@@ -460,3 +460,5 @@ a.tool{border-color:var(--terra)} a.tool em{border-color:var(--terra);color:var(
 @media (max-width:860px){.auth-shell{border-radius:20px}}
 .flist .from{display:block;font-size:12px;color:var(--ink-2)}
 .ed-fw{display:flex;flex-direction:column;gap:4px}.ed-row .ed-src{font:inherit;font-size:12px;color:var(--ink-2);background:var(--paper);border:1px solid var(--line-2);border-radius:var(--r-ctl);padding:4px 7px;width:100%}
+.cmpcol li small.vfy{font-weight:700}.cmpcol li small.vfy.ok{color:var(--ok)}.cmpcol li small.vfy.bad{color:var(--stop)}
+.cmpcol li{flex-wrap:wrap}
