@@ -541,3 +541,41 @@ body:has(.tool-main){background-size:24px 24px}
 .pp-cons{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:5px 0;border-bottom:1px solid #D9D3CB;font-size:11px;line-height:1.7}
 .pp-cons .cst{font-size:9.5px;padding:0 6px}.pp-cons small{color:#5E554E}
 .pp-cons .cst.cst-ok{color:#3F6B4E}.pp-cons .cst.cst-conflict{color:#9B2F22}.pp-cons .cst.cst-check{color:#B5652A}.pp-cons .cst.cst-unchecked{color:#5E554E}
+
+/* ===== التقرير بالأقسام: الملخص التنفيذي والأقسام المطوية ===== */
+.exec{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.exec-h{font-size:18px;margin:0}
+.exec .vd{margin:0}
+.exec .summary p{margin:0 0 6px;line-height:1.85}
+.exec-sub{font-size:13px;font-weight:700;color:var(--ink-2);margin:0 0 6px}
+.exec-chart svg{max-width:680px;display:block}
+.top-l{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px}
+.top-l li{display:grid;grid-template-columns:118px 1fr;gap:12px;align-items:start;padding:8px 0;border-top:1px solid var(--line)}
+.top-l li a{color:var(--ink);font-weight:700;text-decoration-color:var(--terra);text-underline-offset:4px}
+.top-l li small{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.top-l li.more{display:block;font-size:13px;color:var(--ink-2)}
+.exec-ok{margin:0;color:var(--ok);font-weight:700}
+.sec-ctl{display:flex;gap:14px;justify-content:flex-end;padding:10px 22px 0}
+.linkbtn{font:inherit;font-size:13px;background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;padding:0}
+details.rsec{margin:12px 22px 0;border:1px solid var(--line-2);border-radius:var(--r-card);background:var(--sheet);overflow:hidden}
+details.rsec>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--paper)}
+details.rsec>summary::-webkit-details-marker{display:none}
+details.rsec>summary::before{content:"";width:9px;height:9px;border-left:2px solid var(--terra);border-bottom:2px solid var(--terra);transform:rotate(45deg);transition:transform .15s;flex:none;margin-top:-4px}
+details.rsec[open]>summary::before{transform:rotate(-45deg);margin-top:4px}
+details.rsec[open]>summary{border-bottom:1px solid var(--line)}
+.rs-t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 auto}
+.rs-t b{font-size:16.5px}.rs-t span{font-size:12.5px;color:var(--ink-2);line-height:1.6}
+details.rsec>summary .cnts{display:flex;gap:10px;font-size:12.5px;font-weight:700;flex-wrap:wrap;justify-content:flex-end}
+.rs-b>.blk:last-child{border-bottom:0}
+.rs-tools{display:flex;gap:10px;align-items:center;justify-content:flex-end;padding:10px 22px 0}
+.rsec-note{margin:12px 22px 0;padding:12px 16px;border:1px dashed var(--line-2);border-radius:var(--r-card);font-size:14px;color:var(--ink-2)}
+.find .t .disc-tag{font-size:11.5px;font-weight:700;color:var(--terra);border:1px solid var(--terra);border-radius:var(--r-tag);padding:0 6px;margin-inline-start:8px}
+.find.flash,.cons-l li.flash{background:color-mix(in srgb,var(--terra) 12%,transparent);transition:background .3s}
+@media (max-width:720px){details.rsec{margin-inline:12px}details.rsec>summary{flex-wrap:wrap}.top-l li{grid-template-columns:1fr}.sec-ctl,.rs-tools{padding-inline:12px}}
+.pp-sum1{margin-top:10px}.pp-sum1 p{margin:0 0 5px;font-size:11.5px;line-height:1.75}.pp-sum1 .as{font-size:9.5px;color:#5E554E}
+.pp-chart{margin-top:10px;border:1px solid #D9D3CB;padding:10px 12px 4px}
+.pp-top{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:5px 0;border-bottom:1px solid #D9D3CB;font-size:11px;line-height:1.7}
+.pp-top small{color:#5E554E}
+.pp-find .t .disc-tag{font-size:9px;color:#A65338;border:1px solid #A65338;padding:0 4px;margin-inline-start:6px}
+.pp-top .sv{font-size:9.5px;font-weight:700;color:#FFFFFF;text-align:center;padding:2px 0;align-self:start}
+.pp-top .sv.stop{background:#9B2F22}.pp-top .sv.major{background:#B5652A}.pp-top .sv.minor{background:#5F7044}

@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610090529">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610090529">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610091645">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610091645">
 </head>
 <body>
 <header class="top">
@@ -79,6 +79,7 @@
               </label>
               <ul class="flist" id="nList"></ul>
             </div>
+            <fieldset class="secpick full" id="nSecs"></fieldset>
             <label class="check2 full"><input type="checkbox" id="nAgree"><span>اطلعت على <a href="./#terms">السرية والمسؤولية</a>، وأقر بأن التقرير فحص سابق للرفع لا يغني عن مراجعة الأمانة.</span></label>
             <div class="row full"><button class="btn" type="submit" id="nSubmit">أنشئ المشروع وأرسل الإصدار الأول</button><button class="btn line" type="button" id="nCancel">إلغاء</button><span class="msg" id="nMsg" role="status"></span></div>
           </form>
@@ -120,6 +121,7 @@
               <ul class="flist" id="rList"></ul>
             </div>
               <div class="f full"><label for="rNote">ما الذي تغيّر في هذا الإصدار <span class="o">يساعد المراجع، اختياري</span></label><textarea id="rNote" placeholder="مثال: رُفعت سترة السطح إلى 1.80م، وأُغلقت نوافذ الملحق جهة الجار"></textarea></div>
+              <fieldset class="secpick full" id="rSecs"></fieldset>
               <label class="check2 full"><input type="checkbox" id="rAgree"><span>اطلعت على <a href="./#terms">السرية والمسؤولية</a>، وأقر بأن التقرير فحص سابق للرفع لا يغني عن مراجعة الأمانة.</span></label>
               <div class="row full"><button class="btn" type="submit" id="rSubmit">أرسل الإصدار</button><span class="msg" id="rMsg" role="status"></span></div>
             </form>
@@ -179,18 +181,18 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610090529"></script>
-<script src="../assets/js/config.js?v=202610090529"></script>
-<script src="../assets/js/stats.js?v=202610090529"></script>
-<script src="../assets/js/access.js?v=202610090529"></script>
-<script src="../assets/js/session.js?v=202610090529"></script>
-<script src="../assets/js/rules.js?v=202610090529"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610090529"></script>
-<script src="../assets/js/dxf.js?v=202610090529"></script>
-<script src="../assets/js/pdfx.js?v=202610090529"></script>
-<script src="../assets/js/report.js?v=202610090529"></script>
-<script src="../assets/js/boq.js?v=202610090529"></script>
-<script src="../assets/js/userpush.js?v=202610090529"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610091645"></script>
+<script src="../assets/js/config.js?v=202610091645"></script>
+<script src="../assets/js/stats.js?v=202610091645"></script>
+<script src="../assets/js/access.js?v=202610091645"></script>
+<script src="../assets/js/session.js?v=202610091645"></script>
+<script src="../assets/js/rules.js?v=202610091645"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610091645"></script>
+<script src="../assets/js/dxf.js?v=202610091645"></script>
+<script src="../assets/js/pdfx.js?v=202610091645"></script>
+<script src="../assets/js/report.js?v=202610091645"></script>
+<script src="../assets/js/boq.js?v=202610091645"></script>
+<script src="../assets/js/userpush.js?v=202610091645"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -333,8 +335,32 @@ function autoRun(id){if(!SET.auto)return;BB.functions.invoke('analyze',{body:{re
   clearInterval(poll);var n=0;poll=setInterval(function(){n++;if(n>40){clearInterval(poll);return}
     BB.from('requests').select('status').eq('id',id).maybeSingle().then(function(r){if(r.data&&r.data.status==='published'){clearInterval(poll);if(cur)loadRevs();loadProjects();msg('rMsg','صدر التقرير. اضغط «اعرض التقرير» في جدول الإصدارات.','good')}})},20000)}
 function quotaMsg(e){return e&&(e.code==='42501'||/row-level security/i.test(e.message||''))?'تعذر الإرسال: الحساب غير مفعّل لهذه الخدمة الآن. أعد الدخول، وإن تكرر فتواصل معنا.':'تعذر الإرسال. تأكد من الاتصال وأعد المحاولة.'}
-function insertRev(project,files,note){
-  return BB.from('requests').insert({project_id:project.id,office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:files,project:project.data||{},change_note:note||null}).select('id,ref,rev').single().then(function(r){if(!r.error&&r.data)autoRun(r.data.id);return r});
+/* اختيار أقسام الفحص قبل الطلب: الكل مختار افتراضاً، والقسم غير المطلوب لا يُفحص.
+   الفحص الهندسي والكميات يحتاجان معرفة التخصصات المرفوعة */
+var PICK_DISC=[['struct','إنشائي'],['elec','كهربائي'],['plumb','صحي'],['hvac','تكييف']];
+function secPicker(box){
+  box.innerHTML='';var lg=document.createElement('legend');lg.textContent='أقسام الفحص المطلوبة';box.appendChild(lg);
+  var all=el('label','sp-all');var ai=document.createElement('input');ai.type='checkbox';ai.checked=true;all.appendChild(ai);all.appendChild(el('b',null,'الكل'));box.appendChild(all);
+  var grid=el('div','sp-grid');box.appendChild(grid);
+  var items=SECTIONS.map(function(S){var l=el('label','sp-it');var i=document.createElement('input');i.type='checkbox';i.value=S.id;i.checked=true;l.appendChild(i);var t=el('span');t.appendChild(el('b',null,S.n));t.appendChild(el('small',null,S.sub));l.appendChild(t);grid.appendChild(l);return i});
+  var dw=el('div','sp-disc');dw.appendChild(el('span','sp-dl','التخصصات المرفوعة مع المعماري (للفحص الهندسي والكميات):'));var dd=el('div','disc');
+  var dis=PICK_DISC.map(function(p){var l=el('label');var i=document.createElement('input');i.type='checkbox';i.value=p[0];l.appendChild(i);l.appendChild(document.createTextNode(' '+p[1]));dd.appendChild(l);return i});dw.appendChild(dd);box.appendChild(dw);
+  function sync(){var on=items.filter(function(i){return i.checked});ai.checked=on.length===items.length;ai.indeterminate=on.length>0&&on.length<items.length;
+    dw.hidden=!items.some(function(i){return i.checked&&(i.value==='eng'||i.value==='boq')})}
+  ai.addEventListener('change',function(){items.forEach(function(i){i.checked=ai.checked});sync()});items.forEach(function(i){i.addEventListener('change',sync)});sync();
+  return {get:function(){return {sections:items.filter(function(i){return i.checked}).map(function(i){return i.value}),disc:dis.filter(function(i){return i.checked}).map(function(i){return i.value})}},
+    check:function(m){var v=this.get();if(!v.sections.length){msg(m,'اختر قسماً واحداً على الأقل من أقسام الفحص.','bad');return false}
+      if(v.sections.indexOf('eng')>=0&&!v.disc.length){msg(m,'الفحص الهندسي يحتاج تحديد التخصصات المرفوعة: إنشائي أو كهربائي أو صحي أو تكييف.','bad');return false}return true},
+    reset:function(){ai.checked=true;items.forEach(function(i){i.checked=true});dis.forEach(function(i){i.checked=false});sync()}};
+}
+var NS=secPicker($('nSecs')),RS=secPicker($('rSecs'));
+function insertRev(project,files,note,pick){
+  var p=Object.assign({},project.data||{});if(pick){p.sections=pick.sections.filter(function(x){return x!=='boq'});p.disc=pick.disc}
+  return BB.from('requests').insert({project_id:project.id,office_name:profile.office_name,engineer:profile.engineer,phone:profile.phone,files:files,project:p,change_note:note||null}).select('id,ref,rev').single().then(function(r){if(!r.error&&r.data){autoRun(r.data.id);
+    /* طلب الكميات مع الإصدار نفسه إن اختاره المكتب */
+    if(pick&&pick.sections.indexOf('boq')>=0)return BB.rpc('under_quota',{kind:'boq'}).then(function(q){var ok=!(q&&!q.error&&q.data===false);if(!ok){r.boqMsg=' لم يُطلب جدول الكميات لأنك بلغت حدّه هذا الشهر.';return r}
+      return BB.from('boq_requests').insert({project_id:project.id,request_id:r.data.id,disciplines:['arch'].concat(pick.disc||[]),note:null}).select('ref').single().then(function(b){r.boqMsg=b.error?' تعذر طلب جدول الكميات، اطلبه من قسم جداول الكميات.':' وطُلب معه جدول الكميات برقم '+b.data.ref+'.';return r})})}
+    return r});
 }
 
 /* مشاريعي */
@@ -368,6 +394,7 @@ $('fNew').addEventListener('submit',function(e){
   var miss=need.filter(function(p){return !$(p[0]).value.trim()});
   if(miss.length){msg('nMsg','أكمل: '+miss.map(function(p){return p[1]}).join('، ')+'.','bad');$(miss[0][0]).focus();return}
   if(!NP.check('nMsg'))return;
+  if(!NS.check('nMsg'))return;
   if(!$('nAgree').checked){msg('nMsg','الإقرار بالسرية والمسؤولية شرط للإرسال.','bad');return}
   busy=true;$('nSubmit').disabled=true;var warn=[],project=null;
   profileOk('nMsg').then(function(ok){return ok&&quotaOk('fahs','nMsg')}).then(function(ok){
@@ -375,12 +402,12 @@ $('fNew').addEventListener('submit',function(e){
   var data={type:$('nType').value,floors:$('nFloors').value,city:$('nCity').value.trim(),district:$('nDistrict').value.trim(),area:$('nArea').value.trim(),streets:$('nStreets').value.trim(),pattern:$('nPattern').value,prev:$('nPrev').value.trim()};
   return BB.from('projects').insert({name:$('nName').value.trim(),data:data}).select('id,ref,name,data').single()
   .then(function(r){if(r.error)throw r.error;project=r.data;return uploadFiles(NP,'nMsg',warn)})
-  .then(function(files){return insertRev(project,files,null)})
+  .then(function(files){return insertRev(project,files,null,NS.get())})
   .then(function(r){
     if(r.error)throw r.error;
-    NP.reset();$('fNew').reset();$('cNew').hidden=true;
+    NP.reset();$('fNew').reset();NS.reset();$('cNew').hidden=true;
     return loadProjects().then(function(){return openProject(project.id)}).then(function(){
-      msg('wMsg','وصل الإصدار الأول برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر التقرير هنا خلال دقائق.':' يصدر التقرير في هذه الصفحة.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),warn.length?'':'good')});
+      msg('wMsg','وصل الإصدار الأول برقم '+r.data.ref+'.'+(r.boqMsg||'')+(SET.auto?' بدأ الفحص الآن، ويصدر التقرير هنا خلال دقائق.':' يصدر التقرير في هذه الصفحة.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),warn.length?'':'good')});
   }).catch(function(e){
     /* أُنشئ المشروع وتعذر إرسال إصداره: نفتحه ليُرفع منه مباشرة بدل مشروع مكرر */
     if(project){NP.reset();$('fNew').reset();$('cNew').hidden=true;
@@ -473,13 +500,14 @@ function boqWarn(){
 $('fRev').addEventListener('submit',function(e){
   e.preventDefault();if(busy||!cur)return;
   if(!RP.check('rMsg'))return;
+  if(!RS.check('rMsg'))return;
   if(!$('rAgree').checked){msg('rMsg','الإقرار بالسرية والمسؤولية شرط للإرسال.','bad');return}
   busy=true;$('rSubmit').disabled=true;var warn=[];
   profileOk('rMsg').then(function(ok){return ok&&quotaOk('fahs','rMsg')}).then(function(ok){
     if(!ok)return;
-    return uploadFiles(RP,'rMsg',warn).then(function(files){return insertRev(cur,files,$('rNote').value.trim())})
-    .then(function(r){if(r.error)throw r.error;RP.reset();$('fRev').reset();msg('rMsg','');
-      return loadRevs().then(function(){msg('wMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'.'+(SET.auto?' بدأ الفحص الآن، ويصدر تقريره مع المقارنة بالإصدار السابق خلال دقائق.':' يصدر تقريره هنا مع المقارنة بالإصدار السابق.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),warn.length?'':'good')})})})
+    return uploadFiles(RP,'rMsg',warn).then(function(files){return insertRev(cur,files,$('rNote').value.trim(),RS.get())})
+    .then(function(r){if(r.error)throw r.error;RP.reset();$('fRev').reset();RS.reset();msg('rMsg','');
+      return loadRevs().then(function(){msg('wMsg','وصل الإصدار '+r.data.rev+' برقم '+r.data.ref+'.'+(r.boqMsg||'')+(SET.auto?' بدأ الفحص الآن، ويصدر تقريره مع المقارنة بالإصدار السابق خلال دقائق.':' يصدر تقريره هنا مع المقارنة بالإصدار السابق.')+(warn.length?' تنبيه على ملف: '+warn.join('، ')+'.':''),warn.length?'':'good')})})})
   .catch(function(e){msg('rMsg',quotaMsg(e),'bad')})
   .then(function(){busy=false;$('rSubmit').disabled=false});
 });

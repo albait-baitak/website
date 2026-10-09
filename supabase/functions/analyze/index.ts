@@ -12,7 +12,7 @@ const cors = {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...cors, "Content-Type": "application/json" } });
 
-type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string; verify?: string; sbc?: string };
+type Rule = { c: string; l: number; n: string; r: string; src: string; clause?: string; q?: string; mand?: boolean; mand_styles?: string[]; styles?: string[]; when?: string; verify?: string; sbc?: string; disc?: string; sheet?: string };
 // القواعد مصدرها واحد: refs/rules_v2.json في المستودع المنشور
 const RULES_URL = Deno.env.get("RULES_URL") ?? "https://albait-baitak.com/refs/rules_v2.json";
 let RULES: Rule[] = [];
@@ -20,8 +20,10 @@ async function loadRules() {
   if (RULES.length) return;
   const r = await fetch(RULES_URL);
   if (!r.ok) throw new Error("rules_fetch:" + r.status);
-  RULES = ((await r.json()).RULES ?? []) as Rule[];
+  const J = await r.json();
+  RULES = (J.RULES ?? []) as Rule[];
   if (!RULES.length) throw new Error("rules_empty");
+  for (const s of J.sources ?? []) if (s?.id && !SRCN[s.id]) SRCN[s.id] = s.title_ar || s.id;
 }
 const SRCN: Record<string, string> = { RES: "اشتراطات إنشاء المباني السكنية 1446هـ", "AHSA-VILLA": "الدليل التطبيقي للفلل (عمارة واحات الأحساء)", "AHSA-GUIDE": "موجهات عمارة واحات الأحساء الكاملة", PARK: "دليل تصميم مواقف السيارات", PRO: "ستاندرد مهني", HOUSE: "قواعد البيت السعودي", SBC: "الكود السعودي للمباني السكنية SBC 1101 (2024)" };
 function mandText(R: Rule): string {
@@ -31,36 +33,46 @@ function mandText(R: Rule): string {
   if (R.mand_styles && R.mand_styles.length && R.mand_styles.length < 3) return "ملزم في " + R.mand_styles.join(" و") + "، وتوصية في غيره";
   return "ملزم";
 }
-const LNAME: Record<number, string> = { 1: "النظامية", 2: "العملية", 3: "الموجهات", 4: "الثقافية" };
+const LNAME: Record<number, string> = { 1: "النظامية", 2: "العملية", 3: "الموجهات", 4: "الثقافية", 5: "الهندسية" };
+const DISCN: Record<string, string> = { struct: "الإنشائي", elec: "الكهربائي", plumb: "الصحي", hvac: "التكييف والتهوية", fire: "السلامة والحريق" };
+// الأقسام التي يختارها المكتب قبل الطلب؛ الطلبات القديمة بلا اختيار تُفحص بالأقسام المعمارية والاتساق
+const SEC_LAYER: Record<string, number[]> = { reg: [1], guide: [3], arch: [2, 4], eng: [5] };
+type Opts = { layers: number[]; cons: boolean; disc: string[] };
 
 const GROUPS = {
   comp: { layers: [1, 3], name: "فحص المطابقة", desc: "الطبقة النظامية: الاشتراطات والكود، ثم طبقة الموجهات: موجهات العمارة السعودية لطراز الموقع" },
   qual: { layers: [2, 4], name: "فحص جودة التصميم", desc: "الطبقة العملية: صلاحية الفراغات للعيش، ثم الطبقة الثقافية: قواعد البيت السعودي" },
+  eng: { layers: [5], name: "الفحص الهندسي", desc: "مخططات التخصصات المرفوعة مع المعماري: اكتمالها، ومطابقتها للكود السعودي واشتراطات البلدية، وتنسيقها مع المعماري" },
 } as const;
 type GroupId = keyof typeof GROUPS;
 
-function buildPrompt(meta: string, g: GroupId): string {
+function buildPrompt(meta: string, g: GroupId, o: Opts): string {
   const G = GROUPS[g];
-  const list = RULES.filter((R) => (G.layers as readonly number[]).includes(R.l));
+  const list = RULES.filter((R) => (G.layers as readonly number[]).includes(R.l) && o.layers.includes(R.l) && (R.l !== 5 || !R.disc || R.disc === "fire" || o.disc.includes(R.disc)));
   const rules = list.map((R) => {
     const parts = [`${R.c} | ${LNAME[R.l]} | ${R.n}`, `المطلوب: ${R.r}`];
     const m = mandText(R); if (m) parts.push(`الإلزام: ${m}`);
     if (R.styles && R.styles.length) parts.push(`الأنماط: ${R.styles.join("، ")}`);
     if (R.when) parts.push(`ينطبق عند: ${R.when}`);
     parts.push(`المرجع: ${SRCN[R.src] ?? R.src}${R.clause ? " · " + R.clause : ""}${R.sbc && R.src !== "SBC" ? " · SBC 1101: " + R.sbc : ""}`);
-    if (R.q && (R.l === 1 || R.l === 3)) parts.push(`نص البند: ${R.q}`);
+    if (R.q && (R.l === 1 || R.l === 3 || R.l === 5)) parts.push(`نص البند: ${R.q}`);
+    if (R.l === 5) { if (R.disc) parts.push(`التخصص: ${DISCN[R.disc] ?? R.disc}`); if (R.sheet) parts.push(`يُبحث في: ${R.sheet}`); if (R.verify) parts.push(`القيم بانتظار التحقق (${R.verify})`); }
     return parts.join(" | ");
   }).join("\n");
   const common = "أنت فاحص معماري لمخططات المسكن السعودي، تُجري الفحص الفني للمخطط قبل رفعه للأمانة. مهمتك الآن: " + G.name + " (" + G.desc + ").\n\n" +
     "المرفقات لوحات مخطط واحد (مساقط، واجهات، قطاعات، رندرات). بيانات أدخلها المكتب: " + meta + "\n\n" +
     "قواعد صارمة:\n- لا تخترع رقماً. استخدم الأبعاد والمناسيب المكتوبة على اللوحات فقط. إن حسبت قيمة فاذكر الحساب باختصار. إن قست من الرسم بالمقياس فقل «بالقياس من الرسم».\n- ما لا يمكن قراءته بثقة حكمه unk ويتحول إلى سؤال.\n- إن وُجد استخراج من ملف DXF أو من طبقة النص في PDF فأرقامه مقروءة من ملف الرسم نفسه، فقدّمها على القياس من الصور واذكر «من ملف الرسم». في استخراج PDF يدل تجاور النصوص على السطر نفسه (y) على أنها تخص العنصر نفسه: اسم الفراغ وأبعاده تحته، والبُعد وقيمته. تحقق من الوحدة.\n- جدول الاستخراج: الحالة ok أو fail للمقروء من رقم مكتوب، و«بالقياس» لما قيس من الرسم، و«غير مقروء» لما تعذر؛ ولا تكتب في الخلاصة ما يناقض الجدول.\n- ما لا يوجد في المشروع (مناور، شطفة، شارع جانبي) حكمه na.\n- إن تعارض بندان رسميان في المسألة نفسها (مذكور في نص القاعدة) فالحكم conflict، واذكر البندين في f، ولا تحكم بمخالفة.\n- نص البند الحرفي مرجع الحكم، لكن لا تنقل في f أو fix كلمة «دورة» بأي صيغة؛ اكتب «حمام» أو «مرحاض».\n" +
     (g === "comp"
-      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً. ومخالفة قاعدة قيمها «بانتظار التحقق» لا تتجاوز major إلا إن خالفت جزءاً منصوصاً برقمه في SBC، واذكر في f أن القيمة من IRC 2021.\n- اتساق المخطط (consistency): انقل «فحوص الاتساق الآلية» و«المطابقة الآلية بين الملفات» الواردة في الاستخراج كما هي بحالاتها. ثم أضف ما تلاحظه أنت بالنظر من تعارض داخل المجموعة: عدد النوافذ والأبواب في كل واجهة مقابل جدارها في المسقط، والمداخل بين المسقط والواجهة والموقع العام، والمناسيب بين القطاع والواجهة، وعدد درجات الدرج مع فرق منسوب الدورين، وجدول المساحات مقابل مساحات المساقط. ما تلاحظه بالنظر حالته check، ولا تجعله conflict إلا إن كان رقمين مقروءين متعارضين. وما لا تتوفر لوحاته للمقارنة فاكتبه unchecked مع سببه في where. اكتب what جملة واحدة محددة، وwhere موضعه (اللوحة والدور). ولا تكرر هنا ما في results.\n- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف»): القاعدة التي يختلف إلزامها أو قيمتها بين الأنماط لا تُحكم عليها بمخالفة؛ حكمها style، واكتب في f النتيجة لكل نمط باختصار (مثل: «تخالف إن كان تقليدياً، وتطابق في الانتقالي والمعاصر»)، فهي معلّقة على النمط ولا تدخل في حكم المطابقة. ولا تطالب المبنى بمتطلبات أنماط مختلفة في وقت واحد. أما القاعدة الملزمة في الأنماط الثلاثة فيُحكم عليها عادياً. واذكر في الأسئلة أن النمط يُؤكَّد من رخصة البناء.\n"
+      ? "- الدرجة: stop للمخالفة الصريحة لبند ملزم، وmajor لما يُتوقع أن تلاحظه الأمانة ويُعالج قبل الرفع، وminor للتحسين المقترح. مخالفة قاعدة إلزامها «توصية» درجتها minor دائماً. ومخالفة قاعدة قيمها «بانتظار التحقق» لا تتجاوز major إلا إن خالفت جزءاً منصوصاً برقمه في SBC، واذكر في f أن القيمة من IRC 2021.\n" + (o.cons ? "- اتساق المخطط (consistency): انقل «فحوص الاتساق الآلية» و«المطابقة الآلية بين الملفات» الواردة في الاستخراج كما هي بحالاتها. ثم أضف ما تلاحظه أنت بالنظر من تعارض داخل المجموعة: عدد النوافذ والأبواب في كل واجهة مقابل جدارها في المسقط، والمداخل بين المسقط والواجهة والموقع العام، والمناسيب بين القطاع والواجهة، وعدد درجات الدرج مع فرق منسوب الدورين، وجدول المساحات مقابل مساحات المساقط. ما تلاحظه بالنظر حالته check، ولا تجعله conflict إلا إن كان رقمين مقروءين متعارضين. وما لا تتوفر لوحاته للمقارنة فاكتبه unchecked مع سببه في where. اكتب what جملة واحدة محددة، وwhere موضعه (اللوحة والدور). ولا تكرر هنا ما في results.\n" : "- لا تكتب consistency؛ المكتب لم يطلب قسم الاتساق.\n") + "- حكم المطابقة: ready إن لم توجد stop ولا major، وfix إن كانت العلاجات موضعية لا تغير التكوين، وredesign إن احتاج العلاج تغيير التكوين.\n- إن لم يُحدد المكتب نمط الطراز («لا أعرف»): القاعدة التي يختلف إلزامها أو قيمتها بين الأنماط لا تُحكم عليها بمخالفة؛ حكمها style، واكتب في f النتيجة لكل نمط باختصار (مثل: «تخالف إن كان تقليدياً، وتطابق في الانتقالي والمعاصر»)، فهي معلّقة على النمط ولا تدخل في حكم المطابقة. ولا تطالب المبنى بمتطلبات أنماط مختلفة في وقت واحد. أما القاعدة الملزمة في الأنماط الثلاثة فيُحكم عليها عادياً. واذكر في الأسئلة أن النمط يُؤكَّد من رخصة البناء.\n"
+      : g === "eng"
+      ? "- التخصصات المرفوعة: " + (o.disc.map((d) => DISCN[d] ?? d).join("، ") || "غير محددة") + "، ومعها السلامة والحريق. افحص كل قاعدة على لوحات تخصصها؛ وإن لم تجد بين المرفقات لوحات تخصص ما فحكم قواعده كلها unk، واكتب سؤالاً واحداً عن نقص لوحاته لا سؤالاً لكل قاعدة.\n- الدرجة: stop لمخالفة صريحة لبند ملزم بنص سعودي غير موسوم بالتحقق، وmajor لما يُتوقع أن تلاحظه الأمانة أو مكتب المراجعة، وminor للتوصيات والستاندرد المهني. والقاعدة الموسومة «بانتظار التحقق» لا تتجاوز major، واذكر في f أن القيمة من المرجع المذكور.\n- لا تحكم على تصميم إنشائي أو كهربائي بالحساب (كفاية التسليح أو مقطع كابل بالحمل)؛ افحص ما هو مكتوب ومرسوم على اللوحات ومطابقته للقيم المنصوصة فقط.\n"
       : "- الدرجة: major أو minor فقط، ولا stop أبداً. هذا الفحص لا يدخل في حكم المطابقة.\n") +
     "- الإيجاز ملزم: f جملة واحدة بالأرقام، وfix جملة واحدة محددة قابلة للتنفيذ، ولا تكتب fix لما حكمه ok أو na.\n- اكتب بالعربية الفصحى، واستخدم «..» لا «…».\n\n" +
     "القواعد (الرمز | الطبقة | الاسم | المطلوب):\n" + rules + "\n\n";
   const shape = g === "comp"
     ? '{"title":"اسم المشروع إن ظهر","sub":"المدينة · الأرض · الأدوار","verdict":"ready|fix|redesign","summary":"خلاصة فحص المطابقة في سطر","assumptions":["..."],"results":{"SETBACK-01":{"v":"ok|fail|na|unk|conflict|style","sev":"stop|major|minor","f":"..","fix":".."}},"extraction":[["الدور","الفراغ","الأبعاد","المساحة م²","الحد النظامي","الحالة"]],"consistency":[{"kind":"in|cross","state":"ok|conflict|check|unchecked","what":"..","where":".."}],"questions":["..."]}'
+    : g === "eng"
+    ? '{"summary":"خلاصة الفحص الهندسي في سطر","assumptions":["..."],"results":{"STR-01":{"v":"ok|fail|na|unk","sev":"stop|major|minor","f":"..","fix":".."}},"questions":["..."]}'
     : '{"summary":"خلاصة فحص جودة التصميم في سطر","assumptions":["..."],"results":{"PRAC-01":{"v":"ok|fail|na|unk|conflict","sev":"major|minor","f":"..","fix":".."}},"questions":["..."]}';
   return common + "أعد JSON فقط، بلا أي نص قبله أو بعده، بهذا الشكل:\n" + shape + "\nضع في results كل الرموز المذكورة أعلاه دون استثناء، ولا رمزاً غيرها.";
 }
@@ -206,7 +218,10 @@ Deno.serve(async (req) => {
           : { type: "image", source: { type: "base64", media_type: imgType, data } });
       }
       if (!blocks.length && !dxfTexts.length) return await fail("no_readable_files", { result: { skipped } });
-      if (dxfObjs.length && pdfObjs.length) {
+      const proj = rq.project ?? {};
+      const sections: string[] = Array.isArray(proj.sections) && proj.sections.length ? proj.sections : ["reg", "guide", "arch", "cons"];
+      const opts: Opts = { layers: sections.flatMap((x) => SEC_LAYER[x] ?? []), cons: sections.includes("cons"), disc: Array.isArray(proj.disc) ? proj.disc : [] };
+      if (dxfObjs.length && pdfObjs.length && opts.cons) {
         try {
           const cc = crossCheck(dxfObjs[0], pdfObjs[0]);
           if (cc.length) dxfTexts.push("مطابقة آلية بين ملف الرسم وملف الـPDF (حسابية من الملفين، فانقلها كما هي إلى consistency بالنوع cross):\n" + consText(cc));
@@ -214,29 +229,40 @@ Deno.serve(async (req) => {
       }
       if (dxfTexts.length) blocks.push({ type: "text", text: "استخراج آلي من ملفات الرسم المرفوعة (DXF أو طبقة النص في PDF المصدّر من برنامج الرسم)، أرقامه مقروءة من الملف نفسه لا من الصورة:\n\n" + dxfTexts.join("\n\n---\n\n") });
 
-      // مساران متوازيان: المطابقة وجودة التصميم
-      const [rc, rqal] = await Promise.all((["comp", "qual"] as GroupId[]).map((g) =>
-        callClaude(apiKey, model, [...blocks, { type: "text", text: buildPrompt(meta, g) }])));
-      const usage = { comp: { ...rc.usage, stop: rc.stop }, qual: { ...rqal.usage, stop: rqal.stop }, seconds: Math.round((Date.now() - t0) / 1000), usd: 0 };
+      // مسارات متوازية بحسب الأقسام المطلوبة: المطابقة (النظامية والموجهات والاتساق)، وجودة التصميم، والفحص الهندسي
+      const want: GroupId[] = [];
+      if (opts.layers.some((l) => l === 1 || l === 3) || opts.cons) want.push("comp");
+      if (opts.layers.some((l) => l === 2 || l === 4)) want.push("qual");
+      if (opts.layers.includes(5)) want.push("eng");
+      if (!want.length) return await fail("no_sections");
+      const outs = await Promise.all(want.map((g) => callClaude(apiKey, model, [...blocks, { type: "text", text: buildPrompt(meta, g, opts) }])));
       const pr = PRICE[model] ?? [0, 0];
-      usage.usd = Math.round(((((rc.usage.input_tokens ?? 0) + (rqal.usage.input_tokens ?? 0)) * pr[0] + ((rc.usage.output_tokens ?? 0) + (rqal.usage.output_tokens ?? 0)) * pr[1]) / 1e6) * 1000) / 1000;
-
-      let A: Record<string, any>, Q: Record<string, any>;
-      try { A = extractJson(rc.text) as Record<string, any>; } catch { return await fail("bad_json", { usage, result: { part: "comp", stop: rc.stop, text: rc.text.slice(0, 20000) } }); }
-      try { Q = extractJson(rqal.text) as Record<string, any>; } catch { return await fail("bad_json", { usage, result: { part: "qual", stop: rqal.stop, text: rqal.text.slice(0, 20000) } }); }
+      // deno-lint-ignore no-explicit-any
+      const usage: Record<string, any> = { seconds: Math.round((Date.now() - t0) / 1000), usd: 0 };
+      let tin = 0, tout = 0;
+      want.forEach((g, i) => { usage[g] = { ...outs[i].usage, stop: outs[i].stop }; tin += outs[i].usage.input_tokens ?? 0; tout += outs[i].usage.output_tokens ?? 0; });
+      usage.usd = Math.round(((tin * pr[0] + tout * pr[1]) / 1e6) * 1000) / 1000;
+      // deno-lint-ignore no-explicit-any
+      const P: Record<string, any> = {};
+      for (let i = 0; i < want.length; i++) {
+        try { P[want[i]] = extractJson(outs[i].text); } catch { return await fail("bad_json", { usage, result: { part: want[i], stop: outs[i].stop, text: outs[i].text.slice(0, 20000) } }); }
+      }
+      const A = P.comp ?? {}, Q = P.qual ?? {}, E = P.eng ?? {};
 
       const uniq = (a: unknown[]) => [...new Set(a.filter(Boolean))];
       const report = {
         kind: "live", ref: rq.ref,
         title: (A.title as string) || "مخطط مرفوع",
         sub: (A.sub as string) || "",
-        verdict: A.verdict ?? "fix",
-        summary: [A.summary ?? "", Q.summary ?? ""],
-        assumptions: uniq([...(A.assumptions ?? []), ...(Q.assumptions ?? [])]),
-        results: { ...(Q.results ?? {}), ...(A.results ?? {}) },
+        verdict: opts.layers.includes(1) ? (A.verdict ?? "fix") : null,
+        sections,
+        disc: opts.disc,
+        summary: [A.summary ?? "", Q.summary ?? "", E.summary ?? ""],
+        assumptions: uniq([...(A.assumptions ?? []), ...(Q.assumptions ?? []), ...(E.assumptions ?? [])]),
+        results: { ...(E.results ?? {}), ...(Q.results ?? {}), ...(A.results ?? {}) },
         extraction: A.extraction ?? [],
-        consistency: Array.isArray(A.consistency) ? A.consistency.filter((c: any) => c && c.what).slice(0, 60) : [],
-        questions: uniq([...(A.questions ?? []), ...(Q.questions ?? [])]),
+        consistency: opts.cons && Array.isArray(A.consistency) ? A.consistency.filter((c: any) => c && c.what).slice(0, 60) : [],
+        questions: uniq([...(A.questions ?? []), ...(Q.questions ?? []), ...(E.questions ?? [])]),
         files: (rq.files ?? []).filter((f: F) => !f.role).map((f: F) => f.name).join(" · "),
         skipped,
         foot: autoPublish ? "فحص آلي على المرجع." : "فحص آلي أولي على المرجع، يراجعه المعماري قبل اعتماده.",
