@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610091808">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610091808">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092206">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610092206">
 </head>
 <body>
 <header class="top">
@@ -38,6 +38,9 @@
 <main class="app-main">
   <div class="wrap">
     <p class="msg" id="loading" style="text-align:center;margin-top:40px">جارٍ التحميل..</p>
+
+    <!-- دعوة الانضمام إلى فريق مكتب -->
+    <section class="card inv-card" id="vInv" hidden><div class="card-b"><h2 id="invT"></h2><p id="invP"></p></div></section>
 
     <!-- الدخول -->
     <section class="card login" id="vLogin" hidden>
@@ -141,16 +144,16 @@
 
 <footer><div class="wrap"><span>البيت بيتك · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610091808"></script>
-<script src="../assets/js/config.js?v=202610091808"></script>
-<script src="../assets/js/stats.js?v=202610091808"></script>
-<script src="../assets/js/access.js?v=202610091808"></script>
-<script src="../assets/js/session.js?v=202610091808"></script>
-<script src="../assets/js/userpush.js?v=202610091808"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092206"></script>
+<script src="../assets/js/config.js?v=202610092206"></script>
+<script src="../assets/js/stats.js?v=202610092206"></script>
+<script src="../assets/js/access.js?v=202610092206"></script>
+<script src="../assets/js/session.js?v=202610092206"></script>
+<script src="../assets/js/userpush.js?v=202610092206"></script>
 <script src="../assets/js/dash/sum-a.js?v=202610072227"></script>
 <script src="../assets/js/dash/sum-b.js?v=202610072227"></script>
 <script src="../assets/js/dash/sum-c.js?v=202610072227"></script>
-<script src="../assets/js/dash.js?v=202610091808"></script>
+<script src="../assets/js/dash.js?v=202610092206"></script>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
@@ -195,6 +198,34 @@ function readDetails(name,p){
   return {d:d,miss:miss};
 }
 
+/* دعوة الانضمام إلى فريق مكتب: ‎?invite=الرمز. يُحفظ الرمز حتى يتم الدخول أو التسجيل بالبريد المدعو */
+var INV=null,joining=false;
+function invClear(){INV=null;try{localStorage.removeItem('bb_invite')}catch(x){}$('vInv').hidden=true}
+(function(){var t=new URLSearchParams(location.search).get('invite');
+  if(t&&/^[0-9a-f]{64}$/.test(t)){try{localStorage.setItem('bb_invite',t)}catch(e){}}
+  else{t=null;try{t=localStorage.getItem('bb_invite')}catch(e){}}
+  if(!t||!/^[0-9a-f]{64}$/.test(t))return;INV={token:t};
+  BB.rpc('invite_info',{p_token:t}).then(function(r){var d=r.data;
+    if(!d||!d.valid){var fresh=/[?&]invite=/.test(location.search);invClear();
+      if(fresh){$('vInv').hidden=false;$('invT').textContent='رابط الدعوة غير صالح';$('invP').textContent=d&&d.used?'استُخدم هذا الرابط من قبل. إن كان لك حساب فادخل به.':'انتهت صلاحية الرابط أو أُلغي. اطلب من مدير المكتب دعوة جديدة.'}return}
+    INV.office=d.office;INV.email=d.email;
+    $('invT').textContent='دعوة للانضمام إلى فريق '+d.office;
+    $('invP').textContent='دعاك المكتب للانضمام إلى فريقه في الفحص الفني بالبريد '+d.email+'. إن كان لك حساب بهذا البريد فادخل به، وإلا فأنشئ حساباً به، وتنضم إلى الفريق مباشرة بلا انتظار مراجعة.';
+    var rr=document.querySelector('input[name=rr][value=office]');if(rr){rr.checked=true;sLayout()}
+    $('sEmail').value=d.email;$('lEmail').value=d.email;$('sOrg').value=d.office;$('sOrg').readOnly=true;
+    $('sNote').textContent='تنضم إلى فريق '+d.office+' فور إنشاء الحساب وتأكيد بريدك.';$('sNameL').textContent='اسمك';
+    if(user)joinInvite();else $('vInv').hidden=false;
+  });
+})();
+function joinInvite(){if(!INV||!INV.office||!user||joining)return false;joining=true;$('vInv').hidden=true;$('loading').hidden=false;
+  BB.rpc('accept_invite',{p_token:INV.token}).then(function(r){joining=false;var e=r.error&&((r.error.message||'')+' '+(r.error.details||''))||'';
+    if(!r.error){invClear();try{sessionStorage.setItem('bb_team',r.data&&r.data.office||'1')}catch(x){}location.replace('../fahs/app.html');return}
+    if(/email_mismatch/.test(e)){state('الدعوة لبريد آخر','الدعوة مرسلة إلى '+INV.email+'، وأنت داخل الآن بالبريد '+user.email+'. اخرج ثم ادخل بالبريد المدعو، أو أنشئ حساباً به.',false,true);return}
+    var o=INV.office;invClear();
+    if(/in_other_team/.test(e))state('حسابك في فريق آخر','حسابك عضو في فريق مكتب آخر فيه أعضاء غيرك، فلا ينتقل تلقائياً إلى فريق '+o+'.'+(CONTACT?' تواصل معنا لنقله.':''),false,true);
+    else state('تعذر الانضمام','انتهت صلاحية الدعوة أو أُلغيت. اطلب من مدير المكتب دعوة جديدة.',false,true);
+  });return true}
+
 /* الدخول */
 $('fLogin').addEventListener('submit',function(e){
   e.preventDefault();var em=$('lEmail').value.trim(),pw=$('lPass').value;
@@ -233,6 +264,7 @@ document.querySelectorAll('input[name=st]').forEach(function(r){var was=false;
 $('sShow').addEventListener('click',function(){var i=$('sPass');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'إظهار':'إخفاء'});
 $('fSignup').addEventListener('submit',function(e){
   e.preventDefault();var r=sRole(),em=$('sEmail').value.trim(),pw=$('sPass').value,miss=[],d={requested_role:r};
+  if(INV&&INV.email&&em.toLowerCase()!==INV.email.toLowerCase()){msg('sMsg','الدعوة للبريد '+INV.email+'؛ أنشئ الحساب به لتنضم إلى الفريق.','bad');return}
   if(r!=='owner'){
     d.full_name=$('sName').value.trim();d.phone=normPhone($('sPhone').value);d.city=$('sCity').value.trim();
     d.office_name=$('sOrg').value.trim();if(SPEC[r])d.specialty=$('sSpec').value;
@@ -337,7 +369,7 @@ function route(){
 function refresh(session){
   user=session&&session.user||null;
   if(!user){profile=null;route();return}
-  BB.from('profiles').select('*').eq('id',user.id).maybeSingle().then(function(r){profile=r.data||{};route()});
+  BB.from('profiles').select('*').eq('id',user.id).maybeSingle().then(function(r){profile=r.data||{};if(INV&&INV.office&&joinInvite())return;route()});
 }
 BB.auth.onAuthStateChange(function(ev,s){
   if(ev==='PASSWORD_RECOVERY'){recovering=true;user=s&&s.user;setTimeout(route,0);return}

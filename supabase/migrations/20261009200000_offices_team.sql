@@ -1,4 +1,5 @@
 -- حساب المكتب: المكتب جهة تملك المشاريع والطلبات والتقارير، وتحته مدير ومهندسون.
+-- طُبّق على أربع دفعات (الجداول، الدوال، النقل، قواعد الوصول) بلا حذف: القواعد القديمة عُدّلت بـ alter policy.
 -- كل مهندس يرى كل طلبات مكتبه؛ والمدير يدعو ويوقف ويعيد التسمية.
 
 create table if not exists public.offices (
@@ -90,12 +91,9 @@ begin
   end if;
   return new;
 end $$;
-drop trigger if exists t_projects_office on public.projects;
-create trigger t_projects_office before insert on public.projects for each row execute function public.set_office_id();
-drop trigger if exists t_requests_office on public.requests;
-create trigger t_requests_office before insert on public.requests for each row execute function public.set_office_id();
-drop trigger if exists t_boq_office on public.boq_requests;
-create trigger t_boq_office before insert on public.boq_requests for each row execute function public.set_office_id();
+create or replace trigger t_projects_office before insert on public.projects for each row execute function public.set_office_id();
+create or replace trigger t_requests_office before insert on public.requests for each row execute function public.set_office_id();
+create or replace trigger t_boq_office before insert on public.boq_requests for each row execute function public.set_office_id();
 -- لا يُنقل عنصر من مكتب إلى آخر بتحديث
 create or replace function public.keep_office_id() returns trigger
 language plpgsql set search_path = public as $$
@@ -103,8 +101,7 @@ begin
   if auth.uid() is not null and not public.is_admin() then new.office_id := old.office_id; end if;
   return new;
 end $$;
-drop trigger if exists t_projects_keep_office on public.projects;
-create trigger t_projects_keep_office before update on public.projects for each row execute function public.keep_office_id();
+create or replace trigger t_projects_keep_office before update on public.projects for each row execute function public.keep_office_id();
 
 -- اعتماد مكتب أو مصمم ينشئ له مكتبه
 create or replace function public.office_on_approve() returns trigger
@@ -113,8 +110,7 @@ begin
   if new.status = 'approved' and new.role in ('office','designer','admin') then perform public.ensure_office(new.id); end if;
   return new;
 end $$;
-drop trigger if exists t_profile_office on public.profiles;
-create trigger t_profile_office after insert or update of status, role on public.profiles for each row execute function public.office_on_approve();
+create or replace trigger t_profile_office after insert or update of status, role on public.profiles for each row execute function public.office_on_approve();
 
 -- ———— نقل الحسابات القائمة: كل حساب مكتب أو مصمم أو صاحب مشاريع صار مدير مكتبه
 do $$
@@ -137,57 +133,46 @@ create policy offices_select on public.offices for select to authenticated using
 create policy office_members_select on public.office_members for select to authenticated using (office_id = (select public.my_office()) or user_id = (select auth.uid()) or (select public.is_admin()));
 create policy office_invites_select on public.office_invites for select to authenticated using (((select public.is_office_mgr()) and office_id = (select public.my_office())) or (select public.is_admin()));
 
-drop policy if exists projects_select on public.projects;
-create policy projects_select on public.projects for select using (
+alter policy projects_select on public.projects using (
   (user_id = (select auth.uid()) and (select public.not_disabled())) or office_id = (select public.my_office()) or (select public.is_admin()));
-drop policy if exists projects_update on public.projects;
-create policy projects_update on public.projects for update using (
+alter policy projects_update on public.projects using (
   (user_id = (select auth.uid()) and (select public.not_disabled())) or office_id = (select public.my_office()) or (select public.is_admin()))
   with check ((user_id = (select auth.uid()) and (select public.not_disabled())) or office_id = (select public.my_office()) or (select public.is_admin()));
 
-drop policy if exists requests_select on public.requests;
-create policy requests_select on public.requests for select to authenticated using (
+alter policy requests_select on public.requests using (
   (user_id = (select auth.uid()) and (select public.not_disabled())) or office_id = (select public.my_office()) or (select public.is_admin()));
-drop policy if exists requests_insert on public.requests;
-create policy requests_insert on public.requests for insert to authenticated with check (
+alter policy requests_insert on public.requests with check (
   user_id = (select auth.uid()) and status = 'submitted'
   and (select public.my_role()) = any (array['office','designer','admin'])
   and public.under_quota('fahs')
   and (project_id is null or exists (select 1 from public.projects p where p.id = requests.project_id
         and (p.user_id = (select auth.uid()) or p.office_id = (select public.my_office())))));
 
-drop policy if exists reports_select on public.reports;
-create policy reports_select on public.reports for select to authenticated using (
+alter policy reports_select on public.reports using (
   (select public.is_admin()) or (published and exists (select 1 from public.requests r where r.id = reports.request_id
      and ((r.user_id = (select auth.uid()) and (select public.not_disabled())) or r.office_id = (select public.my_office())))));
 
-drop policy if exists boq_req_select on public.boq_requests;
-create policy boq_req_select on public.boq_requests for select using (
+alter policy boq_req_select on public.boq_requests using (
   (user_id = (select auth.uid()) and (select public.not_disabled())) or office_id = (select public.my_office()) or (select public.is_admin()));
-drop policy if exists boq_req_insert on public.boq_requests;
-create policy boq_req_insert on public.boq_requests for insert with check (
+alter policy boq_req_insert on public.boq_requests with check (
   user_id = (select auth.uid()) and status = 'submitted'
   and (select public.my_role()) = any (array['office','designer','admin'])
   and public.under_quota('boq')
   and exists (select 1 from public.requests q join public.projects p on p.id = q.project_id
       where q.id = boq_requests.request_id and (p.user_id = (select auth.uid()) or p.office_id = (select public.my_office()))));
 
-drop policy if exists boq_docs_select on public.boq_docs;
-create policy boq_docs_select on public.boq_docs for select using (
+alter policy boq_docs_select on public.boq_docs using (
   (select public.is_admin()) or (published and exists (select 1 from public.boq_requests b where b.id = boq_docs.boq_id
      and ((b.user_id = (select auth.uid()) and (select public.not_disabled())) or b.office_id = (select public.my_office())))));
 
-drop policy if exists gap_insert on public.gap_log;
-create policy gap_insert on public.gap_log for insert to authenticated with check (
+alter policy gap_insert on public.gap_log with check (
   (select public.is_admin()) or exists (select 1 from public.requests r where r.id = gap_log.request_id
      and ((r.user_id = (select auth.uid()) and (select public.not_disabled())) or r.office_id = (select public.my_office()))));
-drop policy if exists gap_select on public.gap_log;
-create policy gap_select on public.gap_log for select to authenticated using (
+alter policy gap_select on public.gap_log using (
   (select public.is_admin()) or exists (select 1 from public.requests r where r.id = gap_log.request_id
      and ((r.user_id = (select auth.uid()) and (select public.not_disabled())) or r.office_id = (select public.my_office()))));
 
-drop policy if exists fb_own_insert on public.report_feedback;
-create policy fb_own_insert on public.report_feedback for insert to authenticated with check (
+alter policy fb_own_insert on public.report_feedback with check (
   user_id = (select auth.uid()) and exists (select 1 from public.requests q where q.id = report_feedback.request_id
      and ((q.user_id = (select auth.uid()) and (select public.not_disabled())) or q.office_id = (select public.my_office()))));
 
@@ -298,10 +283,12 @@ begin
   select * into cur from office_members where user_id = me;
   if cur.user_id is not null and cur.office_id <> i.office_id then
     if exists (select 1 from office_members where office_id = cur.office_id and user_id <> me and status = 'active') then raise exception 'in_other_team'; end if;
-    delete from office_members where user_id = me;
+    update office_members set office_id = i.office_id, role = i.role, status = 'active', invited_by = i.created_by, joined_at = now() where user_id = me;
+  elsif cur.user_id is null then
+    insert into office_members(user_id, office_id, role, invited_by) values (me, i.office_id, i.role, i.created_by);
+  else
+    update office_members set role = i.role, status = 'active' where user_id = me;
   end if;
-  insert into office_members(user_id, office_id, role, invited_by) values (me, i.office_id, i.role, i.created_by)
-    on conflict (user_id) do update set office_id = excluded.office_id, role = excluded.role, status = 'active';
   update office_invites set used_by = me, used_at = now() where id = i.id;
   select name into nm from offices where id = i.office_id;
   update profiles set office_name = nm, engineer = coalesce(engineer, full_name),
@@ -322,3 +309,8 @@ revoke all on function public.accept_invite(text) from public, anon;
 grant execute on function public.office_team(), public.office_invite(text, text), public.office_invite_revoke(uuid),
   public.office_member_set(uuid, text, text), public.office_rename(text), public.accept_invite(text) to authenticated;
 grant execute on function public.invite_info(text) to anon, authenticated;
+
+-- دوال المشغلات لا تُستدعى من الواجهة
+revoke execute on function public.set_office_id() from public, anon, authenticated;
+revoke execute on function public.office_on_approve() from public, anon, authenticated;
+revoke execute on function public.keep_office_id() from public, anon, authenticated;

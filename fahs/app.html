@@ -12,8 +12,8 @@
 <meta name="theme-color" content="#F6F5F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610091808">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610091808">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610092206">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610092206">
 </head>
 <body>
 <header class="top">
@@ -29,6 +29,7 @@
 
     <div id="vApp" hidden style="display:none">
       <div class="who-bar"><span>مرحباً <b id="whoName"></b> · <span id="whoEmail" dir="ltr"></span></span></div>
+      <p class="msg good" id="teamWelcome" role="status" hidden></p>
 
       <p class="launch-line"><b>مرحلة الإطلاق:</b> الفحص مجاني الآن، وكل تقرير يراجعه معماري قبل أن يصلك. وملاحظات الأمانة التي تشاركنا إياها بعد الرفع تصير قواعد جديدة في الفحص.</p>
       <div class="card upush-card" id="cPush"><div class="card-b" id="upBox"></div></div>
@@ -52,9 +53,25 @@
 
       <!-- مشاريعي -->
       <section class="card" id="cProjects">
-        <div class="card-h"><h2>مشاريعي</h2><div class="row"><button class="linkbtn" type="button" id="btnRefresh">تحديث</button><button class="btn sm" type="button" id="btnNew">مشروع جديد</button></div></div>
-        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم المشروع</th><th>المشروع</th><th>آخر إصدار</th><th>الحالة</th><th></th></tr></thead><tbody id="projBody"></tbody></table></div>
+        <div class="card-h"><h2 id="projTitle">مشاريعي</h2><div class="row"><button class="linkbtn" type="button" id="btnRefresh">تحديث</button><button class="btn sm" type="button" id="btnNew">مشروع جديد</button></div></div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>رقم المشروع</th><th>المشروع</th><th id="thBy" hidden>أنشأه</th><th>آخر إصدار</th><th>الحالة</th><th></th></tr></thead><tbody id="projBody"></tbody></table></div>
         <div class="empty" id="projEmpty" hidden>لا مشاريع بعد. ابدأ بمشروع جديد، ثم ارفع إصداره الأول للفحص.</div>
+      </section>
+
+      <!-- فريق المكتب -->
+      <section class="card" id="cTeam" hidden>
+        <div class="card-h"><h2>فريق المكتب</h2><span class="muted" id="tmSub"></span></div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>إصداراته</th><th>الحالة</th><th></th></tr></thead><tbody id="tmBody"></tbody></table></div>
+        <div class="card-b" id="tmMgr" hidden>
+          <h3 class="tm-h">دعوة مهندس إلى الفريق</h3>
+          <form id="fInv" class="grid2" novalidate>
+            <div class="f"><label for="iEmail">بريد المهندس</label><input id="iEmail" type="email" dir="ltr" autocomplete="off"></div>
+            <div class="f"><label for="iRole">الدور</label><select id="iRole"><option value="engineer">مهندس: يرفع المشاريع ويتابع تقاريرها</option><option value="manager">مدير: يدعو أعضاء الفريق ويوقفهم أيضاً</option></select></div>
+            <div class="row full"><button class="btn sm" type="submit" id="iBtn">أنشئ رابط الدعوة</button><span class="msg" id="iMsg" role="status"></span></div>
+          </form>
+          <p class="muted tm-note">يصل الرابط المهندسَ منك بواتساب أو البريد، ويدخل به بالبريد نفسه فينضم للفريق مباشرة. صلاحية الرابط أسبوعان، ويُستخدم مرة واحدة.</p>
+          <div id="invList"></div>
+        </div>
       </section>
 
       <!-- مشروع جديد -->
@@ -105,7 +122,7 @@
 
         <section class="card">
           <div class="card-h"><h2>الإصدارات</h2><span class="muted">كل رفع إصدار مرقّم، ولكل إصدار تقريره</span></div>
-          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الإصدار</th><th>التاريخ</th><th>ما تغيّر</th><th>الحالة</th><th></th></tr></thead><tbody id="revBody"></tbody></table></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الإصدار</th><th>التاريخ</th><th>رفعه</th><th>ما تغيّر</th><th>الحالة</th><th></th></tr></thead><tbody id="revBody"></tbody></table></div>
         </section>
 
         <section class="card" id="cRev">
@@ -181,18 +198,18 @@
 
 <footer><div class="wrap"><span>الفحص الفني · <a href="../">البيت بيتك</a></span><span>الأحساء</span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../assets/img/sayah.png"></a></div></div></footer>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610091808"></script>
-<script src="../assets/js/config.js?v=202610091808"></script>
-<script src="../assets/js/stats.js?v=202610091808"></script>
-<script src="../assets/js/access.js?v=202610091808"></script>
-<script src="../assets/js/session.js?v=202610091808"></script>
-<script src="../assets/js/rules.js?v=202610091808"></script>
-<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610091808"></script>
-<script src="../assets/js/dxf.js?v=202610091808"></script>
-<script src="../assets/js/pdfx.js?v=202610091808"></script>
-<script src="../assets/js/report.js?v=202610091808"></script>
-<script src="../assets/js/boq.js?v=202610091808"></script>
-<script src="../assets/js/userpush.js?v=202610091808"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610092206"></script>
+<script src="../assets/js/config.js?v=202610092206"></script>
+<script src="../assets/js/stats.js?v=202610092206"></script>
+<script src="../assets/js/access.js?v=202610092206"></script>
+<script src="../assets/js/session.js?v=202610092206"></script>
+<script src="../assets/js/rules.js?v=202610092206"></script>
+<script src="../assets/vendor/dxf-parser-1.1.2.js?v=202610092206"></script>
+<script src="../assets/js/dxf.js?v=202610092206"></script>
+<script src="../assets/js/pdfx.js?v=202610092206"></script>
+<script src="../assets/js/report.js?v=202610092206"></script>
+<script src="../assets/js/boq.js?v=202610092206"></script>
+<script src="../assets/js/userpush.js?v=202610092206"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -212,12 +229,68 @@ BBA.guard(['office','designer'],'../account/').then(function(a){
   user=a.user;show('vApp',true);
   $('whoEmail').textContent=user.email;loadProfile();
   if(window.BBUserPush)BBUserPush.mount($('upBox'),{what:'حين يصدر تقرير الفحص أو جدول الكميات'});
-  loadProjects().then(route);
+  loadTeam().then(function(){var w='';try{w=sessionStorage.getItem('bb_team')||'';sessionStorage.removeItem('bb_team')}catch(e){}
+    if(w&&TEAM){$('teamWelcome').hidden=false;$('teamWelcome').textContent='انضممت إلى فريق '+TEAM.office.name+'. مشاريع المكتب كلها أمامك، وما ترفعه يراه الفريق.'}
+    return loadProjects()}).then(route);
 });
 /* الوصول المباشر إلى مشروع من الإشعار أو الرابط: ‎#p=رقم المشروع */
 function route(){var m=/^#p=([0-9a-f-]{36})$/.exec(location.hash);if(m&&(!cur||cur.id!==m[1]))openProject(m[1])}
 window.addEventListener('hashchange',route);
 if(navigator.serviceWorker)navigator.serviceWorker.addEventListener('message',function(e){var g=e.data&&e.data.go;if(!g)return;try{var u=new URL(g);if(u.pathname===location.pathname){if(u.hash&&u.hash!==location.hash)location.hash=u.hash;else if(cur)loadRevs()}else location.href=g}catch(x){}});
+
+/* فريق المكتب: كل أعضاء المكتب يرون مشاريعه كلها؛ والمدير يدعو ويوقف ويغيّر الأدوار */
+var TEAM=null,TROLE={manager:'مدير',engineer:'مهندس'};
+function teamMulti(){return !!(TEAM&&TEAM.members&&TEAM.members.length>1)}
+function isMgr(){return !!(TEAM&&TEAM.me&&TEAM.me.role==='manager')}
+function memberName(uid,fallback){if(uid===user.id)return 'أنت';var m=TEAM&&TEAM.members?TEAM.members.filter(function(x){return x.user_id===uid})[0]:null;return m?m.name:(fallback||'')}
+function loadTeam(){return BB.rpc('office_team').then(function(r){TEAM=r.error?null:r.data;drawTeam()}).catch(function(){TEAM=null})}
+function invUrl(t){return location.origin+location.pathname.replace(/fahs\/app\.html$/,'')+'account/?invite='+t}
+function armed(b,label,fn){b.addEventListener('click',function(){if(b.dataset.arm!=='1'){b.dataset.arm='1';var t=b.textContent;b.textContent=label;setTimeout(function(){b.dataset.arm='';b.textContent=t},4000);return}b.disabled=true;fn()})}
+function teamErr(e){var m=(e&&e.message)||'';return /already_member/.test(m)?'هذا البريد عضو في الفريق.':/bad_email/.test(m)?'اكتب بريداً صحيحاً.':/too_many/.test(m)?'دعوات كثيرة اليوم. أعد المحاولة غداً.':/not_manager/.test(m)?'هذا الإجراء لمدير المكتب فقط.':'تعذر الإتمام. أعد المحاولة.'}
+function drawTeam(){
+  var on=!!TEAM;$('cTeam').hidden=!on||!!cur;
+  $('projTitle').textContent=on&&teamMulti()?'مشاريع المكتب':'مشاريعي';$('thBy').hidden=!teamMulti();
+  if(!on)return;
+  var act=TEAM.members.filter(function(m){return m.status==='active'}).length;
+  $('tmSub').textContent=TEAM.office.name+' · '+(act===1?'عضو واحد':act===2?'عضوان':act<=10?act+' أعضاء':act+' عضواً');
+  var mg=isMgr();$('tmMgr').hidden=!mg;
+  if(profile&&$('pOffice')){$('pOffice').readOnly=!mg;$('pOffice').title=mg?'':'اسم المكتب يغيّره مديره'}
+  var tb=$('tmBody');tb.innerHTML='';
+  TEAM.members.forEach(function(m){
+    var tr=el('tr');var nm=el('td');nm.appendChild(el('b',null,m.name||''));if(m.user_id===user.id)nm.appendChild(el('small','sub',' (أنت)'));tr.appendChild(nm);
+    tr.appendChild(el('td','mono',m.email||''));tr.appendChild(el('td',null,TROLE[m.role]||m.role));
+    tr.appendChild(el('td',null,String(m.reqs||0)));
+    var st=el('td');st.appendChild(el('span','status-pill '+(m.status==='active'?'ok':'off'),m.status==='active'?'فعّال':'موقوف'));tr.appendChild(st);
+    var a=el('td');
+    if(mg&&m.user_id!==user.id){
+      var b1=el('button','btn sm line',m.status==='active'?'أوقفه':'أعد تفعيله');b1.type='button';
+      armed(b1,m.status==='active'?'اضغط للتأكيد':'اضغط للتأكيد',function(){BB.rpc('office_member_set',{p_user:m.user_id,p_status:m.status==='active'?'disabled':'active',p_role:null}).then(function(r){if(r.error){msg('iMsg',teamErr(r.error),'bad')}loadTeam()})});
+      var b2=el('button','linkbtn',m.role==='manager'?'اجعله مهندساً':'اجعله مديراً');b2.type='button';
+      armed(b2,'اضغط للتأكيد',function(){BB.rpc('office_member_set',{p_user:m.user_id,p_status:null,p_role:m.role==='manager'?'engineer':'manager'}).then(function(r){if(r.error){msg('iMsg',teamErr(r.error),'bad')}loadTeam()})});
+      var w=el('div','row tm-act');w.appendChild(b1);w.appendChild(b2);a.appendChild(w)}
+    tr.appendChild(a);tb.appendChild(tr)});
+  stack(tb);
+  var L=$('invList');L.innerHTML='';
+  if(mg&&TEAM.invites&&TEAM.invites.length){
+    L.appendChild(el('h3','tm-h','دعوات لم تُستخدم بعد'));
+    TEAM.invites.forEach(function(v){
+      var row=el('div','inv-row');var info=el('div');info.appendChild(el('b','mono',v.email));info.appendChild(el('small','sub',' · '+(TROLE[v.role]||'')+' · صالحة حتى '+fmtDate(v.expires_at)));row.appendChild(info);
+      var u=invUrl(v.token),w=el('div','row');
+      var inp=el('input','inv-url');inp.readOnly=true;inp.value=u;inp.dir='ltr';inp.addEventListener('focus',function(){inp.select()});
+      var c=el('button','btn sm','انسخ الرابط');c.type='button';c.addEventListener('click',function(){var done=function(){c.textContent='نُسخ';setTimeout(function(){c.textContent='انسخ الرابط'},1800)};var fb=function(){inp.focus();inp.select();try{if(document.execCommand('copy'))done()}catch(x){}};if(navigator.clipboard)navigator.clipboard.writeText(u).then(done,fb);else fb()});w.appendChild(c);
+      var wa=el('a','btn sm line','أرسله بواتساب');wa.href='https://wa.me/?text='+encodeURIComponent('دعوة للانضمام إلى فريق '+TEAM.office.name+' في الفحص الفني على «البيت بيتك». ادخل أو أنشئ حساباً بالبريد '+v.email+' من هذا الرابط: '+u);wa.target='_blank';wa.rel='noopener';w.appendChild(wa);
+      var x=el('button','linkbtn','ألغِ الدعوة');x.type='button';armed(x,'اضغط للتأكيد',function(){BB.rpc('office_invite_revoke',{p_id:v.id}).then(loadTeam)});w.appendChild(x);
+      row.appendChild(w);row.appendChild(inp);L.appendChild(row)})}
+}
+$('fInv').addEventListener('submit',function(e){e.preventDefault();
+  var em=$('iEmail').value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){msg('iMsg','اكتب بريد المهندس.','bad');$('iEmail').focus();return}
+  $('iBtn').disabled=true;msg('iMsg','');
+  BB.rpc('office_invite',{p_email:em,p_role:$('iRole').value}).then(function(r){$('iBtn').disabled=false;
+    if(r.error){msg('iMsg',teamErr(r.error),'bad');return}
+    $('iEmail').value='';msg('iMsg','أُنشئ رابط الدعوة. انسخه أو أرسله بواتساب من القائمة أدناه.','good');loadTeam()})});
+/* تغيير اسم المكتب للمدير يسري على الفريق كله */
+function renameOffice(o){if(!TEAM||!isMgr()||o===TEAM.office.name)return Promise.resolve(true);
+  return BB.rpc('office_rename',{p_name:o}).then(function(r){if(r.error)return false;TEAM.office.name=o;drawTeam();return true})}
 
 /* بيانات المكتب */
 var profile={};
@@ -227,6 +300,7 @@ function loadProfile(){
     if(profile.role==='designer'){var cl=document.querySelector('label[for=pOffice]');if(cl)cl.textContent='اسم المكتب أو الاستوديو، أو اسمك';var hh=$('pOffice').closest('.card');if(hh){var h2=hh.querySelector('.card-h h2');if(h2)h2.textContent='بياناتك'}}
     $('pOffice').value=profile.office_name||(profile.role==='designer'?profile.full_name||'':'');$('pEng').value=profile.engineer||profile.full_name||'';$('pPhone').value=profile.phone||'';
     $('whoName').textContent=profile.office_name||profile.full_name||user.email;
+    if(TEAM)$('pOffice').readOnly=!isMgr();
     drawProf();
   });
 }
@@ -240,7 +314,7 @@ $('btnProfEdit').addEventListener('click',function(){drawProf(true);$('pOffice')
 $('fProfile').addEventListener('submit',function(e){
   e.preventDefault();var o=$('pOffice').value.trim(),g=$('pEng').value.trim(),p=$('pPhone').value.trim();
   if(!o||!g||!p){msg('pMsg','أكمل الحقول الثلاثة.','bad');return}
-  BB.from('profiles').update({office_name:o,engineer:g,phone:p}).eq('id',user.id).then(function(r){
+  renameOffice(o).then(function(ok){if(!ok)return {error:true};return BB.from('profiles').update({office_name:o,engineer:g,phone:p}).eq('id',user.id)}).then(function(r){
     if(r.error){msg('pMsg','تعذر الحفظ.','bad');return}
     profile.office_name=o;profile.engineer=g;profile.phone=p;$('whoName').textContent=o;msg('pMsg','حُفظت البيانات.','good');setTimeout(function(){msg('pMsg','');drawProf()},1200);
   });
@@ -366,7 +440,7 @@ function insertRev(project,files,note,pick){
 /* مشاريعي */
 function loadProjects(){
   return Promise.all([
-    BB.from('projects').select('id,ref,name,data,created_at').order('created_at',{ascending:false}),
+    BB.from('projects').select('id,ref,name,data,created_at,user_id').order('created_at',{ascending:false}),
     BB.from('requests').select('id,project_id,rev,status,created_at').order('rev',{ascending:false})
   ]).then(function(rs){
     projects=rs[0].data||[];var reqs=rs[1].data||[],last={};
@@ -374,6 +448,7 @@ function loadProjects(){
     var tb=$('projBody');tb.innerHTML='';$('projEmpty').hidden=!!projects.length;
     projects.forEach(function(p){
       var l=last[p.id],tr=el('tr','click');tr.appendChild(el('td','mono',p.ref));tr.appendChild(el('td',null,p.name));
+      if(teamMulti())tr.appendChild(el('td',null,memberName(p.user_id)));
       tr.appendChild(el('td',null,l?'الإصدار '+l.rev+' · '+fmtDate(l.created_at):'لا إصدارات'));
       var st=el('td');st.appendChild(el('span','status-pill st-'+(l?l.status:'none'),l?(STATUS[l.status]||l.status):'لم يُرسل إصدار'));tr.appendChild(st);
       var act=el('td'),b=el('button','btn sm line','افتح');b.type='button';act.appendChild(b);tr.appendChild(act);
@@ -420,7 +495,7 @@ $('fNew').addEventListener('submit',function(e){
 /* صفحة المشروع */
 function openProject(id){
   cur=projects.filter(function(p){return p.id===id})[0];if(!cur)return Promise.resolve();
-  show('vProject',true);$('cProjects').hidden=true;$('cNew').hidden=true;$('cProfile').hidden=true;$('cProfLine').hidden=true;$('cPush').hidden=true;
+  show('vProject',true);$('cProjects').hidden=true;$('cTeam').hidden=true;$('cNew').hidden=true;$('cProfile').hidden=true;$('cProfLine').hidden=true;$('cPush').hidden=true;
   if(location.hash!=='#p='+id)history.replaceState(null,'','#p='+id);
   $('prName').textContent=cur.name;$('prRef').textContent=cur.ref;
   var d=cur.data||{};$('prMeta').textContent=[d.type,d.floors,d.city,d.district,d.area?('أرض '+d.area+' م²'):''].filter(Boolean).join(' · ');
@@ -428,12 +503,12 @@ function openProject(id){
   window.scrollTo({top:0,behavior:'smooth'});
   return loadRevs();
 }
-$('btnBack').addEventListener('click',function(){show('vProject',false);$('cProjects').hidden=false;$('cPush').hidden=false;cur=null;drawProf();history.replaceState(null,'',location.pathname+location.search);loadProjects()});
+$('btnBack').addEventListener('click',function(){show('vProject',false);$('cProjects').hidden=false;$('cTeam').hidden=!TEAM;$('cPush').hidden=false;cur=null;drawProf();history.replaceState(null,'',location.pathname+location.search);loadProjects()});
 $('btnPrRefresh').addEventListener('click',function(){if(cur)loadRevs()});
 var reps={};
 function loadRevs(){
   return Promise.all([
-    BB.from('requests').select('id,ref,rev,status,created_at,change_note').eq('project_id',cur.id).order('rev',{ascending:false}),
+    BB.from('requests').select('id,ref,rev,status,created_at,change_note,engineer,user_id').eq('project_id',cur.id).order('rev',{ascending:false}),
     BB.from('boq_requests').select('id,ref,request_id,disciplines,status,created_at,note').eq('project_id',cur.id).order('created_at',{ascending:false})
   ]).then(function(rs){
     revs=rs[0].data||[];boqs=rs[1].data||[];
@@ -447,6 +522,7 @@ function drawRevs(){
   var tb=$('revBody');tb.innerHTML='';
   revs.forEach(function(q){
     var tr=el('tr');tr.appendChild(el('td',null,'الإصدار '+q.rev));tr.appendChild(el('td',null,fmtDate(q.created_at)));
+    tr.appendChild(el('td',null,memberName(q.user_id,q.engineer)));
     tr.appendChild(el('td',null,q.change_note||(q.rev===1?'الإصدار الأول':'')));
     var st=el('td');st.appendChild(el('span','status-pill st-'+q.status,STATUS[q.status]||q.status));tr.appendChild(st);
     var act=el('td');if(reps[q.id]){var b=el('button','btn sm','اعرض التقرير');b.type='button';b.addEventListener('click',function(){openReport(q)});act.appendChild(b)}
