@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="../assets/css/fahs.css?v=202610110117">
-<link rel="stylesheet" href="../assets/css/app.css?v=202610110117">
+<link rel="stylesheet" href="../assets/css/fahs.css?v=202610110138">
+<link rel="stylesheet" href="../assets/css/app.css?v=202610110138">
 </head>
 <body>
 <header class="top">
@@ -152,6 +152,7 @@
         <div class="card-h"><h2>الإعدادات</h2></div>
         <div class="card-b q-set">
           <label class="q-auto"><input type="checkbox" id="sAuto"><span><b>النشر الآلي للفحص الفني</b><small id="sAutoTx"></small></span></label>
+          <label class="q-auto"><input type="checkbox" id="sIfada"><span><b>إفادة الفحص الفني للمكاتب</b><small id="sIfadaTx"></small></span></label>
           <div class="grid2">
             <div class="f"><label for="sLim">حد الإصدارات لكل حساب في الشهر</label><input id="sLim" type="number" min="1" max="500" inputmode="numeric"></div>
             <div class="f"><label for="sBoq">حد طلبات جداول الكميات لكل حساب في الشهر</label><input id="sBoq" type="number" min="0" max="100" inputmode="numeric"></div>
@@ -204,16 +205,16 @@
   </div>
 </main>
 
-<script src="../assets/vendor/supabase-2.117.2.js?v=202610110117"></script>
-<script src="../assets/js/config.js?v=202610110117"></script>
-<script src="../assets/js/stats.js?v=202610110117"></script>
-<script src="../assets/js/access.js?v=202610110117"></script>
-<script src="../assets/js/session.js?v=202610110117"></script>
-<script src="../assets/js/rules.js?v=202610110117"></script>
-<script src="../assets/js/report.js?v=202610110117"></script>
-<script src="../assets/js/boq.js?v=202610110117"></script>
-<script src="../assets/js/adminstats.js?v=202610110117"></script>
-<script src="../assets/js/adminpush.js?v=202610110117"></script>
+<script src="../assets/vendor/supabase-2.117.2.js?v=202610110138"></script>
+<script src="../assets/js/config.js?v=202610110138"></script>
+<script src="../assets/js/stats.js?v=202610110138"></script>
+<script src="../assets/js/access.js?v=202610110138"></script>
+<script src="../assets/js/session.js?v=202610110138"></script>
+<script src="../assets/js/rules.js?v=202610110138"></script>
+<script src="../assets/js/report.js?v=202610110138"></script>
+<script src="../assets/js/boq.js?v=202610110138"></script>
+<script src="../assets/js/adminstats.js?v=202610110138"></script>
+<script src="../assets/js/adminpush.js?v=202610110138"></script>
 <script>
 (function(){
 window.FQ_LOGO='../assets/img/sayah.png';
@@ -258,6 +259,8 @@ function rname(c){for(var i=0;i<RULES.length;i++)if(RULES[i].c===c)return RULES[
 function kbox(host,items){host.innerHTML='';items.forEach(function(x){var d=el('div');d.appendChild(el('span',null,x[0]));d.appendChild(el('b',x[2]||null,String(x[1])));host.appendChild(d)})}
 function autoTx(){$('sAutoTx').textContent=$('sAuto').checked?'مشغّل: يبدأ الفحص فور إرسال المكتب ويُنشر تقريره دون مراجعتك، وتبقى قادراً على مراجعته بعد نشره.':'مطفأ: لا يصل تقرير إلا بعد مراجعتك واعتمادك. شغّله حين تطمئن إلى دقة المحرك أدناه.'}
 $('sAuto').addEventListener('change',autoTx);
+function ifadaTx(){$('sIfadaTx').textContent=$('sIfada').checked?'متاحة: يرى كل مكتب صندوق الإفادة في تقريره، ويصدرها حين يخلو القسم النظامي من المخالفات المانعة.':'مقفلة: لا يراها إلا المشرف، للتجربة على التقارير قبل إطلاقها للمكاتب.'}
+$('sIfada').addEventListener('change',ifadaTx);
 function loadQ(){
   return Promise.all([
     BB.from('app_settings').select('key,value'),
@@ -265,7 +268,7 @@ function loadQ(){
     BB.from('report_feedback').select('rule_code,kind,rating,note,created_at,requests(ref,office_name)').order('created_at',{ascending:false})
   ]).then(function(r){
     SETS={};(r[0].data||[]).forEach(function(x){SETS[x.key]=x.value});
-    $('sAuto').checked=SETS.auto_publish===true;$('sLim').value=SETS.monthly_limit||20;$('sBoq').value=SETS.boq_monthly_limit!=null?SETS.boq_monthly_limit:5;autoTx();
+    $('sAuto').checked=SETS.auto_publish===true;$('sLim').value=SETS.monthly_limit||20;$('sBoq').value=SETS.boq_monthly_limit!=null?SETS.boq_monthly_limit:5;autoTx();$('sIfada').checked=SETS.ifada_open===true;ifadaTx();
     var reps=r[1].data||[],rev=reps.filter(function(x){return x.edit_stats}),tot=0,ch=0,vc=0,cnt={};
     rev.forEach(function(x){var e=x.edit_stats;tot+=e.total||0;ch+=e.changed||0;if(e.verdict_changed)vc++;(e.codes||[]).forEach(function(c){cnt[c]=(cnt[c]||0)+1})});
     var acc=tot?Math.round((1-ch/tot)*1000)/10:null;
@@ -287,7 +290,7 @@ function loadQ(){
 }
 $('sSave').addEventListener('click',function(){
   var lim=parseInt($('sLim').value,10),bq=parseInt($('sBoq').value,10);if(!(lim>=1)){msg('sMsg','اكتب حداً صحيحاً للإصدارات.','bad');return}if(!(bq>=0))bq=5;
-  var rows=[{key:'auto_publish',value:$('sAuto').checked},{key:'monthly_limit',value:lim},{key:'boq_monthly_limit',value:bq}].map(function(x){x.updated_at=new Date().toISOString();return x});
+  var rows=[{key:'auto_publish',value:$('sAuto').checked},{key:'monthly_limit',value:lim},{key:'boq_monthly_limit',value:bq},{key:'ifada_open',value:$('sIfada').checked}].map(function(x){x.updated_at=new Date().toISOString();return x});
   msg('sMsg','جارٍ الحفظ..');BB.from('app_settings').upsert(rows).then(function(r){if(r.error){msg('sMsg','تعذر الحفظ.','bad');return}msg('sMsg',$('sAuto').checked?'حُفظت. النشر الآلي مشغّل الآن.':'حُفظت.','good')});
 });
 
