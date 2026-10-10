@@ -2,7 +2,7 @@
 
 الأحكام: confirmed_sa (نص سعودي أو خليجي)، confirmed_base (كود أم أو مواصفة دولية)، corrected (صُحح في نص البند)، unsourced (حُذف الرقم واستُبدل بصيغة «حسب التصميم» أو «حسب توصية المصنع المعتمدة»).
 
-الحصيلة: 65 عنصراً؛ confirmed_sa 8، confirmed_base 23، corrected 10، unsourced 24. بقي في `verify` عنصر واحد (07 21 13).
+الحصيلة: 65 عنصراً؛ confirmed_sa 8، confirmed_base 23، corrected 12، unsourced 22 (بعد الجولة الثالثة التي استعادت نسب اللياسة ومدد ترطيبها وسماكة حلق الباب المعدني بمصادر مفتوحة؛ وبقي عرض شبك اللياسة بلا رقم). بقي في `verify` عنصر واحد (07 21 13).
 
 ملاحظة على SBC 602: النص الرسمي غير متاح للعامة، والقيم مأخوذة من جدول الكود كما نُقل في بحث محكم (ETASR 2018، جدول III)، وهي متسقة مع الكود الأم IECC 2021 (قيمة U للسقف 0.035 Btu أي نحو 0.20 واط/م²·كلفن، وSHGC 0.25).
 
@@ -32,7 +32,7 @@
 | 07 76 00 | ميل 2٪ | confirmed_base | IBC 1507.11.1، [Minn. R. 1305.1507](https://www.law.cornell.edu/regulations/minnesota/Minn-R-1305-1507) |
 | 07 76 00 | وزرة 30 سم | confirmed_base | [NRCA](https://www.nrca.net/technical/librarydetail/g7p1XtQbUGQ=) |
 | 07 92 00 | اختبار التصاق كل 150 م.ط | unsourced: «بالتكرار الذي يحدده المصنع المعتمد» | نص ASTM C1521 غير متاح |
-| 08 11 13 | صاج 1.5 و1.2 مم وضلفة 45 مم | corrected: الضلفة 44.5 مم (1-3/4 بوصة)، والصاج 1.2 مم مؤكد فوق المستوى 2 (1.0 مم)، والحلق unsourced | ANSI/SDI A250.8، [SDI-108](https://steeldoor.org/sdi-108/) |
+| 08 11 13 | صاج 1.5 و1.2 مم وضلفة 45 مم | corrected: الضلفة 44.5 مم (1-3/4 بوصة)، والصاج 1.2 مم مؤكد فوق المستوى 2 (1.0 مم)؛ والحلق 1.5 مم confirmed_base في الجولة الثالثة (أعلى من حد 1.3 مم للمستويين 2 و3) وأُعيد للنص ولسطر الخيار 01 | ANSI/SDI A250.8، [SDI-108](https://steeldoor.org/sdi-108/)؛ الجدول 3 والبند 1.4 من نص A250.8 المنشور لدى SDI، [A250.8](https://steeldoor.org/wp-content/uploads/2020/02/A250_8-1.pdf) |
 | 08 11 13 | RC3 | confirmed_base | EN 1627، [ملخص](https://www.thermosash.co.nz/media/srfflvz1/202207_summary-resistance-classes-din-en-1627-1630_vk.pdf) |
 | 08 11 13 | دهان 60 ميكرون للصلب | unsourced: «حسب توصية المصنع المعتمدة» | Qualicoat خاصة بالألمنيوم |
 | 08 14 16 | قشرة 0.6 مم | unsourced | لا مصدر |
@@ -50,8 +50,8 @@
 | 08 51 13 | متطلبات SBC 602 للفتحات | confirmed_sa، أُضيف U ≤ 2.668 وSHGC ≤ 0.25 | [ETASR](https://distantreader.org/stacks/journals/etasr/etasr-2536.pdf) |
 | 08 51 13 | الخيار الاقتصادي 4.5 إلى 5.5 | corrected: الخيار 01 صار زجاجاً عاكساً أو منخفض الانبعاث يحقق الحد | المصادر السابقة |
 | 08 51 13 | الدرجة الاقتصادية على الحد | confirmed_sa | [ETASR](https://distantreader.org/stacks/journals/etasr/etasr-2536.pdf) |
-| 09 24 00 | نسب 1:2 و1:4 | unsourced: «بالنسب المحددة في جداول ASTM C926» | جدول النسب لم يظهر في النص المتاح، [C926](https://floridabuilding.org/fbc/thecode/2012_glitch/pre_commission/structural/posttac/astm_c926-11a(2).pdf) |
-| 09 24 00 | شبك 30 سم ومعالجة 3 أيام | unsourced | C926 لا يحدد مدة ثابتة للمعالجة، المصدر نفسه |
+| 09 24 00 | نسب 1:2 و1:4 | corrected، الجولة الثالثة: الأولى 1 إلى 2.5 حتى 4، والثانية 1 إلى 3 حتى 5، والنهائية 1 إلى 1.5 حتى 3 | IRC 2012 الجدول R702.1(3) (الأصل لـ SBC 1101) عبر كود سياتل السكني، [Seattle RC 2012 Ch.7](https://www.seattle.gov/documents/departments/sdci/codes/seattleresidentialcode/2012srcchapter7.pdf) |
+| 09 24 00 | شبك 30 سم ومعالجة 3 أيام | المعالجة: corrected، الجولة الثالثة، إلى ترطيب 48 ساعة قبل كل طبقة و7 أيام قبل النهائية؛ عرض الشبك: unsourced «حسب التصميم» | IRC 2012 R703.6.4 وR703.6.5 عبر [Seattle RC 2012 Ch.7](https://www.seattle.gov/documents/departments/sdci/codes/seattleresidentialcode/2012srcchapter7.pdf)؛ C926 لا يحدد مدة ثابتة |
 | 09 24 00 | استواء 3 مم في 3 م | unsourced: «حسب التصميم» | تفاوت C926 خاص بالأساس قبل اللياسة |
 | 09 27 00 | مجرى إنارة 10×10 سم | unsourced: «حسب تصميم الإنارة» | لا مصدر |
 | 09 27 00 | انطباق ASTM C1381 | confirmed_sa (مواصفة خليجية) | [GSO ASTM C1381:2024](https://dgsm.gso.org.sa/store/standards/GSO:926801?lang=en) |

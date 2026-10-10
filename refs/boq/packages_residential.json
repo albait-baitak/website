@@ -1,0 +1,2215 @@
+{
+ "version": 1,
+ "about": "حزم الغرف السكنية: بنود كل غرفة وكمياتها من أبعادها، والكود حيث له نص، والافتراض التصميمي معلن وقابل للتعديل",
+ "inputs": {
+  "L": "طول الغرفة (م)",
+  "W": "عرض الغرفة (م)",
+  "nd": "عدد الأبواب",
+  "wa": "مساحة النوافذ (م²)",
+  "lc": "طول سطح المطبخ (م.ط)",
+  "sl": "طول نائمات الدرج وقوائمه (م.ط)",
+  "rl": "طول الدرابزين (م.ط)",
+  "pa": "مساحة المرصوف (م²)",
+  "ga": "مساحة الزراعة (م²)"
+ },
+ "derived": {
+  "A": "L*W",
+  "P": "2*(L+W)",
+  "O": "nd*DW*DH+wa",
+  "WALL": "max(0,P*H-O)",
+  "PS": "max(0,P-nd*DW)"
+ },
+ "params": {
+  "H": {
+   "v": 3.0,
+   "ar": "الارتفاع الصافي للغرفة (م)",
+   "basis": "design",
+   "note": "يؤخذ من القطاع إن وُجد"
+  },
+  "DW": {
+   "v": 0.9,
+   "ar": "عرض الباب الداخلي (م)",
+   "basis": "design",
+   "note": "يؤخذ من جدول الأبواب إن وُجد"
+  },
+  "DH": {
+   "v": 2.1,
+   "ar": "ارتفاع الباب (م)",
+   "basis": "design"
+  },
+  "TH": {
+   "v": {
+    "eco": 1.83,
+    "mid": null,
+    "lux": null
+   },
+   "ar": "ارتفاع بلاط جدران الحمام (م)",
+   "basis": "code",
+   "src": "shower_wall_height",
+   "note": "الاقتصادي إلى الحد الأدنى في الكود، والمتوسط والفاخر إلى السقف",
+   "source": {
+    "claim": "CORRECTED: IRC R307.2 requires the nonabsorbent wall finish in shower compartments and above tubs with shower heads to extend not less than 6 ft (1829 mm) above the floor (not above the drain).",
+    "ref": "IRC R307.2 as quoted in City of Casa Grande (AZ) Building Department handout 'Bathroom Clearances' (2024)",
+    "url": "https://casagrandeaz.gov/DocumentCenter/View/4185/Bathroom-Clearances",
+    "level": "base"
+   }
+  },
+  "UP": {
+   "v": 0.3,
+   "ar": "ارتفاع رفع العزل المائي على الجدران (م)",
+   "basis": "design"
+  },
+  "SHW_W": {
+   "v": 2.4,
+   "ar": "طول جدران منطقة الدش المعزولة (م)",
+   "basis": "design"
+  },
+  "KL": {
+   "v": {
+    "eco": 6,
+    "mid": 4,
+    "lux": 3
+   },
+   "ar": "مساحة الغرفة لكل وحدة إنارة (م²)",
+   "basis": "design",
+   "note": "تقدير أولي يُستبدل بتصميم الإنارة"
+  },
+  "AC_A": {
+   "v": 25,
+   "ar": "مساحة الغرفة لكل وحدة تكييف (م²)",
+   "basis": "design",
+   "note": "تقدير أولي يُستبدل بحساب الأحمال الحرارية"
+  },
+  "CU": {
+   "v": 6,
+   "ar": "طول تمديد النحاس لكل وحدة تكييف (م.ط)",
+   "basis": "design"
+  },
+  "RCPT": {
+   "v": 3.6,
+   "ar": "أقصى تباعد بين المقابس على الجدار (م)",
+   "basis": "code",
+   "src": "rcpt_wall",
+   "note": "لا تبعد أي نقطة على الجدار أكثر من 1.8 م عن مقبس",
+   "source": {
+    "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+    "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+    "url": "https://morrisonco.us/DocumentCenter/View/260",
+    "level": "base"
+   }
+  },
+  "RCPT_K": {
+   "v": 1.2,
+   "ar": "أقصى تباعد بين مقابس سطح المطبخ (م)",
+   "basis": "code",
+   "src": "rcpt_counter",
+   "note": "لا تبعد أي نقطة على السطح أكثر من 60 سم عن مقبس",
+   "source": {
+    "claim": "IRC kitchen countertop receptacles (E3901.4): installed so that no point along the counter wall line is more than 24 in (600 mm) from a receptacle outlet; every counter space wider than 12 in (300 mm) gets an outlet.",
+    "ref": "IRC E3901.4 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+    "url": "https://morrisonco.us/DocumentCenter/View/260",
+    "level": "base"
+   }
+  },
+  "BS": {
+   "v": 0.6,
+   "ar": "ارتفاع بلاط ظهر المطبخ (م)",
+   "basis": "design"
+  }
+ },
+ "rooms": [
+  {
+   "type": "master",
+   "ar": "غرفة نوم رئيسية",
+   "aliases": [
+    "نوم رئيسية",
+    "ماستر",
+    "master"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-01",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-02",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": "28 31 00-01",
+     "q": "1",
+     "basis": "code",
+     "src": "smoke_locations",
+     "source": {
+      "claim": "IRC R314.3: smoke alarms in each sleeping room, outside each separate sleeping area in the immediate vicinity of the bedrooms, and on each additional story including basements and habitable attics.",
+      "ref": "IRC R314.3 as quoted in City of Casa Grande (AZ) Building Department handout 'Smoke and CO' (2024)",
+      "url": "https://casagrandeaz.gov/DocumentCenter/View/4194/Smoke-and-CO",
+      "level": "base"
+     }
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "bedroom",
+   "ar": "غرفة نوم",
+   "aliases": [
+    "نوم",
+    "غرفة نوم",
+    "bed"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-01",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-02",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": "28 31 00-01",
+     "q": "1",
+     "basis": "code",
+     "src": "smoke_locations",
+     "source": {
+      "claim": "IRC R314.3: smoke alarms in each sleeping room, outside each separate sleeping area in the immediate vicinity of the bedrooms, and on each additional story including basements and habitable attics.",
+      "ref": "IRC R314.3 as quoted in City of Casa Grande (AZ) Building Department handout 'Smoke and CO' (2024)",
+      "url": "https://casagrandeaz.gov/DocumentCenter/View/4194/Smoke-and-CO",
+      "level": "base"
+     }
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "majlis",
+   "ar": "مجلس",
+   "aliases": [
+    "مجلس",
+    "مجلس رجال",
+    "مجلس نساء",
+    "majlis"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "eco",
+      "mid"
+     ]
+    },
+    {
+     "v": "09 63 40-03",
+     "q": "A",
+     "basis": "design",
+     "when": [
+      "lux"
+     ],
+     "note": "الفاخر في المجالس والصالات رخام"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 27 00-01",
+      "mid": "09 27 00-02",
+      "lux": "09 27 00-03"
+     },
+     "q": "P",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-02",
+     "q": "1",
+     "basis": "design"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "living",
+   "ar": "صالة معيشة",
+   "aliases": [
+    "صالة",
+    "معيشة",
+    "living"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "eco",
+      "mid"
+     ]
+    },
+    {
+     "v": "09 63 40-03",
+     "q": "A",
+     "basis": "design",
+     "when": [
+      "lux"
+     ],
+     "note": "الفاخر في المجالس والصالات رخام"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 27 00-01",
+      "mid": "09 27 00-02",
+      "lux": "09 27 00-03"
+     },
+     "q": "P",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-01",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": "27 15 00-02",
+     "q": "1",
+     "basis": "design"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "dining",
+   "ar": "طعام",
+   "aliases": [
+    "طعام",
+    "سفرة",
+    "dining"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "09 27 00-01",
+      "mid": "09 27 00-02",
+      "lux": "09 27 00-03"
+     },
+     "q": "P",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "hall",
+   "ar": "ممر أو بهو",
+   "aliases": [
+    "ممر",
+    "بهو",
+    "موزع",
+    "hall"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "28 31 00-01",
+     "q": "1",
+     "basis": "code",
+     "src": "smoke_locations",
+     "source": {
+      "claim": "IRC R314.3: smoke alarms in each sleeping room, outside each separate sleeping area in the immediate vicinity of the bedrooms, and on each additional story including basements and habitable attics.",
+      "ref": "IRC R314.3 as quoted in City of Casa Grande (AZ) Building Department handout 'Smoke and CO' (2024)",
+      "url": "https://casagrandeaz.gov/DocumentCenter/View/4194/Smoke-and-CO",
+      "level": "base"
+     }
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "maid",
+   "ar": "غرفة خادمة أو سائق",
+   "aliases": [
+    "خادمة",
+    "سائق",
+    "maid"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 30 16-04",
+     "q": "PS",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design",
+     "note": "الكود يشترط وحدة إنارة واحدة على الأقل بمفتاح جداري"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "max(1,ceil(PS/RCPT))",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "max(1,ceil(PS/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_wall",
+     "note": "المقابس ومفتاح عند كل باب",
+     "source": {
+      "claim": "IRC general-use receptacles (E3901.2): installed so that no point along the floor line in any wall space is more than 6 ft (1.8 m), measured horizontally, from an outlet in that space; wall spaces 2 ft (600 mm) or wider count.",
+      "ref": "IRC E3901.2 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06 'Residential Construction'",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    },
+    {
+     "v": "28 31 00-01",
+     "q": "1",
+     "basis": "code",
+     "src": "smoke_locations",
+     "source": {
+      "claim": "IRC R314.3: smoke alarms in each sleeping room, outside each separate sleeping area in the immediate vicinity of the bedrooms, and on each additional story including basements and habitable attics.",
+      "ref": "IRC R314.3 as quoted in City of Casa Grande (AZ) Building Department handout 'Smoke and CO' (2024)",
+      "url": "https://casagrandeaz.gov/DocumentCenter/View/4194/Smoke-and-CO",
+      "level": "base"
+     }
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "bath",
+   "ar": "حمام كامل",
+   "aliases": [
+    "حمام",
+    "bath"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 30 13-01",
+      "mid": "09 30 13-02",
+      "lux": "09 30 13-03"
+     },
+     "q": "P*TH-O",
+     "basis": "geometry",
+     "note": "البلاط حتى الارتفاع TH بعد خصم الفتحات"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "max(0,P*(H-TH))+A",
+     "basis": "geometry",
+     "note": "الدهان فوق البلاط وعلى السقف"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "07 14 16-01",
+      "mid": "07 14 16-02",
+      "lux": "07 14 16-03"
+     },
+     "q": "A+P*UP+SHW_W*1.83",
+     "basis": "geometry",
+     "note": "الأرضية ورفعة على الجدران وجدران الدش حتى 1.83 م"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "22 41 00-01",
+      "mid": "22 41 00-02",
+      "lux": "22 41 00-03"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "22 41 00-04",
+      "mid": "22 41 00-05",
+      "lux": "22 41 00-06"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 41 00-13",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 11 16-01",
+     "q": "4",
+     "basis": "geometry",
+     "note": "مرحاض ومغسلة وشطاف ودش"
+    },
+    {
+     "v": "22 13 16-01",
+     "q": "3",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 13 16-02",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "23 34 23-01",
+     "q": "1",
+     "basis": "code",
+     "src": "exhaust_rates",
+     "source": {
+      "claim": "IRC 2024 local exhaust: kitchen 100 cfm (47 L/s) intermittent or 25 cfm (12 L/s) continuous; bathroom 50 cfm (24 L/s) intermittent or 20 cfm (9 L/s) continuous.",
+      "ref": "IRC 2024 M1505.4 local exhaust rates as stated in Larimer County (CO) Community Development 'Whole House Mechanical Ventilation' (handout gives the rates without the table number)",
+      "url": "https://www.larimer.gov/sites/default/files/uploads/2022/whole_house_mechanical_ventilation.pdf",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "10 28 13-01",
+      "mid": "10 28 13-02",
+      "lux": "10 28 13-03"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "code",
+     "src": "light_outlet",
+     "source": {
+      "claim": "IRC E3903: at least one wall-switch-controlled lighting outlet in every habitable room, bathroom and hallway; interior stairways with 6 or more risers have a lighting control wall switch at each level.",
+      "ref": "IRC E3903 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "1",
+     "basis": "code",
+     "src": "rcpt_bath",
+     "source": {
+      "claim": "IRC bathroom receptacle (E3901.6): at least one wall receptacle outlet within 3 ft (900 mm) of each basin location.",
+      "ref": "IRC E3901.6 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "1+nd",
+     "basis": "code",
+     "src": "rcpt_bath",
+     "source": {
+      "claim": "IRC bathroom receptacle (E3901.6): at least one wall receptacle outlet within 3 ft (900 mm) of each basin location.",
+      "ref": "IRC E3901.6 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "22 41 00-10",
+      "mid": "22 41 00-11",
+      "lux": "22 41 00-12"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "22 33 00-01",
+      "mid": "22 33 00-02",
+      "lux": "22 33 00-03"
+     },
+     "q": "1",
+     "basis": "design",
+     "note": "سخان لكل حمام كامل"
+    },
+    {
+     "v": "26 05 00-04",
+     "q": "1",
+     "basis": "design"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "wc",
+   "ar": "حمام ضيوف",
+   "aliases": [
+    "حمام ضيوف",
+    "مغاسل",
+    "wc"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 30 13-01",
+      "mid": "09 30 13-02",
+      "lux": "09 30 13-03"
+     },
+     "q": "P*TH-O",
+     "basis": "geometry",
+     "note": "البلاط حتى الارتفاع TH بعد خصم الفتحات"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "max(0,P*(H-TH))+A",
+     "basis": "geometry",
+     "note": "الدهان فوق البلاط وعلى السقف"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "07 14 16-01",
+      "mid": "07 14 16-02",
+      "lux": "07 14 16-03"
+     },
+     "q": "A+P*UP",
+     "basis": "geometry",
+     "note": "الأرضية ورفعة على الجدران"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "22 41 00-01",
+      "mid": "22 41 00-02",
+      "lux": "22 41 00-03"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "22 41 00-04",
+      "mid": "22 41 00-05",
+      "lux": "22 41 00-06"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 41 00-13",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 11 16-01",
+     "q": "3",
+     "basis": "geometry",
+     "note": "مرحاض ومغسلة وشطاف"
+    },
+    {
+     "v": "22 13 16-01",
+     "q": "2",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 13 16-02",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "23 34 23-01",
+     "q": "1",
+     "basis": "code",
+     "src": "exhaust_rates",
+     "source": {
+      "claim": "IRC 2024 local exhaust: kitchen 100 cfm (47 L/s) intermittent or 25 cfm (12 L/s) continuous; bathroom 50 cfm (24 L/s) intermittent or 20 cfm (9 L/s) continuous.",
+      "ref": "IRC 2024 M1505.4 local exhaust rates as stated in Larimer County (CO) Community Development 'Whole House Mechanical Ventilation' (handout gives the rates without the table number)",
+      "url": "https://www.larimer.gov/sites/default/files/uploads/2022/whole_house_mechanical_ventilation.pdf",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "10 28 13-01",
+      "mid": "10 28 13-02",
+      "lux": "10 28 13-03"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "code",
+     "src": "light_outlet",
+     "source": {
+      "claim": "IRC E3903: at least one wall-switch-controlled lighting outlet in every habitable room, bathroom and hallway; interior stairways with 6 or more risers have a lighting control wall switch at each level.",
+      "ref": "IRC E3903 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "1",
+     "basis": "code",
+     "src": "rcpt_bath",
+     "source": {
+      "claim": "IRC bathroom receptacle (E3901.6): at least one wall receptacle outlet within 3 ft (900 mm) of each basin location.",
+      "ref": "IRC E3901.6 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "1+nd",
+     "basis": "code",
+     "src": "rcpt_bath",
+     "source": {
+      "claim": "IRC bathroom receptacle (E3901.6): at least one wall receptacle outlet within 3 ft (900 mm) of each basin location.",
+      "ref": "IRC E3901.6 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "kitchen",
+   "ar": "مطبخ",
+   "aliases": [
+    "مطبخ",
+    "kitchen"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 30 13-01",
+      "mid": "09 30 13-02",
+      "lux": "09 30 13-03"
+     },
+     "q": "lc*BS",
+     "basis": "design",
+     "note": "بلاط ظهر السطح"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL-lc*BS+A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 29 00-01",
+      "mid": "09 29 00-02",
+      "lux": "09 29 00-03"
+     },
+     "q": "A",
+     "basis": "geometry",
+     "when": [
+      "mid",
+      "lux"
+     ]
+    },
+    {
+     "v": {
+      "eco": "07 14 16-01",
+      "mid": "07 14 16-02",
+      "lux": "07 14 16-03"
+     },
+     "q": "A+P*UP",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "12 35 30-01",
+      "mid": "12 35 30-02",
+      "lux": "12 35 30-03"
+     },
+     "q": "lc",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "12 36 40-01",
+      "mid": "12 36 40-02",
+      "lux": "12 36 40-03"
+     },
+     "q": "lc",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "22 41 00-07",
+      "mid": "22 41 00-08",
+      "lux": "22 41 00-09"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 11 16-01",
+     "q": "2",
+     "basis": "geometry",
+     "note": "المجلى وغسالة الصحون"
+    },
+    {
+     "v": "22 13 16-01",
+     "q": "2",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 13 16-02",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "23 34 23-01",
+     "q": "1",
+     "basis": "code",
+     "src": "exhaust_rates",
+     "source": {
+      "claim": "IRC 2024 local exhaust: kitchen 100 cfm (47 L/s) intermittent or 25 cfm (12 L/s) continuous; bathroom 50 cfm (24 L/s) intermittent or 20 cfm (9 L/s) continuous.",
+      "ref": "IRC 2024 M1505.4 local exhaust rates as stated in Larimer County (CO) Community Development 'Whole House Mechanical Ventilation' (handout gives the rates without the table number)",
+      "url": "https://www.larimer.gov/sites/default/files/uploads/2022/whole_house_mechanical_ventilation.pdf",
+      "level": "base"
+     }
+    },
+    {
+     "v": "23 11 26-01",
+     "q": "1",
+     "basis": "design",
+     "note": "حين يكون الطبخ بالغاز"
+    },
+    {
+     "v": "28 31 00-02",
+     "q": "1",
+     "basis": "code",
+     "src": "co_locations",
+     "note": "يلزم مع أجهزة الطبخ بالغاز",
+     "source": {
+      "claim": "IRC 2021 R315.2.1 and R315.3: CO alarms required where the dwelling contains a fuel-fired appliance or has an attached garage with an opening to the dwelling; installed outside each separate sleeping area in the immediate vicinity of the bedrooms (and inside a bedroom that contains a fuel-burning appliance or whose attached bathroom does).",
+      "ref": "IRC 2021 R315.2.1, R315.3 as quoted in Anne Arundel County (MD) 'Carbon Monoxide Alarms'; R315.3 also in City of Casa Grande handout",
+      "url": "https://www.aacounty.org/sites/default/files/2023-08/CARBON%20MONOXIDE%20ALARMS.pdf",
+      "level": "base"
+     }
+    },
+    {
+     "v": "10 44 16-03",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "08 51 13-01",
+      "mid": "08 51 13-02",
+      "lux": "08 51 13-03"
+     },
+     "q": "wa",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(1,ceil(A/KL))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "ceil(lc/RCPT_K)+max(1,ceil((PS-lc)/RCPT))",
+     "basis": "code",
+     "src": "rcpt_counter",
+     "source": {
+      "claim": "IRC kitchen countertop receptacles (E3901.4): installed so that no point along the counter wall line is more than 24 in (600 mm) from a receptacle outlet; every counter space wider than 12 in (300 mm) gets an outlet.",
+      "ref": "IRC E3901.4 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "ceil(lc/RCPT_K)+max(1,ceil((PS-lc)/RCPT))+nd",
+     "basis": "code",
+     "src": "rcpt_counter",
+     "source": {
+      "claim": "IRC kitchen countertop receptacles (E3901.4): installed so that no point along the counter wall line is more than 24 in (600 mm) from a receptacle outlet; every counter space wider than 12 in (300 mm) gets an outlet.",
+      "ref": "IRC E3901.4 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": "26 05 00-04",
+     "q": "2",
+     "basis": "design",
+     "note": "الفرن وغسالة الصحون"
+    },
+    {
+     "v": "26 05 00-03",
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "23 81 26-01",
+      "mid": "23 81 26-02",
+      "lux": "23 81 26-03"
+     },
+     "q": "max(1,ceil(A/AC_A))",
+     "basis": "design"
+    },
+    {
+     "v": "23 23 00-01",
+     "q": "max(1,ceil(A/AC_A))*CU",
+     "basis": "design"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa",
+    "lc"
+   ]
+  },
+  {
+   "type": "laundry",
+   "ar": "غرفة غسيل",
+   "aliases": [
+    "غسيل",
+    "laundry"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "09 30 16-01",
+      "mid": "09 30 16-02",
+      "lux": "09 30 16-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 30 13-01",
+      "mid": "09 30 13-02",
+      "lux": "09 30 13-03"
+     },
+     "q": "P*1.2-O",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "max(0,P*(H-1.2))+A",
+     "basis": "geometry"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "07 14 16-01",
+      "mid": "07 14 16-02",
+      "lux": "07 14 16-03"
+     },
+     "q": "A+P*UP",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 11 16-01",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 13 16-01",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 13 16-02",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "23 34 23-01",
+     "q": "1",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "08 14 16-01",
+      "mid": "08 14 16-02",
+      "lux": "08 14 16-03"
+     },
+     "q": "nd",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "1",
+     "basis": "code",
+     "src": "light_outlet",
+     "source": {
+      "claim": "IRC E3903: at least one wall-switch-controlled lighting outlet in every habitable room, bathroom and hallway; interior stairways with 6 or more risers have a lighting control wall switch at each level.",
+      "ref": "IRC E3903 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "1",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-04",
+     "q": "2",
+     "basis": "design",
+     "note": "الغسالة والمجفف"
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "2+nd",
+     "basis": "geometry"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "stairs",
+   "ar": "درج",
+   "aliases": [
+    "درج",
+    "سلم",
+    "stairs"
+   ],
+   "inputs": [
+    "sl",
+    "rl"
+   ],
+   "lines": [
+    {
+     "v": "09 63 40-04",
+     "q": "sl",
+     "basis": "geometry",
+     "note": "الطول الكلي للنائمات والقوائم (م.ط)"
+    },
+    {
+     "v": {
+      "eco": "05 52 00-01",
+      "mid": "05 52 00-02",
+      "lux": "05 52 00-03"
+     },
+     "q": "rl",
+     "basis": "geometry",
+     "note": "طول الدرابزين"
+    },
+    {
+     "v": "09 24 00-01",
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "09 91 23-01",
+      "mid": "09 91 23-02",
+      "lux": "09 91 23-03"
+     },
+     "q": "WALL",
+     "basis": "geometry"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "2",
+     "basis": "code",
+     "src": "light_outlet",
+     "note": "مفتاح أعلى الدرج وأسفله",
+     "source": {
+      "claim": "IRC E3903: at least one wall-switch-controlled lighting outlet in every habitable room, bathroom and hallway; interior stairways with 6 or more risers have a lighting control wall switch at each level.",
+      "ref": "IRC E3903 as quoted in Town of Morrison (CO) Building Department, Information Sheet 06",
+      "url": "https://morrisonco.us/DocumentCenter/View/260",
+      "level": "base"
+     }
+    },
+    {
+     "v": {
+      "eco": "26 51 00-01",
+      "mid": "26 51 00-02",
+      "lux": "26 51 00-03"
+     },
+     "q": "max(2,ceil(A/KL))",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "26 27 26-01",
+      "mid": "26 27 26-02",
+      "lux": "26 27 26-03"
+     },
+     "q": "2",
+     "basis": "geometry"
+    }
+   ]
+  },
+  {
+   "type": "roof",
+   "ar": "سطح",
+   "aliases": [
+    "سطح",
+    "roof"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "07 13 52-01",
+      "mid": "07 13 52-02",
+      "lux": "07 13 52-03"
+     },
+     "q": "A+P*UP",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "07 21 13-01",
+      "mid": "07 21 13-02",
+      "lux": "07 21 13-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "07 76 00-01",
+      "mid": "07 76 00-02",
+      "lux": "07 76 00-03"
+     },
+     "q": "A",
+     "basis": "geometry"
+    },
+    {
+     "v": "22 14 26-01",
+     "q": "max(2,ceil(A/100))",
+     "basis": "design",
+     "note": "مصرف رئيسي وحماية تصريف ثانوية"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(2,ceil(P/10))",
+     "basis": "design"
+    },
+    {
+     "v": {
+      "eco": "26 56 00-01",
+      "mid": "26 56 00-02",
+      "lux": "26 56 00-03"
+     },
+     "q": "max(2,ceil(P/10))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-02",
+     "q": "1",
+     "basis": "geometry"
+    }
+   ],
+   "inputs": [
+    "L",
+    "W",
+    "nd",
+    "wa"
+   ]
+  },
+  {
+   "type": "yard",
+   "ar": "فناء خارجي",
+   "aliases": [
+    "حوش",
+    "فناء",
+    "حديقة",
+    "yard"
+   ],
+   "inputs": [
+    "pa",
+    "ga"
+   ],
+   "lines": [
+    {
+     "v": {
+      "eco": "32 14 13-01",
+      "mid": "32 14 13-02",
+      "lux": "32 14 13-03"
+     },
+     "q": "pa",
+     "basis": "geometry",
+     "note": "مساحة الممرات المرصوفة"
+    },
+    {
+     "v": "32 14 13-04",
+     "q": "pa>0?ceil(sqrt(pa)*4):0",
+     "basis": "design",
+     "note": "تقدير طول البردورات حول المرصوف"
+    },
+    {
+     "v": {
+      "eco": "32 90 00-01",
+      "mid": "32 90 00-02",
+      "lux": "32 90 00-03"
+     },
+     "q": "ga",
+     "basis": "geometry",
+     "note": "مساحة الزراعة"
+    },
+    {
+     "v": {
+      "eco": "32 84 00-01",
+      "mid": "32 84 00-02",
+      "lux": "32 84 00-03"
+     },
+     "q": "ga",
+     "basis": "geometry"
+    },
+    {
+     "v": {
+      "eco": "26 56 00-01",
+      "mid": "26 56 00-02",
+      "lux": "26 56 00-03"
+     },
+     "q": "max(2,ceil(P/6))",
+     "basis": "design"
+    },
+    {
+     "v": "26 05 00-01",
+     "q": "max(2,ceil(P/6))",
+     "basis": "design"
+    }
+   ]
+  }
+ ]
+}
