@@ -467,7 +467,47 @@ function process(file){
     return Promise.all(jobs).then(function(imgs){return {extract:x,images:imgs}});
   });
 }
+
+/* 7. نموذج المسقط التفاعلي: لكل لوحة مسقط خطوطها وفراغاتها المغلقة بأسمائها، بالمتر ومن زاوية اللوحة،
+   لتُرسم في «مسقط بيتك». الخطوط تُختصر إلى قطع مستقيمة بحد أعلى، وتُستبعد طبقات الأبعاد والمحاور والنصوص */
+var SKIP_LAYER=/DIM|ANNO|TEXT|HATCH|GRID|AXIS|DEFPOINTS|TITLE|BORDER|FRAME|ابعاد|أبعاد|محاور|نص|اطار|إطار/i;
+var NUMONLY=/^[\d\s.,x×*+\-±%:/()]+$/;
+function planModel(buf,name){
+  var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);
+  if(!dxf)throw new Error('parse_failed');
+  var P=collect(dxf),raw=rawScan(d.text);
+  var bb=bboxOf(P);if(!bb)throw new Error('empty');
+  var cls=clusters(P,bb);if(!cls.length)cls=[{box:bb,n:0}];
+  var x=extract(P,dxf,{name:name,version:d.version,encoding:d.encoding},bb,cls,raw),f=x.units.toMeter;
+  var sheets=cls.map(function(c,i){
+    var b=c.box,inBox=function(px,py){return px>=b.x0&&px<=b.x1&&py>=b.y0&&py<=b.y1};
+    var T=function(p){return [r2((p[0]-b.x0)*f),r2((p[1]-b.y0)*f)]};
+    var segs=[],cap=14000;
+    for(var li=0;li<P.lines.length&&segs.length<cap;li++){var L=P.lines[li];if(SKIP_LAYER.test(L.l||''))continue;
+      var cx=0,cy=0;L.p.forEach(function(p){cx+=p[0];cy+=p[1]});cx/=L.p.length;cy/=L.p.length;if(!inBox(cx,cy))continue;
+      for(var k=0;k<L.p.length-1&&segs.length<cap;k++){var a=T(L.p[k]),e=T(L.p[k+1]);if(Math.abs(a[0]-e[0])+Math.abs(a[1]-e[1])<0.02)continue;segs.push([a[0],a[1],e[0],e[1]])}}
+    var labels=P.texts.filter(function(t){return t.top&&inBox(t.x,t.y)&&!NUMONLY.test(t.s)&&t.s.length<=40});
+    var cand=[];
+    function addRoom(poly,src){
+      var a=area(poly)*f*f;if(a<1.2||a>600)return;
+      var names=labels.filter(function(t){return inside([t.x,t.y],poly)}).map(function(t){return t.s.replace(/\n/g,' ').trim()}).filter(Boolean);
+      var mx=0,my=0;poly.forEach(function(p){mx+=p[0];my+=p[1]});mx/=poly.length;my/=poly.length;
+      if(cand.some(function(r){return Math.abs(r.a-a)<=Math.max(0.02*a,0.1)&&Math.hypot(r.mx-mx,r.my-my)*f<0.3}))return;
+      cand.push({poly:poly,a:a,mx:mx,my:my,names:names,src:src});
+    }
+    P.closed.forEach(function(c2){var mx=0,my=0;c2.p.forEach(function(p){mx+=p[0];my+=p[1]});mx/=c2.p.length;my/=c2.p.length;if(inBox(mx,my)&&!SKIP_LAYER.test(c2.l||''))addRoom(c2.p,'poly')});
+    (raw&&raw.hatches||[]).forEach(function(h){var best=null,ba=0;h.paths.forEach(function(pp){var c3=pp.slice();if(c3.length&&(c3[0][0]!==c3[c3.length-1][0]||c3[0][1]!==c3[c3.length-1][1]))c3.push(c3[0]);var a=area(c3);if(a>ba){ba=a;best=c3}});
+      if(!best)return;var mx=0,my=0;best.forEach(function(p){mx+=p[0];my+=p[1]});mx/=best.length;my/=best.length;if(inBox(mx,my))addRoom(best,'hatch')});
+    /* الحدود الخارجية للمبنى والإطارات: مضلع يحتوي مراكز فراغين فأكثر ليس فراغاً */
+    var rooms=cand.filter(function(r){var inner=cand.filter(function(o){return o!==r&&o.a<r.a&&inside([o.mx,o.my],r.poly)});return inner.length<2})
+      .map(function(r,ri){return {id:'d'+i+'_'+ri,names:r.names.slice(0,3),area:r2(r.a),poly:r.poly.map(T),src:r.src}});
+    var st=x.sheetTypes[i]||{};
+    return {n:i+1,type:st.type||null,title:st.title||'',w:r2((b.x1-b.x0)*f),h:r2((b.y1-b.y0)*f),segs:segs,rooms:rooms,named:rooms.filter(function(r){return r.names.length}).length};
+  });
+  if(cls.length===1)sheets[0].type=sheets[0].type||'plan';
+  return {file:name,units:x.units,sheets:sheets};
+}
 /* للاختبار في Node: قراءة نص الملف دون رسم */
 function extractText(buf,name){var d=decode(buf),dxf=new (window.DxfParser.default||window.DxfParser)().parseSync(d.text);if(!dxf)throw new Error('parse_failed');return analyse(d,dxf,name).x}
-window.BBDXF={process:process,extractText:extractText,_debug:{decode:decode,clean:clean,rawScan:rawScan,nameKind:nameKind}};
+window.BBDXF={process:process,extractText:extractText,planModel:planModel,_debug:{decode:decode,clean:clean,rawScan:rawScan,nameKind:nameKind}};
 })();

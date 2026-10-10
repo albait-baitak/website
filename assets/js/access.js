@@ -21,7 +21,8 @@ var TOOLS=[
   {id:'qty', stage:'build',    name:'جداول الكميات والتكاليف',     desc:'من فراغات بيتك إلى كميات التشطيب وتكلفتها.. قبل أن تتفق مع مقاول التشطيب', href:'tools/quantities/', roles:ALL, live:true},
   {id:'t07', stage:'living',    name:'ملف بيتك: الاستلام والسجلات',  desc:'قائمة الاستلام النهائي.. وسجلات هوية البيت',            href:'tools/handover/',                      roles:['owner','admin'],       live:true},
   {id:'t10', stage:'living',    name:'دفتر السنة الأولى',            desc:'سجل ملاحظات بيتك.. قبل أن تكبر وقبل أن تُنسى',          href:'tools/first-year/',                      roles:['owner','admin'],       live:true},
-  {id:'g5', stage:'living',     name:'تقويم الصيانة الدورية',        desc:'البيت الذي يُصان في موعده.. لا يفاجئك بعطل في أشد الأيام حراً', href:'tools/maintenance/', roles:['owner','admin'], live:true}
+  {id:'g5', stage:'living',     name:'تقويم الصيانة الدورية',        desc:'البيت الذي يُصان في موعده.. لا يفاجئك بعطل في أشد الأيام حراً', href:'tools/maintenance/', roles:['owner','admin'], live:true},
+  {id:'hp', stage:'living',     name:'مسقط بيتك',                    desc:'اضغط على أي غرفة: ما فيها، وما خلف جدرانها، ومتى تُصان', href:'tools/home-plan/', roles:['owner','admin'], live:true}
 ];
 function toolsFor(role){return TOOLS.filter(function(t){return t.roles.indexOf(role)>=0})}
 function load(){

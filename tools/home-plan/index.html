@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مسقط بيتك · البيت بيتك</title>
+<meta name="description" content="بيتك على مسقطه غرفةً غرفة: تشطيبات كل غرفة، وأجهزتها ومواعيد صيانتها، وصور ما خلف جدرانها قبل الإغلاق، وسجل ما حدث فيها.">
+<meta property="og:title" content="مسقط بيتك">
+<meta property="og:description" content="اضغط على أي غرفة في بيتك: ما فيها، وما خلف جدرانها، ومتى تُصان.">
+<meta property="og:locale" content="ar_SA">
+<link rel="canonical" href="https://albait-baitak.com/tools/home-plan/">
+<meta property="og:url" content="https://albait-baitak.com/tools/home-plan/">
+<meta property="og:site_name" content="البيت بيتك">
+<meta property="og:image" content="https://albait-baitak.com/assets/img/og-home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://albait-baitak.com/assets/img/og-home.png">
+<meta name="theme-color" content="#F6F5F1">
+<link rel="icon" href="../../assets/img/favicon.svg?v=202610072210" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png?v=202610072210">
+<link rel="manifest" href="../../manifest.webmanifest?v=202610072210">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../../assets/css/fahs.css?v=202610110117">
+<link rel="stylesheet" href="../../assets/css/tools.css?v=202610110117">
+<link rel="stylesheet" href="../../assets/css/homeplan.css?v=202610110117">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../"><span class="bn">البيت بيتك</span></a>
+    <nav aria-label="روابط الموقع"><a href="../../#journey">مراحل الرحلة</a><a href="../../pro/">للمكاتب والمصممين</a><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></nav>
+    <div class="auth" data-auth><a class="btn sm" href="../../account/">الدخول</a></div>
+  </div>
+</header>
+
+<main class="tool-main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="المسار"><a href="../../">الرئيسية</a><span>›</span><a href="../../#living">مرحلة السكن</a><span>›</span><span>مسقط بيتك</span></nav>
+  <div class="tool-hero">
+    <span class="tool-no" aria-hidden="true">17</span>
+    <span class="stage-tag">مرحلة السكن</span>
+    <h1>مسقط بيتك</h1>
+    <p class="sub">اضغط على أي غرفة: ما فيها، وما خلف جدرانها، ومتى تُصان</p>
+  </div>
+  <details class="howto"><summary><span>طريقة الاستخدام</span><small>متى وكيف</small></summary><div class="howto-in">
+    <div><h2>متى تستخدمه؟</h2><p>من يوم التأسيس إلى آخر عمر البيت. أهم لحظة فيه قبل إغلاق الجدران: صوّر التمديدات وثبّت صورها على جدارها، فتعرف بعد سنوات أين يمر الماء والكهرباء قبل أن تثقب أو تصلح.</p></div>
+    <div><h2>كيف تستخدمه؟</h2><ol>
+      <li>ارفع مخطط بيتك بصيغة DXF فتُستخرج غرفه وحدها، أو ارفع PDF أو صورة وارسم الغرف فوقها، أو ارسمها على شبكة فارغة.</li>
+      <li>اضغط على أي غرفة: سمّها وحدد نوعها، فتظهر تشطيباتها وكمياتها من المرجع السكني بدرجة بيتك.</li>
+      <li>أضف أجهزة الغرفة، فيُحسب موعد صيانة كل جهاز وتتلون الغرفة حين يحين.</li>
+      <li>ارفع صور ما خلف الجدار، ودوّن ما يحدث في الغرفة في سجلها.</li>
+    </ol></div>
+  </div></details>
+  <span class="hint" id="saved" aria-live="polite" style="font-size:13px;color:var(--ink-2)"></span>
+
+  <section class="hp" id="hp" aria-label="مسقط بيتك">
+    <div class="hp-start" id="hpStart" hidden>
+      <h2>ابدأ مسقط بيتك</h2>
+      <p>ثلاث طرق، اختر ما عندك. وكل ما تضيفه يُحفظ في حسابك.</p>
+      <div class="hp-ways">
+        <label class="hp-way"><input type="file" id="fDxf" accept=".dxf" hidden><span class="hp-way-k">DXF</span><b>عندي ملف الأوتوكاد</b><span>تُستخرج الغرف وأسماؤها ومساحاتها وحدها من الملف.</span></label>
+        <label class="hp-way"><input type="file" id="fBg" accept="application/pdf,image/*" hidden><span class="hp-way-k">PDF</span><b>عندي PDF أو صورة</b><span>نضع المخطط خلفية، وترسم الغرف فوقه بعد ضبط المقياس.</span></label>
+        <button class="hp-way" type="button" id="bBlank"><span class="hp-way-k">+</span><b>أرسمه بنفسي</b><span>شبكة فارغة بالمتر، ترسم عليها الغرف بالسحب.</span></button>
+      </div>
+      <button class="btn line" type="button" id="bSample">جرّب على فيلا مثال</button>
+    </div>
+
+    <div class="hp-app" id="hpApp" hidden>
+      <div class="hp-sample" id="hpSample" hidden><b>هذا مثال للتجربة</b><span>غرف وأجهزة وملاحظات افتراضية لترى كيف يعمل المسقط.</span><button class="btn sm" type="button" id="bClearSample">امسح المثال وابدأ ببيتي</button></div>
+      <div class="hp-bar">
+        <div class="hp-floors" id="hpFloors" role="tablist" aria-label="الأدوار"></div>
+        <div class="hp-tools">
+          <div class="segs" role="group" aria-label="الوضع"><button type="button" id="mView" aria-pressed="true">عرض</button><button type="button" id="mDraw" aria-pressed="false">رسم الغرف</button></div>
+          <label class="hp-grade"><span>الدرجة</span><select id="hpGrade"><option value="eco">اقتصادي</option><option value="mid">متوسط</option><option value="lux">فاخر</option></select></label>
+          <button class="btn sm line" type="button" id="bMore" aria-expanded="false" aria-controls="hpMore">المزيد</button>
+        </div>
+      </div>
+      <div class="hp-more" id="hpMore" hidden>
+        <label class="btn sm line"><input type="file" id="fDxf2" accept=".dxf" hidden>دور من ملف DXF</label>
+        <label class="btn sm line"><input type="file" id="fBg2" accept="application/pdf,image/*" hidden>خلفية PDF أو صورة لهذا الدور</label>
+        <button class="btn sm line" type="button" id="bCal">ضبط المقياس</button>
+        <button class="btn sm line" type="button" id="bAddFloor">دور جديد فارغ</button>
+        <button class="btn sm line" type="button" id="bRenFloor">تسمية الدور</button>
+        <button class="btn sm line" type="button" id="bCsv">نزّل السجل (CSV)</button>
+        <button class="btn sm line" type="button" id="bDelFloor">احذف هذا الدور</button>
+      </div>
+      <div class="hp-stats" id="hpStats"></div>
+      <div class="hp-flt" id="hpFlt" role="group" aria-label="تصفية الغرف"></div>
+      <div class="hp-main">
+        <div class="hp-stage" id="hpStage">
+          <svg id="hpSvg" role="img" aria-label="مسقط الدور"></svg>
+          <div class="hp-zoom"><button type="button" id="zIn" aria-label="تكبير">+</button><button type="button" id="zOut" aria-label="تصغير">−</button><button type="button" id="zFit" aria-label="ملاءمة الشاشة">⌂</button></div>
+          <div class="hp-hint" id="hpHint" hidden></div>
+          <div class="hp-tip" id="hpTip" hidden></div>
+        </div>
+        <aside class="hp-panel" id="hpPanel" aria-label="بطاقة الغرفة" hidden>
+          <div class="hp-ph"><div><p class="hp-pk" id="pType"></p><h2 id="pName"></h2><p class="hp-pm" id="pMeta"></p></div><button type="button" class="hp-x" id="pClose" aria-label="إغلاق البطاقة">×</button></div>
+          <div class="hp-ptabs" role="tablist" aria-label="أقسام البطاقة">
+            <button role="tab" type="button" data-t="room" aria-selected="true">الغرفة</button>
+            <button role="tab" type="button" data-t="fin" aria-selected="false">التشطيبات</button>
+            <button role="tab" type="button" data-t="eq" aria-selected="false">الأجهزة</button>
+            <button role="tab" type="button" data-t="wall" aria-selected="false">خلف الجدار</button>
+            <button role="tab" type="button" data-t="log" aria-selected="false">السجل</button>
+          </div>
+          <div class="hp-pb" id="pBody"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <section class="calbox" id="calBox"></section>
+</div>
+</main>
+
+<footer><div class="wrap"><span>البيت بيتك · أدوات رحلة بيت العمر · الأحساء</span><span><a href="https://sayahmotlaq.nashra.website" rel="noopener">المدونة</a></span><div class="sig-row"><a class="sig" href="https://sayahmotlaq.nashra.website" rel="noopener" aria-label="SAYAH"><img alt="SAYAH" src="../../assets/img/sayah.png"></a></div></div></footer>
+
+<script src="../../assets/vendor/supabase-2.117.2.js?v=202610110117"></script>
+<script src="../../assets/js/config.js?v=202610110117"></script>
+<script src="../../assets/js/stats.js?v=202610110117"></script>
+<script src="../../assets/js/session.js?v=202610110117"></script>
+<script src="../../assets/js/toolkit.js?v=202610110117"></script>
+<script src="../../assets/js/calendar.js?v=202610110117"></script>
+<script src="../../assets/vendor/dxf-parser-1.1.2.js?v=202610110117"></script>
+<script src="../../assets/js/dxf.js?v=202610110117"></script>
+<script src="../../assets/js/boq-engine.js?v=202610110117"></script>
+<script src="../../assets/js/homeplan.js?v=202610110117"></script>
+</body>
+</html>

@@ -127,6 +127,23 @@ SUM['bb_tool_handover_v1']=function(d){
 };
 })();
 
+/* ===== bb_tool_homeplan_v1 : مسقط بيتك (tools/home-plan/index.html) ===== */
+// لا مرجع ولا مقام ثابت. المثال التجريبي (sample) لا يُعد تقدماً
+SUM['bb_tool_homeplan_v1']=function(d){
+  try{
+    if(stale(d)||d.sample)return emp();
+    var rooms=0;(isArr(d.floors)?d.floors:[]).forEach(function(f){if(isObj(f)&&isArr(f.rooms))rooms+=f.rooms.length});
+    if(!rooms)return emp();
+    var assets=0,open=0,photos=0;keys(d.data).forEach(function(k){var r=d.data[k];if(!isObj(r))return;
+      assets+=isArr(r.assets)?r.assets.length:0;photos+=isArr(r.photos)?r.photos.length:0;
+      open+=isArr(r.notes)?r.notes.filter(function(n){return isObj(n)&&n.open}).length:0});
+    var line='رسمت '+cnt(rooms,['غرفة واحدة','غرفتين','غرف','غرفة']);
+    if(assets)line+=' وسجلت '+cnt(assets,['جهازاً واحداً','جهازين','أجهزة','جهازاً']);
+    var more=open?cnt(open,['ملاحظة مفتوحة واحدة','ملاحظتان مفتوحتان','ملاحظات مفتوحة','ملاحظة مفتوحة'])+' في السجل':photos?cnt(photos,['صورة واحدة','صورتان','صور','صورة'])+' لما خلف الجدران':null;
+    return {line:line,done:null,of:null,empty:false,more:more};
+  }catch(e){return emp()}
+};
+
 /* ===== bb_tool_firstyear_v1 : دفتر السنة الأولى (tools/first-year/index.html) ===== */
 // لا مرجع. لا مقام ثابت (عدد الملاحظات من المستخدم) فـ done/of = null
 SUM['bb_tool_firstyear_v1']=function(d,ref,today){

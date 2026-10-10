@@ -4,7 +4,7 @@
 var KEY2SLUG={bb_tool_first_session_v1:'first-session',bb_tool_land_v1:'land',bb_tool_budget_v1:'budget',bb_tool_fifty_v1:'fifty',
   bb_tool_roomsizes_v1:'room-sizes',bb_tool_smart_v1:'smart',bb_tool_points_v1:'points',bb_tool_roadmap_v1:'roadmap',bb_tool_offers_v1:'offers',
   bb_tool_agree_v1:'agreement',bb_tool_roughin_v1:'rough-in',bb_tool_finishes_v1:'finishes',bb_tool_qty_v1:'quantities',
-  bb_tool_handover_v1:'handover',bb_tool_firstyear_v1:'first-year',bb_tool_maint_v1:'maintenance'};
+  bb_tool_handover_v1:'handover',bb_tool_firstyear_v1:'first-year',bb_tool_maint_v1:'maintenance',bb_tool_homeplan_v1:'home-plan'};
 var SLUG2KEY={};Object.keys(KEY2SLUG).forEach(function(k){SLUG2KEY[KEY2SLUG[k]]=k});
 var MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 var ORDER=['decision','design','build','living'];
