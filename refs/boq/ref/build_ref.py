@@ -66,7 +66,7 @@ for i in sk['items']:
             for vv in lst: vv['price']['shared']=True
     items.append({'code':i['code'],'div':i['div'],'ar':i['ar'],'en':i['en'],'unit':i['unit'],'legacy':i['legacy'],
       'scope':w['scope'],'specs':w['specs'],'accept':w['accept'],'method':w['method'],'refs':w['refs'],'measure':w['measure'],
-      'price_basis':w.get('price_basis','توريد وتركيب'),'keywords':w.get('keywords',[]),'local':w.get('local',''),'verify':w.get('verify',[]),'variants':vs})
+      'price_basis':w.get('price_basis','توريد وتركيب'),'sources':w.get('sources',[]),'keywords':w.get('keywords',[]),'local':w.get('local',''),'verify':w.get('verify',[]),'variants':vs})
 # بنود بديلة: باب المدخل يُختار من نوع واحد
 ALT={'08 11 13':'باب المدخل يُختار من بند واحد: المعدني (08 11 13) أو الخشبي (08 14 33) أو الألمنيوم (08 41 13). الخيار 08 11 13-04 لأبواب الخدمة والسطح يبقى مستقلاً.','08 14 33':'بند بديل لباب المدخل: يُختار واحد من 08 11 13 أو 08 14 33 أو 08 41 13.','08 41 13':'بند بديل لباب المدخل: يُختار واحد من 08 11 13 أو 08 14 33 أو 08 41 13.'}
 for it in items:
